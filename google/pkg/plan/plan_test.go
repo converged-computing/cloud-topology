@@ -86,3 +86,64 @@ func TestCheck(t *testing.T) {
 		t.Errorf("lines: %q", lines)
 	}
 }
+
+func TestCapturesRecapture(t *testing.T) {
+	db, snap := load(t)
+	db.Captures["c3-standard-176"] = database.Capture{MachineType: "c3-standard-176"}
+	db.Captures["c3-standard-8"] = database.Capture{MachineType: "c3-standard-8"}
+	got := strings.Join(names(Captures(db, snap, Options{Region: "us-central1", Verify: true})), ",")
+	if strings.Contains(got, "c3-standard-176") || strings.Contains(got, "c3-standard-8") {
+		t.Fatalf("captured series planned again without Recapture: %s", got)
+	}
+	got = strings.Join(names(Captures(db, snap, Options{Region: "us-central1", Verify: true, Recapture: true})), ",")
+	for _, want := range []string{"c3-standard-176", "c3-standard-8"} {
+		if !strings.Contains(got, want) {
+			t.Errorf("Recapture: missing %s in %s", want, got)
+		}
+	}
+}
+
+func TestParse(t *testing.T) {
+	db, snap := load(t)
+	want := Captures(db, snap, Options{Region: "us-central1", Verify: true})
+	var text strings.Builder
+	text.WriteString("# a comment\n\n")
+	for _, c := range want {
+		text.WriteString(c.Command() + "\n")
+	}
+	got, err := Parse(strings.NewReader(text.String()))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got) != len(want) {
+		t.Fatalf("parsed %d captures, want %d", len(got), len(want))
+	}
+	for i := range want {
+		if got[i].MachineType != want[i].MachineType || got[i].Zone != want[i].Zone || got[i].Model != want[i].Model ||
+			got[i].Series != want[i].Series || strings.Join(got[i].Args, " ") != strings.Join(want[i].Args, " ") {
+			t.Errorf("parse(%s) = %+v, want %+v", want[i].Command(), got[i], want[i])
+		}
+	}
+	for _, bad := range []string{"make topology MACHINE_TYPE=x", `make topology MACHINE_TYPE=x ZONE=y ARGS="oops`} {
+		if _, err := Parse(strings.NewReader(bad)); err == nil {
+			t.Errorf("Parse(%q): want error", bad)
+		}
+	}
+}
+
+func TestZonesForAndMaintenance(t *testing.T) {
+	mt := database.MachineType{Name: "a2-highgpu-8g", Zones: []string{"europe-west4-a", "us-east1-b", "us-central1-f", "us-central1-a", "asia-east1-a"}}
+	got := strings.Join(zonesFor(mt, "us-central1"), ",")
+	if got != "us-central1-a,us-central1-f,us-east1-b,asia-east1-a,europe-west4-a" {
+		t.Errorf("zonesFor: %s", got)
+	}
+	db, snap := load(t)
+	for _, c := range Captures(db, snap, Options{Region: "us-central1", Verify: true, Metal: true}) {
+		mt := db.MachineTypes[c.MachineType]
+		want := mt.GPUs() > 0 || mt.LocalSSD()
+		has := strings.Contains(strings.Join(c.Args, " "), "--maintenance-policy=TERMINATE")
+		if has != want {
+			t.Errorf("%s: maintenance policy %v, want %v", c.MachineType, has, want)
+		}
+	}
+}

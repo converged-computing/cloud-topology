@@ -1,5 +1,10 @@
 /bin/
+google/bin/
 *.test
-examples/fluxion-go/fluxion-go
-# Project-specific quota snapshots and graphs
-/projects/
+google/examples/fluxion-go/fluxion-go
+# Project-specific quota snapshots, graphs and experiments
+google/projects/
+# Static site export (make site); set SITE=../docs to keep one for GitHub Pages
+google/site/
+# Lock held by a running plan (topology/run-plan.sh)
+*.lock

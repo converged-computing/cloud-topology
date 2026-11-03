@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloud topology</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="side">
+    <a class="brand" href="#/overview"><span class="mark"></span>Cloud topology</a>
+    <nav>
+      <a href="#/overview"><span class="ico">◫</span>Overview</a>
+      <a href="#/types"><span class="ico">☰</span>Machine types</a>
+      <a href="#/topologies"><span class="ico">▦</span>Topologies</a>
+      <a href="#/graphs"><span class="ico">⌥</span>Resource graphs</a>
+      <a href="#/compare"><span class="ico">⇄</span>Compare</a>
+      <a href="#/experiments"><span class="ico">⚖</span>Experiments</a>
+    </nav>
+    <div class="side-foot">
+      <button id="theme" type="button" title="toggle light and dark">◐ theme</button>
+      <div id="side-info" class="muted small"></div>
+    </div>
+  </aside>
+  <main id="main"><p class="muted">Loading…</p></main>
+</div>
+<div id="tip" class="tip" hidden></div>
+<div id="modal" class="modal" hidden><div class="modal-body"><button class="close" title="close">×</button><div class="modal-content"></div></div></div>
+<script src="vendor/d3.v7.min.js"></script>
+<script src="charts.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

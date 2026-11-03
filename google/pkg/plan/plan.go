@@ -3,7 +3,9 @@
 package plan
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"sort"
 	"strings"
 
@@ -22,6 +24,8 @@ type Options struct {
 	SharedCore bool
 	// OnDemand captures on-demand instead of Spot.
 	OnDemand bool
+	// Recapture plans series that are already captured, as if the database held no captures.
+	Recapture bool
 }
 
 // Capture is one planned topology capture.
@@ -68,11 +72,11 @@ func Captures(db *database.Database, snap *quota.Snapshot, opts Options) []Captu
 	for series, list := range runnable {
 		members := database.Series(list)[series]
 		largest := pick(members, len(members)-1)
-		if !capturedAtLeast(db, series, largest) {
+		if opts.Recapture || !capturedAtLeast(db, series, largest) {
 			out = append(out, newCapture(snap, largest, series, "largest runnable size", opts))
 		}
 		if smallest := pick(members, 0); opts.Verify && smallest.Name != largest.Name {
-			if _, ok := db.Captures[smallest.Name]; !ok {
+			if _, ok := db.Captures[smallest.Name]; opts.Recapture || !ok {
 				out = append(out, newCapture(snap, smallest, series, "smallest size, to check derived topology", opts))
 			}
 		}
@@ -90,9 +94,11 @@ func Captures(db *database.Database, snap *quota.Snapshot, opts Options) []Captu
 }
 
 func newCapture(snap *quota.Snapshot, mt database.MachineType, series, purpose string, opts Options) Capture {
-	c := Capture{MachineType: mt.Name, Series: series, Zone: firstZone(mt, opts.Region), Model: "on-demand",
+	c := Capture{MachineType: mt.Name, Series: series, Zone: strings.Join(zonesFor(mt, opts.Region), ","), Model: "on-demand",
 		Purpose: purpose, VCPUs: mt.VCPUs, GPUs: mt.GPUs()}
-	if mt.GPUs() > 0 {
+	// GPU and Local SSD machine types cannot live-migrate, so Compute Engine requires
+	// the TERMINATE maintenance policy for them.
+	if mt.GPUs() > 0 || mt.LocalSSD() {
 		c.Args = append(c.Args, "--maintenance-policy=TERMINATE")
 	}
 	if !opts.OnDemand && quota.Compute(snap, mt, "spot", opts.Region).Nodes != 0 {
@@ -137,13 +143,27 @@ func capturedAtLeast(db *database.Database, series string, mt database.MachineTy
 	return false
 }
 
-func firstZone(mt database.MachineType, region string) string {
-	for _, z := range mt.Zones {
-		if database.RegionOf(z) == region {
-			return z
+// zonesFor orders a machine type's zones for a capture: the plan's region first, then
+// other regions in the same geography (us-, europe-, ...), then the rest, each sorted.
+func zonesFor(mt database.MachineType, region string) []string {
+	geo := region[:strings.IndexByte(region+"-", '-')]
+	rank := func(z string) int {
+		switch r := database.RegionOf(z); {
+		case r == region:
+			return 0
+		case strings.HasPrefix(r, geo+"-"):
+			return 1
 		}
+		return 2
 	}
-	return ""
+	zones := append([]string(nil), mt.Zones...)
+	sort.SliceStable(zones, func(i, j int) bool {
+		if ri, rj := rank(zones[i]), rank(zones[j]); ri != rj {
+			return ri < rj
+		}
+		return zones[i] < zones[j]
+	})
+	return zones
 }
 
 // Report collects quota findings that affect planning.
@@ -298,4 +318,72 @@ func sortedKeys(m map[string]string) []string {
 	}
 	sort.Strings(keys)
 	return keys
+}
+
+// Parse reads a plan written by `quota plan --format commands`, one Capture per
+// `make topology` line; comments and other lines are skipped. The plan does not carry
+// vCPU and GPU counts or the purpose, so those are left empty.
+func Parse(r io.Reader) ([]Capture, error) {
+	var out []Capture
+	sc := bufio.NewScanner(r)
+	for sc.Scan() {
+		line := strings.TrimSpace(sc.Text())
+		if !strings.HasPrefix(line, "make topology ") {
+			continue
+		}
+		c, err := parseCommand(line)
+		if err != nil {
+			return nil, err
+		}
+		out = append(out, c)
+	}
+	return out, sc.Err()
+}
+
+// parseCommand is the inverse of Command.
+func parseCommand(line string) (Capture, error) {
+	c := Capture{Model: "on-demand"}
+	rest := strings.TrimPrefix(line, "make topology ")
+	for {
+		rest = strings.TrimLeft(rest, " ")
+		if rest == "" {
+			break
+		}
+		eq := strings.IndexByte(rest, '=')
+		if eq < 0 {
+			return c, fmt.Errorf("plan line %q: expected KEY=value, got %q", line, rest)
+		}
+		key := rest[:eq]
+		rest = rest[eq+1:]
+		var value string
+		if strings.HasPrefix(rest, `"`) {
+			end := strings.IndexByte(rest[1:], '"')
+			if end < 0 {
+				return c, fmt.Errorf("plan line %q: unterminated quote", line)
+			}
+			value, rest = rest[1:1+end], rest[end+2:]
+		} else if sp := strings.IndexByte(rest, ' '); sp < 0 {
+			value, rest = rest, ""
+		} else {
+			value, rest = rest[:sp], rest[sp:]
+		}
+		switch key {
+		case "MACHINE_TYPE":
+			c.MachineType = value
+		case "ZONE":
+			c.Zone = value
+		case "ARGS":
+			c.Args = strings.Fields(value)
+		}
+	}
+	if c.MachineType == "" || c.Zone == "" {
+		return c, fmt.Errorf("plan line %q: MACHINE_TYPE and ZONE are required", line)
+	}
+	c.Series = database.SeriesOf(c.MachineType)
+	for _, a := range c.Args {
+		if a == "--provisioning-model=SPOT" {
+			c.Model = "spot"
+		}
+	}
+	return c, nil
 }

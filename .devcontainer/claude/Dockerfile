@@ -8,6 +8,8 @@ ARG USER_UID=1000
 ARG USER_GID=1000
 ARG CLAUDE_CODE_VERSION=latest
 ARG GO_VERSION=1.26.10
+# Fluxion (flux-sched) tag to build; resource-query runs the examples and reapi_cli backs the Go bindings.
+ARG FLUX_SCHED_VERSION=v0.56.0
 ENV USERNAME=${USERNAME}
 ENV USER_UID=${USER_UID}
 ENV USER_GID=${USER_GID}
@@ -54,6 +56,12 @@ RUN apt-get update \
     rm -rf /var/lib/apt/lists/* && \
     python3 -m pip install --break-system-packages 'black~=26.1'
 
+# Build Fluxion: resource-query for the CLI examples, libreapi_cli for the Go bindings.
+RUN git clone --depth 1 --branch ${FLUX_SCHED_VERSION} https://github.com/flux-framework/flux-sched /opt/flux-sched \
+ && cmake -S /opt/flux-sched -B /opt/flux-sched/build -G Ninja -DCMAKE_BUILD_TYPE=Release \
+ && ninja -C /opt/flux-sched/build resource-query reapi_cli \
+ && ln -s /opt/flux-sched/build/resource/utilities/resource-query /usr/local/bin/resource-query
+
 # Install Claude
 RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
 RUN sudo npm i -g opencode-ai
@@ -66,6 +74,9 @@ RUN case $(dpkg --print-architecture) in amd64) a=x86_64 ;; arm64) a=arm ;; esac
  && /opt/google-cloud-sdk/install.sh --quiet --usage-reporting false --path-update false
 
 ENV PATH=$PATH:/usr/local/go/bin:/opt/google-cloud-sdk/bin:/home/${USERNAME}/go/bin
+# cgo settings for google/examples/fluxion-go (Fluxion's Go bindings).
+ENV CGO_CFLAGS="-I/opt/flux-sched"
+ENV CGO_LDFLAGS="-L/opt/flux-sched/build/resource/reapi/bindings -lreapi_cli -lflux-idset -lstdc++ -ljansson -lhwloc -lboost_system -lflux-hostlist -lboost_graph -lyaml-cpp -Wl,-rpath,/opt/flux-sched/build/resource/reapi/bindings"
 
 # Add the group and user that match our ids
 RUN groupadd -g ${USER_GID} ${USERNAME} && \
