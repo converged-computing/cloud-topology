@@ -1,0 +1,1126 @@
+{
+  "plan": "projects/llnl-flux/experiment/archive/2026-11-01-run1/captures.txt",
+  "planned": 57,
+  "arms": [
+    {
+      "arm": "agent",
+      "captured": 46,
+      "planned": 57,
+      "rate": 0.8070175438596491,
+      "start": "2026-11-01T00:15:36Z",
+      "end": "2026-11-01T02:13:35Z",
+      "seconds": 7079,
+      "exit": 1,
+      "mean_provision_seconds": 58.07608695652172,
+      "agent": {
+        "attempts_used": 64,
+        "turns": 127,
+        "api_ms": 134701,
+        "cost_usd": 1.2903813999999998
+      }
+    },
+    {
+      "arm": "deterministic",
+      "captured": 5,
+      "planned": 57,
+      "rate": 0.08771929824561403,
+      "start": "2026-11-01T02:13:37Z",
+      "end": "2026-11-01T02:26:48Z",
+      "seconds": 791,
+      "exit": 1,
+      "mean_provision_seconds": 69.64
+    }
+  ],
+  "either": 46,
+  "both": 5,
+  "neither": 11,
+  "only": {
+    "agent": 41
+  },
+  "rows": [
+    {
+      "machine_type": "e2-highmem-16",
+      "series": "e2-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 45.7,
+          "captured_at": "2026-11-01T00:16:50Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 133,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 58.9,
+          "captured_at": "2026-11-01T02:15:01Z"
+        }
+      }
+    },
+    {
+      "machine_type": "e2-highcpu-32",
+      "series": "e2-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 73,
+          "captured_at": "2026-11-01T00:19:48Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 122,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 48.2,
+          "captured_at": "2026-11-01T02:17:03Z"
+        }
+      }
+    },
+    {
+      "machine_type": "e2-standard-32",
+      "series": "e2-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 59.6,
+          "captured_at": "2026-11-01T00:22:07Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 152,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 67.6,
+          "captured_at": "2026-11-01T02:19:26Z"
+        }
+      }
+    },
+    {
+      "machine_type": "t2a-standard-48",
+      "series": "t2a-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "error",
+          "attempts": 2,
+          "error": "ERROR: (gcloud.compute.instances.create) Could not fetch resource:\n - Invalid resource usage: 'Requested boot disk architecture (X86_64) is not compatible with machine type architecture (ARM64).'."
+        },
+        "deterministic": {
+          "status": "error",
+          "attempts": 1,
+          "seconds": 11
+        }
+      }
+    },
+    {
+      "machine_type": "c2-standard-60",
+      "series": "c2-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 77.6,
+          "captured_at": "2026-11-01T00:24:48Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 152,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 72.3,
+          "captured_at": "2026-11-01T02:22:10Z"
+        }
+      }
+    },
+    {
+      "machine_type": "t2d-standard-60",
+      "series": "t2d-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 84.6,
+          "captured_at": "2026-11-01T00:27:25Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 185,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 101.2,
+          "captured_at": "2026-11-01T02:25:23Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n4a-highcpu-64",
+      "series": "n4a-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "error",
+          "attempts": 2,
+          "error": "ERROR: (gcloud.compute.instances.create) Could not fetch resource:\n - Invalid resource usage: 'Requested boot disk architecture (X86_64) is not compatible with machine type architecture (ARM64).'."
+        },
+        "deterministic": {
+          "status": "error",
+          "attempts": 1,
+          "seconds": 12
+        }
+      }
+    },
+    {
+      "machine_type": "n4a-highmem-64",
+      "series": "n4a-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "error",
+          "attempts": 2,
+          "error": "ERROR: (gcloud.compute.instances.create) Could not fetch resource:\n - Invalid resource usage: 'Requested boot disk architecture (X86_64) is not compatible with machine type architecture (ARM64).'."
+        },
+        "deterministic": {
+          "status": "error",
+          "attempts": 1,
+          "seconds": 11
+        }
+      }
+    },
+    {
+      "machine_type": "n4a-standard-64",
+      "series": "n4a-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "error",
+          "attempts": 2,
+          "error": "ERROR: (gcloud.compute.instances.create) Could not fetch resource:\n - Invalid resource usage: 'Requested boot disk architecture (X86_64) is not compatible with machine type architecture (ARM64).'."
+        },
+        "deterministic": {
+          "status": "error",
+          "attempts": 1,
+          "seconds": 11
+        }
+      }
+    },
+    {
+      "machine_type": "c4a-highcpu-72",
+      "series": "c4a-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "error",
+          "attempts": 2,
+          "error": "ERROR: (gcloud.compute.instances.create) Could not fetch resource:\n - Invalid resource usage: 'Requested boot disk architecture (X86_64) is not compatible with machine type architecture (ARM64).'."
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c4a-highmem-72",
+      "series": "c4a-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "not captured"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c4a-standard-72",
+      "series": "c4a-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "not captured"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n4-highcpu-80",
+      "series": "n4-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 66.1,
+          "captured_at": "2026-11-01T00:30:48Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n4-highmem-80",
+      "series": "n4-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 50.1,
+          "captured_at": "2026-11-01T00:32:49Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n4-standard-80",
+      "series": "n4-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 42.9,
+          "captured_at": "2026-11-01T00:34:56Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "h3-standard-88",
+      "series": "h3-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 39.1,
+          "captured_at": "2026-11-01T00:36:49Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "m1-megamem-96",
+      "series": "m1-megamem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 76.3,
+          "captured_at": "2026-11-01T00:39:22Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n1-highcpu-96",
+      "series": "n1-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 61.4,
+          "captured_at": "2026-11-01T00:41:38Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n1-highmem-96",
+      "series": "n1-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 53.5,
+          "captured_at": "2026-11-01T00:43:47Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n1-standard-96",
+      "series": "n1-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 53.3,
+          "captured_at": "2026-11-01T00:45:56Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n2-highcpu-96",
+      "series": "n2-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 51.3,
+          "captured_at": "2026-11-01T00:47:58Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n2d-highmem-96",
+      "series": "n2d-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 51.7,
+          "captured_at": "2026-11-01T00:50:06Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n4d-highcpu-96",
+      "series": "n4d-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 52.9,
+          "captured_at": "2026-11-01T00:52:08Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n4d-highmem-96",
+      "series": "n4d-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 37.8,
+          "captured_at": "2026-11-01T00:53:57Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n4d-standard-96",
+      "series": "n4d-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 36.7,
+          "captured_at": "2026-11-01T00:55:41Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c2d-highcpu-112",
+      "series": "c2d-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 42.3,
+          "captured_at": "2026-11-01T00:57:34Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c2d-highmem-112",
+      "series": "c2d-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 58.6,
+          "captured_at": "2026-11-01T00:59:44Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c2d-standard-112",
+      "series": "c2d-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 50.1,
+          "captured_at": "2026-11-01T01:02:15Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "m3-megamem-128",
+      "series": "m3-megamem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 73.5,
+          "captured_at": "2026-11-01T01:07:04Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "m3-ultramem-128",
+      "series": "m3-ultramem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 83.6,
+          "captured_at": "2026-11-01T01:10:19Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n2-highmem-128",
+      "series": "n2-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 62.4,
+          "captured_at": "2026-11-01T01:13:08Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n2-standard-128",
+      "series": "n2-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 45.9,
+          "captured_at": "2026-11-01T01:15:05Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "m1-ultramem-160",
+      "series": "m1-ultramem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 92.4,
+          "captured_at": "2026-11-01T01:18:00Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c3-highcpu-176",
+      "series": "c3-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 43.7,
+          "captured_at": "2026-11-01T01:20:33Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c3-highmem-176",
+      "series": "c3-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 50.6,
+          "captured_at": "2026-11-01T01:22:45Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c3-standard-176",
+      "series": "c3-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 40.3,
+          "captured_at": "2026-11-01T01:24:41Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "z3-highmem-176-standardlssd",
+      "series": "z3-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 71.5,
+          "captured_at": "2026-11-01T01:59:29Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c4n-highcpu-192",
+      "series": "c4n-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 84.5,
+          "captured_at": "2026-11-01T01:29:20Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c4n-highmem-192",
+      "series": "c4n-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 91.5,
+          "captured_at": "2026-11-01T01:32:03Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c4n-standard-192",
+      "series": "c4n-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 86,
+          "captured_at": "2026-11-01T01:34:41Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "h4d-highmem-192",
+      "series": "h4d-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 2,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 44.3,
+          "captured_at": "2026-11-01T01:36:46Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "h4d-standard-192",
+      "series": "h4d-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 41.1,
+          "captured_at": "2026-11-01T01:38:34Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n2d-highcpu-224",
+      "series": "n2d-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 49.9,
+          "captured_at": "2026-11-01T01:40:37Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "n2d-standard-224",
+      "series": "n2d-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 54.5,
+          "captured_at": "2026-11-01T01:42:43Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c4-highcpu-288",
+      "series": "c4-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 2,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 62.2,
+          "captured_at": "2026-11-01T01:45:10Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c4-highmem-288",
+      "series": "c4-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 2,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 62.2,
+          "captured_at": "2026-11-01T01:47:36Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c4-standard-288",
+      "series": "c4-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 66.5,
+          "captured_at": "2026-11-01T02:03:34Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c3d-highcpu-360",
+      "series": "c3d-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "stockout",
+          "attempts": 2,
+          "error": "no capacity in 2 attempt(s)"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c3d-highmem-360",
+      "series": "c3d-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 47.8,
+          "captured_at": "2026-11-01T01:50:26Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c3d-standard-360",
+      "series": "c3d-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 52.7,
+          "captured_at": "2026-11-01T02:06:02Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c4d-highcpu-384",
+      "series": "c4d-highcpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 2,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 45.2,
+          "captured_at": "2026-11-01T01:52:57Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c4d-highmem-384",
+      "series": "c4d-highmem",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 2,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 54,
+          "captured_at": "2026-11-01T01:55:21Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "c4d-standard-384",
+      "series": "c4d-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 44.5,
+          "captured_at": "2026-11-01T02:07:52Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "a2-highgpu-8g",
+      "series": "a2-highgpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "stockout",
+          "attempts": 2,
+          "error": "no capacity in 2 attempt(s)"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "a3-edgegpu-8g-nolssd",
+      "series": "a3-edgegpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "stockout",
+          "attempts": 2,
+          "error": "no capacity in 2 attempt(s)"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "a3-highgpu-8g",
+      "series": "a3-highgpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 56.1,
+          "captured_at": "2026-11-01T02:10:49Z"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    },
+    {
+      "machine_type": "a2-megagpu-16g",
+      "series": "a2-megagpu",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "stockout",
+          "attempts": 2,
+          "error": "no capacity in 2 attempt(s)"
+        },
+        "deterministic": {
+          "status": "not captured"
+        }
+      }
+    }
+  ]
+}

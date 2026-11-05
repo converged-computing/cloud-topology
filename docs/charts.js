@@ -7,7 +7,7 @@ window.Charts = (function () {
   const status = { ok: '--status-good', stockout: '--status-warning', quota: '--status-serious', error: '--status-critical' };
   const statusColor = s => token(status[s] || '--deemph');
   const statusIcon = { ok: '✓', stockout: '◔', quota: '⊘', error: '✕' };
-  const fmtSecs = s => s == null || s === '' ? '' : s < 60 ? Math.round(s) + 's' : Math.floor(s / 60) + 'm' + String(Math.round(s % 60)).padStart(2, '0') + 's';
+  const fmtSecs = s => s == null || s === '' ? '' : s < 60 ? Math.round(s) + 's' : s < 3600 ? Math.floor(s / 60) + 'm' + String(Math.round(s % 60)).padStart(2, '0') + 's' : Math.floor(s / 3600) + 'h' + String(Math.round((s % 3600) / 60)).padStart(2, '0') + 'm';
   const fmtBytes = b => b >= 1 << 30 ? (b / (1 << 30)).toFixed(b % (1 << 30) ? 1 : 0) + ' GB' : b >= 1 << 20 ? Math.round(b / (1 << 20)) + ' MB' : b >= 1024 ? Math.round(b / 1024) + ' KB' : b + ' B';
   const width = (el, fallback) => el.clientWidth || el.getBoundingClientRect().width || fallback || 900;
   const textW = (s, size) => String(s).length * (size || 12) * 0.56;
@@ -254,7 +254,13 @@ window.Charts = (function () {
     const x = d3.scaleBand().domain(cols).range([m.l, W - m.r]).paddingInner(0.06);
     const y = d3.scaleBand().domain(rows.map(o.rowLabel)).range([m.t, H - m.b]).paddingInner(0.1);
     const vals = []; rows.forEach(r => cols.forEach(c => { const v = o.value(r, c); if (v != null) vals.push(v); }));
-    const color = d3.scaleSequential(d3.interpolateRgbBasis(['--seq-100', '--seq-250', '--seq-400', '--seq-550', '--seq-700'].map(token))).domain(d3.extent(vals).map((v, i) => v == null ? i : v));
+    // Fixed bins on minute boundaries, so the same color means the same time on every
+    // page; an analogous yellow-green-blue ramp (light is fast, dark is slow) keeps nine
+    // steps apart where one hue cannot.
+    const edges = o.thresholds || [30, 45, 60, 90, 120, 180, 300, 600];
+    const steps = d3.schemeYlGnBu[edges.length + 1];
+    const color = d3.scaleThreshold().domain(edges).range(steps);
+    const ink = v => d3.hsl(color(v)).l > 0.55 ? '#0b0b0b' : '#fff';
     svg.append('g').selectAll('text').data(cols).join('text').attr('x', c => x(c) + x.bandwidth() / 2).attr('y', m.t - 10).attr('text-anchor', 'middle').attr('class', 'primary').text(c => { const l = o.colLabel(c); const max = Math.floor(x.bandwidth() / 6.5); return l.length > max ? l.slice(0, Math.max(3, max - 1)) + '…' : l; });
     svg.append('g').selectAll('text').data(rows).join('text').attr('x', m.l - 8).attr('y', r => y(o.rowLabel(r)) + y.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'end').attr('class', 'primary').text(r => o.rowLabel(r)).style('cursor', o.onClick ? 'pointer' : null).on('click', (e, r) => o.onClick && o.onClick(r));
     rows.forEach(r => cols.forEach(c => {
@@ -263,11 +269,11 @@ window.Charts = (function () {
         .attr('fill', v == null ? token('--surface-1') : color(v)).attr('stroke', v == null ? token('--grid') : 'none')
         .on('pointerenter pointermove', e => showTip(e, [o.rowLabel(r), { k: o.colLabel(c), v: v == null ? 'not captured' : o.format(v) }].concat(o.tipExtra ? o.tipExtra(r, c) : []))).on('pointerleave', hideTip)
         .on('click', () => o.onClick && o.onClick(r)).style('cursor', o.onClick ? 'pointer' : null);
-      if (v != null && x.bandwidth() > 44 && y.bandwidth() > 14) svg.append('text').attr('class', 'in-fill').attr('x', xx + x.bandwidth() / 2).attr('y', yy + y.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'middle').attr('fill', color(v) === token('--seq-100') || v <= color.domain()[0] + (color.domain()[1] - color.domain()[0]) * 0.3 ? token('--text-primary') : '#fff').text(o.format(v));
+      if (v != null && x.bandwidth() > 44 && y.bandwidth() > 14) svg.append('text').attr('class', 'in-fill').attr('x', xx + x.bandwidth() / 2).attr('y', yy + y.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'middle').style('fill', ink(v)).text(o.format(v));
     }));
     if (o.extra) svg.append('g').selectAll('text').data(rows).join('text').attr('x', W - m.r + 10).attr('y', r => y(o.rowLabel(r)) + y.bandwidth() / 2).attr('dy', '0.35em').attr('class', 'primary').text(r => o.extra(r));
-    // Scale legend.
-    if (vals.length) { const lg = svg.append('g').attr('transform', `translate(${m.l},${m.t - 44})`); const steps = 5; d3.range(steps).forEach(i => lg.append('rect').attr('x', i * 18).attr('y', 0).attr('width', 16).attr('height', 10).attr('rx', 2).attr('fill', color(color.domain()[0] + (color.domain()[1] - color.domain()[0]) * i / (steps - 1)))); lg.append('text').attr('x', steps * 18 + 6).attr('y', 9).text(o.format(color.domain()[0]) + ' → ' + o.format(color.domain()[1])); }
+    // Scale legend: one swatch per bin, labelled by its upper bound.
+    if (vals.length) { const lg = svg.append('g').attr('transform', `translate(${m.l},${m.t - 44})`); let xo = 0; steps.forEach((c, k) => { const label = k === 0 ? '< ' + o.format(edges[0]) : k === steps.length - 1 ? '> ' + o.format(edges[k - 1]) : o.format(edges[k - 1]) + '–' + o.format(edges[k]); lg.append('rect').attr('x', xo).attr('y', 0).attr('width', 14).attr('height', 10).attr('rx', 2).attr('fill', c); lg.append('text').attr('x', xo + 18).attr('y', 9).text(label); xo += 28 + textW(label, 12); }); }
     return svg;
   }
 
@@ -277,10 +283,11 @@ window.Charts = (function () {
     const W = width(el, 800), labelW = Math.min(220, d3.max(rows, r => textW(o.label(r))) + 14), m = { t: 10, r: 20, b: 28, l: labelW }, rowH = 24, H = m.t + m.b + rows.length * rowH;
     const svg = svgIn(el, W, H);
     const vals = rows.flatMap(r => [o.a(r), o.b(r)]).filter(v => v != null);
-    const x = d3.scaleLinear().domain([0, d3.max(vals) || 1]).nice().range([m.l, W - m.r]);
+    // Log scale: one slow capture should not squash the rest.
+    const x = d3.scaleLog().domain([Math.max(1, d3.min(vals) * 0.8), (d3.max(vals) || 2) * 1.1]).range([m.l, W - m.r]);
     const y = d3.scalePoint().domain(rows.map(o.label)).range([m.t + rowH / 2, H - m.b - rowH / 2]);
-    svg.append('g').selectAll('line').data(x.ticks(6)).join('line').attr('class', 'gridline').attr('x1', d => x(d)).attr('x2', d => x(d)).attr('y1', m.t).attr('y2', H - m.b);
-    svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(6).tickFormat(o.format).tickSize(0).tickPadding(6)).call(g => g.select('.domain').remove());
+    svg.append('g').selectAll('line').data([15, 30, 60, 120, 300, 600, 1200, 1800, 3600].filter(v => v >= x.domain()[0] && v <= x.domain()[1])).join('line').attr('class', 'gridline').attr('x1', d => x(d)).attr('x2', d => x(d)).attr('y1', m.t).attr('y2', H - m.b);
+    svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).tickValues([15, 30, 60, 120, 300, 600, 1200, 1800, 3600].filter(v => v >= x.domain()[0] && v <= x.domain()[1])).tickFormat(o.format).tickSize(0).tickPadding(6)).call(g => g.select('.domain').remove());
     svg.append('g').selectAll('text').data(rows).join('text').attr('x', m.l - 8).attr('y', r => y(o.label(r))).attr('dy', '0.35em').attr('text-anchor', 'end').attr('class', 'primary').text(o.label).style('cursor', o.onClick ? 'pointer' : null).on('click', (e, r) => o.onClick && o.onClick(r));
     rows.forEach(r => {
       const a = o.a(r), b = o.b(r), yy = y(o.label(r));
@@ -292,23 +299,51 @@ window.Charts = (function () {
   }
 
   // ---- timeline: lanes of intervals (one color per lane, status by fill vs outline) ----
+  // With o.elapsed, start and end are seconds from each lane's own start, so lanes line up.
   function timeline(el, lanes, o) {
-    o = Object.assign({ height: 0 }, o || {});
+    o = Object.assign({ height: 0, elapsed: false }, o || {});
     const items = lanes.flatMap((l, i) => l.items.map(it => Object.assign({ lane: l.name, li: i }, it)));
     if (!items.length) { el.replaceChildren(); return; }
     const W = width(el, 900), m = { t: 8, r: 16, b: 28, l: 110 }, laneH = 34, H = m.t + m.b + lanes.length * laneH;
     const svg = svgIn(el, W, H);
-    const x = d3.scaleTime().domain([d3.min(items, d => d.start), d3.max(items, d => d.end)]).nice().range([m.l, W - m.r]);
+    const x = (o.elapsed ? d3.scaleLinear().domain([0, d3.max(items, d => d.end)]) : d3.scaleTime().domain([d3.min(items, d => d.start), d3.max(items, d => d.end)])).nice().range([m.l, W - m.r]);
+    const fmtX = o.elapsed ? (v => v >= 3600 ? (v / 3600).toFixed(v % 3600 ? 1 : 0) + 'h' : Math.round(v / 60) + 'm') : null;
     const y = d3.scaleBand().domain(lanes.map(l => l.name)).range([m.t, H - m.b]).paddingInner(0.3);
     svg.append('g').selectAll('line').data(x.ticks(8)).join('line').attr('class', 'gridline').attr('x1', d => x(d)).attr('x2', d => x(d)).attr('y1', m.t).attr('y2', H - m.b);
-    svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(8).tickSize(0).tickPadding(6)).call(g => g.select('.domain').remove());
+    svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(8).tickFormat(fmtX).tickSize(0).tickPadding(6)).call(g => g.select('.domain').remove());
     svg.append('g').selectAll('text').data(lanes).join('text').attr('x', m.l - 8).attr('y', l => y(l.name) + y.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'end').attr('class', 'primary').text(l => l.name);
+    if (o.elapsed) svg.append('text').attr('x', W - m.r).attr('y', H - 4).attr('text-anchor', 'end').text('time since the arm started');
     const bh = Math.min(20, y.bandwidth());
     svg.append('g').selectAll('rect').data(items).join('rect').attr('x', d => x(d.start)).attr('y', d => y(d.lane) + (y.bandwidth() - bh) / 2).attr('width', d => Math.max(3, x(d.end) - x(d.start))).attr('height', bh).attr('rx', 3)
       .attr('fill', d => d.status === 'ok' ? slot(d.li + 1) : token('--surface-1')).attr('stroke', d => slot(d.li + 1)).attr('stroke-width', d => d.status === 'ok' ? 0 : 1.5)
-      .on('pointerenter pointermove', (e, d) => showTip(e, [d.label, { k: 'outcome', v: (statusIcon[d.status] || '') + ' ' + d.status }, { k: 'start', v: d3.timeFormat('%H:%M:%S')(d.start) }, { k: 'duration', v: fmtSecs((d.end - d.start) / 1000) }].concat(d.extra || []))).on('pointerleave', hideTip);
+      .on('pointerenter pointermove', (e, d) => showTip(e, [d.label, { k: 'outcome', v: (statusIcon[d.status] || '') + ' ' + d.status }, { k: o.elapsed ? 'started at' : 'start', v: o.elapsed ? fmtSecs(d.start) + ' in' : d3.timeFormat('%H:%M:%S')(d.start) }, { k: 'duration', v: fmtSecs(o.elapsed ? d.end - d.start : (d.end - d.start) / 1000) }].concat(d.extra || []))).on('pointerleave', hideTip);
     return svg;
   }
 
-  return { slot, token, statusColor, statusIcon, fmtSecs, fmtBytes, showTip, hideTip, bars, stackedStatus, scatter, icicle, graphTree, heatmap, dumbbell, timeline, objLabel };
+  // ---- shape strip: one row per machine type, one dot per capture at its time, colored by shape ----
+  function shapeStrip(el, types, o) {
+    o = Object.assign({ onClick: null, slotOf: null }, o || {});
+    const obs = types.flatMap(t => t.observations.map(x => Object.assign({ type: t.machine_type, time: new Date(x.captured_at) }, x)));
+    if (!obs.length) { el.replaceChildren(); return; }
+    const W = width(el, 900), labelW = Math.min(200, d3.max(types, t => textW(t.machine_type)) + 14), m = { t: 8, r: 16, b: 28, l: labelW }, rowH = 22, H = m.t + m.b + types.length * rowH;
+    const svg = svgIn(el, W, H);
+    const x = d3.scaleTime().domain(d3.extent(obs, d => d.time)).nice().range([m.l, W - m.r]);
+    const y = d3.scalePoint().domain(types.map(t => t.machine_type)).range([m.t + rowH / 2, H - m.b - rowH / 2]);
+    svg.append('g').selectAll('line').data(x.ticks(8)).join('line').attr('class', 'gridline').attr('x1', d => x(d)).attr('x2', d => x(d)).attr('y1', m.t).attr('y2', H - m.b);
+    svg.append('g').selectAll('line.row').data(types).join('line').attr('class', 'gridline').attr('x1', m.l).attr('x2', W - m.r).attr('y1', t => y(t.machine_type)).attr('y2', t => y(t.machine_type));
+    svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(8).tickSize(0).tickPadding(6)).call(g => g.select('.domain').remove());
+    svg.append('g').selectAll('text').data(types).join('text').attr('x', m.l - 8).attr('y', t => y(t.machine_type)).attr('dy', '0.35em').attr('text-anchor', 'end').attr('class', 'primary').text(t => t.machine_type).style('cursor', o.onClick ? 'pointer' : null).on('click', (e, t) => o.onClick && o.onClick(t));
+    const marks = svg.append('g').selectAll('circle').data(obs).join('circle').attr('cx', d => x(d.time)).attr('cy', d => y(d.type)).attr('r', 5)
+      .attr('fill', d => slot(Math.min(8, o.slotOf(d.type, d.shape)))).attr('stroke', token('--surface-1')).attr('stroke-width', 2);
+    const delaunay = d3.Delaunay.from(obs, d => x(d.time), d => y(d.type));
+    svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', H - m.t - m.b).attr('fill', 'transparent')
+      .on('pointermove', e => { const [px, py] = d3.pointer(e); const d = obs[delaunay.find(px, py)]; if (!d) return; marks.attr('stroke', q => q === d ? token('--text-primary') : token('--surface-1'));
+        showTip(e, [d.type, { k: 'shape', v: d.shape, color: slot(Math.min(8, o.slotOf(d.type, d.shape))) }, { k: 'captured', v: d.captured_at }, { k: 'database', v: o.dbName ? o.dbName(d.database) : d.database }, { k: 'zone', v: d.zone }, { k: 'model', v: d.model }, { k: 'CPU', v: (d.fingerprint.cpu_models || []).join(', ') || 'not reported' }]); })
+      .on('pointerleave', () => { hideTip(); marks.attr('stroke', token('--surface-1')); })
+      .style('cursor', o.onPick ? 'pointer' : null)
+      .on('click', e => { const [px, py] = d3.pointer(e); const d = obs[delaunay.find(px, py)]; if (d && o.onPick) { hideTip(); o.onPick(d); } });
+    return svg;
+  }
+
+  return { shapeStrip, slot, token, statusColor, statusIcon, fmtSecs, fmtBytes, showTip, hideTip, bars, stackedStatus, scatter, icicle, graphTree, heatmap, dumbbell, timeline, objLabel };
 })();

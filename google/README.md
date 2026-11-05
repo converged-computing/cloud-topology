@@ -185,6 +185,7 @@ make site REGION=$REGION                                      # data/ as "main",
 make site REGION=$REGION EXPERIMENTS=projects/$PROJECT/experiment-test
 make site REGION=$REGION STUDY=projects/$PROJECT/consistency
 make site REGION=$REGION SITE_DATA="main=data agent=projects/$PROJECT/experiment/agent"
+make site-final REGION=$REGION                                # final experiment run + consistency study only
 make site-serve                                               # http://localhost:8000
 ```
 

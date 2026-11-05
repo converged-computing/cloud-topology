@@ -8,7 +8,7 @@ TOPOLOGY_AGENT_SOURCE ?= git+https://github.com/converged-computing/topology-age
 # pip needs this outside a virtualenv on Debian and Ubuntu images.
 PIP_FLAGS ?= --break-system-packages
 
-.PHONY: test vet build examples run-examples fluxion-go serve catalog index quota plan sizes plan-topology capture-all capture-agent experiment experiment-test report consistency consistency-report graphs topology images cleanup install-agent site site-serve
+.PHONY: test vet build examples run-examples fluxion-go serve catalog index quota plan sizes plan-topology capture-all capture-agent experiment experiment-test report consistency consistency-report graphs topology images cleanup install-agent site site-final site-serve
 
 test:
 	go test ./...
@@ -139,13 +139,20 @@ report:
 # Static web site to browse, search and compare databases, captures and graphs, for
 # GitHub Pages or any static host: make site PROJECT=my-project REGION=us-central1
 # SITE_DATA lists databases as label=dir (default main=$(DATA)); EXPERIMENTS lists experiment
-# directories, whose arms and report are added; STUDY is a consistency study directory,
+# directories (name=dir or dir), whose arms and report are added; GRAPH_DATA limits graphs
+# to these database labels (graphs for every arm and round add up); STUDY is a consistency study directory,
 # whose rounds are added; LEVELS picks graphs (series,coarse,exact or none); SINGLE=1 writes
 # one self-contained index.html instead of a directory.
 SITE ?= site
 SITE_DATA ?= main=$(DATA)
 site:
-	go run ./cmd/site --out $(SITE) $(foreach d,$(SITE_DATA),--data $(d)) $(foreach e,$(EXPERIMENTS),--experiment $(e)) $(if $(STUDY),--consistency $(STUDY)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) $(if $(LEVELS),--levels $(LEVELS)) $(if $(SINGLE),--single)
+	go run ./cmd/site --out $(SITE) $(foreach d,$(SITE_DATA),--data $(d)) $(foreach e,$(EXPERIMENTS),--experiment $(e)) $(if $(STUDY),--consistency $(STUDY)) $(foreach g,$(GRAPH_DATA),--graph-data $(g)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) $(if $(LEVELS),--levels $(LEVELS)) $(if $(SINGLE),--single)
+
+# The published view: the final experiment run and the consistency study, graphs from the
+# runner's arm. Older runs and data/ stay out (data/'s captures predate the current
+# capture method).
+site-final:
+	$(MAKE) --no-print-directory site SITE_DATA= GRAPH_DATA=final/deterministic EXPERIMENTS=final=projects/$(PROJECT)/experiment STUDY=$(CONSISTENCY)
 
 # Serve the site locally: http://localhost:8000
 site-serve:

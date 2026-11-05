@@ -1,0 +1,1456 @@
+{
+  "plan": "projects/llnl-flux/experiment/captures.txt",
+  "planned": 57,
+  "arms": [
+    {
+      "arm": "agent",
+      "captured": 55,
+      "planned": 57,
+      "rate": 0.9649122807017544,
+      "start": "2026-11-01T02:46:56Z",
+      "end": "2026-11-01T05:17:13Z",
+      "seconds": 9017,
+      "exit": 1,
+      "mean_provision_seconds": 69.17636363636365,
+      "agent": {
+        "attempts_used": 59,
+        "turns": 119,
+        "api_ms": 113289,
+        "cost_usd": 1.0319498
+      }
+    },
+    {
+      "arm": "deterministic",
+      "captured": 55,
+      "planned": 57,
+      "rate": 0.9649122807017544,
+      "start": "2026-11-01T05:17:17Z",
+      "end": "2026-11-01T08:54:07Z",
+      "seconds": 13010,
+      "exit": 1,
+      "mean_provision_seconds": 61.43818181818182
+    }
+  ],
+  "either": 56,
+  "both": 54,
+  "neither": 1,
+  "only": {
+    "agent": 1,
+    "deterministic": 1
+  },
+  "rows": [
+    {
+      "machine_type": "e2-highmem-16",
+      "series": "e2-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 75.6,
+          "captured_at": "2026-11-01T02:48:39Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 152,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 72.8,
+          "captured_at": "2026-11-01T05:18:57Z"
+        }
+      }
+    },
+    {
+      "machine_type": "e2-highcpu-32",
+      "series": "e2-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 67.2,
+          "captured_at": "2026-11-01T02:50:59Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 139,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 64,
+          "captured_at": "2026-11-01T05:21:17Z"
+        }
+      }
+    },
+    {
+      "machine_type": "e2-standard-32",
+      "series": "e2-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 61.5,
+          "captured_at": "2026-11-01T02:53:19Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 133,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 58.6,
+          "captured_at": "2026-11-01T05:23:30Z"
+        }
+      }
+    },
+    {
+      "machine_type": "t2a-standard-48",
+      "series": "t2a-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 56.2,
+          "captured_at": "2026-11-01T02:55:35Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 176,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 76.6,
+          "captured_at": "2026-11-01T05:26:26Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c2-standard-60",
+      "series": "c2-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 75.2,
+          "captured_at": "2026-11-01T02:58:01Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 150,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 76.2,
+          "captured_at": "2026-11-01T05:28:54Z"
+        }
+      }
+    },
+    {
+      "machine_type": "t2d-standard-60",
+      "series": "t2d-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 58.3,
+          "captured_at": "2026-11-01T03:00:20Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 127,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 54.2,
+          "captured_at": "2026-11-01T05:31:02Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n4a-highcpu-64",
+      "series": "n4a-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 36.2,
+          "captured_at": "2026-11-01T03:02:25Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 115,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 38.8,
+          "captured_at": "2026-11-01T05:32:59Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n4a-highmem-64",
+      "series": "n4a-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 37,
+          "captured_at": "2026-11-01T03:04:15Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 101,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 31.2,
+          "captured_at": "2026-11-01T05:34:43Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n4a-standard-64",
+      "series": "n4a-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 38.6,
+          "captured_at": "2026-11-01T03:06:13Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 114,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 39,
+          "captured_at": "2026-11-01T05:36:33Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4a-highcpu-72",
+      "series": "c4a-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 35.6,
+          "captured_at": "2026-11-01T03:08:06Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 115,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 37.9,
+          "captured_at": "2026-11-01T05:38:27Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4a-highmem-72",
+      "series": "c4a-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 38.5,
+          "captured_at": "2026-11-01T03:10:03Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 116,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 44,
+          "captured_at": "2026-11-01T05:40:25Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4a-standard-72",
+      "series": "c4a-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 38.1,
+          "captured_at": "2026-11-01T03:11:58Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 115,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 41.5,
+          "captured_at": "2026-11-01T05:42:20Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n4-highcpu-80",
+      "series": "n4-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 51.6,
+          "captured_at": "2026-11-01T03:14:00Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 114,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 44.5,
+          "captured_at": "2026-11-01T05:44:12Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n4-highmem-80",
+      "series": "n4-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 69.9,
+          "captured_at": "2026-11-01T03:16:19Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 115,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 44.3,
+          "captured_at": "2026-11-01T05:46:06Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n4-standard-80",
+      "series": "n4-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 45.6,
+          "captured_at": "2026-11-01T03:18:16Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 119,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 44.4,
+          "captured_at": "2026-11-01T05:48:05Z"
+        }
+      }
+    },
+    {
+      "machine_type": "h3-standard-88",
+      "series": "h3-standard",
+      "zone": "us-central1-a",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 42.1,
+          "captured_at": "2026-11-01T03:20:10Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 113,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 41,
+          "captured_at": "2026-11-01T05:49:59Z"
+        }
+      }
+    },
+    {
+      "machine_type": "m1-megamem-96",
+      "series": "m1-megamem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 67.8,
+          "captured_at": "2026-11-01T03:22:34Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 148,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 66.7,
+          "captured_at": "2026-11-01T05:52:28Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n1-highcpu-96",
+      "series": "n1-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 54.3,
+          "captured_at": "2026-11-01T03:24:47Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 153,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 51.1,
+          "captured_at": "2026-11-01T05:55:00Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n1-highmem-96",
+      "series": "n1-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 63,
+          "captured_at": "2026-11-01T03:27:06Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 137,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 58.7,
+          "captured_at": "2026-11-01T05:57:16Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n1-standard-96",
+      "series": "n1-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 59.9,
+          "captured_at": "2026-11-01T03:29:27Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 141,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 64.9,
+          "captured_at": "2026-11-01T05:59:39Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n2-highcpu-96",
+      "series": "n2-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 60.4,
+          "captured_at": "2026-11-01T03:31:42Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 134,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 51.2,
+          "captured_at": "2026-11-01T06:01:52Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n2d-highmem-96",
+      "series": "n2d-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 61.4,
+          "captured_at": "2026-11-01T03:33:58Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 275,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 50.1,
+          "captured_at": "2026-11-01T06:06:26Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n4d-highcpu-96",
+      "series": "n4d-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 35.4,
+          "captured_at": "2026-11-01T03:35:41Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 107,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 38.2,
+          "captured_at": "2026-11-01T06:08:13Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n4d-highmem-96",
+      "series": "n4d-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 48.9,
+          "captured_at": "2026-11-01T03:37:40Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 107,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 39.1,
+          "captured_at": "2026-11-01T06:10:02Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n4d-standard-96",
+      "series": "n4d-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 35.7,
+          "captured_at": "2026-11-01T03:39:25Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 111,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 42.2,
+          "captured_at": "2026-11-01T06:11:52Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c2d-highcpu-112",
+      "series": "c2d-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 59.6,
+          "captured_at": "2026-11-01T03:41:35Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 146,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 61.5,
+          "captured_at": "2026-11-01T06:14:17Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c2d-highmem-112",
+      "series": "c2d-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 60.8,
+          "captured_at": "2026-11-01T03:43:48Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 128,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 57.7,
+          "captured_at": "2026-11-01T06:16:27Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c2d-standard-112",
+      "series": "c2d-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 66,
+          "captured_at": "2026-11-01T03:46:05Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 126,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 56.7,
+          "captured_at": "2026-11-01T06:18:34Z"
+        }
+      }
+    },
+    {
+      "machine_type": "m3-megamem-128",
+      "series": "m3-megamem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 68.9,
+          "captured_at": "2026-11-01T03:48:24Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 144,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 73.5,
+          "captured_at": "2026-11-01T06:20:57Z"
+        }
+      }
+    },
+    {
+      "machine_type": "m3-ultramem-128",
+      "series": "m3-ultramem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 82.1,
+          "captured_at": "2026-11-01T03:50:58Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 151,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 80,
+          "captured_at": "2026-11-01T06:23:26Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n2-highmem-128",
+      "series": "n2-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 2,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 63.2,
+          "captured_at": "2026-11-01T03:55:15Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 124,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 53.5,
+          "captured_at": "2026-11-01T06:25:32Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n2-standard-128",
+      "series": "n2-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 48,
+          "captured_at": "2026-11-01T03:57:15Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 126,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 54,
+          "captured_at": "2026-11-01T06:27:36Z"
+        }
+      }
+    },
+    {
+      "machine_type": "m1-ultramem-160",
+      "series": "m1-ultramem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 105.7,
+          "captured_at": "2026-11-01T04:00:19Z"
+        },
+        "deterministic": {
+          "status": "error",
+          "attempts": 1,
+          "seconds": 1158,
+          "error": "capture failed: gcloud compute ssh topo-m1-ultramem-160-e5fc77 --project=llnl-flux --zone=us-central1-a --troubleshoot Or, to investigate an IAP tunneling issue: gcloud compute ssh topo-m1-ultramem-160-e5fc77 --project=llnl-flux --zone=us-c"
+        }
+      }
+    },
+    {
+      "machine_type": "c3-highcpu-176",
+      "series": "c3-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 54.1,
+          "captured_at": "2026-11-01T04:03:14Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 114,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 44.8,
+          "captured_at": "2026-11-01T06:48:51Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c3-highmem-176",
+      "series": "c3-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 44.4,
+          "captured_at": "2026-11-01T04:05:13Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 141,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 62.3,
+          "captured_at": "2026-11-01T06:51:07Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c3-standard-176",
+      "series": "c3-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 45.8,
+          "captured_at": "2026-11-01T04:07:17Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 120,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 48.1,
+          "captured_at": "2026-11-01T06:53:10Z"
+        }
+      }
+    },
+    {
+      "machine_type": "z3-highmem-176-standardlssd",
+      "series": "z3-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 67.4,
+          "captured_at": "2026-11-01T04:09:37Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 153,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 65.6,
+          "captured_at": "2026-11-01T06:55:27Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4n-highcpu-192",
+      "series": "c4n-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 88.4,
+          "captured_at": "2026-11-01T04:12:24Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 162,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 89,
+          "captured_at": "2026-11-01T06:58:21Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4n-highmem-192",
+      "series": "c4n-highmem",
+      "zone": "us-central1-a,us-central1-c",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 94.2,
+          "captured_at": "2026-11-01T04:15:12Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 159,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 86.4,
+          "captured_at": "2026-11-01T07:01:01Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4n-standard-192",
+      "series": "c4n-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 88.2,
+          "captured_at": "2026-11-01T04:18:37Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 159,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 85.7,
+          "captured_at": "2026-11-01T07:03:40Z"
+        }
+      }
+    },
+    {
+      "machine_type": "h4d-highmem-192",
+      "series": "h4d-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 2,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 50.4,
+          "captured_at": "2026-11-01T04:20:56Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 154,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 45.4,
+          "captured_at": "2026-11-01T07:06:13Z"
+        }
+      }
+    },
+    {
+      "machine_type": "h4d-standard-192",
+      "series": "h4d-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 50.1,
+          "captured_at": "2026-11-01T04:22:59Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 114,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 43.9,
+          "captured_at": "2026-11-01T07:08:12Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n2d-highcpu-224",
+      "series": "n2d-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 55.5,
+          "captured_at": "2026-11-01T04:25:12Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 143,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 54,
+          "captured_at": "2026-11-01T07:10:34Z"
+        }
+      }
+    },
+    {
+      "machine_type": "n2d-standard-224",
+      "series": "n2d-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 2,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 80.5,
+          "captured_at": "2026-11-01T04:28:02Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 141,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 51.8,
+          "captured_at": "2026-11-01T07:12:55Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4-highcpu-288",
+      "series": "c4-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 3,
+          "zone": "us-central1-b",
+          "provisioning_model": "spot",
+          "provision_seconds": 52.4,
+          "captured_at": "2026-11-01T04:32:19Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 164,
+          "zone": "us-central1-b",
+          "provisioning_model": "spot",
+          "provision_seconds": 54.3,
+          "captured_at": "2026-11-01T07:15:35Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4-highmem-288",
+      "series": "c4-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 3,
+          "zone": "us-central1-b",
+          "provisioning_model": "spot",
+          "provision_seconds": 77.4,
+          "captured_at": "2026-11-01T04:35:28Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 150,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 73.9,
+          "captured_at": "2026-11-01T07:18:04Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4-standard-288",
+      "series": "c4-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 3,
+          "zone": "us-central1-b",
+          "provisioning_model": "spot",
+          "provision_seconds": 53.3,
+          "captured_at": "2026-11-01T04:37:58Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 137,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 64.1,
+          "captured_at": "2026-11-01T07:20:23Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c3d-highcpu-360",
+      "series": "c3d-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 2,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 105.7,
+          "captured_at": "2026-11-01T04:42:33Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 182,
+          "zone": "us-central1-a",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 86.7,
+          "captured_at": "2026-11-01T07:23:30Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c3d-highmem-360",
+      "series": "c3d-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 48.4,
+          "captured_at": "2026-11-01T04:44:31Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 146,
+          "zone": "us-central1-b",
+          "provisioning_model": "spot",
+          "provision_seconds": 49.6,
+          "captured_at": "2026-11-01T07:25:54Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c3d-standard-360",
+      "series": "c3d-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 3,
+          "zone": "us-central1-b",
+          "provisioning_model": "spot",
+          "provision_seconds": 51.8,
+          "captured_at": "2026-11-01T04:46:56Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 119,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 45.6,
+          "captured_at": "2026-11-01T07:27:56Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4d-highcpu-384",
+      "series": "c4d-highcpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 4,
+          "zone": "us-central1-b",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 221.1,
+          "captured_at": "2026-11-01T04:52:31Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 138,
+          "zone": "us-central1-b",
+          "provisioning_model": "spot",
+          "provision_seconds": 41.9,
+          "captured_at": "2026-11-01T07:30:12Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4d-highmem-384",
+      "series": "c4d-highmem",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 54,
+          "captured_at": "2026-11-01T04:54:32Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 156,
+          "zone": "us-central1-b",
+          "provisioning_model": "spot",
+          "provision_seconds": 60.2,
+          "captured_at": "2026-11-01T07:32:49Z"
+        }
+      }
+    },
+    {
+      "machine_type": "c4d-standard-384",
+      "series": "c4d-standard",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 1,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 45.8,
+          "captured_at": "2026-11-01T04:56:31Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 127,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 57.3,
+          "captured_at": "2026-11-01T07:34:54Z"
+        }
+      }
+    },
+    {
+      "machine_type": "a2-highgpu-8g",
+      "series": "a2-highgpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 6,
+          "zone": "us-central1-c",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 186.5,
+          "captured_at": "2026-11-01T05:02:20Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 228,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 143.1,
+          "captured_at": "2026-11-01T07:38:35Z"
+        }
+      }
+    },
+    {
+      "machine_type": "a3-edgegpu-8g-nolssd",
+      "series": "a3-edgegpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "stockout",
+          "attempts": 6,
+          "error": "no capacity in 6 attempt(s)"
+        },
+        "deterministic": {
+          "status": "stockout",
+          "attempts": 3,
+          "seconds": 175,
+          "error": "no capacity in 6 attempt(s)"
+        }
+      }
+    },
+    {
+      "machine_type": "a3-highgpu-8g",
+      "series": "a3-highgpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "stockout",
+          "attempts": 6,
+          "error": "no capacity in 6 attempt(s)"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 2,
+          "seconds": 252,
+          "zone": "us-central1-a",
+          "provisioning_model": "spot",
+          "provision_seconds": 62,
+          "captured_at": "2026-11-01T08:21:43Z"
+        }
+      }
+    },
+    {
+      "machine_type": "a2-megagpu-16g",
+      "series": "a2-megagpu",
+      "zone": "us-central1-a,us-central1-b,us-central1-c,us-central1-f",
+      "model": "spot",
+      "outcomes": {
+        "agent": {
+          "status": "ok",
+          "attempts": 6,
+          "zone": "us-central1-c",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 321,
+          "captured_at": "2026-11-01T05:12:43Z"
+        },
+        "deterministic": {
+          "status": "ok",
+          "attempts": 1,
+          "seconds": 444,
+          "zone": "us-central1-c",
+          "provisioning_model": "on-demand",
+          "provision_seconds": 255.3,
+          "captured_at": "2026-11-01T07:48:00Z"
+        }
+      }
+    }
+  ]
+}
