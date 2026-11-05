@@ -1,0 +1,16 @@
+{
+  "name": "c4-standard-192-lssd",
+  "family": "c4",
+  "description": "192 vCPUs, 720 GB RAM, 32 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 192,
+  "memory_mb": 737280,
+  "local_ssd_partitions": 32,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

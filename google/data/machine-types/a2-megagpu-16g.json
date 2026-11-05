@@ -1,0 +1,19 @@
+{
+  "name": "a2-megagpu-16g",
+  "family": "a2",
+  "description": "Accelerator Optimized: 16 NVIDIA Tesla A100 GPUs, 96 vCPUs, 1360GB RAM",
+  "vcpus": 96,
+  "memory_mb": 1392640,
+  "accelerators": [
+    {
+      "type": "nvidia-tesla-a100",
+      "count": 16
+    }
+  ],
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "a3-highgpu-4g",
+  "family": "a3",
+  "description": "Accelerator Optimized: 4 NVIDIA H100 GPU, 104 vCPUs, 936GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 104,
+  "memory_mb": 958464,
+  "accelerators": [
+    {
+      "type": "nvidia-h100-80gb",
+      "count": 4
+    }
+  ],
+  "local_ssd_partitions": 8,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

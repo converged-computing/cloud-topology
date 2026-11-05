@@ -1,0 +1,32 @@
+# Hyperscheduler level, by machine series: 16 vCPUs and 64 GB in total, any machine size.
+# A lower level chooses the concrete machine types (see quota sizes).
+version: 9999
+resources:
+  - type: cluster
+    count: 1
+    with:
+      - type: site
+        count: 1
+        with:
+          - type: region
+            count: 1
+            with:
+              - type: offer
+                count: 1
+                with:
+                  - type: slot
+                    count: 1
+                    label: default
+                    with:
+                      - type: core
+                        count: 16
+                      - type: memory
+                        count: 64
+attributes:
+  system:
+    duration: 3600
+tasks:
+  - command: [ "app" ]
+    slot: default
+    count:
+      per_slot: 1

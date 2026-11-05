@@ -1,0 +1,14 @@
+{
+  "name": "c3-highmem-44",
+  "family": "c3",
+  "description": "44 vCPUs, 352 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 44,
+  "memory_mb": 360448,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

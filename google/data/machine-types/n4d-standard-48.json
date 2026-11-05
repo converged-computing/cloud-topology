@@ -1,0 +1,14 @@
+{
+  "name": "n4d-standard-48",
+  "family": "n4d",
+  "description": "48 vCPUs, 192 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 48,
+  "memory_mb": 196608,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

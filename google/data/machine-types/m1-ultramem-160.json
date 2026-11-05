@@ -1,0 +1,12 @@
+{
+  "name": "m1-ultramem-160",
+  "family": "m1",
+  "description": "160 vCPUs, 3844 GB RAM",
+  "vcpus": 160,
+  "memory_mb": 3936256,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

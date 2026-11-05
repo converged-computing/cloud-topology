@@ -1,0 +1,10 @@
+{
+  "name": "c3d-highmem-360",
+  "family": "c3d",
+  "description": "Fixture shaped like c3d-highmem-360; not read from the live catalog",
+  "vcpus": 360,
+  "memory_mb": 1474560,
+  "zones": [
+    "us-central1-a"
+  ]
+}

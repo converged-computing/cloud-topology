@@ -1,0 +1,14 @@
+{
+  "name": "n4a-standard-1",
+  "family": "n4a",
+  "description": "1 vCPUs, 4 GB RAM",
+  "architecture": "ARM64",
+  "vcpus": 1,
+  "memory_mb": 4096,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

@@ -10,7 +10,8 @@ go run ./cmd/catalog --index-only          # rebuild index.json only
 ```
 
 Each machine type becomes one file listing every zone (within the chosen regions) that offers
-it. Deprecated machine types are skipped unless `--include-deprecated` is set. Files for machine
+it. Disk types are exported the same way into `data/disk-types/` (`diskTypes.aggregatedList`):
+name, size range and the zones offering each. Deprecated machine types are skipped unless `--include-deprecated` is set. Files for machine
 types that disappear from the catalog are not deleted automatically.
 
 Not yet exported: accelerators that attach to general-purpose machines (for example N1 with T4),

@@ -1,0 +1,13 @@
+{
+  "name": "n2-highmem-2",
+  "family": "n2",
+  "description": "2 vCPUs 16 GB RAM",
+  "vcpus": 2,
+  "memory_mb": 16384,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

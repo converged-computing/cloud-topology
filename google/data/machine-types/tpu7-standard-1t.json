@@ -1,0 +1,17 @@
+{
+  "name": "tpu7-standard-1t",
+  "family": "tpu7",
+  "description": "56 vCPUs, 116 GB RAM, 1 Google TPU",
+  "architecture": "X86_64",
+  "vcpus": 56,
+  "memory_mb": 118784,
+  "accelerators": [
+    {
+      "type": "tpu7",
+      "count": 1
+    }
+  ],
+  "zones": [
+    "us-central1-c"
+  ]
+}

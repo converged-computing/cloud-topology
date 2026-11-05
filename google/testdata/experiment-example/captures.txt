@@ -1,0 +1,5 @@
+# Topology captures: the largest on-demand size quota allows in each series,
+# cheapest first, on Spot where quota allows. Each creates and deletes one instance.
+make topology MACHINE_TYPE=e2-standard-32 ZONE=us-central1-a ARGS="--provisioning-model=SPOT"
+make topology MACHINE_TYPE=n2-standard-128 ZONE=us-central1-a ARGS="--provisioning-model=SPOT"
+make topology MACHINE_TYPE=a2-megagpu-16g ZONE=us-central1-a ARGS="--maintenance-policy=TERMINATE --provisioning-model=SPOT"

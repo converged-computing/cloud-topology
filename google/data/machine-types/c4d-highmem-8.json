@@ -1,0 +1,14 @@
+{
+  "name": "c4d-highmem-8",
+  "family": "c4d",
+  "description": "8 vCPUs, 63 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 8,
+  "memory_mb": 64512,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

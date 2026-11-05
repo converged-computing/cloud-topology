@@ -1,0 +1,13 @@
+{
+  "name": "c2-standard-60",
+  "family": "c2",
+  "description": "Compute Optimized: 60 vCPUs, 240 GB RAM",
+  "vcpus": 60,
+  "memory_mb": 245760,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

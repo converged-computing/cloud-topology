@@ -1,0 +1,791 @@
+{
+ "graph": {
+  "edges": [
+   {
+    "source": "0",
+    "target": "1",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "1",
+    "target": "2",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "2",
+    "target": "3",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "3",
+    "target": "4",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "4",
+    "target": "5",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "5",
+    "target": "6",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "5",
+    "target": "7",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "8",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "9",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "10",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "11",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "12",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "13",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "14",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "15",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "16",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "4",
+    "target": "17",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "17",
+    "target": "18",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "17",
+    "target": "19",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "18",
+    "target": "20",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "18",
+    "target": "21",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "18",
+    "target": "22",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "18",
+    "target": "23",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "18",
+    "target": "24",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "18",
+    "target": "25",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "18",
+    "target": "26",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "18",
+    "target": "27",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "18",
+    "target": "28",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "3",
+    "target": "29",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "3",
+    "target": "30",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   }
+  ],
+  "nodes": [
+   {
+    "id": "0",
+    "metadata": {
+     "type": "cluster",
+     "basename": "cluster",
+     "name": "gcp",
+     "id": 0,
+     "uniq_id": 0,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp"
+     },
+     "properties": {
+      "provider": "google-cloud"
+     }
+    }
+   },
+   {
+    "id": "1",
+    "metadata": {
+     "type": "region",
+     "basename": "region",
+     "name": "us-central1",
+     "id": 0,
+     "uniq_id": 1,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1"
+     }
+    }
+   },
+   {
+    "id": "2",
+    "metadata": {
+     "type": "zone",
+     "basename": "zone",
+     "name": "us-central1-a",
+     "id": 0,
+     "uniq_id": 2,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a"
+     }
+    }
+   },
+   {
+    "id": "3",
+    "metadata": {
+     "type": "offer",
+     "basename": "offer",
+     "name": "n2-standard-8.on-demand",
+     "id": 0,
+     "uniq_id": 3,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand"
+     },
+     "properties": {
+      "bandwidth_rule": "network-bandwidth: 2 Gbps per vCPU up to the N2 cap of 32 Gbps",
+      "egress_gbps": "16",
+      "family": "n2",
+      "machine_type": "n2-standard-8",
+      "memory_mb": "32768",
+      "placement": "compact:max-distance=0,max-nodes=1500",
+      "provisioning_model": "on-demand",
+      "tier1_gbps": "100",
+      "topology": "catalog",
+      "vcpus": "8"
+     }
+    }
+   },
+   {
+    "id": "4",
+    "metadata": {
+     "type": "placement",
+     "basename": "placement",
+     "name": "placement0",
+     "id": 0,
+     "uniq_id": 4,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0"
+     },
+     "properties": {
+      "compact": "true",
+      "max_distance": "0",
+      "max_nodes": "1500"
+     }
+    }
+   },
+   {
+    "id": "5",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node0",
+     "id": 0,
+     "uniq_id": 5,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0"
+     },
+     "properties": {
+      "state": "potential"
+     }
+    }
+   },
+   {
+    "id": "6",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket0",
+     "id": 0,
+     "uniq_id": 6,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0/socket0"
+     }
+    }
+   },
+   {
+    "id": "7",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 0,
+     "uniq_id": 7,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "Gbps",
+     "size": 16,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0/nic0"
+     },
+     "properties": {
+      "kind": "gvnic",
+      "source": "rule"
+     }
+    }
+   },
+   {
+    "id": "8",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 0,
+     "uniq_id": 8,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "9",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 1,
+     "uniq_id": 9,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "10",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 2,
+     "uniq_id": 10,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0/socket0/core2"
+     }
+    }
+   },
+   {
+    "id": "11",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core3",
+     "id": 3,
+     "uniq_id": 11,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0/socket0/core3"
+     }
+    }
+   },
+   {
+    "id": "12",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core4",
+     "id": 4,
+     "uniq_id": 12,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0/socket0/core4"
+     }
+    }
+   },
+   {
+    "id": "13",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core5",
+     "id": 5,
+     "uniq_id": 13,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0/socket0/core5"
+     }
+    }
+   },
+   {
+    "id": "14",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core6",
+     "id": 6,
+     "uniq_id": 14,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0/socket0/core6"
+     }
+    }
+   },
+   {
+    "id": "15",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core7",
+     "id": 7,
+     "uniq_id": 15,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0/socket0/core7"
+     }
+    }
+   },
+   {
+    "id": "16",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 0,
+     "uniq_id": 16,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 32,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node0/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "17",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node1",
+     "id": 1,
+     "uniq_id": 17,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1"
+     },
+     "properties": {
+      "state": "potential"
+     }
+    }
+   },
+   {
+    "id": "18",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket0",
+     "id": 1,
+     "uniq_id": 18,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1/socket0"
+     }
+    }
+   },
+   {
+    "id": "19",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 1,
+     "uniq_id": 19,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "Gbps",
+     "size": 16,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1/nic0"
+     },
+     "properties": {
+      "kind": "gvnic",
+      "source": "rule"
+     }
+    }
+   },
+   {
+    "id": "20",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 8,
+     "uniq_id": 20,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "21",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 9,
+     "uniq_id": 21,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "22",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 10,
+     "uniq_id": 22,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1/socket0/core2"
+     }
+    }
+   },
+   {
+    "id": "23",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core3",
+     "id": 11,
+     "uniq_id": 23,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1/socket0/core3"
+     }
+    }
+   },
+   {
+    "id": "24",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core4",
+     "id": 12,
+     "uniq_id": 24,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1/socket0/core4"
+     }
+    }
+   },
+   {
+    "id": "25",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core5",
+     "id": 13,
+     "uniq_id": 25,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1/socket0/core5"
+     }
+    }
+   },
+   {
+    "id": "26",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core6",
+     "id": 14,
+     "uniq_id": 26,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1/socket0/core6"
+     }
+    }
+   },
+   {
+    "id": "27",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core7",
+     "id": 15,
+     "uniq_id": 27,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1/socket0/core7"
+     }
+    }
+   },
+   {
+    "id": "28",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 1,
+     "uniq_id": 28,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 32,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/placement0/node1/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "29",
+    "metadata": {
+     "type": "pd_ssd",
+     "basename": "pd_ssd",
+     "name": "pd_ssd0",
+     "id": 0,
+     "uniq_id": 29,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 65536,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/pd_ssd0"
+     },
+     "properties": {
+      "capacity": "largest disk (no quota snapshot)",
+      "disk_type": "pd-ssd",
+      "max_gb": "65536",
+      "min_gb": "10"
+     }
+    }
+   },
+   {
+    "id": "30",
+    "metadata": {
+     "type": "pd_standard",
+     "basename": "pd_standard",
+     "name": "pd_standard0",
+     "id": 0,
+     "uniq_id": 30,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 65536,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/n2-standard-8.on-demand/pd_standard0"
+     },
+     "properties": {
+      "capacity": "largest disk (no quota snapshot)",
+      "disk_type": "pd-standard",
+      "max_gb": "65536",
+      "min_gb": "10"
+     }
+    }
+   }
+  ]
+ }
+}

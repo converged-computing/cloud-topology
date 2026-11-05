@@ -128,3 +128,5 @@ tr.row { cursor: pointer; } tr.row:hover td { background: var(--panel); } tr.hi 
 @media (max-width: 900px) { .shell { grid-template-columns: 1fr; } .side { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; } .side nav { flex-direction: row; flex-wrap: wrap; } .side-foot { margin: 0; flex-direction: row; } .gtree-wrap { grid-template-columns: 1fr; } }
 
 .badge.clickable { cursor: pointer; } .badge.clickable:hover { border-color: var(--text-secondary); }
+
+.chart.glyph svg { height: 44px; width: 240px; } .chart.glyph rect:hover { stroke: var(--text-primary); stroke-width: 1px; }

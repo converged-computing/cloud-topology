@@ -6,5 +6,9 @@ google/examples/fluxion-go/fluxion-go
 google/projects/
 # Static site export (make site); set SITE=../docs to keep one for GitHub Pages
 google/site/
+# Graph database export (make graphdb)
+google/graphdb/
 # Lock held by a running plan (topology/run-plan.sh)
 *.lock
+# LadybugDB shell history (written where lbug runs)
+history.txt

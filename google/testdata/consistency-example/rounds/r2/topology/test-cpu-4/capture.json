@@ -1,0 +1,1 @@
+{"machine_type": "test-cpu-4", "zone": "us-central1-b", "image": "x", "captured_at": "2026-11-03T10:00:00Z", "provision_seconds": 60, "provisioning_model": "spot", "hwloc_version": "2.10.0"}

@@ -1,0 +1,14 @@
+{
+  "name": "c3-highmem-22",
+  "family": "c3",
+  "description": "22 vCPUs, 176 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 22,
+  "memory_mb": 180224,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

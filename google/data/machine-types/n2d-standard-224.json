@@ -1,0 +1,13 @@
+{
+  "name": "n2d-standard-224",
+  "family": "n2d",
+  "description": "224 vCPUs 896 GB RAM",
+  "vcpus": 224,
+  "memory_mb": 917504,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

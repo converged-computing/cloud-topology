@@ -1,0 +1,16 @@
+{
+  "name": "z3-highmem-44-standardlssd",
+  "family": "z3",
+  "description": "44 vCPUs, 352 GB RAM, 3 Local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 44,
+  "memory_mb": 360448,
+  "local_ssd_partitions": 3,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

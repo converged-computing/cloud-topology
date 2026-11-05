@@ -1,0 +1,11 @@
+{
+  "name": "x5-1376-24t-metal",
+  "family": "x5",
+  "description": "1376 vCPUs, 24576 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 1376,
+  "memory_mb": 25165824,
+  "zones": [
+    "us-central1-a"
+  ]
+}

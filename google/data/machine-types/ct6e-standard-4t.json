@@ -1,0 +1,19 @@
+{
+  "name": "ct6e-standard-4t",
+  "family": "ct6e",
+  "description": "180 vCPUs, 720 GB RAM, 4 Google V6 lite TPUs",
+  "architecture": "X86_64",
+  "vcpus": 180,
+  "memory_mb": 737280,
+  "accelerators": [
+    {
+      "type": "ct6e",
+      "count": 4
+    }
+  ],
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

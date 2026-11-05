@@ -1,0 +1,16 @@
+{
+  "name": "c3d-standard-360-lssd",
+  "family": "c3d",
+  "description": "360 vCPUs, 1440 GB RAM, 32 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 360,
+  "memory_mb": 1474560,
+  "local_ssd_partitions": 32,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

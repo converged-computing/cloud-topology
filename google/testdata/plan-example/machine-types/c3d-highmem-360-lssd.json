@@ -1,0 +1,12 @@
+{
+  "name": "c3d-highmem-360-lssd",
+  "family": "c3d",
+  "description": "Fixture shaped like c3d-highmem-360-lssd; not read from the live catalog",
+  "vcpus": 360,
+  "memory_mb": 1474560,
+  "local_ssd_partitions": 32,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a"
+  ]
+}

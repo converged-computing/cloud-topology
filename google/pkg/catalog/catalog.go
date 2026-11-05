@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 
 	compute "cloud.google.com/go/compute/apiv1"
@@ -133,4 +134,74 @@ func appendUnique(list []string, s string) []string {
 		}
 	}
 	return append(list, s)
+}
+
+// DiskPair is one zone's list of disk types from an aggregated list call.
+type DiskPair struct {
+	Key       string
+	DiskTypes []*computepb.DiskType
+}
+
+// FetchDiskTypes lists disk types for a project across all zones. Regional disk types
+// (keys under regions/) are skipped: the graphs model zonal storage.
+func FetchDiskTypes(ctx context.Context, project string) ([]DiskPair, error) {
+	client, err := compute.NewDiskTypesRESTClient(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer client.Close()
+	it := client.AggregatedList(ctx, &computepb.AggregatedListDiskTypesRequest{Project: project})
+	var pairs []DiskPair
+	for {
+		pair, err := it.Next()
+		if errors.Is(err, iterator.Done) {
+			break
+		}
+		if err != nil {
+			return nil, fmt.Errorf("listing disk types: %w", err)
+		}
+		if pair.Value == nil || !strings.HasPrefix(pair.Key, "zones/") {
+			continue
+		}
+		pairs = append(pairs, DiskPair{Key: pair.Key, DiskTypes: pair.Value.GetDiskTypes()})
+	}
+	return pairs, nil
+}
+
+// ConvertDiskTypes merges per-zone disk types into one record per disk type, keeping the
+// zones in opts.Regions (all when empty). Deprecated disk types are skipped unless
+// opts.IncludeDeprecated. The valid size range is parsed from strings like "10GB-65536GB".
+func ConvertDiskTypes(pairs []DiskPair, opts Options) map[string]database.DiskType {
+	regions := toSet(opts.Regions)
+	out := map[string]database.DiskType{}
+	for _, pair := range pairs {
+		zone := strings.TrimPrefix(pair.Key, "zones/")
+		if len(regions) > 0 && !regions[database.RegionOf(zone)] {
+			continue
+		}
+		for _, d := range pair.DiskTypes {
+			if d.GetDeprecated().GetState() != "" && !opts.IncludeDeprecated {
+				continue
+			}
+			dt, ok := out[d.GetName()]
+			if !ok {
+				min, max := parseSizeRange(d.GetValidDiskSize())
+				dt = database.DiskType{Name: d.GetName(), Description: d.GetDescription(), MinGB: min, MaxGB: max, DefaultGB: int(d.GetDefaultDiskSizeGb())}
+			}
+			dt.Zones = append(dt.Zones, zone)
+			out[d.GetName()] = dt
+		}
+	}
+	return out
+}
+
+// parseSizeRange reads "10GB-65536GB" as (10, 65536).
+func parseSizeRange(s string) (int, int) {
+	parts := strings.SplitN(s, "-", 2)
+	if len(parts) != 2 {
+		return 0, 0
+	}
+	min, _ := strconv.Atoi(strings.TrimSuffix(strings.TrimSpace(parts[0]), "GB"))
+	max, _ := strconv.Atoi(strings.TrimSuffix(strings.TrimSpace(parts[1]), "GB"))
+	return min, max
 }

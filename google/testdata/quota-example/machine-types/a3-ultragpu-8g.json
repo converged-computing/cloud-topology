@@ -1,0 +1,16 @@
+{
+  "name": "a3-ultragpu-8g",
+  "family": "a3",
+  "description": "Fixture: A3 Ultra has no standard GPU quota, so on-demand is impossible",
+  "vcpus": 224,
+  "memory_mb": 2969600,
+  "accelerators": [
+    {
+      "type": "nvidia-h200-141gb",
+      "count": 8
+    }
+  ],
+  "zones": [
+    "us-central1-b"
+  ]
+}

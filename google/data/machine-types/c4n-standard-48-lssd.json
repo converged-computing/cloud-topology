@@ -1,0 +1,15 @@
+{
+  "name": "c4n-standard-48-lssd",
+  "family": "c4n",
+  "description": "48 vCPUs, 180 GB RAM, 8 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 48,
+  "memory_mb": 184320,
+  "local_ssd_partitions": 8,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

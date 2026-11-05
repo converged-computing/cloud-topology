@@ -1,0 +1,13 @@
+{
+  "name": "x4-megamem-1920-metal",
+  "family": "x4",
+  "description": "1920 vCPUs, 32768 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 1920,
+  "memory_mb": 33554432,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

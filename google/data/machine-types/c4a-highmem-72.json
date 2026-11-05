@@ -1,0 +1,14 @@
+{
+  "name": "c4a-highmem-72",
+  "family": "c4a",
+  "description": "72 vCPUs, 576 GB RAM",
+  "architecture": "ARM64",
+  "vcpus": 72,
+  "memory_mb": 589824,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

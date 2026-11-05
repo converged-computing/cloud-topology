@@ -1,0 +1,14 @@
+{
+  "name": "n4-highmem-80",
+  "family": "n4",
+  "description": "80 vCPUs, 640 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 80,
+  "memory_mb": 655360,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

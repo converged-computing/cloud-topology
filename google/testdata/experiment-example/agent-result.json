@@ -1,0 +1,16 @@
+SystemMessage(subtype='init', data={'type': 'system', 'subtype': 'init'})
+AssistantMessage(content=[TextBlock(text='Working the plan.')], model='claude-opus-5-5')
+ResultMessage(subtype='success', duration_ms=2100000, duration_api_ms=95000, is_error=False, num_turns=14, session_id='x', total_cost_usd=2.5, usage={'input_tokens': 10})
+{
+  "results": [
+    {"machine_type": "e2-standard-32", "outcome": "ok", "zone": "us-central1-b", "model": "spot", "provision_seconds": 120, "error": "",
+     "attempts": [{"zone": "us-central1-a", "model": "spot", "outcome": "stockout", "message": ""}, {"zone": "us-central1-b", "model": "spot", "outcome": "ok", "message": ""}]},
+    {"machine_type": "n2-standard-128", "outcome": "stockout", "zone": "", "model": "", "provision_seconds": 0, "error": "ZONE_RESOURCE_POOL_EXHAUSTED | in us-central1-a",
+     "attempts": [{"zone": "us-central1-a", "model": "spot", "outcome": "stockout", "message": ""}, {"zone": "us-central1-a", "model": "on-demand", "outcome": "stockout", "message": ""}]},
+    {"machine_type": "a2-megagpu-16g", "outcome": "quota", "zone": "", "model": "", "provision_seconds": 0, "error": "Quota NVIDIA_A100_GPUS exceeded",
+     "attempts": [{"zone": "us-central1-a", "model": "spot", "outcome": "quota", "message": ""}]}
+  ],
+  "records": [],
+  "swept": [],
+  "attempts_used": 5
+}

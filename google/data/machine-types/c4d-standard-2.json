@@ -1,0 +1,14 @@
+{
+  "name": "c4d-standard-2",
+  "family": "c4d",
+  "description": "2 vCPUs, 7 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 2,
+  "memory_mb": 7168,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

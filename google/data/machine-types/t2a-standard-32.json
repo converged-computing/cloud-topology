@@ -1,0 +1,13 @@
+{
+  "name": "t2a-standard-32",
+  "family": "t2a",
+  "description": "32 vCPUs, 128 GB RAM",
+  "architecture": "ARM64",
+  "vcpus": 32,
+  "memory_mb": 131072,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-f"
+  ]
+}

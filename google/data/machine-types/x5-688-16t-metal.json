@@ -1,0 +1,11 @@
+{
+  "name": "x5-688-16t-metal",
+  "family": "x5",
+  "description": "688 vCPUs, 16384 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 688,
+  "memory_mb": 16777216,
+  "zones": [
+    "us-central1-a"
+  ]
+}

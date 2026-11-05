@@ -1,0 +1,14 @@
+{
+  "name": "c4-standard-288-metal",
+  "family": "c4",
+  "description": "288 vCPUs, 1080 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 288,
+  "memory_mb": 1105920,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

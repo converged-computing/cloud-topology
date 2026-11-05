@@ -1,0 +1,13 @@
+{
+  "name": "e2-highmem-4",
+  "family": "e2",
+  "description": "Efficient Instance, 4 vCPUs, 32 GB RAM",
+  "vcpus": 4,
+  "memory_mb": 32768,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "n1-highcpu-96",
+  "family": "n1",
+  "description": "96 vCPUs, 86 GB RAM",
+  "vcpus": 96,
+  "memory_mb": 88474,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "ct5lp-hightpu-4t",
+  "family": "ct5lp",
+  "description": "Fixture shaped like ct5lp-hightpu-4t; not read from the live catalog",
+  "vcpus": 112,
+  "memory_mb": 458752,
+  "zones": [
+    "us-central1-a"
+  ]
+}

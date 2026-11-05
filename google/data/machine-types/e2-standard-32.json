@@ -1,0 +1,13 @@
+{
+  "name": "e2-standard-32",
+  "family": "e2",
+  "description": "Efficient Instance, 32 vCPUs, 128 GB RAM",
+  "vcpus": 32,
+  "memory_mb": 131072,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

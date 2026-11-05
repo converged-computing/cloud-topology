@@ -1,0 +1,13 @@
+{
+  "name": "m1-megamem-96",
+  "family": "m1",
+  "description": "96 vCPUs, 1.4 TB RAM",
+  "vcpus": 96,
+  "memory_mb": 1468006,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

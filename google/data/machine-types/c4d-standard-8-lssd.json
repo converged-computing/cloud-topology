@@ -1,0 +1,16 @@
+{
+  "name": "c4d-standard-8-lssd",
+  "family": "c4d",
+  "description": "8 vCPUs, 31 GB RAM, 1 local SSD",
+  "architecture": "X86_64",
+  "vcpus": 8,
+  "memory_mb": 31744,
+  "local_ssd_partitions": 1,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

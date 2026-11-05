@@ -1,0 +1,13 @@
+{
+  "name": "x4-megamem-1440-metal",
+  "family": "x4",
+  "description": "1440 vCPUs, 24576 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 1440,
+  "memory_mb": 25165824,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

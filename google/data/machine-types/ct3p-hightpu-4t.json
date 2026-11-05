@@ -1,0 +1,19 @@
+{
+  "name": "ct3p-hightpu-4t",
+  "family": "ct3p",
+  "description": "48 vCPUs, 340 GB RAM, 1 vNUMA nodes",
+  "architecture": "X86_64",
+  "vcpus": 48,
+  "memory_mb": 348160,
+  "accelerators": [
+    {
+      "type": "ct3p",
+      "count": 4
+    }
+  ],
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-f"
+  ]
+}

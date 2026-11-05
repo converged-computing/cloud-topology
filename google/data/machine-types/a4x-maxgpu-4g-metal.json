@@ -1,0 +1,19 @@
+{
+  "name": "a4x-maxgpu-4g-metal",
+  "family": "a4x",
+  "description": "Accelerator Optimized: 4 NVIDIA GB300 GPU, 144 vCPUs, 960GB RAM",
+  "architecture": "ARM64",
+  "vcpus": 144,
+  "memory_mb": 983040,
+  "accelerators": [
+    {
+      "type": "nvidia-gb300",
+      "count": 4
+    }
+  ],
+  "local_ssd_partitions": 4,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-b"
+  ]
+}

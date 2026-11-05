@@ -1,0 +1,14 @@
+{
+  "name": "n4d-highcpu-96",
+  "family": "n4d",
+  "description": "96 vCPUs, 192 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 96,
+  "memory_mb": 196608,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

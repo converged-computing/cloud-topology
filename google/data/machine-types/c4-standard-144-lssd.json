@@ -1,0 +1,16 @@
+{
+  "name": "c4-standard-144-lssd",
+  "family": "c4",
+  "description": "144 vCPUs, 540 GB RAM, 24 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 144,
+  "memory_mb": 552960,
+  "local_ssd_partitions": 24,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "c4a-highcpu-32",
+  "family": "c4a",
+  "description": "32 vCPUs, 64 GB RAM",
+  "architecture": "ARM64",
+  "vcpus": 32,
+  "memory_mb": 65536,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

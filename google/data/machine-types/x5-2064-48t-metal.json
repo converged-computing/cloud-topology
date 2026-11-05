@@ -1,0 +1,11 @@
+{
+  "name": "x5-2064-48t-metal",
+  "family": "x5",
+  "description": "2064 vCPUs, 49152 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 2064,
+  "memory_mb": 50331648,
+  "zones": [
+    "us-central1-a"
+  ]
+}

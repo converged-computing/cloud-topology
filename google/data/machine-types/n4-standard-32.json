@@ -1,0 +1,14 @@
+{
+  "name": "n4-standard-32",
+  "family": "n4",
+  "description": "32 vCPUs, 128 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 32,
+  "memory_mb": 131072,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

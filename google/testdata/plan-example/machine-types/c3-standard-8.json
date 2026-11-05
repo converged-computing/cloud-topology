@@ -1,0 +1,10 @@
+{
+  "name": "c3-standard-8",
+  "family": "c3",
+  "description": "Fixture shaped like c3-standard-8; not read from the live catalog",
+  "vcpus": 8,
+  "memory_mb": 32768,
+  "zones": [
+    "us-central1-a"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "z4d-highmem-64-standardlssd",
+  "family": "z4d",
+  "description": "Storage Optimized VM: 64 vCPUs, 504 GB RAM, 4 Local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 64,
+  "memory_mb": 516096,
+  "local_ssd_partitions": 4,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

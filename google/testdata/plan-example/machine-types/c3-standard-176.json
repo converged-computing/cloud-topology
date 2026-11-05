@@ -1,0 +1,10 @@
+{
+  "name": "c3-standard-176",
+  "family": "c3",
+  "description": "Fixture shaped like c3-standard-176; not read from the live catalog",
+  "vcpus": 176,
+  "memory_mb": 720896,
+  "zones": [
+    "us-central1-a"
+  ]
+}

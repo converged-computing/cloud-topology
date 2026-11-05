@@ -1,0 +1,16 @@
+{
+  "name": "c3d-standard-180-lssd",
+  "family": "c3d",
+  "description": "180 vCPUs, 720 GB RAM, 16 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 180,
+  "memory_mb": 737280,
+  "local_ssd_partitions": 16,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

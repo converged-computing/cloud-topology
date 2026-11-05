@@ -1,0 +1,2397 @@
+{
+ "graph": {
+  "edges": [
+   {
+    "source": "0",
+    "target": "1",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "1",
+    "target": "2",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "2",
+    "target": "3",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "3",
+    "target": "4",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "4",
+    "target": "5",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "5",
+    "target": "6",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "5",
+    "target": "7",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "8",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "9",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "10",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "11",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "6",
+    "target": "12",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "3",
+    "target": "13",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "13",
+    "target": "14",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "14",
+    "target": "15",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "14",
+    "target": "16",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "15",
+    "target": "17",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "15",
+    "target": "18",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "15",
+    "target": "19",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "15",
+    "target": "20",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "15",
+    "target": "21",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "2",
+    "target": "22",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "22",
+    "target": "23",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "23",
+    "target": "24",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "24",
+    "target": "25",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "25",
+    "target": "26",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "25",
+    "target": "27",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "25",
+    "target": "28",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "25",
+    "target": "29",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "25",
+    "target": "30",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "24",
+    "target": "31",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "25",
+    "target": "32",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "24",
+    "target": "33",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "33",
+    "target": "34",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "33",
+    "target": "35",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "33",
+    "target": "36",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "33",
+    "target": "37",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "33",
+    "target": "38",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "33",
+    "target": "39",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "22",
+    "target": "40",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "40",
+    "target": "41",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "41",
+    "target": "42",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "42",
+    "target": "43",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "42",
+    "target": "44",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "42",
+    "target": "45",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "42",
+    "target": "46",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "42",
+    "target": "47",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "41",
+    "target": "48",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "42",
+    "target": "49",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "41",
+    "target": "50",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "50",
+    "target": "51",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "50",
+    "target": "52",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "50",
+    "target": "53",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "50",
+    "target": "54",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "50",
+    "target": "55",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "50",
+    "target": "56",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "1",
+    "target": "57",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "57",
+    "target": "58",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "58",
+    "target": "59",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "59",
+    "target": "60",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "60",
+    "target": "61",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "61",
+    "target": "62",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "61",
+    "target": "63",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "61",
+    "target": "64",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "61",
+    "target": "65",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "61",
+    "target": "66",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "60",
+    "target": "67",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "61",
+    "target": "68",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "60",
+    "target": "69",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "69",
+    "target": "70",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "69",
+    "target": "71",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "69",
+    "target": "72",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "69",
+    "target": "73",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "69",
+    "target": "74",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "69",
+    "target": "75",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "58",
+    "target": "76",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "76",
+    "target": "77",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "77",
+    "target": "78",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "78",
+    "target": "79",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "78",
+    "target": "80",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "78",
+    "target": "81",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "78",
+    "target": "82",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "78",
+    "target": "83",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "77",
+    "target": "84",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "78",
+    "target": "85",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "77",
+    "target": "86",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "86",
+    "target": "87",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "86",
+    "target": "88",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "86",
+    "target": "89",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "86",
+    "target": "90",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "86",
+    "target": "91",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "86",
+    "target": "92",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   }
+  ],
+  "nodes": [
+   {
+    "id": "0",
+    "metadata": {
+     "type": "cluster",
+     "basename": "cluster",
+     "name": "gcp",
+     "id": 0,
+     "uniq_id": 0,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp"
+     },
+     "properties": {
+      "provider": "google-cloud"
+     }
+    }
+   },
+   {
+    "id": "1",
+    "metadata": {
+     "type": "region",
+     "basename": "region",
+     "name": "us-central1",
+     "id": 0,
+     "uniq_id": 1,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1"
+     }
+    }
+   },
+   {
+    "id": "2",
+    "metadata": {
+     "type": "zone",
+     "basename": "zone",
+     "name": "us-central1-a",
+     "id": 0,
+     "uniq_id": 2,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a"
+     }
+    }
+   },
+   {
+    "id": "3",
+    "metadata": {
+     "type": "offer",
+     "basename": "offer",
+     "name": "test-cpu-4.on-demand",
+     "id": 0,
+     "uniq_id": 3,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand"
+     },
+     "properties": {
+      "bandwidth_rule": "general rule: 2 Gbps per vCPU, capped at 32 (series not in the table)",
+      "egress_gbps": "8",
+      "family": "test",
+      "machine_type": "test-cpu-4",
+      "memory_mb": "16384",
+      "placement": "none",
+      "provisioning_model": "on-demand",
+      "topology": "catalog",
+      "vcpus": "4"
+     }
+    }
+   },
+   {
+    "id": "4",
+    "metadata": {
+     "type": "placement",
+     "basename": "placement",
+     "name": "placement0",
+     "id": 0,
+     "uniq_id": 4,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0"
+     },
+     "properties": {
+      "compact": "false",
+      "max_nodes": "1"
+     }
+    }
+   },
+   {
+    "id": "5",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node0",
+     "id": 0,
+     "uniq_id": 5,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0"
+     },
+     "properties": {
+      "state": "potential"
+     }
+    }
+   },
+   {
+    "id": "6",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket0",
+     "id": 0,
+     "uniq_id": 6,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0"
+     }
+    }
+   },
+   {
+    "id": "7",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 0,
+     "uniq_id": 7,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "Gbps",
+     "size": 8,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/nic0"
+     },
+     "properties": {
+      "kind": "gvnic",
+      "source": "rule"
+     }
+    }
+   },
+   {
+    "id": "8",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 0,
+     "uniq_id": 8,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "9",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 1,
+     "uniq_id": 9,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "10",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 2,
+     "uniq_id": 10,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/core2"
+     }
+    }
+   },
+   {
+    "id": "11",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core3",
+     "id": 3,
+     "uniq_id": 11,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/core3"
+     }
+    }
+   },
+   {
+    "id": "12",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 0,
+     "uniq_id": 12,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 16,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "13",
+    "metadata": {
+     "type": "placement",
+     "basename": "placement",
+     "name": "placement1",
+     "id": 1,
+     "uniq_id": 13,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1"
+     },
+     "properties": {
+      "compact": "false",
+      "max_nodes": "1"
+     }
+    }
+   },
+   {
+    "id": "14",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node1",
+     "id": 1,
+     "uniq_id": 14,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1"
+     },
+     "properties": {
+      "state": "potential"
+     }
+    }
+   },
+   {
+    "id": "15",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket0",
+     "id": 1,
+     "uniq_id": 15,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0"
+     }
+    }
+   },
+   {
+    "id": "16",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 1,
+     "uniq_id": 16,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "Gbps",
+     "size": 8,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/nic0"
+     },
+     "properties": {
+      "kind": "gvnic",
+      "source": "rule"
+     }
+    }
+   },
+   {
+    "id": "17",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 4,
+     "uniq_id": 17,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "18",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 5,
+     "uniq_id": 18,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "19",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 6,
+     "uniq_id": 19,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/core2"
+     }
+    }
+   },
+   {
+    "id": "20",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core3",
+     "id": 7,
+     "uniq_id": 20,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/core3"
+     }
+    }
+   },
+   {
+    "id": "21",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 1,
+     "uniq_id": 21,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 16,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "22",
+    "metadata": {
+     "type": "offer",
+     "basename": "offer",
+     "name": "test-gpu-2g.on-demand",
+     "id": 1,
+     "uniq_id": 22,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand"
+     },
+     "properties": {
+      "accelerators": "nvidia-h100-80gb:2",
+      "bandwidth_rule": "general rule: 2 Gbps per vCPU, capped at 32 (series not in the table)",
+      "egress_gbps": "32",
+      "family": "test",
+      "machine_type": "test-gpu-2g",
+      "memory_mb": "131072",
+      "placement": "none",
+      "provisioning_model": "on-demand",
+      "topology": "hwloc",
+      "vcpus": "16"
+     }
+    }
+   },
+   {
+    "id": "23",
+    "metadata": {
+     "type": "placement",
+     "basename": "placement",
+     "name": "placement0",
+     "id": 2,
+     "uniq_id": 23,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0"
+     },
+     "properties": {
+      "compact": "false",
+      "max_nodes": "1"
+     }
+    }
+   },
+   {
+    "id": "24",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node0",
+     "id": 2,
+     "uniq_id": 24,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0"
+     },
+     "properties": {
+      "state": "potential"
+     }
+    }
+   },
+   {
+    "id": "25",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket0",
+     "id": 2,
+     "uniq_id": 25,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0"
+     }
+    }
+   },
+   {
+    "id": "26",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 8,
+     "uniq_id": 26,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "27",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 9,
+     "uniq_id": 27,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "28",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 10,
+     "uniq_id": 28,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core2"
+     }
+    }
+   },
+   {
+    "id": "29",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core3",
+     "id": 11,
+     "uniq_id": 29,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core3"
+     }
+    }
+   },
+   {
+    "id": "30",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 0,
+     "uniq_id": 30,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/gpu0"
+     },
+     "properties": {
+      "device_id": "2330",
+      "pci_busid": "0000:04:00.0",
+      "vendor": "nvidia",
+      "vendor_id": "10de"
+     }
+    }
+   },
+   {
+    "id": "31",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 2,
+     "uniq_id": 31,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "Gbps",
+     "size": 32,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/nic0"
+     },
+     "properties": {
+      "device_id": "0042",
+      "kind": "gvnic",
+      "local_socket": "0",
+      "pci_busid": "0000:00:05.0",
+      "vendor_id": "1ae0"
+     }
+    }
+   },
+   {
+    "id": "32",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 2,
+     "uniq_id": 32,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 64,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "33",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket1",
+     "id": 3,
+     "uniq_id": 33,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1"
+     }
+    }
+   },
+   {
+    "id": "34",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core4",
+     "id": 12,
+     "uniq_id": 34,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core4"
+     }
+    }
+   },
+   {
+    "id": "35",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core5",
+     "id": 13,
+     "uniq_id": 35,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core5"
+     }
+    }
+   },
+   {
+    "id": "36",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core6",
+     "id": 14,
+     "uniq_id": 36,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core6"
+     }
+    }
+   },
+   {
+    "id": "37",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core7",
+     "id": 15,
+     "uniq_id": 37,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core7"
+     }
+    }
+   },
+   {
+    "id": "38",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu1",
+     "id": 1,
+     "uniq_id": 38,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/gpu1"
+     },
+     "properties": {
+      "device_id": "2330",
+      "pci_busid": "0001:04:00.0",
+      "vendor": "nvidia",
+      "vendor_id": "10de"
+     }
+    }
+   },
+   {
+    "id": "39",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory1",
+     "id": 3,
+     "uniq_id": 39,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 64,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/memory1"
+     }
+    }
+   },
+   {
+    "id": "40",
+    "metadata": {
+     "type": "placement",
+     "basename": "placement",
+     "name": "placement1",
+     "id": 3,
+     "uniq_id": 40,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1"
+     },
+     "properties": {
+      "compact": "false",
+      "max_nodes": "1"
+     }
+    }
+   },
+   {
+    "id": "41",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node1",
+     "id": 3,
+     "uniq_id": 41,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1"
+     },
+     "properties": {
+      "state": "potential"
+     }
+    }
+   },
+   {
+    "id": "42",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket0",
+     "id": 4,
+     "uniq_id": 42,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0"
+     }
+    }
+   },
+   {
+    "id": "43",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 16,
+     "uniq_id": 43,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "44",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 17,
+     "uniq_id": 44,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "45",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 18,
+     "uniq_id": 45,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core2"
+     }
+    }
+   },
+   {
+    "id": "46",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core3",
+     "id": 19,
+     "uniq_id": 46,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core3"
+     }
+    }
+   },
+   {
+    "id": "47",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 2,
+     "uniq_id": 47,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/gpu0"
+     },
+     "properties": {
+      "device_id": "2330",
+      "pci_busid": "0000:04:00.0",
+      "vendor": "nvidia",
+      "vendor_id": "10de"
+     }
+    }
+   },
+   {
+    "id": "48",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 3,
+     "uniq_id": 48,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "Gbps",
+     "size": 32,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/nic0"
+     },
+     "properties": {
+      "device_id": "0042",
+      "kind": "gvnic",
+      "local_socket": "0",
+      "pci_busid": "0000:00:05.0",
+      "vendor_id": "1ae0"
+     }
+    }
+   },
+   {
+    "id": "49",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 4,
+     "uniq_id": 49,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 64,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "50",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket1",
+     "id": 5,
+     "uniq_id": 50,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1"
+     }
+    }
+   },
+   {
+    "id": "51",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core4",
+     "id": 20,
+     "uniq_id": 51,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core4"
+     }
+    }
+   },
+   {
+    "id": "52",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core5",
+     "id": 21,
+     "uniq_id": 52,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core5"
+     }
+    }
+   },
+   {
+    "id": "53",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core6",
+     "id": 22,
+     "uniq_id": 53,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core6"
+     }
+    }
+   },
+   {
+    "id": "54",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core7",
+     "id": 23,
+     "uniq_id": 54,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core7"
+     }
+    }
+   },
+   {
+    "id": "55",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu1",
+     "id": 3,
+     "uniq_id": 55,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/gpu1"
+     },
+     "properties": {
+      "device_id": "2330",
+      "pci_busid": "0001:04:00.0",
+      "vendor": "nvidia",
+      "vendor_id": "10de"
+     }
+    }
+   },
+   {
+    "id": "56",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory1",
+     "id": 5,
+     "uniq_id": 56,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 64,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/memory1"
+     }
+    }
+   },
+   {
+    "id": "57",
+    "metadata": {
+     "type": "zone",
+     "basename": "zone",
+     "name": "us-central1-b",
+     "id": 1,
+     "uniq_id": 57,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b"
+     }
+    }
+   },
+   {
+    "id": "58",
+    "metadata": {
+     "type": "offer",
+     "basename": "offer",
+     "name": "test-gpu-2g.on-demand",
+     "id": 2,
+     "uniq_id": 58,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand"
+     },
+     "properties": {
+      "accelerators": "nvidia-h100-80gb:2",
+      "bandwidth_rule": "general rule: 2 Gbps per vCPU, capped at 32 (series not in the table)",
+      "egress_gbps": "32",
+      "family": "test",
+      "machine_type": "test-gpu-2g",
+      "memory_mb": "131072",
+      "placement": "none",
+      "provisioning_model": "on-demand",
+      "topology": "hwloc",
+      "vcpus": "16"
+     }
+    }
+   },
+   {
+    "id": "59",
+    "metadata": {
+     "type": "placement",
+     "basename": "placement",
+     "name": "placement0",
+     "id": 4,
+     "uniq_id": 59,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0"
+     },
+     "properties": {
+      "compact": "false",
+      "max_nodes": "1"
+     }
+    }
+   },
+   {
+    "id": "60",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node0",
+     "id": 4,
+     "uniq_id": 60,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0"
+     },
+     "properties": {
+      "state": "potential"
+     }
+    }
+   },
+   {
+    "id": "61",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket0",
+     "id": 6,
+     "uniq_id": 61,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0"
+     }
+    }
+   },
+   {
+    "id": "62",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 24,
+     "uniq_id": 62,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "63",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 25,
+     "uniq_id": 63,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "64",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 26,
+     "uniq_id": 64,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core2"
+     }
+    }
+   },
+   {
+    "id": "65",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core3",
+     "id": 27,
+     "uniq_id": 65,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core3"
+     }
+    }
+   },
+   {
+    "id": "66",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 4,
+     "uniq_id": 66,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/gpu0"
+     },
+     "properties": {
+      "device_id": "2330",
+      "pci_busid": "0000:04:00.0",
+      "vendor": "nvidia",
+      "vendor_id": "10de"
+     }
+    }
+   },
+   {
+    "id": "67",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 4,
+     "uniq_id": 67,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "Gbps",
+     "size": 32,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/nic0"
+     },
+     "properties": {
+      "device_id": "0042",
+      "kind": "gvnic",
+      "local_socket": "0",
+      "pci_busid": "0000:00:05.0",
+      "vendor_id": "1ae0"
+     }
+    }
+   },
+   {
+    "id": "68",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 6,
+     "uniq_id": 68,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 64,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "69",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket1",
+     "id": 7,
+     "uniq_id": 69,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1"
+     }
+    }
+   },
+   {
+    "id": "70",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core4",
+     "id": 28,
+     "uniq_id": 70,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core4"
+     }
+    }
+   },
+   {
+    "id": "71",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core5",
+     "id": 29,
+     "uniq_id": 71,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core5"
+     }
+    }
+   },
+   {
+    "id": "72",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core6",
+     "id": 30,
+     "uniq_id": 72,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core6"
+     }
+    }
+   },
+   {
+    "id": "73",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core7",
+     "id": 31,
+     "uniq_id": 73,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core7"
+     }
+    }
+   },
+   {
+    "id": "74",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu1",
+     "id": 5,
+     "uniq_id": 74,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/gpu1"
+     },
+     "properties": {
+      "device_id": "2330",
+      "pci_busid": "0001:04:00.0",
+      "vendor": "nvidia",
+      "vendor_id": "10de"
+     }
+    }
+   },
+   {
+    "id": "75",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory1",
+     "id": 7,
+     "uniq_id": 75,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 64,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/memory1"
+     }
+    }
+   },
+   {
+    "id": "76",
+    "metadata": {
+     "type": "placement",
+     "basename": "placement",
+     "name": "placement1",
+     "id": 5,
+     "uniq_id": 76,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1"
+     },
+     "properties": {
+      "compact": "false",
+      "max_nodes": "1"
+     }
+    }
+   },
+   {
+    "id": "77",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node1",
+     "id": 5,
+     "uniq_id": 77,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1"
+     },
+     "properties": {
+      "state": "potential"
+     }
+    }
+   },
+   {
+    "id": "78",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket0",
+     "id": 8,
+     "uniq_id": 78,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0"
+     }
+    }
+   },
+   {
+    "id": "79",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 32,
+     "uniq_id": 79,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "80",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 33,
+     "uniq_id": 80,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "81",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 34,
+     "uniq_id": 81,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core2"
+     }
+    }
+   },
+   {
+    "id": "82",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core3",
+     "id": 35,
+     "uniq_id": 82,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core3"
+     }
+    }
+   },
+   {
+    "id": "83",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 6,
+     "uniq_id": 83,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/gpu0"
+     },
+     "properties": {
+      "device_id": "2330",
+      "pci_busid": "0000:04:00.0",
+      "vendor": "nvidia",
+      "vendor_id": "10de"
+     }
+    }
+   },
+   {
+    "id": "84",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 5,
+     "uniq_id": 84,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "Gbps",
+     "size": 32,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/nic0"
+     },
+     "properties": {
+      "device_id": "0042",
+      "kind": "gvnic",
+      "local_socket": "0",
+      "pci_busid": "0000:00:05.0",
+      "vendor_id": "1ae0"
+     }
+    }
+   },
+   {
+    "id": "85",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 8,
+     "uniq_id": 85,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 64,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "86",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket1",
+     "id": 9,
+     "uniq_id": 86,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1"
+     }
+    }
+   },
+   {
+    "id": "87",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core4",
+     "id": 36,
+     "uniq_id": 87,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core4"
+     }
+    }
+   },
+   {
+    "id": "88",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core5",
+     "id": 37,
+     "uniq_id": 88,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core5"
+     }
+    }
+   },
+   {
+    "id": "89",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core6",
+     "id": 38,
+     "uniq_id": 89,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core6"
+     }
+    }
+   },
+   {
+    "id": "90",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core7",
+     "id": 39,
+     "uniq_id": 90,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core7"
+     }
+    }
+   },
+   {
+    "id": "91",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu1",
+     "id": 7,
+     "uniq_id": 91,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/gpu1"
+     },
+     "properties": {
+      "device_id": "2330",
+      "pci_busid": "0001:04:00.0",
+      "vendor": "nvidia",
+      "vendor_id": "10de"
+     }
+    }
+   },
+   {
+    "id": "92",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory1",
+     "id": 9,
+     "uniq_id": 92,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 64,
+     "paths": {
+      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/memory1"
+     }
+    }
+   }
+  ]
+ }
+}

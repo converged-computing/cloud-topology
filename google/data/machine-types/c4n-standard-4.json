@@ -1,0 +1,13 @@
+{
+  "name": "c4n-standard-4",
+  "family": "c4n",
+  "description": "4 vCPUs, 15 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 4,
+  "memory_mb": 15360,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "a3-highgpu-8g",
+  "family": "a3",
+  "description": "Fixture shaped like a3-highgpu-8g; not read from the live catalog",
+  "vcpus": 208,
+  "memory_mb": 851968,
+  "accelerators": [
+    {
+      "type": "nvidia-h100-80gb",
+      "count": 8
+    }
+  ],
+  "zones": [
+    "us-central1-a"
+  ]
+}

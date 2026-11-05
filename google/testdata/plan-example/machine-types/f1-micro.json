@@ -1,0 +1,11 @@
+{
+  "name": "f1-micro",
+  "family": "f1",
+  "description": "Fixture shaped like f1-micro; not read from the live catalog",
+  "vcpus": 1,
+  "memory_mb": 4096,
+  "shared_cpu": true,
+  "zones": [
+    "us-central1-a"
+  ]
+}

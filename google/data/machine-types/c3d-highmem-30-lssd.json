@@ -1,0 +1,15 @@
+{
+  "name": "c3d-highmem-30-lssd",
+  "family": "c3d",
+  "description": "30 vCPUs, 240 GB RAM, 2 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 30,
+  "memory_mb": 245760,
+  "local_ssd_partitions": 2,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

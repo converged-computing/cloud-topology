@@ -1,0 +1,14 @@
+{
+  "name": "c4d-highcpu-64",
+  "family": "c4d",
+  "description": "64 vCPUs, 120 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 64,
+  "memory_mb": 122880,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

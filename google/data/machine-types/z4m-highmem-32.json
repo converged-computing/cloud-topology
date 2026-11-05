@@ -1,0 +1,15 @@
+{
+  "name": "z4m-highmem-32",
+  "family": "z4m",
+  "description": "Storage Optimized VM: 32 vCPUs, 244 GB RAM, 2 Local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 32,
+  "memory_mb": 249856,
+  "local_ssd_partitions": 2,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

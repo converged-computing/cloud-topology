@@ -1,0 +1,16 @@
+{
+  "name": "c4-standard-288-lssd",
+  "family": "c4",
+  "description": "288 vCPUs, 1080 GB RAM, 48 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 288,
+  "memory_mb": 1105920,
+  "local_ssd_partitions": 48,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

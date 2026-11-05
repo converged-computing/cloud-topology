@@ -1,0 +1,17 @@
+{
+  "name": "a3-ultragpu-8g-nolssd",
+  "family": "a3",
+  "description": "Accelerator Optimized: 8 NVIDIA H200 GPU, 224 vCPUs, 2952GB RAM, No LocalSSD",
+  "architecture": "X86_64",
+  "vcpus": 224,
+  "memory_mb": 3022848,
+  "accelerators": [
+    {
+      "type": "nvidia-h200-141gb",
+      "count": 8
+    }
+  ],
+  "zones": [
+    "us-central1-b"
+  ]
+}

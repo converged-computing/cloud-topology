@@ -1,0 +1,19 @@
+{
+  "name": "a2-highgpu-4g",
+  "family": "a2",
+  "description": "Accelerator Optimized: 4 NVIDIA Tesla A100 GPUs, 48 vCPUs, 340GB RAM",
+  "vcpus": 48,
+  "memory_mb": 348160,
+  "accelerators": [
+    {
+      "type": "nvidia-tesla-a100",
+      "count": 4
+    }
+  ],
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

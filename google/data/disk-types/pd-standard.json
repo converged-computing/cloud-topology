@@ -1,0 +1,13 @@
+{
+  "name": "pd-standard",
+  "description": "Standard Persistent Disk",
+  "min_gb": 10,
+  "max_gb": 65536,
+  "default_gb": 500,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

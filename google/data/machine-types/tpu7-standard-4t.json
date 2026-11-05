@@ -1,0 +1,17 @@
+{
+  "name": "tpu7-standard-4t",
+  "family": "tpu7",
+  "description": "224 vCPUs, 464 GB RAM, 4 Google TPUs",
+  "architecture": "X86_64",
+  "vcpus": 224,
+  "memory_mb": 475136,
+  "accelerators": [
+    {
+      "type": "tpu7",
+      "count": 4
+    }
+  ],
+  "zones": [
+    "us-central1-c"
+  ]
+}

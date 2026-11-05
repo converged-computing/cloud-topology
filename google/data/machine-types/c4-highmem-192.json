@@ -1,0 +1,14 @@
+{
+  "name": "c4-highmem-192",
+  "family": "c4",
+  "description": "192 vCPUs, 1488 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 192,
+  "memory_mb": 1523712,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

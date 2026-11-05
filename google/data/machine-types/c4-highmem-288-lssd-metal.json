@@ -1,0 +1,16 @@
+{
+  "name": "c4-highmem-288-lssd-metal",
+  "family": "c4",
+  "description": "288 vCPUs, 2232 GB RAM, 6 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 288,
+  "memory_mb": 2285568,
+  "local_ssd_partitions": 6,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "h3-standard-88",
+  "family": "h3",
+  "description": "88 vCPUs, 352 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 88,
+  "memory_mb": 360448,
+  "zones": [
+    "us-central1-a"
+  ]
+}

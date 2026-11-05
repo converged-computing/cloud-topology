@@ -1,0 +1,16 @@
+{
+  "name": "c4a-standard-48-lssd",
+  "family": "c4a",
+  "description": "48 vCPUs, 192 GB RAM, 10 local SSD",
+  "architecture": "ARM64",
+  "vcpus": 48,
+  "memory_mb": 196608,
+  "local_ssd_partitions": 10,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

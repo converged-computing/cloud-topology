@@ -1,0 +1,19 @@
+{
+  "name": "g2-standard-96",
+  "family": "g2",
+  "description": "Graphics Optimized: 8 NVIDIA L4 GPUs, 96 vCPUs, 384GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 96,
+  "memory_mb": 393216,
+  "accelerators": [
+    {
+      "type": "nvidia-l4",
+      "count": 8
+    }
+  ],
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

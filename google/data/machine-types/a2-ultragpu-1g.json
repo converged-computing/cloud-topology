@@ -1,0 +1,19 @@
+{
+  "name": "a2-ultragpu-1g",
+  "family": "a2",
+  "description": "Accelerator Optimized: 1 NVIDIA A100 80GB GPU, 12 vCPUs, 170GB RAM, 1 local SSD",
+  "vcpus": 12,
+  "memory_mb": 174080,
+  "accelerators": [
+    {
+      "type": "nvidia-a100-80gb",
+      "count": 1
+    }
+  ],
+  "local_ssd_partitions": 1,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-c"
+  ]
+}

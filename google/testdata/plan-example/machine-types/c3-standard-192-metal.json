@@ -1,0 +1,10 @@
+{
+  "name": "c3-standard-192-metal",
+  "family": "c3",
+  "description": "Fixture shaped like c3-standard-192-metal; not read from the live catalog",
+  "vcpus": 192,
+  "memory_mb": 786432,
+  "zones": [
+    "us-central1-a"
+  ]
+}

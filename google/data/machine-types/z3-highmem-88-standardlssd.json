@@ -1,0 +1,16 @@
+{
+  "name": "z3-highmem-88-standardlssd",
+  "family": "z3",
+  "description": "88 vCPUs, 704 GB RAM, 6 Local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 88,
+  "memory_mb": 720896,
+  "local_ssd_partitions": 6,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

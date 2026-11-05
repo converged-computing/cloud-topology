@@ -1,0 +1,14 @@
+{
+  "name": "c4d-standard-384",
+  "family": "c4d",
+  "description": "384 vCPUs, 1488 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 384,
+  "memory_mb": 1523712,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "pd-extreme",
+  "description": "Extreme Persistent Disk",
+  "min_gb": 500,
+  "max_gb": 65536,
+  "default_gb": 1000,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

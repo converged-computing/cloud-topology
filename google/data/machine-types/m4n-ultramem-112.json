@@ -1,0 +1,13 @@
+{
+  "name": "m4n-ultramem-112",
+  "family": "m4n",
+  "description": "112 vCPUs, 2976 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 112,
+  "memory_mb": 3047424,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

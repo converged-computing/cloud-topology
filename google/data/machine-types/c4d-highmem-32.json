@@ -1,0 +1,14 @@
+{
+  "name": "c4d-highmem-32",
+  "family": "c4d",
+  "description": "32 vCPUs, 252 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 32,
+  "memory_mb": 258048,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

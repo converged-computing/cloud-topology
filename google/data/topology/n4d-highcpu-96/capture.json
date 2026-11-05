@@ -1,0 +1,10 @@
+{
+  "machine_type": "n4d-highcpu-96",
+  "provider": "gcp",
+  "zone": "us-central1-a",
+  "image": "ubuntu-os-cloud/ubuntu-2404-lts-amd64",
+  "captured_at": "2026-11-02T01:16:03Z",
+  "provision_seconds": 40.7,
+  "provisioning_model": "spot",
+  "hwloc_version": "2.10.0"
+}

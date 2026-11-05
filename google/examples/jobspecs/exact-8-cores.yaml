@@ -1,0 +1,39 @@
+# Secretary level: two nodes in one compact placement group, each with 8 cores. N2
+# supports compact placement, so an offer's nodes share one group.
+version: 9999
+resources:
+  - type: cluster
+    count: 1
+    with:
+      - type: region
+        count: 1
+        with:
+          - type: zone
+            count: 1
+            with:
+              - type: offer
+                count: 1
+                with:
+                  - type: placement
+                    count: 1
+                    with:
+                      - type: node
+                        count: 2
+                        with:
+                          - type: slot
+                            count: 1
+                            label: default
+                            with:
+                              - type: socket
+                                count: 1
+                                with:
+                                  - type: core
+                                    count: 8
+attributes:
+  system:
+    duration: 3600
+tasks:
+  - command: [ "app" ]
+    slot: default
+    count:
+      per_slot: 1

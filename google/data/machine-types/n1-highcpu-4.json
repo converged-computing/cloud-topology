@@ -1,0 +1,13 @@
+{
+  "name": "n1-highcpu-4",
+  "family": "n1",
+  "description": "4 vCPUs, 3.6 GB RAM",
+  "vcpus": 4,
+  "memory_mb": 3686,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

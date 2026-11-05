@@ -1,0 +1,14 @@
+{
+  "name": "g1-small",
+  "family": "g1",
+  "description": "1 vCPU (shared physical core) and 1.7 GB RAM",
+  "vcpus": 1,
+  "memory_mb": 1740,
+  "shared_cpu": true,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

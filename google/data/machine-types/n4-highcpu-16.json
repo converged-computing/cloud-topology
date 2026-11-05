@@ -1,0 +1,14 @@
+{
+  "name": "n4-highcpu-16",
+  "family": "n4",
+  "description": "16 vCPUs, 32 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 16,
+  "memory_mb": 32768,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

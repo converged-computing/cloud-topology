@@ -1,0 +1,17 @@
+{
+  "name": "ct5p-hightpu-4t",
+  "family": "ct5p",
+  "description": "208 vCPUs, 448 GB RAM, 4 Google TPUs",
+  "architecture": "X86_64",
+  "vcpus": 208,
+  "memory_mb": 458752,
+  "accelerators": [
+    {
+      "type": "ct5p",
+      "count": 4
+    }
+  ],
+  "zones": [
+    "us-central1-a"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "test-cpu-4",
+  "family": "test",
+  "description": "Fixture: CPU-only machine with no captured topology (not a real machine type)",
+  "architecture": "X86_64",
+  "vcpus": 4,
+  "memory_mb": 16384,
+  "zones": [
+    "europe-west4-a",
+    "us-central1-a"
+  ]
+}

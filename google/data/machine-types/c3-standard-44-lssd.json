@@ -1,0 +1,15 @@
+{
+  "name": "c3-standard-44-lssd",
+  "family": "c3",
+  "description": "44 vCPUs, 176 GB RAM, 8 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 44,
+  "memory_mb": 180224,
+  "local_ssd_partitions": 8,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}
