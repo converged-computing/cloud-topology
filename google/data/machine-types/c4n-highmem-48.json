@@ -1,0 +1,12 @@
+{
+  "name": "c4n-highmem-48",
+  "family": "c4n",
+  "description": "48 vCPUs, 372 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 48,
+  "memory_mb": 380928,
+  "zones": [
+    "us-central1-a",
+    "us-central1-c"
+  ]
+}

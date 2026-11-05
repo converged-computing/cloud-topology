@@ -8,7 +8,7 @@ TOPOLOGY_AGENT_SOURCE ?= git+https://github.com/converged-computing/topology-age
 # pip needs this outside a virtualenv on Debian and Ubuntu images.
 PIP_FLAGS ?= --break-system-packages
 
-.PHONY: test vet build examples run-examples fluxion-go serve catalog index quota plan sizes plan-topology capture-all capture-agent experiment experiment-test report consistency consistency-report graphs topology images cleanup install-agent site site-final site-serve
+.PHONY: test vet build examples run-examples fluxion-go serve catalog index quota plan sizes plan-topology capture-all capture-agent experiment experiment-test report consistency consistency-report graphdb graphdb-query install-lbug graphs topology images cleanup install-agent site site-final site-serve
 
 test:
 	go test ./...
@@ -157,6 +157,29 @@ site-final:
 # Serve the site locally: http://localhost:8000
 site-serve:
 	python3 -m http.server --directory $(SITE) 8000
+
+# Graph database: the folded graphs as Parquet tables loaded into LadybugDB for Cypher
+# queries. GRAPHDB_DATA lists databases as label=dir (default the final experiment's
+# deterministic arm and data/); the exact level by default.
+#   make graphdb REGION=us-central1            export and load
+#   make graphdb-query Q=shapes                run pkg/site/queries/shapes.cypher
+#   make graphdb-query Q="MATCH (v:Vertex) RETURN v.type, count(*)"
+GRAPHDB ?= graphdb
+GRAPHDB_DATA ?= final=projects/$(PROJECT)/experiment/deterministic main=$(DATA)
+GRAPHDB_LEVELS ?= exact
+graphdb:
+	go run ./cmd/graphdb export --out $(GRAPHDB) $(foreach d,$(GRAPHDB_DATA),--data $(d)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) --levels $(GRAPHDB_LEVELS)
+	go run ./cmd/graphdb load --in $(GRAPHDB) --db $(GRAPHDB)/graph.lbug
+
+graphdb-query:
+	@go run ./cmd/graphdb query --db $(GRAPHDB)/graph.lbug $(if $(MODE),--mode $(MODE)) $(if $(wildcard pkg/site/queries/$(Q).cypher),--named $(Q),"$(Q)")
+
+# Install the LadybugDB shell (lbug) that make graphdb uses.
+LBUG_VERSION ?= v0.22.1
+install-lbug:
+	@arch=$$(uname -m | sed 's/x86_64/x86_64/; s/arm64/aarch64/'); tmp=$$(mktemp -d); \
+	  curl -sL -o $$tmp/lbug.tar.gz https://github.com/LadybugDB/ladybug/releases/download/$(LBUG_VERSION)/lbug_cli-linux-$$arch.tar.gz && \
+	  tar xzf $$tmp/lbug.tar.gz -C $$tmp && install -m 755 $$(find $$tmp -type f -name lbug) $(HOME)/.local/bin/lbug && echo "installed $$($(HOME)/.local/bin/lbug --version)"
 
 # Graphs sized by quota: make graphs PROJECT=my-project REGION=us-central1
 # GRAPHS is the output directory, e.g. an experiment arm's: DATA=<arm> GRAPHS=<arm>.

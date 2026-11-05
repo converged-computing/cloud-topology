@@ -1,0 +1,14 @@
+{
+  "name": "c4a-highcpu-8",
+  "family": "c4a",
+  "description": "8 vCPUs, 16 GB RAM",
+  "architecture": "ARM64",
+  "vcpus": 8,
+  "memory_mb": 16384,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

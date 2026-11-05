@@ -1,0 +1,16 @@
+{
+  "name": "g2-standard-24",
+  "family": "g2",
+  "description": "Fixture shaped like g2-standard-24; not read from the live catalog",
+  "vcpus": 24,
+  "memory_mb": 98304,
+  "accelerators": [
+    {
+      "type": "nvidia-l4",
+      "count": 2
+    }
+  ],
+  "zones": [
+    "us-central1-a"
+  ]
+}

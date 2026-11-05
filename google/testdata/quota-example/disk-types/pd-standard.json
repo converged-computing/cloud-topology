@@ -1,0 +1,10 @@
+{
+  "name": "pd-standard",
+  "min_gb": 10,
+  "max_gb": 65536,
+  "default_gb": 100,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b"
+  ]
+}

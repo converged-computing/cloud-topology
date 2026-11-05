@@ -1,0 +1,16 @@
+{
+  "name": "c3d-standard-16-lssd",
+  "family": "c3d",
+  "description": "16 vCPUs, 64 GB RAM, 1 local SSD",
+  "architecture": "X86_64",
+  "vcpus": 16,
+  "memory_mb": 65536,
+  "local_ssd_partitions": 1,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

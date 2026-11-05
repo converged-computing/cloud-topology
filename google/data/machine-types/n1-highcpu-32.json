@@ -1,0 +1,13 @@
+{
+  "name": "n1-highcpu-32",
+  "family": "n1",
+  "description": "32 vCPUs, 28.8 GB RAM",
+  "vcpus": 32,
+  "memory_mb": 29491,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

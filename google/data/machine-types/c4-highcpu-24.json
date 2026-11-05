@@ -1,0 +1,14 @@
+{
+  "name": "c4-highcpu-24",
+  "family": "c4",
+  "description": "24 vCPUs, 48 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 24,
+  "memory_mb": 49152,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

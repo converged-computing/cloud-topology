@@ -4,9 +4,12 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/converged-computing/google-cloud-topology/pkg/database"
+	"github.com/converged-computing/google-cloud-topology/pkg/quota"
 )
 
 func load(t *testing.T) *database.Database {
@@ -61,8 +64,31 @@ func TestBuildExact(t *testing.T) {
 	if c["zone"] != 2 || c["offer"] != 3 || c["node"] != 6 {
 		t.Errorf("unexpected structure %v", c)
 	}
-	if c["socket"] != 4*2+2*1 || c["core"] != 4*8+2*4 || c["gpu"] != 4*2 || c["nic"] != 4 {
+	// NICs: the hwloc nodes keep their captured NIC (the test series is not in the
+	// bandwidth tables); the catalog nodes get one from the rule. Placement: the test
+	// series support no compact placement, so every node sits in a group of its own.
+	if c["socket"] != 4*2+2*1 || c["core"] != 4*8+2*4 || c["gpu"] != 4*2 || c["nic"] != 4+2 || c["placement"] != 6 {
 		t.Errorf("unexpected hardware counts %v", c)
+	}
+	for _, n := range g.Nodes {
+		switch n.Metadata.Type {
+		case "nic":
+			if n.Metadata.Size <= 0 || n.Metadata.Unit != "Gbps" || n.Metadata.Properties["kind"] == "" {
+				t.Errorf("nic without bandwidth: %+v", n.Metadata)
+			}
+			// NICs sit on the node, never on a socket; locality is a property.
+			if p := n.Metadata.Paths["containment"]; strings.Contains(p, "/socket") {
+				t.Errorf("nic under a socket: %s", p)
+			}
+		case "placement":
+			if n.Metadata.Properties["compact"] != "false" || n.Metadata.Properties["max_nodes"] != "1" {
+				t.Errorf("placement group: %+v", n.Metadata.Properties)
+			}
+		case "node":
+			if !strings.Contains(n.Metadata.Paths["containment"], "/placement") {
+				t.Errorf("node outside a placement group: %s", n.Metadata.Paths["containment"])
+			}
+		}
 	}
 	for _, n := range g.Nodes {
 		if n.Metadata.Type == "offer" {
@@ -233,5 +259,113 @@ func TestVariantFeatures(t *testing.T) {
 				t.Errorf("metal series: %v", n.Metadata.Properties)
 			}
 		}
+	}
+}
+
+func TestExactNetworkAndPlacement(t *testing.T) {
+	// A real series: c3-standard-176 has 100 Gbps, Tier_1 200, and compact placement
+	// groups of 150 at max distance 2 and 22 at distance 1.
+	db, err := database.Load("../../testdata/plan-example")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, c := range []struct{ distance, nodes, groups int }{{2, 4, 1}, {1, 4, 1}, {1, 30, 2}} {
+		g, err := BuildExact(db, Options{Region: "us-central1", Nodes: c.nodes, MachineTypes: []string{"c3-standard-176"}, PlacementDistance: c.distance}, nil)
+		if err != nil {
+			t.Fatal(err)
+		}
+		counts := countTypes(g)
+		if counts["placement"] != c.groups || counts["node"] != c.nodes || counts["nic"] != c.nodes {
+			t.Errorf("distance %d, %d nodes: %v", c.distance, c.nodes, counts)
+		}
+		for _, n := range g.Nodes {
+			switch n.Metadata.Type {
+			case "offer":
+				if n.Metadata.Properties["egress_gbps"] != "100" || n.Metadata.Properties["tier1_gbps"] != "200" || !strings.HasPrefix(n.Metadata.Properties["placement"], "compact:") {
+					t.Errorf("offer properties: %v", n.Metadata.Properties)
+				}
+			case "nic":
+				if n.Metadata.Size != 100 || n.Metadata.Properties["kind"] != "gvnic" {
+					t.Errorf("nic: %+v", n.Metadata)
+				}
+			case "placement":
+				if n.Metadata.Properties["compact"] != "true" || n.Metadata.Properties["max_distance"] != strconv.Itoa(c.distance) {
+					t.Errorf("placement: %v", n.Metadata.Properties)
+				}
+			}
+		}
+	}
+	// A GPU type with a documented layout gets every NIC from the rule, RDMA ones marked.
+	db, err = database.Load("../../testdata/quota-example")
+	if err != nil {
+		t.Fatal(err)
+	}
+	a3 := db.MachineTypes["a3-ultragpu-8g"]
+	g, err := BuildExact(db, Options{Region: database.RegionOf(a3.Zones[0]), Nodes: 1, MachineTypes: []string{"a3-ultragpu-8g"}}, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	rdma, nics := 0, 0
+	for _, n := range g.Nodes {
+		if n.Metadata.Type == "nic" {
+			nics++
+			if n.Metadata.Properties["rdma"] == "true" && n.Metadata.Size == 400 {
+				rdma++
+			}
+		}
+	}
+	if nics != 10 || rdma != 8 {
+		t.Errorf("a3-ultragpu-8g: %d NICs, %d RDMA at 400 Gbps; want 10 and 8", nics, rdma)
+	}
+}
+
+func TestStoragePools(t *testing.T) {
+	db, err := database.Load("../../testdata/quota-example")
+	if err != nil {
+		t.Fatal(err)
+	}
+	snap, err := quota.Load("../../testdata/quota-example/quota.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	// n2-standard-8 attaches Standard and SSD PD but not Hyperdisk; Local SSD is not a pool.
+	g, err := BuildExact(db, Options{Region: "us-central1", Nodes: 1, MachineTypes: []string{"n2-standard-8"}, Storage: snap.StorageFunc("us-central1")}, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	pools := map[string]Node{}
+	for _, n := range g.Nodes {
+		if n.Metadata.Properties["disk_type"] != "" {
+			pools[n.Metadata.Type] = n
+		}
+	}
+	if len(pools) != 2 || pools["pd_standard"].Metadata.Size != 4096 || pools["pd_ssd"].Metadata.Size != 800 || pools["pd_ssd"].Metadata.Unit != "GB" {
+		t.Errorf("n2-standard-8 pools: %+v", pools)
+	}
+	if !strings.Contains(pools["pd_ssd"].Metadata.Paths["containment"], "/n2-standard-8.on-demand/pd_ssd0") || pools["pd_ssd"].Metadata.Properties["capacity"] != "quota SSD_TOTAL_GB" {
+		t.Errorf("pd_ssd pool: %+v", pools["pd_ssd"].Metadata)
+	}
+	// a3-ultragpu-8g attaches only Hyperdisk, whose quota is unknown: sized at the largest disk.
+	a3 := db.MachineTypes["a3-ultragpu-8g"]
+	g, err = BuildExact(db, Options{Region: database.RegionOf(a3.Zones[0]), Nodes: 1, MachineTypes: []string{"a3-ultragpu-8g"}, Storage: snap.StorageFunc("us-central1")}, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	pools = map[string]Node{}
+	for _, n := range g.Nodes {
+		if n.Metadata.Properties["disk_type"] != "" {
+			pools[n.Metadata.Type] = n
+		}
+	}
+	if len(pools) != 1 || pools["hyperdisk_balanced"].Metadata.Size != 65536 || !strings.HasPrefix(pools["hyperdisk_balanced"].Metadata.Properties["capacity"], "largest disk") {
+		t.Errorf("a3-ultragpu-8g pools: %+v", pools)
+	}
+	// The coarse graph gets the same pools under its offers.
+	cg, err := BuildCoarse(db, Options{Region: "us-central1", Nodes: 1, MachineTypes: []string{"n2-standard-8"}, Storage: snap.StorageFunc("us-central1")})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if c := countTypes(cg); c["pd_standard"] != 1 || c["pd_ssd"] != 1 || c["nic"] != 1 {
+		t.Errorf("coarse pools: %v", c)
 	}
 }

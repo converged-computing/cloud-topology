@@ -1,0 +1,13 @@
+{
+  "name": "m4-megamem-224",
+  "family": "m4",
+  "description": "224 vCPUs, 2976 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 224,
+  "memory_mb": 3047424,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

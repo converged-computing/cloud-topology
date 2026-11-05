@@ -1,0 +1,11 @@
+{
+  "name": "c3-highcpu-192-metal",
+  "family": "c3",
+  "description": "Compute Optimized Bare Metal: 192 vCPUs, 512 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 192,
+  "memory_mb": 524288,
+  "zones": [
+    "us-central1-c"
+  ]
+}

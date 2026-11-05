@@ -1,0 +1,19 @@
+{
+  "name": "g2-standard-32",
+  "family": "g2",
+  "description": "Graphics Optimized: 1 NVIDIA L4 GPU, 32 vCPUs, 128GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 32,
+  "memory_mb": 131072,
+  "accelerators": [
+    {
+      "type": "nvidia-l4",
+      "count": 1
+    }
+  ],
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

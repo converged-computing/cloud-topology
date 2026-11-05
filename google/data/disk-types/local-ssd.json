@@ -1,0 +1,13 @@
+{
+  "name": "local-ssd",
+  "description": "Local SSD",
+  "min_gb": 375,
+  "max_gb": 375,
+  "default_gb": 375,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

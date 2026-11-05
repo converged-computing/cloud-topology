@@ -1,0 +1,13 @@
+{
+  "name": "n2d-highmem-96",
+  "family": "n2d",
+  "description": "96 vCPUs 768 GB RAM",
+  "vcpus": 96,
+  "memory_mb": 786432,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

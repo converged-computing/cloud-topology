@@ -1,0 +1,14 @@
+{
+  "name": "e2-medium",
+  "family": "e2",
+  "description": "Efficient Instance, 2 vCPU (1/2 shared physical core) and 4 GB RAM",
+  "vcpus": 2,
+  "memory_mb": 4096,
+  "shared_cpu": true,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

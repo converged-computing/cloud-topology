@@ -1,0 +1,13 @@
+{
+  "name": "n2d-standard-2",
+  "family": "n2d",
+  "description": "2 vCPUs 8 GB RAM",
+  "vcpus": 2,
+  "memory_mb": 8192,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

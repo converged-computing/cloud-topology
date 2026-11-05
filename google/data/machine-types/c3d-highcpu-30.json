@@ -1,0 +1,14 @@
+{
+  "name": "c3d-highcpu-30",
+  "family": "c3d",
+  "description": "30 vCPUs, 59 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 30,
+  "memory_mb": 60416,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

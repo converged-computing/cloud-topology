@@ -24,6 +24,7 @@ func main() {
 	nodes := flag.Int("nodes", 1, "potential nodes per offer when no quota snapshot is given")
 	quotaFile := flag.String("quota", "", "quota snapshot (from quota fetch) to size offers by quota")
 	maxNodes := flag.Int("max-nodes", 64, "cap on nodes per offer when sizing by quota")
+	placement := flag.Int("placement-distance", 0, "compact placement max distance sizing the exact graph's placement groups: 0 unspecified, 1, 2 or 3")
 	models := flag.String("models", "on-demand", "comma-separated provisioning models to create offers for")
 	out := flag.String("out", "", "output file (default stdout)")
 	flag.Parse()
@@ -32,13 +33,14 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	opts := jgf.Options{Region: *region, Nodes: *nodes, MachineTypes: split(*machineTypes), Models: split(*models), MaxNodes: *maxNodes}
+	opts := jgf.Options{Region: *region, Nodes: *nodes, MachineTypes: split(*machineTypes), Models: split(*models), MaxNodes: *maxNodes, PlacementDistance: *placement}
 	if *quotaFile != "" {
 		snap, err := quota.Load(*quotaFile)
 		if err != nil {
 			log.Fatal(err)
 		}
 		opts.Capacity = snap.NodesFunc(*region, func(msg string) { fmt.Fprintln(os.Stderr, msg) })
+		opts.Storage = snap.StorageFunc(*region)
 	}
 
 	var g *jgf.Graph

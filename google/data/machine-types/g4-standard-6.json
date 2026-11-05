@@ -1,0 +1,19 @@
+{
+  "name": "g4-standard-6",
+  "family": "g4",
+  "description": "Graphics Optimized: 1/8 NVIDIA RTX PRO 6000 GPU, 6 vCPUs, 22GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 6,
+  "memory_mb": 22528,
+  "accelerators": [
+    {
+      "type": "nvidia-rtx-pro-6000",
+      "count": 1
+    }
+  ],
+  "zones": [
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

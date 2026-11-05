@@ -1,0 +1,15 @@
+{
+  "name": "c3d-highmem-8-lssd",
+  "family": "c3d",
+  "description": "8 vCPUs, 64 GB RAM, 1 local SSD",
+  "architecture": "X86_64",
+  "vcpus": 8,
+  "memory_mb": 65536,
+  "local_ssd_partitions": 1,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

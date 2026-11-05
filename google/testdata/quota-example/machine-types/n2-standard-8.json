@@ -1,0 +1,10 @@
+{
+  "name": "n2-standard-8",
+  "family": "n2",
+  "description": "Fixture shaped like n2-standard-8; not read from the live catalog",
+  "vcpus": 8,
+  "memory_mb": 32768,
+  "zones": [
+    "us-central1-a"
+  ]
+}

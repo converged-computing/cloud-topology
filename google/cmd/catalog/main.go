@@ -46,9 +46,19 @@ func main() {
 			log.Fatal(err)
 		}
 	}
+	diskPairs, err := catalog.FetchDiskTypes(ctx, *project)
+	if err != nil {
+		log.Fatal(err)
+	}
+	diskTypes := catalog.ConvertDiskTypes(diskPairs, catalog.Options{Regions: split(*regions), IncludeDeprecated: *deprecated})
+	for _, dt := range diskTypes {
+		if err := database.WriteDiskType(*dataDir, dt); err != nil {
+			log.Fatal(err)
+		}
+	}
 
 	db := writeIndex(*dataDir)
-	fmt.Printf("wrote %d machine types to %s (database now has %d)\n", len(machineTypes), *dataDir, len(db.MachineTypes))
+	fmt.Printf("wrote %d machine types and %d disk types to %s (database now has %d and %d)\n", len(machineTypes), len(diskTypes), *dataDir, len(db.MachineTypes), len(db.DiskTypes))
 }
 
 // writeIndex reloads the database and rewrites index.json.

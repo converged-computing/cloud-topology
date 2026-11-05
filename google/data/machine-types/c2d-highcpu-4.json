@@ -1,0 +1,13 @@
+{
+  "name": "c2d-highcpu-4",
+  "family": "c2d",
+  "description": "4 vCPUs, 8 GB RAM",
+  "vcpus": 4,
+  "memory_mb": 8192,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

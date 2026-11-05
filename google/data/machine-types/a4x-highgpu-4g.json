@@ -1,0 +1,20 @@
+{
+  "name": "a4x-highgpu-4g",
+  "family": "a4x",
+  "description": "Accelerator Optimized: 4 NVIDIA GB200 GPU, 140 vCPUs, 884GB RAM",
+  "architecture": "ARM64",
+  "vcpus": 140,
+  "memory_mb": 905216,
+  "accelerators": [
+    {
+      "type": "nvidia-gb200",
+      "count": 4
+    }
+  ],
+  "local_ssd_partitions": 4,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "c2d-highcpu-56",
+  "family": "c2d",
+  "description": "56 vCPUs, 112 GB RAM",
+  "vcpus": 56,
+  "memory_mb": 114688,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

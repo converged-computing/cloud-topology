@@ -1,0 +1,13 @@
+{
+  "name": "n2-standard-48",
+  "family": "n2",
+  "description": "48 vCPUs 192 GB RAM",
+  "vcpus": 48,
+  "memory_mb": 196608,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "g4-standard-192",
+  "family": "g4",
+  "description": "Graphics Optimized: 4 NVIDIA RTX PRO 6000 GPU, 192 vCPUs, 720GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 192,
+  "memory_mb": 737280,
+  "accelerators": [
+    {
+      "type": "nvidia-rtx-pro-6000",
+      "count": 4
+    }
+  ],
+  "zones": [
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

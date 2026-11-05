@@ -345,5 +345,24 @@ window.Charts = (function () {
     return svg;
   }
 
-  return { shapeStrip, slot, token, statusColor, statusIcon, fmtSecs, fmtBytes, showTip, hideTip, bars, stackedStatus, scatter, icicle, graphTree, heatmap, dumbbell, timeline, objLabel };
+  // ---- motif glyph: a small horizontal icicle of a folded subtree, one block per entry ----
+  const glyphColor = { placement: () => token('--deemph'), node: () => token('--deemph'), socket: () => slot(1), core: () => slot(7), gpu: () => slot(2), nic: () => slot(5), memory: () => slot(3), local_ssd: () => slot(4) };
+  function glyphFill(t) { if (glyphColor[t]) return glyphColor[t](); if (t.startsWith('pd_') || t.startsWith('hyperdisk')) return slot(6); return token('--deemph'); }
+  function motifGlyph(el, shape, o) {
+    o = Object.assign({ width: 240, height: 44 }, o || {});
+    const root = d3.hierarchy(shape, d => d.k).sum(d => d.k && d.k.length ? 0 : 1 + Math.log2(d.c || 1));
+    d3.partition().size([o.height, o.width]).padding(1)(root);
+    const svg = svgIn(el, o.width, o.height);
+    svg.attr('width', o.width).attr('height', o.height);
+    const shift = root.y1 - root.y0, scale = o.width / (o.width - shift);
+    const cell = svg.selectAll('g').data(root.descendants().filter(d => d.depth > 0)).join('g').attr('transform', d => `translate(${(d.y0 - shift) * scale},${d.x0})`);
+    const w = d => Math.max(0, (d.y1 - d.y0) * scale - 1);
+    cell.append('rect').attr('width', w).attr('height', d => Math.max(0, d.x1 - d.x0)).attr('rx', 1.5).attr('fill', d => glyphFill(d.data.t)).attr('fill-opacity', d => d.data.t === 'core' ? 0.75 : 0.95)
+      .on('pointerenter pointermove', (e, d) => showTip(e, [d.data.t + (d.data.c > 1 ? ' ×' + d.data.c : ''), { k: 'size', v: d.data.s ? d.data.s + ' ' + (d.data.u || '') : '' }])).on('pointerleave', hideTip);
+    cell.filter(d => w(d) > 26 && d.x1 - d.x0 > 9).append('text').attr('class', 'in-fill').attr('x', 3).attr('y', d => (d.x1 - d.x0) / 2).attr('dy', '0.35em').attr('font-size', 9)
+      .text(d => { const l = d.data.t.replace('hyperdisk_', 'hd-').replace('local_ssd', 'lssd') + (d.data.c > 1 ? ' ×' + d.data.c : ''); const max = Math.floor((w(d) - 4) / 5.2); return l.length > max ? (max > 2 ? l.slice(0, max - 1) + '…' : '') : l; });
+    return svg;
+  }
+
+  return { motifGlyph, shapeStrip, slot, token, statusColor, statusIcon, fmtSecs, fmtBytes, showTip, hideTip, bars, stackedStatus, scatter, icicle, graphTree, heatmap, dumbbell, timeline, objLabel };
 })();

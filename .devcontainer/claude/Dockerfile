@@ -62,6 +62,12 @@ RUN git clone --depth 1 --branch ${FLUX_SCHED_VERSION} https://github.com/flux-f
  && ninja -C /opt/flux-sched/build resource-query reapi_cli \
  && ln -s /opt/flux-sched/build/resource/utilities/resource-query /usr/local/bin/resource-query
 
+# LadybugDB shell, for Cypher queries over the resource graphs (make graphdb).
+ARG LBUG_VERSION=v0.22.1
+RUN arch=$(uname -m | sed 's/arm64/aarch64/') \
+ && curl -sL https://github.com/LadybugDB/ladybug/releases/download/${LBUG_VERSION}/lbug_cli-linux-${arch}.tar.gz | tar xz -C /tmp \
+ && install -m 755 $(find /tmp -maxdepth 2 -type f -name lbug) /usr/local/bin/lbug && rm -rf /tmp/lbug*
+
 # Install Claude
 RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
 RUN sudo npm i -g opencode-ai

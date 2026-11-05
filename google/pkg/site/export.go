@@ -1,0 +1,580 @@
+// Package site exports the databases, their captures and Fluxion graphs as a static web
+// site: JSON for a browser-side interface that needs no server, so it can live on GitHub
+// Pages.
+package site
+
+import (
+	"bytes"
+	"crypto/sha1"
+	"embed"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io/fs"
+	"os"
+	"path/filepath"
+	"sort"
+	"strings"
+	"time"
+
+	"github.com/converged-computing/google-cloud-topology/pkg/database"
+	"github.com/converged-computing/google-cloud-topology/pkg/jgf"
+	"github.com/converged-computing/google-cloud-topology/pkg/quota"
+	"github.com/converged-computing/google-cloud-topology/pkg/topology"
+)
+
+//go:embed assets
+var assets embed.FS
+
+// Source is one database to export, under a label.
+type Source struct {
+	Label string
+	Dir   string
+}
+
+// Options configures an export.
+type Options struct {
+	Sources []Source
+	// Quota, when set, sizes graph offers by quota; otherwise each offer has Nodes nodes.
+	Quota *quota.Snapshot
+	Nodes int
+	// Regions to build graphs for (default: every region in the databases).
+	Regions []string
+	// Levels of graph to build (default series, coarse and exact).
+	Levels []string
+	// Experiments are directories written by topology/experiment.sh; their report.json is
+	// included and their arms are added as sources named <experiment>/<arm>.
+	Experiments []string
+	// Consistency is a study directory from topology/consistency.sh; its rounds are added
+	// as sources named round/<id> and a consistency report over every source is included.
+	Consistency string
+	// GraphSources limits graphs to these database labels (default: every database).
+	GraphSources []string
+	// Single writes one self-contained index.html with the data and images inlined.
+	Single bool
+	// Log receives progress lines.
+	Log func(string)
+}
+
+// Manifest describes the export.
+type Manifest struct {
+	Generated   string           `json:"generated"`
+	Databases   []DatabaseInfo   `json:"databases"`
+	Regions     []string         `json:"regions"`
+	Levels      []string         `json:"levels"`
+	Graphs      []GraphInfo      `json:"graphs"`
+	Experiments []ExperimentInfo `json:"experiments"`
+	Quota       string           `json:"quota,omitempty"`
+	// Consistency locates the consistency report, when a study or more than one database
+	// with captures was exported.
+	Consistency string `json:"consistency,omitempty"`
+	// Motifs locates the motifs file, when graphs were exported.
+	Motifs string `json:"motifs,omitempty"`
+}
+
+// DatabaseInfo summarizes one source.
+type DatabaseInfo struct {
+	Label        string `json:"label"`
+	Dir          string `json:"dir"`
+	MachineTypes int    `json:"machine_types"`
+	Captures     int    `json:"captures"`
+	Generated    string `json:"generated,omitempty"`
+}
+
+// GraphInfo locates one folded graph.
+type GraphInfo struct {
+	Database string `json:"database"`
+	Level    string `json:"level"`
+	Region   string `json:"region"`
+	File     string `json:"file"`
+	Vertices int    `json:"vertices"`
+	Edges    int    `json:"edges"`
+}
+
+// ExperimentInfo locates one experiment report.
+type ExperimentInfo struct {
+	Name string   `json:"name"`
+	File string   `json:"file"`
+	Arms []string `json:"arms"`
+}
+
+// MachineType is the union view of one machine type across the sources.
+type MachineType struct {
+	database.MachineType
+	Series   string   `json:"series"`
+	GPUs     int      `json:"gpus"`
+	Regions  []string `json:"regions"`
+	Metal    bool     `json:"metal,omitempty"`
+	LocalSSD bool     `json:"local_ssd,omitempty"`
+	// In lists the databases that hold the machine type, and Captured those with a capture.
+	In       []string `json:"in"`
+	Captured []string `json:"captured,omitempty"`
+}
+
+// Capture is one capture with a structured summary of its topology.
+type Capture struct {
+	database.Capture
+	Summary *Summary `json:"summary,omitempty"`
+	// Hash identifies the topology's shape, to tell captures apart across databases.
+	Hash string `json:"hash,omitempty"`
+	// SVG is the image path, or in a single-file export the image itself.
+	SVG string `json:"svg,omitempty"`
+	// Hwloc is the captured object tree, for drawing the topology in the browser.
+	Hwloc *Object `json:"hwloc,omitempty"`
+}
+
+// Summary is the reduced view of a captured topology.
+type Summary struct {
+	Sockets  []SocketSummary `json:"sockets"`
+	Cores    int             `json:"cores"`
+	PUs      int             `json:"pus"`
+	MemoryGB float64         `json:"memory_gb"`
+	GPUs     []Device        `json:"gpus,omitempty"`
+	NICs     []Device        `json:"nics,omitempty"`
+}
+
+// SocketSummary is one socket.
+type SocketSummary struct {
+	Index    int      `json:"index"`
+	Cores    int      `json:"cores"`
+	PUs      int      `json:"pus"`
+	MemoryGB float64  `json:"memory_gb"`
+	GPUs     []Device `json:"gpus,omitempty"`
+	NICs     []Device `json:"nics,omitempty"`
+}
+
+// Device is a PCI device.
+type Device struct {
+	Name   string `json:"name"`
+	Vendor string `json:"vendor,omitempty"`
+	BusID  string `json:"bus_id,omitempty"`
+}
+
+type loaded struct {
+	Source
+	db *database.Database
+}
+
+// Export writes the site into dir.
+func Export(dir string, opts Options) (*Manifest, error) {
+	log := opts.Log
+	if log == nil {
+		log = func(string) {}
+	}
+	if len(opts.Levels) == 0 {
+		opts.Levels = []string{"series", "coarse", "exact"}
+	}
+	sources := append([]Source(nil), opts.Sources...)
+	var experiments []ExperimentInfo
+	for i, e := range opts.Experiments {
+		name, dir, ok := strings.Cut(e, "=")
+		if !ok {
+			name, dir = filepath.Base(filepath.Clean(e)), e
+		}
+		e = dir
+		opts.Experiments[i] = dir
+		info := ExperimentInfo{Name: name, File: "data/experiments/" + name + ".json"}
+		for _, arm := range []string{"agent", "deterministic"} {
+			if _, err := os.Stat(filepath.Join(e, arm, "topology")); err == nil {
+				sources = append(sources, Source{Label: name + "/" + arm, Dir: filepath.Join(e, arm)})
+				info.Arms = append(info.Arms, name+"/"+arm)
+			}
+		}
+		experiments = append(experiments, info)
+	}
+	if opts.Consistency != "" {
+		rounds, err := RoundSources(opts.Consistency)
+		if err != nil {
+			return nil, fmt.Errorf("consistency study: %w", err)
+		}
+		sources = append(sources, rounds...)
+	}
+	if len(sources) == 0 {
+		return nil, fmt.Errorf("no databases to export")
+	}
+
+	var dbs []loaded
+	for _, s := range sources {
+		db, err := database.Load(s.Dir)
+		if err != nil {
+			return nil, fmt.Errorf("%s: %w", s.Label, err)
+		}
+		dbs = append(dbs, loaded{s, db})
+		log(fmt.Sprintf("%s: %d machine types, %d captures", s.Label, len(db.MachineTypes), len(db.Captures)))
+	}
+
+	// A single-file export writes index.html alone; otherwise the data sits beside it.
+	write := func(path string, v any) error {
+		if opts.Single {
+			return nil
+		}
+		return writeJSON(filepath.Join(dir, path), v)
+	}
+	subdirs := []string{"data/graphs", "data/experiments", "svg"}
+	if opts.Single {
+		subdirs = nil
+	}
+	for _, sub := range append(subdirs, ".") {
+		if err := os.MkdirAll(filepath.Join(dir, sub), 0o755); err != nil {
+			return nil, err
+		}
+	}
+	m := &Manifest{Generated: time.Now().UTC().Format(time.RFC3339), Levels: opts.Levels, Experiments: experiments}
+	if opts.Quota != nil {
+		m.Quota = opts.Quota.Project
+	}
+
+	// Machine types: the union across sources.
+	types := map[string]*MachineType{}
+	regions := map[string]bool{}
+	for _, l := range dbs {
+		m.Databases = append(m.Databases, DatabaseInfo{Label: l.Label, Dir: l.Dir, MachineTypes: len(l.db.MachineTypes), Captures: len(l.db.Captures)})
+		for name, mt := range l.db.MachineTypes {
+			t, ok := types[name]
+			if !ok {
+				t = &MachineType{MachineType: mt, Series: database.SeriesOf(name), GPUs: mt.GPUs(), Regions: mt.Regions(),
+					Metal: database.IsMetal(name), LocalSSD: mt.LocalSSD()}
+				types[name] = t
+			}
+			t.In = append(t.In, l.Label)
+			if _, ok := l.db.Captures[name]; ok {
+				t.Captured = append(t.Captured, l.Label)
+			}
+			for _, r := range t.Regions {
+				regions[r] = true
+			}
+		}
+	}
+	var list []*MachineType
+	for _, t := range types {
+		list = append(list, t)
+	}
+	sort.Slice(list, func(i, j int) bool { return list[i].Name < list[j].Name })
+	if err := write("data/machine-types.json", list); err != nil {
+		return nil, err
+	}
+	if len(opts.Regions) > 0 {
+		m.Regions = opts.Regions
+	} else {
+		for r := range regions {
+			m.Regions = append(m.Regions, r)
+		}
+		sort.Strings(m.Regions)
+	}
+
+	// Captures, with topology summaries and images.
+	captures := map[string]map[string]*Capture{}
+	for _, l := range dbs {
+		captures[l.Label] = map[string]*Capture{}
+		for name, c := range l.db.Captures {
+			out := &Capture{Capture: c}
+			xmlPath := filepath.Join(l.Dir, "topology", name, "hwloc.xml")
+			if t, err := topology.ParseFile(xmlPath); err == nil {
+				out.Summary = summarize(t)
+				out.Hash = hashSummary(out.Summary)
+			} else {
+				log(fmt.Sprintf("%s/%s: %v", l.Label, name, err))
+			}
+			if tree, err := ReadHwloc(xmlPath); err == nil && tree != nil {
+				out.Hwloc = tree
+				// The consistency fingerprint is the one notion of shape everywhere.
+				out.Hash = FingerprintOf(tree).ID()
+			}
+			if svg, err := os.ReadFile(filepath.Join(l.Dir, "topology", name, "topology.svg")); err == nil {
+				if opts.Single {
+					out.SVG = string(svg)
+				} else {
+					rel := filepath.Join("svg", safe(l.Label), name+".svg")
+					if err := os.MkdirAll(filepath.Dir(filepath.Join(dir, rel)), 0o755); err != nil {
+						return nil, err
+					}
+					if err := os.WriteFile(filepath.Join(dir, rel), svg, 0o644); err != nil {
+						return nil, err
+					}
+					out.SVG = filepath.ToSlash(rel)
+				}
+			}
+			captures[l.Label][name] = out
+		}
+	}
+	if err := write("data/captures.json", captures); err != nil {
+		return nil, err
+	}
+
+	// Graphs, folded.
+	graphs := map[string]*Tree{}
+	for _, l := range dbs {
+		if len(opts.GraphSources) > 0 && !contains(opts.GraphSources, l.Label) {
+			continue
+		}
+		for _, region := range m.Regions {
+			for _, level := range opts.Levels {
+				tree, err := buildTree(l.db, level, region, opts)
+				if err != nil {
+					return nil, fmt.Errorf("%s %s graph for %s: %w", l.Label, level, region, err)
+				}
+				if tree == nil {
+					continue
+				}
+				key := fmt.Sprintf("%s/%s-%s", safe(l.Label), level, region)
+				// The fold keeps every vertex; the graph is a containment tree, so edges are
+				// vertices less the root.
+				info := GraphInfo{Database: l.Label, Level: level, Region: region, File: "data/graphs/" + key + ".json", Vertices: tree.Vertices, Edges: tree.Vertices - 1}
+				m.Graphs = append(m.Graphs, info)
+				graphs[info.File] = tree
+				if !opts.Single {
+					if err := os.MkdirAll(filepath.Dir(filepath.Join(dir, info.File)), 0o755); err != nil {
+						return nil, err
+					}
+				}
+				if err := write(info.File, tree); err != nil {
+					return nil, err
+				}
+				log(fmt.Sprintf("%s: %s graph for %s, %d vertices", l.Label, level, region, tree.Vertices))
+			}
+		}
+	}
+
+	// Experiments.
+	reports := map[string]json.RawMessage{}
+	for i, e := range opts.Experiments {
+		data, err := os.ReadFile(filepath.Join(e, "report.json"))
+		if err != nil {
+			return nil, fmt.Errorf("experiment %s: %w (run make report first)", e, err)
+		}
+		reports[experiments[i].File] = data
+		if !opts.Single {
+			if err := os.WriteFile(filepath.Join(dir, experiments[i].File), data, 0o644); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	// Consistency of repeated captures across every source.
+	withCaptures := 0
+	for _, l := range dbs {
+		if len(l.db.Captures) > 0 {
+			withCaptures++
+		}
+	}
+	if withCaptures > 1 || opts.Consistency != "" {
+		cr, err := Consistency(sources)
+		if err != nil {
+			return nil, err
+		}
+		data, err := json.Marshal(cr)
+		if err != nil {
+			return nil, err
+		}
+		m.Consistency = "data/consistency.json"
+		reports[m.Consistency] = data
+		if !opts.Single {
+			if err := os.WriteFile(filepath.Join(dir, m.Consistency), append(data, '\n'), 0o644); err != nil {
+				return nil, err
+			}
+		}
+		log(fmt.Sprintf("consistency: %d types consistent, %d varying, %d captured once", cr.Consistent, cr.Varying, cr.Single))
+	}
+
+	if len(graphs) > 0 {
+		mf := MotifsFile{Motifs: Motifs(graphs, m.Graphs), Queries: Queries, Note: FoldNote}
+		data, err := json.Marshal(mf)
+		if err != nil {
+			return nil, err
+		}
+		m.Motifs = "data/motifs.json"
+		reports[m.Motifs] = data
+		if !opts.Single {
+			if err := os.WriteFile(filepath.Join(dir, m.Motifs), append(data, '\n'), 0o644); err != nil {
+				return nil, err
+			}
+		}
+		log(fmt.Sprintf("motifs: %d distinct shapes", len(mf.Motifs)))
+	}
+
+	if err := write("data/manifest.json", m); err != nil {
+		return nil, err
+	}
+	return m, writeAssets(dir, opts.Single, m, list, captures, graphs, reports)
+}
+
+// FoldedGraph builds one graph for a database and folds it, as the site export does.
+func FoldedGraph(db *database.Database, level, region string, opts Options) (*Tree, error) {
+	return buildTree(db, level, region, opts)
+}
+
+// buildTree builds one graph and folds it. Exact and coarse graphs are built with one node
+// per offer and the fold restores the node count quota allows.
+func buildTree(db *database.Database, level, region string, opts Options) (*Tree, error) {
+	nodes := opts.Nodes
+	if nodes == 0 {
+		nodes = 1
+	}
+	warn := func(string) {}
+	var g *jgf.Graph
+	var err error
+	switch level {
+	case "series":
+		so := jgf.SeriesOptions{Region: region, Nodes: nodes}
+		if opts.Quota != nil {
+			so.Units = opts.Quota.UnitsFunc(region, warn)
+		}
+		g, err = jgf.BuildSeries(db, so)
+		if err != nil {
+			return nil, err
+		}
+		return Collapse(g, nil), nil
+	case "coarse", "exact":
+		o := jgf.Options{Region: region, Nodes: nodes, MaxNodes: 1}
+		var capacity func(database.MachineType, string) int
+		if opts.Quota != nil {
+			capacity = opts.Quota.NodesFunc(region, warn)
+			o.Capacity = capacity
+			o.Storage = opts.Quota.StorageFunc(region)
+		}
+		if level == "coarse" {
+			g, err = jgf.BuildCoarse(db, o)
+		} else {
+			g, err = jgf.BuildExact(db, o, jgf.HwlocLoader(db))
+		}
+		if err != nil {
+			return nil, err
+		}
+		count := func(props map[string]string) int {
+			if capacity == nil {
+				return nodes
+			}
+			mt, ok := db.MachineTypes[props["machine_type"]]
+			if !ok {
+				return 0
+			}
+			n := capacity(mt, props["provisioning_model"])
+			if n < 0 || n > 64 {
+				n = 64
+			}
+			return n
+		}
+		return Collapse(g, count), nil
+	}
+	return nil, fmt.Errorf("unknown level %q", level)
+}
+
+func summarize(t *topology.Topology) *Summary {
+	s := &Summary{MemoryGB: gb(t.MemoryBytes), GPUs: devices(t.GPUs), NICs: devices(t.NICs)}
+	for _, sock := range t.Sockets {
+		s.Sockets = append(s.Sockets, SocketSummary{Index: sock.Index, Cores: sock.Cores, PUs: sock.PUs, MemoryGB: gb(sock.MemoryBytes),
+			GPUs: devices(sock.GPUs), NICs: devices(sock.NICs)})
+		s.Cores += sock.Cores
+		s.PUs += sock.PUs
+		s.MemoryGB += gb(sock.MemoryBytes)
+		s.GPUs = append(s.GPUs, devices(sock.GPUs)...)
+		s.NICs = append(s.NICs, devices(sock.NICs)...)
+	}
+	return s
+}
+
+func devices(ds []topology.PCIDevice) []Device {
+	var out []Device
+	for _, d := range ds {
+		out = append(out, Device{Name: d.Name, Vendor: d.Vendor, BusID: d.BusID})
+	}
+	return out
+}
+
+func gb(b int64) float64 {
+	return float64(b*10/(1<<30)) / 10
+}
+
+// hashSummary identifies a topology's shape: sockets, cores, PUs, memory and device
+// names, without bus ids, which change between instances. Memory is taken to two
+// significant digits, since the kernel's view of it varies by tens of MB between
+// instances of the same machine type.
+func hashSummary(s *Summary) string {
+	h := sha1.New()
+	for _, sock := range s.Sockets {
+		fmt.Fprintf(h, "socket%d:%d/%d/%.2g;", sock.Index, sock.Cores, sock.PUs, sock.MemoryGB)
+		for _, d := range sock.GPUs {
+			fmt.Fprintf(h, "gpu=%s;", d.Name)
+		}
+		for _, d := range sock.NICs {
+			fmt.Fprintf(h, "nic=%s;", d.Name)
+		}
+	}
+	fmt.Fprintf(h, "mem=%.2g;", s.MemoryGB)
+	return hex.EncodeToString(h.Sum(nil))[:12]
+}
+
+func safe(label string) string {
+	return strings.NewReplacer("/", "_", " ", "_").Replace(label)
+}
+
+func writeJSON(path string, v any) error {
+	data, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(path, append(data, '\n'), 0o644)
+}
+
+// writeAssets copies the interface in; a single-file export inlines the data as well.
+func writeAssets(dir string, single bool, m *Manifest, types []*MachineType, captures map[string]map[string]*Capture,
+	graphs map[string]*Tree, reports map[string]json.RawMessage) error {
+	html, err := fs.ReadFile(assets, "assets/index.html")
+	if err != nil {
+		return err
+	}
+	// Asset links carry the export time, so a browser never shows a stale script with new data.
+	stamp := []byte(strings.NewReplacer(":", "", "-", "").Replace(m.Generated))
+	for _, name := range []string{"style.css", "vendor/d3.v7.min.js", "charts.js", "app.js"} {
+		html = bytes.Replace(html, []byte(`"`+name+`"`), append(append([]byte(`"`+name+`?v=`), stamp...), '"'), 1)
+	}
+	if !single {
+		for _, name := range []string{"app.js", "charts.js", "style.css", "vendor/d3.v7.min.js", "vendor/d3.LICENSE"} {
+			data, err := fs.ReadFile(assets, "assets/"+name)
+			if err != nil {
+				return err
+			}
+			if err := os.MkdirAll(filepath.Dir(filepath.Join(dir, name)), 0o755); err != nil {
+				return err
+			}
+			if err := os.WriteFile(filepath.Join(dir, name), data, 0o644); err != nil {
+				return err
+			}
+		}
+		return os.WriteFile(filepath.Join(dir, "index.html"), html, 0o644)
+	}
+	d3, _ := fs.ReadFile(assets, "assets/vendor/d3.v7.min.js")
+	charts, _ := fs.ReadFile(assets, "assets/charts.js")
+	app, _ := fs.ReadFile(assets, "assets/app.js")
+	js := append(append(append(append([]byte{}, d3...), '\n'), charts...), append([]byte{'\n'}, app...)...)
+	css, _ := fs.ReadFile(assets, "assets/style.css")
+	files := map[string]any{"data/manifest.json": m, "data/machine-types.json": types, "data/captures.json": captures}
+	for k, v := range graphs {
+		files[k] = v
+	}
+	for k, v := range reports {
+		files[k] = v
+	}
+	data, err := json.Marshal(files)
+	if err != nil {
+		return err
+	}
+	// </script> inside the data would end the tag early.
+	data = bytes.ReplaceAll(data, []byte("</"), []byte(`<\/`))
+	v := string(stamp)
+	out := bytes.Replace(html, []byte(`<link rel="stylesheet" href="style.css?v=`+v+`">`), append(append([]byte("<style>\n"), css...), []byte("\n</style>")...), 1)
+	out = bytes.Replace(out, []byte(`<script src="vendor/d3.v7.min.js?v=`+v+`"></script>`), nil, 1)
+	out = bytes.Replace(out, []byte(`<script src="charts.js?v=`+v+`"></script>`), nil, 1)
+	out = bytes.Replace(out, []byte(`<script src="app.js?v=`+v+`"></script>`),
+		append(append(append([]byte("<script type=\"application/json\" id=\"site-data\">"), data...), []byte("</script>\n<script>\n")...), append(js, []byte("\n</script>")...)...), 1)
+	return os.WriteFile(filepath.Join(dir, "index.html"), out, 0o644)
+}
+
+func contains(list []string, s string) bool {
+	for _, x := range list {
+		if x == s {
+			return true
+		}
+	}
+	return false
+}

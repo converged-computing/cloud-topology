@@ -1,0 +1,10 @@
+{
+  "machine_type": "c4-standard-288",
+  "provider": "gcp",
+  "zone": "us-central1-b",
+  "image": "ubuntu-os-cloud/ubuntu-2404-lts-amd64",
+  "captured_at": "2026-11-02T02:33:33Z",
+  "provision_seconds": 54.9,
+  "provisioning_model": "spot",
+  "hwloc_version": "2.10.0"
+}

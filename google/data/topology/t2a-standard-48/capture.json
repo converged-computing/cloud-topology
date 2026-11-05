@@ -1,0 +1,10 @@
+{
+  "machine_type": "t2a-standard-48",
+  "provider": "gcp",
+  "zone": "us-central1-a",
+  "image": "ubuntu-os-cloud/ubuntu-2404-lts-arm64",
+  "captured_at": "2026-11-02T00:35:41Z",
+  "provision_seconds": 94.1,
+  "provisioning_model": "on-demand",
+  "hwloc_version": "2.10.0"
+}

@@ -1,0 +1,1029 @@
+{
+ "graph": {
+  "edges": [
+   {
+    "source": "0",
+    "target": "1",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "1",
+    "target": "2",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "2",
+    "target": "3",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "3",
+    "target": "4",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "4",
+    "target": "5",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "4",
+    "target": "6",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "4",
+    "target": "7",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "3",
+    "target": "8",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "8",
+    "target": "9",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "8",
+    "target": "10",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "8",
+    "target": "11",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "3",
+    "target": "12",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "12",
+    "target": "13",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "12",
+    "target": "14",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "12",
+    "target": "15",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "3",
+    "target": "16",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "16",
+    "target": "17",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "16",
+    "target": "18",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "16",
+    "target": "19",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "2",
+    "target": "20",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "20",
+    "target": "21",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "21",
+    "target": "22",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "21",
+    "target": "23",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "21",
+    "target": "24",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "21",
+    "target": "25",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "20",
+    "target": "26",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "26",
+    "target": "27",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "26",
+    "target": "28",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "26",
+    "target": "29",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "26",
+    "target": "30",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "20",
+    "target": "31",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "31",
+    "target": "32",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "31",
+    "target": "33",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "31",
+    "target": "34",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "31",
+    "target": "35",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "20",
+    "target": "36",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "36",
+    "target": "37",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "36",
+    "target": "38",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "36",
+    "target": "39",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   },
+   {
+    "source": "36",
+    "target": "40",
+    "metadata": {
+     "subsystem": "containment"
+    }
+   }
+  ],
+  "nodes": [
+   {
+    "id": "0",
+    "metadata": {
+     "type": "cluster",
+     "basename": "cluster",
+     "name": "heuretes",
+     "id": 0,
+     "uniq_id": 0,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes"
+     }
+    }
+   },
+   {
+    "id": "1",
+    "metadata": {
+     "type": "site",
+     "basename": "site",
+     "name": "gcp",
+     "id": 0,
+     "uniq_id": 1,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp"
+     },
+     "properties": {
+      "provider": "google-cloud"
+     }
+    }
+   },
+   {
+    "id": "2",
+    "metadata": {
+     "type": "region",
+     "basename": "region",
+     "name": "us-central1",
+     "id": 0,
+     "uniq_id": 2,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1"
+     }
+    }
+   },
+   {
+    "id": "3",
+    "metadata": {
+     "type": "offer",
+     "basename": "offer",
+     "name": "test-cpu-4.on-demand",
+     "id": 0,
+     "uniq_id": 3,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand"
+     },
+     "properties": {
+      "family": "test",
+      "machine_type": "test-cpu-4",
+      "memory_mb": "16384",
+      "provisioning_model": "on-demand",
+      "vcpus": "4",
+      "zones": "us-central1-a"
+     }
+    }
+   },
+   {
+    "id": "4",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node0",
+     "id": 0,
+     "uniq_id": 4,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node0"
+     }
+    }
+   },
+   {
+    "id": "5",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 0,
+     "uniq_id": 5,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 4,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node0/core0"
+     }
+    }
+   },
+   {
+    "id": "6",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 0,
+     "uniq_id": 6,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 16,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node0/memory0"
+     }
+    }
+   },
+   {
+    "id": "7",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 0,
+     "uniq_id": 7,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "Gbps",
+     "size": 8,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node0/nic0"
+     },
+     "properties": {
+      "kinds": "gvnic:1"
+     }
+    }
+   },
+   {
+    "id": "8",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node1",
+     "id": 1,
+     "uniq_id": 8,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node1"
+     }
+    }
+   },
+   {
+    "id": "9",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 1,
+     "uniq_id": 9,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 4,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node1/core0"
+     }
+    }
+   },
+   {
+    "id": "10",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 1,
+     "uniq_id": 10,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 16,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node1/memory0"
+     }
+    }
+   },
+   {
+    "id": "11",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 1,
+     "uniq_id": 11,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "Gbps",
+     "size": 8,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node1/nic0"
+     },
+     "properties": {
+      "kinds": "gvnic:1"
+     }
+    }
+   },
+   {
+    "id": "12",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node2",
+     "id": 2,
+     "uniq_id": 12,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node2"
+     }
+    }
+   },
+   {
+    "id": "13",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 2,
+     "uniq_id": 13,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 4,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node2/core0"
+     }
+    }
+   },
+   {
+    "id": "14",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 2,
+     "uniq_id": 14,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 16,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node2/memory0"
+     }
+    }
+   },
+   {
+    "id": "15",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 2,
+     "uniq_id": 15,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "Gbps",
+     "size": 8,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node2/nic0"
+     },
+     "properties": {
+      "kinds": "gvnic:1"
+     }
+    }
+   },
+   {
+    "id": "16",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node3",
+     "id": 3,
+     "uniq_id": 16,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node3"
+     }
+    }
+   },
+   {
+    "id": "17",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 3,
+     "uniq_id": 17,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 4,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node3/core0"
+     }
+    }
+   },
+   {
+    "id": "18",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 3,
+     "uniq_id": 18,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 16,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node3/memory0"
+     }
+    }
+   },
+   {
+    "id": "19",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 3,
+     "uniq_id": 19,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "Gbps",
+     "size": 8,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node3/nic0"
+     },
+     "properties": {
+      "kinds": "gvnic:1"
+     }
+    }
+   },
+   {
+    "id": "20",
+    "metadata": {
+     "type": "offer",
+     "basename": "offer",
+     "name": "test-gpu-2g.on-demand",
+     "id": 1,
+     "uniq_id": 20,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand"
+     },
+     "properties": {
+      "accelerators": "nvidia-h100-80gb:2",
+      "family": "test",
+      "machine_type": "test-gpu-2g",
+      "memory_mb": "131072",
+      "provisioning_model": "on-demand",
+      "vcpus": "16",
+      "zones": "us-central1-a,us-central1-b"
+     }
+    }
+   },
+   {
+    "id": "21",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node0",
+     "id": 4,
+     "uniq_id": 21,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node0"
+     }
+    }
+   },
+   {
+    "id": "22",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 0,
+     "uniq_id": 22,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 2,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node0/gpu0"
+     }
+    }
+   },
+   {
+    "id": "23",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 4,
+     "uniq_id": 23,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 16,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node0/core0"
+     }
+    }
+   },
+   {
+    "id": "24",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 4,
+     "uniq_id": 24,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 128,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node0/memory0"
+     }
+    }
+   },
+   {
+    "id": "25",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 4,
+     "uniq_id": 25,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "Gbps",
+     "size": 32,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node0/nic0"
+     },
+     "properties": {
+      "kinds": "gvnic:1"
+     }
+    }
+   },
+   {
+    "id": "26",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node1",
+     "id": 5,
+     "uniq_id": 26,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node1"
+     }
+    }
+   },
+   {
+    "id": "27",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 1,
+     "uniq_id": 27,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 2,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node1/gpu0"
+     }
+    }
+   },
+   {
+    "id": "28",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 5,
+     "uniq_id": 28,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 16,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node1/core0"
+     }
+    }
+   },
+   {
+    "id": "29",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 5,
+     "uniq_id": 29,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 128,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node1/memory0"
+     }
+    }
+   },
+   {
+    "id": "30",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 5,
+     "uniq_id": 30,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "Gbps",
+     "size": 32,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node1/nic0"
+     },
+     "properties": {
+      "kinds": "gvnic:1"
+     }
+    }
+   },
+   {
+    "id": "31",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node2",
+     "id": 6,
+     "uniq_id": 31,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node2"
+     }
+    }
+   },
+   {
+    "id": "32",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 2,
+     "uniq_id": 32,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 2,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node2/gpu0"
+     }
+    }
+   },
+   {
+    "id": "33",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 6,
+     "uniq_id": 33,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 16,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node2/core0"
+     }
+    }
+   },
+   {
+    "id": "34",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 6,
+     "uniq_id": 34,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 128,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node2/memory0"
+     }
+    }
+   },
+   {
+    "id": "35",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 6,
+     "uniq_id": 35,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "Gbps",
+     "size": 32,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node2/nic0"
+     },
+     "properties": {
+      "kinds": "gvnic:1"
+     }
+    }
+   },
+   {
+    "id": "36",
+    "metadata": {
+     "type": "node",
+     "basename": "node",
+     "name": "node3",
+     "id": 7,
+     "uniq_id": 36,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node3"
+     }
+    }
+   },
+   {
+    "id": "37",
+    "metadata": {
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 3,
+     "uniq_id": 37,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 2,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node3/gpu0"
+     }
+    }
+   },
+   {
+    "id": "38",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 7,
+     "uniq_id": 38,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 16,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node3/core0"
+     }
+    }
+   },
+   {
+    "id": "39",
+    "metadata": {
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 7,
+     "uniq_id": 39,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 128,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node3/memory0"
+     }
+    }
+   },
+   {
+    "id": "40",
+    "metadata": {
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
+     "id": 7,
+     "uniq_id": 40,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "Gbps",
+     "size": 32,
+     "paths": {
+      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node3/nic0"
+     },
+     "properties": {
+      "kinds": "gvnic:1"
+     }
+    }
+   }
+  ]
+ }
+}

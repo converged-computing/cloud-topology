@@ -1,0 +1,13 @@
+{
+  "name": "n1-standard-4",
+  "family": "n1",
+  "description": "4 vCPUs, 15 GB RAM",
+  "vcpus": 4,
+  "memory_mb": 15360,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

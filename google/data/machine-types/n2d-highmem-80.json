@@ -1,0 +1,13 @@
+{
+  "name": "n2d-highmem-80",
+  "family": "n2d",
+  "description": "80 vCPUs 640 GB RAM",
+  "vcpus": 80,
+  "memory_mb": 655360,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "ct6e-standard-8t",
+  "family": "ct6e",
+  "description": "360 vCPUs, 1440 GB RAM, 8 Google V6 lite TPUs",
+  "architecture": "X86_64",
+  "vcpus": 360,
+  "memory_mb": 1474560,
+  "accelerators": [
+    {
+      "type": "ct6e",
+      "count": 8
+    }
+  ],
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

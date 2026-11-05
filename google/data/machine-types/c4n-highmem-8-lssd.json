@@ -1,0 +1,14 @@
+{
+  "name": "c4n-highmem-8-lssd",
+  "family": "c4n",
+  "description": "8 vCPUs, 62 GB RAM, 1 local SSD",
+  "architecture": "X86_64",
+  "vcpus": 8,
+  "memory_mb": 63488,
+  "local_ssd_partitions": 1,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-c"
+  ]
+}

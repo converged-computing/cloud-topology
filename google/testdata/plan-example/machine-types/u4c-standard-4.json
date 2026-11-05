@@ -1,0 +1,10 @@
+{
+  "name": "u4c-standard-4",
+  "family": "u4c",
+  "description": "Fixture shaped like u4c-standard-4; not read from the live catalog",
+  "vcpus": 4,
+  "memory_mb": 16384,
+  "zones": [
+    "us-central1-a"
+  ]
+}

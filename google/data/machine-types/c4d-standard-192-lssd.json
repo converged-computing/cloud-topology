@@ -1,0 +1,16 @@
+{
+  "name": "c4d-standard-192-lssd",
+  "family": "c4d",
+  "description": "192 vCPUs, 744 GB RAM, 16 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 192,
+  "memory_mb": 761856,
+  "local_ssd_partitions": 16,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

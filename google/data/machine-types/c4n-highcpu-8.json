@@ -1,0 +1,13 @@
+{
+  "name": "c4n-highcpu-8",
+  "family": "c4n",
+  "description": "8 vCPUs, 16 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 8,
+  "memory_mb": 16384,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

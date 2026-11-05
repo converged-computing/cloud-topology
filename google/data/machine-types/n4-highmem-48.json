@@ -1,0 +1,14 @@
+{
+  "name": "n4-highmem-48",
+  "family": "n4",
+  "description": "48 vCPUs, 384 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 48,
+  "memory_mb": 393216,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

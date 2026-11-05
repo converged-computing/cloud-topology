@@ -1,0 +1,19 @@
+{
+  "name": "a4-highgpu-8g",
+  "family": "a4",
+  "description": "Accelerator Optimized: 8 NVIDIA B200 GPU, 224 vCPUs, 3968GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 224,
+  "memory_mb": 4063232,
+  "accelerators": [
+    {
+      "type": "nvidia-b200",
+      "count": 8
+    }
+  ],
+  "local_ssd_partitions": 32,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-b"
+  ]
+}

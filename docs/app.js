@@ -83,6 +83,7 @@
       else if (view === 'compare') compareView(q);
       else if (view === 'experiments') await experimentsView(parts[1], q);
       else if (view === 'consistency') await consistencyView(q);
+      else if (view === 'motifs') await motifsView(q);
       else overview();
     } catch (err) { main.innerHTML = h`<p class="badge bad">${err.message}</p>`; console.error(err); }
     window.scrollTo(0, 0);
@@ -109,7 +110,7 @@
       <div class="grid two" style="margin-top:.9rem">
         <div class="card"><h3>Resource graphs</h3>${raw(manifest.graphs.length ? '<table class="small"><tr><th>Database</th><th>Level</th><th>Region</th><th class="num">Vertices</th></tr>' + manifest.graphs.map(g => h`<tr><td>${g.database}</td><td><a href="#/graphs?database=${g.database}&level=${g.level}&region=${g.region}">${g.level}</a></td><td>${g.region}</td><td class="num">${n(g.vertices)}</td></tr>`).join('') + '</table>' : '<p class="empty">No graphs were exported.</p>')}</div>
         <div class="card"><h3>Experiments</h3>${raw(exps ? '<ul>' + exps + '</ul>' : '<p class="empty">None exported. Pass EXPERIMENTS=… to make site.</p>')}
-          <h3>Reading this site</h3><p class="small secondary">A <b>database</b> is a directory of machine types and captures: <code>data/</code>, or one arm of an experiment. A <b>capture</b> is hwloc's reading of a real instance, drawn here from its object tree. <b>Resource graphs</b> are what Fluxion schedules on: <i>series</i> pools a machine series' vCPUs, GPUs and memory as totals, <i>coarse</i> has one pooled node per machine type, and <i>exact</i> places cores, GPUs and NICs on sockets from the captures.</p></div>
+          <h3>Reading this site</h3><p class="small secondary">A <b>database</b> is a directory of machine types and captures: <code>data/</code>, or one arm of an experiment. A <b>capture</b> is hwloc's reading of a real instance, drawn here from its object tree. <b>Resource graphs</b> are what Fluxion schedules on: <i>series</i> pools a machine series' vCPUs, GPUs and memory as totals, <i>coarse</i> has one pooled node per machine type, and <i>exact</i> places cores and GPUs on sockets from the captures, NICs with their bandwidth on nodes, nodes in compact placement groups, and storage pools on offers. Graphs are drawn folded, identical siblings as one entry with a count; <b>Motifs</b> lists the shapes that recur and the Cypher that finds them.</p></div>
       </div>`;
     C.bars(document.getElementById('c-db'), dbRows(), { label: d => d.label, value: d => d.captures, valueLabel: 'captures', onClick: d => { location.hash = d.link; } });
     C.bars(document.getElementById('c-fam'), famCounts, { label: d => d.family, value: d => d.count, valueLabel: 'machine types', max: 16, onClick: d => { location.hash = '#/types?family=' + d.family; } });
@@ -282,7 +283,8 @@
     const counts = {}; (function walk(t, mult) { const k = mult * t.count; counts[t.type] = (counts[t.type] || 0) + k; (t.children || []).forEach(c => walk(c, k)); })(tree, 1);
     main.innerHTML = h`
       <h1>Resource graphs</h1>
-      <p class="lede">The Fluxion graph as a tree: cluster, region, zones, offers, nodes, sockets, cores. Siblings with the same shape are folded into one entry with a count, so a 96-core node is one core entry ×96.</p>
+      <p class="lede">The Fluxion graph as a tree. Exact: cluster › region › zone › offer › placement › node › socket › core, gpu, memory, with NICs on the node and storage pools (pd_ssd, hyperdisk_balanced, …) on the offer. Coarse: offers with one pooled node each. Series: one offer per machine series with pooled totals.</p>
+      <p class="small secondary"><b>Folding.</b> Siblings with the same shape are one entry with a count, so a 96-core node is one core entry ×96 and an offer's 64 identical nodes one node entry ×64. The vertex and edge totals below are expanded, every core counted; the tree and the per-type tiles are what Fluxion sees, drawn folded. Cypher queries over the same fold are on the <a href="#/motifs">Motifs</a> page.</p>
       <form class="filters" id="filters">
         ${raw(pick('database', [...new Set(graphs.map(g => g.database))], info.database))}
         ${raw(pick('level', [...new Set(graphs.map(g => g.level))], info.level))}
@@ -291,8 +293,8 @@
         <label>View<span class="tabs"><button type="button" data-view="tree" class="${view === 'tree' ? 'on' : ''}">tree</button><button type="button" data-view="list" class="${view === 'list' ? 'on' : ''}">list</button></span></label>
         <button type="button" id="expand">Expand all</button><button type="button" id="collapse">Collapse</button>${raw(view === 'tree' ? '<button type="button" id="recenter">Recenter</button>' : '')}
       </form>
-      <div class="tiles"><div class="tile"><div class="v">${n(info.vertices)}</div><div class="l">vertices</div><div class="d">${info.level} graph of ${info.region}, ${info.database}</div></div><div class="tile"><div class="v">${n(info.edges != null ? info.edges : info.vertices - 1)}</div><div class="l">edges</div><div class="d">containment</div></div></div>
-      <div class="tiles">${raw(['offer', 'node', 'socket', 'core', 'gpu', 'nic', 'memory', 'local_ssd'].filter(k => counts[k]).map(k => h`<div class="tile"><div class="v">${n(counts[k])}</div><div class="l">${k} vertices</div></div>`).join(''))}</div>
+      <div class="tiles"><div class="tile"><div class="v">${n(info.vertices)}</div><div class="l">vertices</div><div class="d">${info.level} graph of ${info.region}, ${info.database}</div></div><div class="tile"><div class="v">${n(info.edges != null ? info.edges : info.vertices - 1)}</div><div class="l">edges</div><div class="d">containment, expanded</div></div><div class="tile"><div class="v">${n(countFolded(tree))}</div><div class="l">folded entries</div><div class="d">what the tree below draws</div></div></div>
+      <div class="tiles">${raw(['offer', 'placement', 'node', 'socket', 'core', 'gpu', 'nic', 'memory', 'local_ssd', 'pd_standard', 'pd_balanced', 'pd_ssd', 'pd_extreme', 'hyperdisk_balanced', 'hyperdisk_extreme', 'hyperdisk_throughput', 'hyperdisk_ml'].filter(k => counts[k]).map(k => h`<div class="tile"><div class="v">${n(counts[k])}</div><div class="l">${k} vertices</div></div>`).join(''))}</div>
       ${raw(view === 'tree' ? '<div class="gtree-wrap"><div class="chart" id="gtree"></div><div class="card" id="gsel"><h3>Selected vertex</h3><p class="muted small">Click a vertex to see its properties here. Filled circles have hidden children; drag to pan, scroll to zoom.</p></div></div>' : '<div class="card list-tree" id="glist"></div>')}`;
     const q2 = (q.q || '').toLowerCase();
     let api;
@@ -313,6 +315,7 @@
     form.querySelectorAll('[data-view]').forEach(b => b.onclick = () => { setQuery(Object.assign({}, q, { view: b.dataset.view })); route(); });
     bindFilters(form, q, { view });
   }
+  const countFolded = t => 1 + (t.children || []).reduce((a, c) => a + countFolded(c), 0);
   const lmatch = (t, text) => text && (t.name.toLowerCase().includes(text) || t.type.includes(text) || Object.entries(t.properties || {}).some(([k, v]) => (k + '=' + v).toLowerCase().includes(text)));
   function lhas(t, text) { if (!text) return false; if (t._m === undefined) t._m = lmatch(t, text) || (t.children || []).some(c => lhas(c, text)); return t._m; }
   function llabel(t) {
@@ -428,6 +431,55 @@
     main.querySelectorAll('tr[data-obs]').forEach(tr => tr.onclick = () => { const [mt, i] = tr.dataset.obs.split('|'); const t = r.types.find(x => x.machine_type === mt); pick(mt, t.observations[+i]); });
     if (rows.length) C.shapeStrip(document.getElementById('c-strip'), rows, { slotOf, dbName, onPick: d => pick(d.type, d), onClick: t => { location.hash = '#/types/' + encodeURIComponent(t.machine_type); } });
     bindFilters(document.getElementById('filters'), q);
+  }
+
+  // ---------- motifs ----------
+  async function motifsView(q) {
+    if (!manifest.motifs) { main.innerHTML = '<h1>Motifs</h1><p class="empty">No graphs were exported, so there are no shapes to compare.</p>'; return; }
+    const mf = await load(manifest.motifs);
+    const type = q.type || 'node';
+    const levels = [...new Set(mf.motifs.flatMap(m => m.levels || []))].sort();
+    const level = q.level || (levels.includes('exact') ? 'exact' : levels[0] || '');
+    const minTypes = +(q.min || 2);
+    const text = (q.q || '').toLowerCase();
+    const rows = mf.motifs.filter(m => m.type === type && (!level || (m.levels || []).includes(level)) && m.machine_types.length >= minTypes && (!text || m.description.toLowerCase().includes(text) || m.machine_types.some(x => x.includes(text))));
+    const types = [...new Set(mf.motifs.map(m => m.type))];
+    const queries = Object.keys(mf.queries).sort();
+    const sel = q.query && mf.queries[q.query] ? q.query : 'shapes';
+    main.innerHTML = h`
+      <h1>Motifs</h1>
+      <p class="lede">Shapes that recur in the resource graphs. Two vertices have the same shape when everything beneath them is identical: same sockets, cores, GPUs, NICs with the same bandwidth, memory and properties. A shape carried by several machine types is a motif; a machine type with several shapes is hardware that varies.</p>
+      <p class="small secondary">${mf.note}</p>
+      <form class="filters" id="filters">
+        <label>Graph level<select name="level">${raw(levels.map(t => h`<option value="${t}" ${raw(t === level ? 'selected' : '')}>${t}</option>`).join(''))}</select></label>
+        <label>Vertex type<select name="type">${raw(types.map(t => h`<option value="${t}" ${raw(t === type ? 'selected' : '')}>${t}</option>`).join(''))}</select></label>
+        <label>Shared by at least<input type="number" name="min" value="${minTypes}" min="1" style="width:5rem"> machine types</label>
+        <label>Search<input type="search" name="q" value="${q.q || ''}" placeholder="description or machine type"></label>
+      </form>
+      <div class="card"><h3>${rows.length} ${type} shapes in the ${level} graph${minTypes > 1 ? ', shared by ' + minTypes + ' or more machine types' : ''}</h3><p class="muted small">Occurrences count every vertex of the shape across the loaded graphs, parents' counts included. Click a row for the machine types and zones.</p>
+      <div class="legend">${raw([['socket', 1], ['core', 7], ['gpu', 2], ['nic', 5], ['memory', 3], ['local ssd', 4], ['storage pool', 6]].map(([l, i]) => h`<span><span class="sw" style="background:${C.slot(i)}"></span>${l}</span>`).join(''))}<span><span class="sw" style="background:${C.token('--deemph')}"></span>placement, node</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Shape</th><th></th><th>Description</th><th class="num">Machine types</th><th class="num">Zones</th><th class="num">Regions</th><th class="num">Occurrences</th><th class="num">Vertices each</th></tr></thead><tbody>
+      ${raw(rows.map((m, i) => h`<tr class="row" data-i="${i}"><td><code>${m.signature}</code></td><td><div class="chart glyph" data-glyph="${i}" style="width:240px"></div></td><td>${m.description}</td><td class="num">${m.machine_types.length}</td><td class="num">${m.zones.length}</td><td class="num">${m.regions.length}</td><td class="num">${n(m.occurrences)}</td><td class="num">${n(m.vertices)}</td></tr>`).join(''))}</tbody></table></div></div>
+      <h2>The same question in Cypher</h2>
+      <p class="small secondary">The fold is also exported as tables and loaded into an embedded graph database (<code>make graphdb</code>, then <code>make graphdb-query Q=${sel}</code>). These are the shipped queries; the first produces the table above.</p>
+      <div class="toolbar"><span class="tabs">${raw(queries.map(k => h`<button type="button" data-query="${k}" class="${k === sel ? 'on' : ''}">${k}</button>`).join(''))}</span></div>
+      <pre class="card" style="overflow:auto;font-size:.82rem;line-height:1.4"><code id="cypher"></code></pre>`;
+    document.getElementById('cypher').textContent = mf.queries[sel];
+    // Glyphs are drawn as rows scroll into view.
+    const drawGlyph = el => { const m = rows[+el.dataset.glyph]; if (m && m.shape && !el.dataset.done) { el.dataset.done = 1; C.motifGlyph(el, m.shape); } };
+    const glyphs = [...main.querySelectorAll('[data-glyph]')];
+    if (window.IntersectionObserver) { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { drawGlyph(e.target); io.unobserve(e.target); } })); glyphs.forEach(g => io.observe(g)); } else glyphs.forEach(drawGlyph);
+    main.querySelectorAll('[data-query]').forEach(b => b.onclick = () => { setQuery(Object.assign({}, q, { query: b.dataset.query })); route(); });
+    main.querySelectorAll('tr.row').forEach(tr => tr.onclick = () => {
+      const m = rows[+tr.dataset.i];
+      modal.querySelector('.modal-content').innerHTML = h`<div style="width:min(900px,88vw)"><h2 style="margin-top:0">${m.type} shape <code>${m.signature}</code></h2><p>${m.description}</p><div class="chart" id="modal-glyph" style="width:min(860px,84vw)"></div>
+        <dl class="kv"><dt>Occurrences</dt><dd>${n(m.occurrences)} across ${m.graphs.join(', ')}</dd><dt>Zones</dt><dd>${m.zones.join(', ')}</dd><dt>Regions</dt><dd>${m.regions.join(', ')}</dd></dl>
+        <h3>${m.machine_types.length} machine types</h3><p class="pill-list">${raw(m.machine_types.map(x => h`<a href="#/types/${encodeURIComponent(x)}">${x}</a>`).join(' '))}</p></div>`;
+      modal.hidden = false;
+      if (m.shape) C.motifGlyph(document.getElementById('modal-glyph'), m.shape, { width: Math.min(860, window.innerWidth * 0.84), height: 120 });
+      modal.querySelectorAll('a').forEach(a => a.onclick = () => { modal.hidden = true; });
+    });
+    bindFilters(document.getElementById('filters'), q, { query: q.query });
   }
 
   // One capture in the modal: what differs from the type's usual shape, and its topology.

@@ -1,0 +1,17 @@
+{
+  "name": "ct5lp-hightpu-4t",
+  "family": "ct5lp",
+  "description": "112 vCPUs, 192 GB RAM, 4 Google TPUs",
+  "architecture": "X86_64",
+  "vcpus": 112,
+  "memory_mb": 196608,
+  "accelerators": [
+    {
+      "type": "ct5lp",
+      "count": 4
+    }
+  ],
+  "zones": [
+    "us-central1-a"
+  ]
+}

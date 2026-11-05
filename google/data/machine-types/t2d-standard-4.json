@@ -1,0 +1,14 @@
+{
+  "name": "t2d-standard-4",
+  "family": "t2d",
+  "description": "4 vCPUs, 16 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 4,
+  "memory_mb": 16384,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

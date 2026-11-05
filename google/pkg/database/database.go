@@ -5,6 +5,7 @@
 //
 //	index.json                           summary of everything below
 //	machine-types/<name>.json            one machine type from the Compute Engine catalog
+//	disk-types/<name>.json               one disk type and the zones that offer it
 //	topology/<name>/hwloc.xml            hwloc topology captured on a real instance
 //	topology/<name>/capture.json         how and when the topology was captured
 package database
@@ -91,6 +92,7 @@ type Capture struct {
 type Index struct {
 	Generated    string   `json:"generated"`
 	MachineTypes []string `json:"machine_types"`
+	DiskTypes    []string `json:"disk_types"`
 	Topologies   []string `json:"topologies"`
 	Zones        []string `json:"zones"`
 }
@@ -99,7 +101,40 @@ type Index struct {
 type Database struct {
 	Dir          string
 	MachineTypes map[string]MachineType
+	DiskTypes    map[string]DiskType
 	Captures     map[string]Capture
+}
+
+// DiskType is one Compute Engine disk type (pd-ssd, hyperdisk-balanced, ...) and the
+// zones that offer it.
+type DiskType struct {
+	Name        string   `json:"name"`
+	Description string   `json:"description,omitempty"`
+	MinGB       int      `json:"min_gb"`
+	MaxGB       int      `json:"max_gb"`
+	DefaultGB   int      `json:"default_gb,omitempty"`
+	Zones       []string `json:"zones"`
+}
+
+// WriteDiskType writes one disk type file.
+func WriteDiskType(dir string, dt DiskType) error {
+	sort.Strings(dt.Zones)
+	return WriteJSON(filepath.Join(dir, "disk-types", dt.Name+".json"), dt)
+}
+
+// DiskTypesIn returns the disk types offered in a zone, sorted by name.
+func (db *Database) DiskTypesIn(zone string) []DiskType {
+	var out []DiskType
+	for _, dt := range db.DiskTypes {
+		for _, z := range dt.Zones {
+			if z == zone {
+				out = append(out, dt)
+				break
+			}
+		}
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].Name < out[j].Name })
+	return out
 }
 
 // RegionOf returns the region for a zone name such as us-central1-a.
@@ -178,7 +213,7 @@ func Series(mts []MachineType) map[string][]MachineType {
 
 // Load reads every machine type and topology capture under dir.
 func Load(dir string) (*Database, error) {
-	db := &Database{Dir: dir, MachineTypes: map[string]MachineType{}, Captures: map[string]Capture{}}
+	db := &Database{Dir: dir, MachineTypes: map[string]MachineType{}, DiskTypes: map[string]DiskType{}, Captures: map[string]Capture{}}
 	mtDir := filepath.Join(dir, "machine-types")
 	entries, err := os.ReadDir(mtDir)
 	if err != nil && !errors.Is(err, fs.ErrNotExist) {
@@ -193,6 +228,21 @@ func Load(dir string) (*Database, error) {
 			return nil, err
 		}
 		db.MachineTypes[mt.Name] = mt
+	}
+	dtDir := filepath.Join(dir, "disk-types")
+	entries, err = os.ReadDir(dtDir)
+	if err != nil && !errors.Is(err, fs.ErrNotExist) {
+		return nil, err
+	}
+	for _, e := range entries {
+		if e.IsDir() || filepath.Ext(e.Name()) != ".json" {
+			continue
+		}
+		var dt DiskType
+		if err := readJSON(filepath.Join(dtDir, e.Name()), &dt); err != nil {
+			return nil, err
+		}
+		db.DiskTypes[dt.Name] = dt
 	}
 	topoDir := filepath.Join(dir, "topology")
 	entries, err = os.ReadDir(topoDir)
@@ -285,7 +335,11 @@ func (db *Database) BuildIndex(now time.Time) Index {
 			zones[z] = true
 		}
 	}
-	idx := Index{Generated: now.UTC().Format(time.RFC3339), MachineTypes: db.Names()}
+	idx := Index{Generated: now.UTC().Format(time.RFC3339), MachineTypes: db.Names(), DiskTypes: []string{}}
+	for n := range db.DiskTypes {
+		idx.DiskTypes = append(idx.DiskTypes, n)
+	}
+	sort.Strings(idx.DiskTypes)
 	for n := range db.Captures {
 		idx.Topologies = append(idx.Topologies, n)
 	}

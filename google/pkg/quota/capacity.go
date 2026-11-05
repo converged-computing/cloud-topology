@@ -5,6 +5,7 @@ import (
 	"math"
 
 	"github.com/converged-computing/google-cloud-topology/pkg/database"
+	"github.com/converged-computing/google-cloud-topology/pkg/storage"
 )
 
 // Check is one quota's contribution to a capacity result.
@@ -117,6 +118,31 @@ func hasPreemptible(snap *Snapshot, mt database.MachineType, region string) bool
 
 // NodesFunc returns node counts for graph building in a region. Machine types with no
 // quota rule get zero nodes and are reported to warn when it is set.
+// StorageFunc returns a function giving the total GB quota allows for a disk type in a
+// region (-1 for no limit), and whether a quota bounds it at all. Disk types without a
+// known quota metric (the Hyperdisk types, whose quotas the snapshot does not fetch yet)
+// report ok=false.
+func (s *Snapshot) StorageFunc(region string) func(diskType string) (gb int64, ok bool) {
+	return func(diskType string) (int64, bool) {
+		metric := storage.QuotaMetric(diskType)
+		if metric == "" {
+			return 0, false
+		}
+		q, found := s.Find(metric, region, nil)
+		if !found {
+			return 0, true
+		}
+		if q.Limit < 0 || q.Limit > 1<<40 {
+			return -1, true
+		}
+		usage := 0.0
+		if q.Usage != nil {
+			usage = *q.Usage
+		}
+		return int64(q.Limit - usage), true
+	}
+}
+
 func (s *Snapshot) NodesFunc(region string, warn func(string)) func(database.MachineType, string) int {
 	return func(mt database.MachineType, model string) int {
 		c := Compute(s, mt, model, region)

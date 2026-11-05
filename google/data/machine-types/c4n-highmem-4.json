@@ -1,0 +1,12 @@
+{
+  "name": "c4n-highmem-4",
+  "family": "c4n",
+  "description": "4 vCPUs, 31 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 4,
+  "memory_mb": 31744,
+  "zones": [
+    "us-central1-a",
+    "us-central1-c"
+  ]
+}

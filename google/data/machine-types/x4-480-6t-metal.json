@@ -1,0 +1,13 @@
+{
+  "name": "x4-480-6t-metal",
+  "family": "x4",
+  "description": "480 vCPUs, 6144 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 480,
+  "memory_mb": 6291456,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

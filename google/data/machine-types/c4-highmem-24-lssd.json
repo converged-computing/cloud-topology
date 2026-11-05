@@ -1,0 +1,16 @@
+{
+  "name": "c4-highmem-24-lssd",
+  "family": "c4",
+  "description": "24 vCPUs, 186 GB RAM, 4 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 24,
+  "memory_mb": 190464,
+  "local_ssd_partitions": 4,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

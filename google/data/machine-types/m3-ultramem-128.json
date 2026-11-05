@@ -1,0 +1,14 @@
+{
+  "name": "m3-ultramem-128",
+  "family": "m3",
+  "description": "128 vCPUs, 3904 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 128,
+  "memory_mb": 3997696,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

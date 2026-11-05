@@ -1,0 +1,15 @@
+{
+  "name": "c4n-standard-96-lssd",
+  "family": "c4n",
+  "description": "96 vCPUs, 360 GB RAM, 16 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 96,
+  "memory_mb": 368640,
+  "local_ssd_partitions": 16,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

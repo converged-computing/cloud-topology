@@ -157,28 +157,44 @@ sizes, CPU model, GPU and NIC placement), and for varying types every capture wi
 zone, model, time, kernel and hwloc version. `make site STUDY=projects/$PROJECT/consistency`
 adds the rounds to the web interface, whose Consistency view shows the same.
 
+## Graph queries
+
+The resource graphs can be queried with Cypher in an embedded graph database,
+[LadybugDB](https://github.com/LadybugDB/ladybug). The pieces:
+
+- The graph for us-central1 has 2,652,544 vertices and 2,652,543 edges modeling every core and adding NICs with egress bandwidth and kind (gVNIC, TCPX, RDMA) and storage for disk types that can attach depending on the machine type.
+- I don't store the expanded graph, and especially because we are modeling resources that we will create, I fold it up. To do this I start with the fluxion JGF and walk from the bottom up and give each vertex a signature based on hash of its type, properties, and signatures of children with their counts (and I leave out the names). Siblings with the same signature can then merge onto each other with a count. This reduces the 2 million vertices to 22K, and this is what I'm calling motifs in the updated UI.
+- I found an embedded Cypher database https://github.com/LadybugDB/ladybug that I can export into from Parquet! Loading takes under a second and queries under a third of s second. See the screenshot for an example.
+
+To build it and ask questions:
+
+```bash
+make install-lbug                     # the LadybugDB shell, once (the devcontainer has it)
+make graphdb REGION=$REGION           # fold the final run's graph and data/, export, load graphdb/graph.lbug
+
+make graphdb-query Q=summary          # rows and folded siblings per graph and vertex type
+make graphdb-query Q=shapes           # node shapes by how many machine types, zones and regions carry them
+make graphdb-query Q=pattern          # offers that fit 8 GPUs, a GPU or RDMA NIC and a Hyperdisk ML pool
+make graphdb-query Q=varying          # machine types whose node shape differs between graphs
+make graphdb-query MODE=csv Q=shapes  # csv, tsv, json, jsonlines, markdown or box output
+
+# your own Cypher, inline or from a file
+make graphdb-query Q="MATCH (o:Vertex {type:'offer'})-[:Contains]->(p:Vertex {type:'pd_ssd'}) RETURN o.zone, count(*)"
+go run ./cmd/graphdb query --file my.cypher
+lbug graphdb/graph.lbug               # the interactive shell
+```
+
+Here is an example. Whose nodes have at least 8 GPUs and a GPU NIC, and which also have a Hyperdisk ML pool?
+
+```cypher
+MATCH (o:Vertex {type: 'offer'})-[:Contains]->(p:Vertex {type: 'placement'})-[:Contains]->(n:Vertex {type: 'node'})
+MATCH (n)-[:Contains]->(nic:Vertex {type: 'nic'})
+WHERE o.gpus >= 8 AND nic.kind IN ['rdma', 'tcpx', 'tcpxo']
+MATCH (o)-[:Contains]->(pool:Vertex {type: 'hyperdisk_ml'})
+RETURN o.zone, o.machine_type, o.egress_gbps, p.count * n.count AS nodes, pool.size AS hyperdisk_ml_gb;
+```
+
 ## Web interface
-
-`make site` exports a static web site to browse, search and compare everything above
-without a server. It is HTML and JavaScript with D3 vendored in (no network access needed),
-so it works on GitHub Pages or any static host, in light and dark mode:
-
-- **Machine types**: filters (family, region, zone, vCPU and GPU ranges, captured in which
-  database) that scope a vCPUs-versus-memory scatter plot and a sortable table together,
-  with one family highlighted and the rest receding.
-- **Topologies**: an explorer that draws each capture's hwloc object tree as a zoomable
-  icicle (packages, NUMA memory, caches, cores and PUs, and the GPUs, NICs and disks
-  attached to each), beside lstopo's image and a per-socket summary.
-- **Resource graphs**: the series, coarse and exact Fluxion graphs as a pannable,
-  collapsible tree with search, siblings of the same shape folded with a count, and a
-  list view.
-- **Compare**: databases side by side as a provisioning-time heatmap with shape agreement,
-  and a table.
-- **Experiments**: outcomes per arm, provisioning time per machine type for both arms, a
-  timeline with both arms drawn from their own start, the agent's cost, and the per-type
-  table.
-- **Consistency**: every capture of each machine type across the loaded databases and
-  study rounds, which types vary, in what, and each capture's shape, zone and environment.
 
 ```bash
 make site REGION=$REGION                                      # data/ as "main", into site/
@@ -188,14 +204,6 @@ make site REGION=$REGION SITE_DATA="main=data agent=projects/$PROJECT/experiment
 make site-final REGION=$REGION                                # final experiment run + consistency study only
 make site-serve                                               # http://localhost:8000
 ```
-
-`SITE_DATA` lists databases as `label=dir`; each experiment in `EXPERIMENTS` adds its arms as
-databases and its report (run `make report` first). With `PROJECT` set, graphs are sized by
-the project's quota. The exact graph can be large; `LEVELS=series,coarse` skips it, and
-`LEVELS=none` skips graphs. `SINGLE=1` writes one self-contained `index.html` with the data
-and images inlined, which opens from disk; the directory form needs to be served over HTTP,
-as GitHub Pages does. To publish, export into the repository, for example
-`make site SITE=../docs`, and point GitHub Pages at that directory.
 
 ## Updating
 

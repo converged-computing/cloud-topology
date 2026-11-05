@@ -1,0 +1,13 @@
+{
+  "name": "hyperdisk-throughput",
+  "description": "Hyperdisk Throughput Persistent Disk",
+  "min_gb": 2048,
+  "max_gb": 32768,
+  "default_gb": 2048,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "z3-highmem-176-standardlssd",
+  "family": "z3",
+  "description": "176 vCPUs, 1408 GB RAM, 12 Local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 176,
+  "memory_mb": 1441792,
+  "local_ssd_partitions": 12,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

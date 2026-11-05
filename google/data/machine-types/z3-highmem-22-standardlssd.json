@@ -1,0 +1,16 @@
+{
+  "name": "z3-highmem-22-standardlssd",
+  "family": "z3",
+  "description": "22 vCPUs, 176 GB RAM, 2 Local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 22,
+  "memory_mb": 180224,
+  "local_ssd_partitions": 2,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

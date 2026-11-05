@@ -1,0 +1,10 @@
+{
+  "name": "c3a-standard-4",
+  "family": "c3a",
+  "description": "Fixture shaped like c3a-standard-4; not read from the live catalog",
+  "vcpus": 4,
+  "memory_mb": 16384,
+  "zones": [
+    "us-central1-a"
+  ]
+}

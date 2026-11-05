@@ -1,0 +1,12 @@
+{
+  "name": "m2-hypermem-416",
+  "family": "m2",
+  "description": "416 vCPUs, 8.625 TB RAM",
+  "vcpus": 416,
+  "memory_mb": 9043968,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

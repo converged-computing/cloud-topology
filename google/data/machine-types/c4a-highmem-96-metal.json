@@ -1,0 +1,13 @@
+{
+  "name": "c4a-highmem-96-metal",
+  "family": "c4a",
+  "description": "96 vCPUs, 768 GB RAM",
+  "architecture": "ARM64",
+  "vcpus": 96,
+  "memory_mb": 786432,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

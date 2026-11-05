@@ -1,0 +1,14 @@
+{
+  "name": "c4-standard-144",
+  "family": "c4",
+  "description": "144 vCPUs, 540 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 144,
+  "memory_mb": 552960,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

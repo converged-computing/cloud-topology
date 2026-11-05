@@ -1,0 +1,13 @@
+{
+  "project": "example-project",
+  "regions": ["us-central1"],
+  "fetched": "2026-10-29T00:00:00Z",
+  "quotas": [
+    {"metric": "C3_CPUS", "region": "us-central1", "limit": 500, "usage": 0, "source": "compute"},
+    {"metric": "CPUS", "region": "us-central1", "limit": 64, "usage": 0, "source": "compute"},
+    {"metric": "PREEMPTIBLE_CPUS", "region": "us-central1", "limit": 400, "usage": 0, "source": "compute"},
+    {"metric": "CPUS_PER_VM_FAMILY", "region": "us-central1", "dimensions": {"vm_family": "C3D"}, "limit": 720, "source": "cloudquotas"},
+    {"metric": "CPUS_PER_VM_FAMILY", "region": "us-central1", "dimensions": {"vm_family": "C3A"}, "limit": -1, "source": "cloudquotas"},
+    {"metric": "GPU_FAMILY", "region": "us-central1", "dimensions": {"gpu_family": "NVIDIA_L4"}, "limit": 2, "source": "cloudquotas"}
+  ]
+}

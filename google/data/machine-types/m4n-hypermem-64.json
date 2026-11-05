@@ -1,0 +1,13 @@
+{
+  "name": "m4n-hypermem-64",
+  "family": "m4n",
+  "description": "64 vCPUs, 992 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 64,
+  "memory_mb": 1015808,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

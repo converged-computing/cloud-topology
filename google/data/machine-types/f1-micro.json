@@ -1,0 +1,14 @@
+{
+  "name": "f1-micro",
+  "family": "f1",
+  "description": "1 vCPU (shared physical core) and 0.6 GB RAM",
+  "vcpus": 1,
+  "memory_mb": 614,
+  "shared_cpu": true,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

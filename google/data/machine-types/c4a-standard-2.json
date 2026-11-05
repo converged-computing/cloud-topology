@@ -1,0 +1,14 @@
+{
+  "name": "c4a-standard-2",
+  "family": "c4a",
+  "description": "2 vCPUs, 8 GB RAM",
+  "architecture": "ARM64",
+  "vcpus": 2,
+  "memory_mb": 8192,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

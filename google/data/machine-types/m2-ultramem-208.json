@@ -1,0 +1,12 @@
+{
+  "name": "m2-ultramem-208",
+  "family": "m2",
+  "description": "208 vCPUs, 5.75 TB RAM",
+  "vcpus": 208,
+  "memory_mb": 6029312,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

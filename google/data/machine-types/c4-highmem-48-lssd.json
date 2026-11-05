@@ -1,0 +1,16 @@
+{
+  "name": "c4-highmem-48-lssd",
+  "family": "c4",
+  "description": "48 vCPUs, 372 GB RAM, 8 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 48,
+  "memory_mb": 380928,
+  "local_ssd_partitions": 8,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

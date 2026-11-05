@@ -1,0 +1,15 @@
+{
+  "name": "h4d-highmem-192-lssd",
+  "family": "h4d",
+  "description": "192 vCPUs, 1488 GB RAM, 10 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 192,
+  "memory_mb": 1523712,
+  "local_ssd_partitions": 10,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-f"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "e2-micro",
+  "family": "e2",
+  "description": "Fixture shaped like e2-micro; not read from the live catalog",
+  "vcpus": 2,
+  "memory_mb": 8192,
+  "shared_cpu": true,
+  "zones": [
+    "us-central1-a"
+  ]
+}

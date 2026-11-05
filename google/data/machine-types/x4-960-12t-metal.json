@@ -1,0 +1,12 @@
+{
+  "name": "x4-960-12t-metal",
+  "family": "x4",
+  "description": "960 vCPUs, 12288 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 960,
+  "memory_mb": 12582912,
+  "zones": [
+    "us-central1-a",
+    "us-central1-c"
+  ]
+}

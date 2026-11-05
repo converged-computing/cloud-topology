@@ -1,0 +1,11 @@
+{
+  "name": "c4d-highmem-384-metal",
+  "family": "c4d",
+  "description": "384 vCPUs, 3072 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 384,
+  "memory_mb": 3145728,
+  "zones": [
+    "us-central1-b"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "c3-standard-176-lssd",
+  "family": "c3",
+  "description": "176 vCPUs, 704 GB RAM, 32 local SSDs",
+  "architecture": "X86_64",
+  "vcpus": 176,
+  "memory_mb": 720896,
+  "local_ssd_partitions": 32,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

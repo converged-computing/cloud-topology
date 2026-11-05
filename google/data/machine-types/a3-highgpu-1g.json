@@ -1,0 +1,21 @@
+{
+  "name": "a3-highgpu-1g",
+  "family": "a3",
+  "description": "Accelerator Optimized: 1 NVIDIA H100 GPU, 26 vCPUs, 234GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 26,
+  "memory_mb": 239616,
+  "accelerators": [
+    {
+      "type": "nvidia-h100-80gb",
+      "count": 1
+    }
+  ],
+  "local_ssd_partitions": 2,
+  "local_ssd_interface": "NVME",
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

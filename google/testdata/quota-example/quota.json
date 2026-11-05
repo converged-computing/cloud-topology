@@ -1,0 +1,51 @@
+{
+  "project": "example-project",
+  "regions": [
+    "us-central1"
+  ],
+  "fetched": "2026-10-29T00:00:00Z",
+  "quotas": [
+    {
+      "metric": "N2_CPUS",
+      "region": "us-central1",
+      "limit": 24,
+      "usage": 4,
+      "source": "compute"
+    },
+    {
+      "metric": "CPUS_ALL_REGIONS",
+      "limit": 32,
+      "usage": 4,
+      "source": "compute"
+    },
+    {
+      "metric": "GPUS_ALL_REGIONS",
+      "limit": 4,
+      "usage": 0,
+      "source": "compute"
+    },
+    {
+      "metric": "GPU_FAMILY",
+      "region": "us-central1",
+      "dimensions": {
+        "gpu_family": "NVIDIA_L4"
+      },
+      "limit": 2,
+      "source": "cloudquotas"
+    },
+    {
+      "metric": "DISKS_TOTAL_GB",
+      "region": "us-central1",
+      "limit": 4096,
+      "usage": 0,
+      "source": "compute"
+    },
+    {
+      "metric": "SSD_TOTAL_GB",
+      "region": "us-central1",
+      "limit": 1000,
+      "usage": 200,
+      "source": "compute"
+    }
+  ]
+}

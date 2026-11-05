@@ -1,0 +1,16 @@
+{
+  "name": "g2-standard-8",
+  "family": "g2",
+  "description": "Fixture shaped like g2-standard-8; not read from the live catalog",
+  "vcpus": 8,
+  "memory_mb": 32768,
+  "accelerators": [
+    {
+      "type": "nvidia-l4",
+      "count": 1
+    }
+  ],
+  "zones": [
+    "us-central1-a"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "hyperdisk-extreme",
+  "description": "Hyperdisk Extreme Persistent Disk",
+  "min_gb": 64,
+  "max_gb": 65536,
+  "default_gb": 1000,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

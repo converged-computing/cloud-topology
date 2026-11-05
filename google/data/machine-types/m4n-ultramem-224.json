@@ -1,0 +1,13 @@
+{
+  "name": "m4n-ultramem-224",
+  "family": "m4n",
+  "description": "224 vCPUs, 5952 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 224,
+  "memory_mb": 6094848,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c"
+  ]
+}

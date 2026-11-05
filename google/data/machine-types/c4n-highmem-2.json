@@ -1,0 +1,12 @@
+{
+  "name": "c4n-highmem-2",
+  "family": "c4n",
+  "description": "2 vCPUs, 15 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 2,
+  "memory_mb": 15360,
+  "zones": [
+    "us-central1-a",
+    "us-central1-c"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "c4d-highmem-4",
+  "family": "c4d",
+  "description": "4 vCPUs, 31 GB RAM",
+  "architecture": "X86_64",
+  "vcpus": 4,
+  "memory_mb": 31744,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

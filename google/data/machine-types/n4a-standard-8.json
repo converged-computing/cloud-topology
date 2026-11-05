@@ -1,0 +1,14 @@
+{
+  "name": "n4a-standard-8",
+  "family": "n4a",
+  "description": "8 vCPUs, 32 GB RAM",
+  "architecture": "ARM64",
+  "vcpus": 8,
+  "memory_mb": 32768,
+  "zones": [
+    "us-central1-a",
+    "us-central1-b",
+    "us-central1-c",
+    "us-central1-f"
+  ]
+}

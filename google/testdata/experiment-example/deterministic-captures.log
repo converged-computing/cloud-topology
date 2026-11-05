@@ -1,0 +1,4 @@
+2026-10-30T11:02:11Z	e2-standard-32	ok	131	1
+2026-10-30T11:02:40Z	n2-standard-128	stockout	22	1
+2026-10-30T11:03:10Z	a2-megagpu-16g	quota	24	1	Quota NVIDIA_A100_GPUS exceeded
+2026-10-30T11:40:00Z	n2-standard-128	ok	160	2
