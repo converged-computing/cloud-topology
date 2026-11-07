@@ -93,7 +93,7 @@ capture-agent:
 
 # Experiments (experiments/Makefile): the agent-versus-runner experiment, the consistency
 # study and the GKE experiment. Variables such as PROJECT and REGION pass through.
-EXPERIMENT_TARGETS := experiment experiment-test report consistency consistency-report gke gke-report
+EXPERIMENT_TARGETS := experiment experiment-test report consistency consistency-report gke gke-report fidelity fidelity-graphs fidelity-jobspecs fidelity-report
 $(EXPERIMENT_TARGETS):
 	@$(MAKE) --no-print-directory -C experiments $@
 
@@ -101,14 +101,15 @@ $(EXPERIMENT_TARGETS):
 # GitHub Pages or any static host: make site PROJECT=my-project REGION=us-central1
 # SITE_DATA lists databases as label=dir (default main=$(DATA)); EXPERIMENTS lists experiment
 # directories (name=dir or dir), whose arms and report are added; KUBERNETES lists runs of
-# make gke (name=dir), whose gke/ database and reports are added; GRAPH_DATA limits graphs
+# make gke (name=dir), whose gke/ database and reports are added; FIDELITY_RUNS lists
+# scheduling-fidelity runs (make fidelity, name=dir); GRAPH_DATA limits graphs
 # to these database labels (graphs for every arm and round add up); STUDY is a consistency study directory,
 # whose rounds are added; LEVELS picks graphs (series,coarse,exact or none); SINGLE=1 writes
 # one self-contained index.html instead of a directory.
 SITE ?= site
 SITE_DATA ?= main=$(DATA)
 site:
-	go run ./cmd/site --out $(SITE) $(foreach d,$(SITE_DATA),--data $(d)) $(foreach e,$(EXPERIMENTS),--experiment $(e)) $(foreach k,$(KUBERNETES),--kubernetes $(k)) $(if $(STUDY),--consistency $(STUDY)) $(foreach g,$(GRAPH_DATA),--graph-data $(g)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) $(if $(LEVELS),--levels $(LEVELS)) $(if $(SINGLE),--single)
+	go run ./cmd/site --out $(SITE) $(foreach d,$(SITE_DATA),--data $(d)) $(foreach e,$(EXPERIMENTS),--experiment $(e)) $(foreach k,$(KUBERNETES),--kubernetes $(k)) $(foreach f,$(FIDELITY_RUNS),--fidelity $(f)) $(if $(STUDY),--consistency $(STUDY)) $(foreach g,$(GRAPH_DATA),--graph-data $(g)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) $(if $(LEVELS),--levels $(LEVELS)) $(if $(SINGLE),--single)
 
 # The published view: the final experiment run and the consistency study, graphs from the
 # runner's arm. Older runs and data/ stay out (data/'s captures predate the current
@@ -117,8 +118,9 @@ site:
 AGENT_MODEL ?= claude-opus-5-5
 # GKE runs under projects/$(PROJECT)/gke/<image>/gke are included as databases gke/<image>.
 GKE_RUNS = $(foreach d,$(filter-out %/trial/gke/topology,$(wildcard projects/$(PROJECT)/gke/*/gke/topology)),gke/$(word 4,$(subst /, ,$(d)))=$(patsubst %/gke/topology,%,$(d)))
+FIDELITY_DIRS = $(if $(wildcard projects/$(PROJECT)/fidelity/fidelity.json),fidelity=projects/$(PROJECT)/fidelity)
 site-final:
-	$(MAKE) --no-print-directory site SITE_DATA= KUBERNETES="$(GKE_RUNS)" GRAPH_DATA=$(AGENT_MODEL)/deterministic EXPERIMENTS=$(AGENT_MODEL)=projects/$(PROJECT)/agent/$(AGENT_MODEL) STUDY=projects/$(PROJECT)/consistency
+	$(MAKE) --no-print-directory site SITE_DATA= KUBERNETES="$(GKE_RUNS)" FIDELITY_RUNS="$(FIDELITY_DIRS)" GRAPH_DATA=$(AGENT_MODEL)/deterministic EXPERIMENTS=$(AGENT_MODEL)=projects/$(PROJECT)/agent/$(AGENT_MODEL) STUDY=projects/$(PROJECT)/consistency
 
 # Serve the site locally: http://localhost:8000
 site-serve:

@@ -154,3 +154,110 @@ shows both side by side.
 Costs: the same VM minutes as a plan pass, plus the cluster management fee for the hours
 the cluster exists (the free tier covers one zonal cluster) and a few minutes of cluster
 creation and deletion.
+
+## Scheduling fidelity: does the graph level change what Fluxion decides?
+
+Design: [design/scheduling-fidelity.md](design/scheduling-fidelity.md). Entirely local; no
+cloud resources, no API calls. The three graph levels describe the same region at
+increasing detail, and this experiment asks what each level gets right for a scheduler
+and what it costs Fluxion to hold and search.
+
+```bash
+make fidelity-graphs PROJECT=$PROJECT    # series, coarse and exact graphs from the captures, plus
+                                         # exact at 1, 2, 4, 8 nodes per offer and a no-NIC ablation
+make fidelity PROJECT=$PROJECT           # generate the workload, run every variant and policy, report
+make fidelity VARIANTS="coarse exact" POLICIES="first locality"   # a subset
+make fidelity-report PROJECT=$PROJECT    # rebuild fidelity.md from the sessions
+```
+
+`experiments/cmd/jobspecs` writes the workload: 33 single jobs in families (cores on one
+socket and across two, memory, GPUs near cores, multi-node placement, NIC bandwidth, local
+SSD, a pd-ssd pool) and a 200-job stream drawn from the families every level can express,
+one YAML per job per level because each level needs the containment hierarchy spelled to
+its own depth. `experiments/scripts/fidelity.sh` runs one `resource-query` session per
+graph variant and match policy: the single jobs are matched and cancelled in turn, so each
+sees an empty graph, then the stream is matched and kept, so the graph fills. Every session
+records the load time, resident memory (`/usr/bin/time -v`), and per match the elapsed time
+and Fluxion's preorder and postorder visit counts. `experiments/cmd/fidelity report` turns
+the sessions into `fidelity.json` and `fidelity.md` under `projects/$PROJECT/fidelity/`: the
+graphs' size and cost, the feasibility and placement matrix, agreement with the exact graph,
+the match policies compared, the scale series, and where the policies disagree.
+
+### Findings (2026-11-07, us-central1, 56 captured types; full report in `projects/llnl-flux/fidelity/fidelity.md`, and the Experiments page of the site)
+
+The first run of this experiment found a defect in the graph builder and the numbers
+below are from the second run, after the fix: a machine type whose series has no capture
+at all was modelled as one socket with one core per vCPU, while captured types carry
+hwloc cores (two vCPUs each on x86), so catalog-only types looked like huge single-socket
+machines and took 24 of the 31 first-fit placements. Catalog-only cores are now vCPUs per
+thread, the socket carries `threads_per_core`, the offer still says `topology=catalog`,
+and `--captured-only` builds an exact graph without them (the `exact-captured` variant).
+Of the 603 types in the region 56 are captured, 1642 offers are derived (a size cut from
+a captured member of the same series) and 317 are catalog-only.
+
+**What each level costs.** Memory and load time are linear in vertices, about 7 KB and
+20 µs per vertex: the series graph (110k vertices) loads in 1.8 s and holds 0.7 GB, the
+coarse graph (124k) 2.4 s and 0.8 GB, the quota-sized exact graph for the region (2.49M
+vertices, a 1.3 GB JGF) 50 s and 18.3 GB, and the captured-only exact graph (2.31M) 48 s
+and 17.6 GB. The devcontainer's 58 GB would hold about 8M vertices; a region at quota is
+a third of that.
+
+**What a match costs is the policy's doing, not the level's.** Fluxion's `first` and
+`firstnodex` stop at the first fit: 50k visits (2% of the full exact graph) and 10 ms per
+match. Every ranking policy (`low`, `high`, `lonode`, `hinode`, `lonodex`, `hinodex`,
+`locality`) visits 1.54M vertices (62%) and takes 1.5 s per match, growing linearly from
+about 60 ms at 118k vertices; `variation` takes 4.0 s. A failed match is the expensive
+case for first-fit (64 ms on the full graph, 482 ms on the captured-only graph where more
+requests fail) and the cheap one for the ranking policies. A region-wide exact graph is
+interactive only with a first-fit policy; with a ranking policy it needs partitioning, by
+zone or by offer.
+
+**Feasibility.** The series and coarse graphs placed every single job. The exact graph
+rejected three, each correctly: 360 cores on one socket and 360 across two (no socket in
+the region has 180 physical cores; the coarse graph's c4d-standard-384 is 384 vCPUs on two
+96-core sockets), and 8 cores with 3800 GB on one socket (m1-ultramem-160 spreads its
+memory over four). The captured-only graph rejected three more: 176 cores on one socket,
+2048 GB on one socket, and 8 GPUs on one socket. Those three are satisfiable only by
+catalog-only types (c4-standard-288-metal, c4-highmem-288-metal, a3-edgegpu-8g) whose
+single socket is a guess, so the full exact graph's yes for them is unverified. The exact
+level also makes the jobspec spell the socket split, which the coarse level does not.
+
+**Where placements land.** On the full exact graph under `first`, 7 of the 30 placements
+are on captured types, 18 on derived ones and 5 on catalog-only ones; under `low` 6, 15
+and 9. Derived types are grounded in a capture of their series, so 25 of 30 first-fit
+answers rest on measured hardware, against 7 of 31 before the fix.
+
+**Which machine type you get is the policy's choice.** Fluxion's ID-ordered policies
+encode the alphabetical order of machine type names: `low` places a 1-core job on
+a2-highgpu-1g, a 32-core job on a3-edgegpu-8g and a 2-node job on a2-highgpu-2g, GPU
+machines, because "a2" and "a3" sort first; `high` and `locality` put nearly every
+CPU job on z3-highmem-88-standardlssd. `first` spreads over 27 types and `variation` over
+23, `low` and `high` over 11. Agreement with the exact graph on machine type is low for
+the other levels: coarse chose the same type for 8 of 30 jobs under `first` and 11 under
+`low`, series never (it answers with a series pool). The captured-only graph agrees with
+the full one on 24 of 27 under `first` and on every zone. Between exact graphs of
+different sizes the ranking policies are stable (21 to 24 of 26 to 29 same type) and
+first-fit is not (2 of 26 to 29): first-fit placement changes whenever the graph is
+rebuilt at another size.
+
+**Packing.** Over the 200-job stream the quota-sized exact graph placed 190 under every
+policy, the captured-only graph 184, the coarse graph 188 under `first` and 168 under
+`low`, the series graph 172 and 168. The first failure is always the same job, 8 GPUs
+with 32 cores on one socket: it is the first job in the stream and the captured-only
+graph has no such socket, so it fails all 16 of them, while the other graphs run out of
+the catalog-only TPU and edge types that answer it after a few. The exact graph at eight
+potential nodes per offer placed all 200, more than at quota, because quota caps the GPU
+offers below eight nodes. Multi-node jobs need the offer to hold the nodes: one node per
+offer places none, two the 2-node job, eight the 8-node job, and the quota-sized graph
+the 16-node job on n2d-standard-48.
+
+**NICs are free.** Dropping the NIC vertices (2% of the small exact graph) changed one
+placement in 25 under `first`, saved 4% of memory and nothing measurable in match time,
+and only made the NIC jobs inexpressible. Keep them.
+
+**What to change next.** Catalog-only types still have a guessed socket count; a
+jobspec that must not land on one can exclude `topology=catalog`, or use the
+captured-only graph. Fluxion's ID-ordered policies are not placement policies for a cloud
+catalog, where IDs are alphabetical; assigning IDs at build time in cost or capacity order
+would make `low` mean cheapest. For a region-wide exact graph the practical operating
+point is first-fit, or one graph per zone.

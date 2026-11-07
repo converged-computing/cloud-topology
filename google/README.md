@@ -55,6 +55,7 @@ make capture-all REGION=$REGION
 make capture-agent REGION=$REGION
 
 make graphs REGION=$REGION                             # series, coarse and exact graphs sized by quota
+#   add --captured-only to cmd/graph for an exact graph without catalog-only machine types
 make sizes REGION=$REGION SERIES=n2-standard VCPUS=16  # concrete sizes for a total
 make serve                                             # http://localhost:8080/v1/index
 ```

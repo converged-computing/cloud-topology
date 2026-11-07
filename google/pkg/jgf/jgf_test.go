@@ -60,14 +60,14 @@ func TestBuildExact(t *testing.T) {
 	}
 	c := countTypes(g)
 	// test-gpu-2g: 2 zones x 2 nodes from hwloc (2 sockets, 8 cores, 2 GPUs, 1 NIC each).
-	// test-cpu-4: 1 zone x 2 nodes from the catalog (1 socket, 4 cores).
+	// test-cpu-4: 1 zone x 2 nodes from the catalog (1 socket, 4 vCPUs = 2 cores on x86).
 	if c["zone"] != 2 || c["offer"] != 3 || c["node"] != 6 {
 		t.Errorf("unexpected structure %v", c)
 	}
 	// NICs: the hwloc nodes keep their captured NIC (the test series is not in the
 	// bandwidth tables); the catalog nodes get one from the rule. Placement: the test
 	// series support no compact placement, so every node sits in a group of its own.
-	if c["socket"] != 4*2+2*1 || c["core"] != 4*8+2*4 || c["gpu"] != 4*2 || c["nic"] != 4+2 || c["placement"] != 6 {
+	if c["socket"] != 4*2+2*1 || c["core"] != 4*8+2*2 || c["gpu"] != 4*2 || c["nic"] != 4+2 || c["placement"] != 6 {
 		t.Errorf("unexpected hardware counts %v", c)
 	}
 	for _, n := range g.Nodes {

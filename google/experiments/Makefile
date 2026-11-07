@@ -11,7 +11,7 @@ BACKEND ?= claude
 MODEL ?= claude-opus-5-5
 IMAGE_TYPE ?= COS_CONTAINERD
 
-.PHONY: experiment experiment-test report consistency consistency-report gke gke-report
+.PHONY: experiment experiment-test report consistency consistency-report gke gke-report fidelity fidelity-graphs fidelity-jobspecs fidelity-report
 
 # Compare the agent with the deterministic runner on the same plan: make experiment REGION=us-central1
 # The plan covers every series quota allows, including those already captured, and each arm
@@ -78,3 +78,25 @@ gke-report:
 	@cd $(ROOT) && go run ./experiments/cmd/latency --data gke=$(GKE)/gke $(foreach d,$(COMPARE),--data $(d)) --phases $(GKE)/phases.tsv --format json > $(GKE)/latency.json
 	@cd $(ROOT) && go run ./experiments/cmd/latency --data gke=$(GKE)/gke $(foreach d,$(COMPARE),--data $(d)) --phases $(GKE)/phases.tsv | tee $(GKE)/latency.md
 	@cat $(ROOT)/$(GKE)/consistency.md
+
+# Scheduling fidelity: does the graph level change what Fluxion decides, and what does each
+# level cost? Entirely local: graphs from the captures on disk, matched by resource-query.
+# make fidelity PROJECT=my-project; VARIANTS and POLICIES narrow the run; a finished
+# session is not rerun, so an interrupted run is finished by running it again.
+FIDELITY ?= projects/$(PROJECT)/fidelity
+FIDELITY_DB ?= projects/$(PROJECT)/agent/$(MODEL)/deterministic
+FIDELITY_NODES ?= 1 2 4 8
+fidelity-graphs:
+	mkdir -p $(ROOT)/$(FIDELITY)/graphs
+	cd $(ROOT) && for l in series coarse exact; do go run ./cmd/graph --data $(FIDELITY_DB) --quota projects/$(PROJECT)/quota.json --level $$l --region $(REGION) --out $(FIDELITY)/graphs/$$l.json || exit 1; done
+	cd $(ROOT) && for n in $(FIDELITY_NODES); do go run ./cmd/graph --data $(FIDELITY_DB) --level exact --region $(REGION) --nodes $$n --out $(FIDELITY)/graphs/exact-n$$n.json || exit 1; done
+	cd $(ROOT) && go run ./cmd/graph --data $(FIDELITY_DB) --quota projects/$(PROJECT)/quota.json --level exact --region $(REGION) --captured-only --out $(FIDELITY)/graphs/exact-captured.json
+	cd $(ROOT) && go run ./experiments/cmd/fidelity ablate --in $(FIDELITY)/graphs/exact-n1.json --out $(FIDELITY)/graphs/exact-n1-no-nic.json --drop nic
+fidelity-jobspecs:
+	cd $(ROOT) && go run ./experiments/cmd/jobspecs --out $(FIDELITY)/jobspecs
+fidelity: fidelity-jobspecs
+	cd $(ROOT) && VARIANTS="$(VARIANTS)" POLICIES="$(POLICIES)" bash experiments/scripts/fidelity.sh $(FIDELITY)/graphs $(FIDELITY)/jobspecs $(FIDELITY)/runs
+	$(MAKE) --no-print-directory fidelity-report
+fidelity-report:
+	cd $(ROOT) && go run ./experiments/cmd/fidelity report --runs $(FIDELITY)/runs --jobs $(FIDELITY)/jobspecs/jobs.tsv --graphs $(FIDELITY)/graphs --out $(FIDELITY) --captured $(FIDELITY_DB) --offers $(FIDELITY)/graphs/exact-n1.json
+	@cat $(ROOT)/$(FIDELITY)/fidelity.md

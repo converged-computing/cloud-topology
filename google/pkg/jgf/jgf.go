@@ -120,6 +120,9 @@ type Options struct {
 	PlacementDistance int
 	// MaxNodes caps the nodes per offer when Capacity is set (default 64).
 	MaxNodes int
+	// CapturedOnly leaves machine types whose series has no capture out of the exact
+	// graph, instead of modelling them from the catalog.
+	CapturedOnly bool
 }
 
 func (o Options) withDefaults() Options {
@@ -337,7 +340,7 @@ func HwlocLoader(db *database.Database) TopologyLoader {
 // BuildExact builds the secretary's detailed graph: region > zone > offer > node >
 // socket > cores, GPUs, NICs and memory. Nodes use the captured or derived hwloc
 // topology when available, and otherwise one socket sized from the catalog (one core
-// per vCPU).
+// per two vCPUs on x86, per vCPU on Arm; see addCatalogNode).
 func BuildExact(db *database.Database, opts Options, load TopologyLoader) (*Graph, error) {
 	opts = opts.withDefaults()
 	selected, err := selectMachineTypes(db, opts)
@@ -385,6 +388,9 @@ func BuildExact(db *database.Database, opts Options, load TopologyLoader) (*Grap
 			for _, model := range opts.Models {
 				count := opts.nodesFor(mt, model)
 				if count == 0 {
+					continue
+				}
+				if opts.CapturedOnly && sources[mt.Name] == "" {
 					continue
 				}
 				props := offerProperties(mt, model)
@@ -438,11 +444,16 @@ func BuildExact(db *database.Database, opts Options, load TopologyLoader) (*Grap
 	return g, nil
 }
 
+// addCatalogNode models a machine type whose series has no capture: one socket whose
+// cores are the catalog's vCPUs divided by the threads per core, so a core means the
+// same thing as in a captured node (an hwloc core, two vCPUs on x86 with SMT, one on
+// Arm and on shared-core types). The socket count is unknown from the catalog and stays
+// one; the offer's topology=catalog property says so.
 func addCatalogNode(g *Graph, node, nodePath string, mt database.MachineType, bw network.Bandwidth) {
 	sockPath := nodePath + "/socket0"
-	sock := g.Add(Vertex{Type: "socket", Path: sockPath}, node)
+	sock := g.Add(Vertex{Type: "socket", Path: sockPath, Properties: map[string]string{"threads_per_core": strconv.Itoa(catalogThreads(mt))}}, node)
 	addRuleNICs(g, node, nodePath, bw, nil, 0)
-	for c := 0; c < mt.VCPUs; c++ {
+	for c := 0; c < catalogCores(mt); c++ {
 		g.Add(Vertex{Type: "core", Path: fmt.Sprintf("%s/core%d", sockPath, c), Exclusive: true}, sock)
 	}
 	gpu := 0
@@ -454,6 +465,22 @@ func addCatalogNode(g *Graph, node, nodePath string, mt database.MachineType, bw
 		}
 	}
 	g.Add(Vertex{Type: "memory", Path: sockPath + "/memory0", Size: memoryGB(mt.MemoryMB), Unit: "GB"}, sock)
+}
+
+// catalogThreads is the vCPUs per core the catalog implies: two on x86 (SMT), one on Arm
+// and on shared-core types.
+func catalogThreads(mt database.MachineType) int {
+	if mt.SharedCPU || strings.EqualFold(mt.Architecture, "ARM64") {
+		return 1
+	}
+	return 2
+}
+
+func catalogCores(mt database.MachineType) int {
+	if c := mt.VCPUs / catalogThreads(mt); c > 0 {
+		return c
+	}
+	return 1
 }
 
 func addHwlocNode(g *Graph, node, nodePath string, t *topology.Topology, bw network.Bandwidth) {

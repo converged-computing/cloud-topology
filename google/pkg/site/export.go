@@ -53,6 +53,9 @@ type Options struct {
 	// directory is added as a database under the name, and its consistency.json and
 	// latency.json (experiments/cmd/consistency and cmd/latency) are included.
 	Kubernetes []string
+	// Fidelity are scheduling-fidelity experiment directories (experiments/cmd/fidelity),
+	// as name=dir; their fidelity.json is included.
+	Fidelity []string
 	// GraphSources limits graphs to these database labels (default: every database).
 	GraphSources []string
 	// Single writes one self-contained index.html with the data and images inlined.
@@ -70,6 +73,7 @@ type Manifest struct {
 	Graphs      []GraphInfo      `json:"graphs"`
 	Experiments []ExperimentInfo `json:"experiments"`
 	Kubernetes  []KubernetesInfo `json:"kubernetes,omitempty"`
+	Fidelity    []FidelityInfo   `json:"fidelity,omitempty"`
 	Quota       string           `json:"quota,omitempty"`
 	// Consistency locates the consistency report, when a study or more than one database
 	// with captures was exported.
@@ -113,6 +117,16 @@ type KubernetesInfo struct {
 	Database    string `json:"database"`
 	Consistency string `json:"consistency"`
 	Latency     string `json:"latency"`
+}
+
+// FidelityInfo locates one scheduling-fidelity report, with its size for the index.
+type FidelityInfo struct {
+	Name     string `json:"name"`
+	File     string `json:"file"`
+	Graphs   int    `json:"graphs"`
+	Policies int    `json:"policies"`
+	Sessions int    `json:"sessions"`
+	Jobs     int    `json:"jobs"`
 }
 
 // MachineType is the union view of one machine type across the sources.
@@ -404,6 +418,44 @@ func Export(dir string, opts Options) (*Manifest, error) {
 				if err := os.WriteFile(filepath.Join(dir, f.dst), data, 0o644); err != nil {
 					return nil, err
 				}
+			}
+		}
+	}
+
+	// Scheduling-fidelity reports, written by experiments/cmd/fidelity.
+	for _, f := range opts.Fidelity {
+		name, fdir, ok := strings.Cut(f, "=")
+		if !ok {
+			name, fdir = filepath.Base(filepath.Clean(f)), f
+		}
+		data, err := os.ReadFile(filepath.Join(fdir, "fidelity.json"))
+		if err != nil {
+			return nil, fmt.Errorf("fidelity %s: %w (run make fidelity-report first)", name, err)
+		}
+		info := FidelityInfo{Name: name, File: "data/fidelity/" + strings.ReplaceAll(name, "/", "_") + ".json"}
+		var shape struct {
+			Graphs   []json.RawMessage `json:"graphs"`
+			Sessions []struct {
+				Policy string `json:"policy"`
+			} `json:"sessions"`
+			Jobs []json.RawMessage `json:"jobs"`
+		}
+		if err := json.Unmarshal(data, &shape); err != nil {
+			return nil, fmt.Errorf("fidelity %s: %w", name, err)
+		}
+		policies := map[string]bool{}
+		for _, s := range shape.Sessions {
+			policies[s.Policy] = true
+		}
+		info.Graphs, info.Policies, info.Sessions, info.Jobs = len(shape.Graphs), len(policies), len(shape.Sessions), len(shape.Jobs)
+		m.Fidelity = append(m.Fidelity, info)
+		reports[info.File] = data
+		if !opts.Single {
+			if err := os.MkdirAll(filepath.Dir(filepath.Join(dir, info.File)), 0o755); err != nil {
+				return nil, err
+			}
+			if err := os.WriteFile(filepath.Join(dir, info.File), data, 0o644); err != nil {
+				return nil, err
 			}
 		}
 	}

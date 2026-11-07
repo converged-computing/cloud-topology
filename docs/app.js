@@ -72,7 +72,8 @@
   async function route() {
     const { parts, q } = parseHash();
     const view = parts[0] || 'overview';
-    document.querySelectorAll('.side nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#/' + view));
+    const nav = view === 'kubernetes' || view === 'fidelity' ? 'experiments' : view;
+    document.querySelectorAll('.side nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#/' + nav));
     C.hideTip();
     main.innerHTML = '<p class="muted">Loading…</p>';
     try {
@@ -81,8 +82,8 @@
       else if (view === 'topologies') topologiesView(q);
       else if (view === 'graphs') await graphsView(q);
       else if (view === 'compare') compareView(q);
-      else if (view === 'experiments') await experimentsView(parts[1], q);
-      else if (view === 'kubernetes') await kubernetesView(parts[1], q);
+      else if (view === 'experiments') await experimentsRoute(parts.slice(1), q);
+      else if (view === 'kubernetes' || view === 'fidelity') await experimentsRoute(parts, q);
       else if (view === 'consistency') await consistencyView(q);
       else if (view === 'motifs') await motifsView(q);
       else overview();
@@ -94,7 +95,7 @@
   function overview() {
     const capturedAny = types.filter(t => (t.captured || []).length).length;
     const famCounts = d3.rollups(types, v => v.length, t => t.family).map(([family, count]) => ({ family, count }));
-    const exps = manifest.experiments.map(e => h`<li><a href="#/experiments/${e.name}">${e.name}</a> <span class="muted">(${e.arms.join(', ')})</span></li>`).join('');
+    const exps = experimentList().map(e => h`<li><a href="${e.link}">${e.title}</a> <span class="muted">${e.hook}</span></li>`).join('');
     main.innerHTML = h`
       <h1>Cloud topology</h1>
       <p class="lede">Machine types, captured hardware topologies and the Fluxion resource graphs built from them, across ${dbRows().length} database${dbRows().length === 1 ? '' : 's'}${manifest.quota ? ', with graphs sized by the quota of project ' + manifest.quota : ''}.</p>
@@ -110,8 +111,7 @@
       </div>
       <div class="grid two" style="margin-top:.9rem">
         <div class="card"><h3>Resource graphs</h3>${raw(manifest.graphs.length ? '<table class="small"><tr><th>Database</th><th>Level</th><th>Region</th><th class="num">Vertices</th></tr>' + manifest.graphs.map(g => h`<tr><td>${g.database}</td><td><a href="#/graphs?database=${g.database}&level=${g.level}&region=${g.region}">${g.level}</a></td><td>${g.region}</td><td class="num">${n(g.vertices)}</td></tr>`).join('') + '</table>' : '<p class="empty">No graphs were exported.</p>')}</div>
-        <div class="card"><h3>Experiments</h3>${raw(exps ? '<ul>' + exps + '</ul>' : '<p class="empty">None exported. Pass EXPERIMENTS=… to make site.</p>')}
-          ${raw((manifest.kubernetes || []).length ? '<h3>Kubernetes</h3><ul>' + manifest.kubernetes.map(k => h`<li><a href="#/kubernetes/${k.name}">${k.name}</a> <span class="muted">node topology and provisioning time against the VM captures</span></li>`).join('') + '</ul>' : '')}
+        <div class="card"><h3><a href="#/experiments">Experiments</a></h3>${raw(exps ? '<ul>' + exps + '</ul>' : '<p class="empty">None exported. Pass EXPERIMENTS=…, KUBERNETES=… or FIDELITY_RUNS=… to make site.</p>')}
           <h3>Reading this site</h3><p class="small secondary">A <b>database</b> is a directory of machine types and captures: <code>data/</code>, or one arm of an experiment. A <b>capture</b> is hwloc's reading of a real instance, drawn here from its object tree. <b>Resource graphs</b> are what Fluxion schedules on: <i>series</i> pools a machine series' vCPUs, GPUs and memory as totals, <i>coarse</i> has one pooled node per machine type, and <i>exact</i> places cores and GPUs on sockets from the captures, NICs with their bandwidth on nodes, nodes in compact placement groups, and storage pools on offers. Graphs are drawn folded, identical siblings as one entry with a count; <b>Motifs</b> lists the shapes that recur and the Cypher that finds them.</p></div>
       </div>`;
     C.bars(document.getElementById('c-db'), dbRows(), { label: d => d.label, value: d => d.captures, valueLabel: 'captures', onClick: d => { location.hash = d.link; } });
@@ -367,9 +367,50 @@
   }
 
   // ---------- experiments ----------
-  async function experimentsView(name) {
+  // Every experiment the site knows, whatever its kind, in the order they were run.
+  function experimentList() {
+    const list = [];
+    manifest.experiments.forEach(e => list.push({ kind: 'Capture', key: e.name, title: 'Capture ' + e.name, link: '#/experiments/' + e.name,
+      hook: 'the same plan captured by an agent and by a deterministic script (' + e.arms.join(', ') + '): what each reaches, and what it costs',
+      make: 'make experiment', summary: e.arms.length + ' arms' }));
+    (manifest.kubernetes || []).forEach(k => list.push({ kind: 'Kubernetes', key: 'kubernetes/' + k.name, title: 'Kubernetes ' + k.name, link: '#/experiments/kubernetes/' + k.name,
+      hook: 'the same plan on one-node GKE node pools: does a Kubernetes node see the hardware the VM captures saw, and what does the path cost in time?',
+      make: 'make gke', summary: 'database ' + k.database }));
+    (manifest.fidelity || []).forEach(f => list.push({ kind: 'Scheduling fidelity', key: 'fidelity/' + f.name, title: 'Scheduling fidelity' + ((manifest.fidelity || []).length > 1 ? ' ' + f.name : ''), link: '#/experiments/fidelity/' + f.name,
+      hook: 'the same jobs matched by Fluxion on the series, coarse and exact graphs under every policy: what each level gets right, and what it costs to hold and search. Runs locally; nothing in the cloud',
+      make: 'make fidelity', summary: n(f.graphs) + ' graph variants · ' + n(f.policies) + ' policies · ' + n(f.sessions) + ' sessions · ' + n(f.jobs) + ' jobs' }));
+    return list;
+  }
+
+  // Pills linking every experiment, the current one marked, for the top of each page.
+  function experimentPills(current) {
+    const list = experimentList();
+    if (list.length < 2) return '';
+    return '<p class="pill-list"><a href="#/experiments">All experiments</a> ' + list.map(e => h`<a href="${e.link}" class="${e.key === current ? 'active' : ''}">${e.title}</a>`).join(' ') + '</p>';
+  }
+
+  async function experimentsRoute(parts, q) {
+    // Run names may hold slashes (gke/cos_containerd), so the rest of the path is the name.
+    if (parts[0] === 'kubernetes') return kubernetesView(parts.slice(1).join('/'), q);
+    if (parts[0] === 'fidelity') return fidelityView(parts.slice(1).join('/'), q);
+    if (parts[0]) return experimentView(parts.join('/'), q);
+    return experimentsIndex();
+  }
+
+  function experimentsIndex() {
+    const list = experimentList();
+    if (!list.length) { main.innerHTML = '<h1>Experiments</h1><p class="empty">No experiments were exported. Pass EXPERIMENTS=…, KUBERNETES=… or FIDELITY_RUNS=… to make site.</p>'; return; }
+    main.innerHTML = h`
+      <h1>Experiments</h1>
+      <p class="lede">Everything that was run to answer a question about the captures or the graphs built from them. Each experiment is reproducible from its make target; the site shows the reports those write.</p>
+      <div class="grid two">
+        ${raw(list.map(e => h`<div class="card"><h3><a href="${e.link}">${e.title}</a></h3><p class="small secondary">${e.hook}.</p><p class="small muted">${e.summary} · <code>${e.make}</code></p></div>`).join(''))}
+      </div>`;
+  }
+
+  async function experimentView(name) {
     const exps = manifest.experiments;
-    if (!exps.length) { main.innerHTML = '<h1>Experiments</h1><p class="empty">No experiments were exported. Pass EXPERIMENTS=… to make site.</p>'; return; }
+    if (!exps.length) { main.innerHTML = '<h1>Experiments</h1><p class="empty">No capture experiments were exported. Pass EXPERIMENTS=… to make site.</p>'; return; }
     const e = exps.find(x => x.name === name) || exps[0];
     const r = await load(e.file);
     const armNames = r.arms.map(a => a.arm);
@@ -377,8 +418,8 @@
     const outcome = o => { if (!o) return ''; const notes = []; if (o.status === 'ok') { if (o.provision_seconds) notes.push(secs(o.provision_seconds) + ' provision'); if (o.provisioning_model) notes.push(o.provisioning_model); if (o.zone) notes.push(o.zone); } if (o.attempts > 1) notes.push(o.attempts + ' attempts'); if (o.seconds && o.status !== 'ok') notes.push(secs(o.seconds)); if (o.error && o.status !== 'ok') notes.push(o.error); return badge((C.statusIcon[o.status] || '') + ' ' + o.status, statusCls(o.status)) + h` <span class="small muted">${notes.join(' · ')}</span>`; };
     const groups = r.arms.map(a => { const counts = {}; r.rows.forEach(row => { const s = (row.outcomes[a.arm] || {}).status || 'other'; const k = ['ok', 'stockout', 'quota', 'error'].includes(s) ? s : 'other'; counts[k] = (counts[k] || 0) + 1; }); return { name: a.arm, counts }; });
     main.innerHTML = h`
-      <h1>Experiment ${e.name}</h1>
-      ${raw(exps.length > 1 ? '<p class="pill-list">' + exps.map(x => h`<a href="#/experiments/${x.name}">${x.name}</a>`).join(' ') + '</p>' : '')}
+      <h1>Capture experiment ${e.name}</h1>
+      ${raw(experimentPills(e.name))}
       <p class="lede">The same plan of ${r.planned} machine types worked by each arm from the same starting state. "Either" is what the two approaches reach together.</p>
       <div class="tiles">
         ${raw(r.arms.map(a => h`<div class="tile"><div class="v">${a.captured}<span class="muted" style="font-size:1rem">/${a.planned}</span></div><div class="l">${a.arm} captured</div><div class="d">${pct(a.rate)}${a.seconds ? ' · ' + secs(a.seconds) + ' wall clock' : ''}${a.mean_provision_seconds ? ' · mean provision ' + secs(a.mean_provision_seconds) : ''}</div></div>`).join(''))}
@@ -426,7 +467,7 @@
     const obs = t => t.observations.map(o => h`<span class="badge ${o.database === gke.label ? 'ok' : ''}">${o.database} ${o.zone}${o.model ? ' · ' + o.model : ''}</span>`).join(' ');
     main.innerHTML = h`
       <h1>Kubernetes ${k.name}</h1>
-      ${raw(runs.length > 1 ? '<p class="pill-list">' + runs.map(x => h`<a href="#/kubernetes/${x.name}">${x.name}</a>`).join(' ') + '</p>' : '')}
+      ${raw(experimentPills('kubernetes/' + k.name))}
       <p class="lede">The same plan captured on one-node GKE node pools instead of VMs: does a Kubernetes node see the same hardware, and what does the Kubernetes path cost in time? Each node pool is created, its node captured from a privileged pod, and deleted; the cluster is a fixed cost paid once.</p>
       ${raw(db.note ? h`<p class="note">${db.note}</p>` : '')}
       <div class="tiles">
@@ -449,6 +490,72 @@
     const dRows = lat.rows.map(r => ({ label: r.machine_type, a: r.seconds[gke.label] || null, b: r.seconds[vm.label] || null })).filter(x => x.a || x.b);
     if (dRows.length) C.dumbbell(document.getElementById('c-k8s-dumbbell'), dRows, { aName: gke.label, bName: vm.label, onClick: x => { location.hash = '#/types/' + encodeURIComponent(x.label); } });
     else document.getElementById('c-k8s-dumbbell').innerHTML = '<p class="empty">No captures yet.</p>';
+  }
+
+
+  // ---------- scheduling fidelity ----------
+  async function fidelityView(name, q) {
+    const runs = manifest.fidelity || [];
+    if (!runs.length) { main.innerHTML = '<h1>Scheduling fidelity</h1><p class="empty">No fidelity run was exported. Pass FIDELITY_RUNS=… to make site.</p>'; return; }
+    const f = runs.find(x => x.name === name) || runs[0];
+    const r = await load(f.file);
+    const levelRank = v => ({ series: 0, coarse: 1 }[v.split('-')[0]] ?? 2);
+    const scaleOf = v => { const m = /-n(\d+)/.exec(v); return m ? +m[1] : 0; };
+    const variants = r.graphs.map(g => g.variant).sort((a, b) => levelRank(a) - levelRank(b) || scaleOf(a) - scaleOf(b) || a.localeCompare(b));
+    const policyOrder = ['first', 'low', 'high', 'lonode', 'hinode', 'lonodex', 'hinodex', 'firstnodex', 'locality', 'variation'];
+    const policies = [...new Set(r.sessions.map(s => s.policy))].sort((a, b) => policyOrder.indexOf(a) - policyOrder.indexOf(b));
+    const variant = q.variant && variants.includes(q.variant) ? q.variant : (variants.includes('exact') ? 'exact' : variants[variants.length - 1]);
+    const policy = q.policy && policies.includes(q.policy) ? q.policy : 'first';
+    const singles = r.jobs.filter(j => j.phase === 'single');
+    const streamN = r.jobs.length - singles.length;
+    const captured = r.captured || {};
+    const ms = x => x == null || x === 0 ? '—' : x >= 1000 ? (x / 1000).toFixed(2) + ' s' : x >= 10 ? Math.round(x) + ' ms' : x.toFixed(2) + ' ms';
+    const mb = x => x >= 1024 ? (x / 1024).toFixed(1) + ' GB' : Math.round(x) + ' MB';
+    const typeName = m => (captured[m.machine_type] ? '' : '~') + m.machine_type + (m.zone ? ' (' + m.zone.replace(/^.*-/, '') + ')' : '');
+    const cell = m => m == null ? '<span class="muted">n/a</span>' : m.allocated ? h`<span class="${captured[m.machine_type] ? '' : 'muted'}">${typeName(m)}</span>` : badge('✗ no match', 'bad');
+    const full = r.graphs.find(g => g.variant === 'exact') || r.graphs[r.graphs.length - 1];
+    const sessions = r.sessions.filter(s => s.variant === variant).sort((a, b) => policyOrder.indexOf(a.policy) - policyOrder.indexOf(b.policy));
+    const byID = {}; r.jobs.forEach(j => { byID[j.id] = j; });
+    const graphOf = v => r.graphs.find(g => g.variant === v) || {};
+    const median = xs => { if (!xs.length) return 0; const ys = xs.slice().sort((a, b) => a - b); return ys.length % 2 ? ys[(ys.length - 1) / 2] : (ys[ys.length / 2 - 1] + ys[ys.length / 2]) / 2; };
+    const famMedian = (v, fam, ok) => median(Object.values((r.policies[v] || {}).first || {}).filter(m => (!fam || m.family === fam) && m.allocated === ok).map(m => m.elapse_ms));
+    const agree = r.agreement.filter(a => a.policy === policy);
+    main.innerHTML = h`
+      <h1>Scheduling fidelity ${runs.length > 1 ? f.name : ''}</h1>
+      ${raw(experimentPills('fidelity/' + f.name))}
+      <p class="lede">The same jobs matched by Fluxion's resource-query against the series, coarse and exact graphs built from the captures, under every match policy. Does the level of detail change what Fluxion decides, and what does each level cost to hold and search? Nothing here ran in the cloud: the graphs are on disk and Fluxion runs locally.</p>
+      <div class="tiles">
+        <div class="tile"><div class="v">${n(r.graphs.length)}</div><div class="l">graph variants</div><div class="d">${variants.join(', ')}</div></div>
+        <div class="tile"><div class="v">${n(policies.length)}</div><div class="l">match policies</div><div class="d">${n(r.sessions.length)} resource-query sessions</div></div>
+        <div class="tile"><div class="v">${n(singles.length)}<span class="muted" style="font-size:1rem">+${n(streamN)}</span></div><div class="l">single jobs + stream</div><div class="d">singles see an empty graph; the stream fills it</div></div>
+        <div class="tile"><div class="v">${n(full.vertices)}</div><div class="l">vertices in ${full.variant}</div><div class="d">loads in ${secs(full.load_seconds)} · ${mb(full.rss_mb)} resident</div></div>
+      </div>
+      <div class="grid two">
+        <div class="card"><h3>What each graph costs</h3><p class="muted small">Resident memory and load time against vertices, log scales. Hover a point for the variant.</p><div class="chart" id="c-fid-scale"></div>
+          <table class="small"><tr><th>Variant</th><th>Level</th><th class="num">Vertices</th><th class="num">JGF</th><th class="num">Load</th><th class="num">Memory</th></tr>${raw(variants.map(v => { const g = graphOf(v); return h`<tr><td>${v}</td><td>${g.level}</td><td class="num">${n(g.vertices)}</td><td class="num">${Math.round(g.bytes / 1e6)} MB</td><td class="num">${secs(g.load_seconds)}</td><td class="num">${mb(g.rss_mb)}</td></tr>`; }).join(''))}</table></div>
+        <div class="card"><h3>What a match costs, by policy</h3><p class="muted small">Median time to match a single job on <b>${variant}</b>, and how much of the graph each policy visits. First-fit policies stop at the first fit; the others rank every candidate.</p><div class="chart" id="c-fid-policy"></div>
+          <table class="small"><tr><th>Policy</th><th class="num">Placed</th><th class="num">Match</th><th class="num">Failed match</th><th class="num">Visits</th><th class="num">Types</th><th class="num">Stream placed</th><th class="num">Session</th></tr>${raw(sessions.map(s => h`<tr><td>${s.policy}</td><td class="num">${s.singles_allocated}/${s.singles}</td><td class="num">${ms(s.single_median_ms)}</td><td class="num">${ms(s.single_fail_median_ms)}</td><td class="num">${n(Math.round(s.single_mean_preorder_visits))}</td><td class="num">${s.distinct_machine_types}</td><td class="num">${s.stream_placed}/${s.stream}</td><td class="num">${secs(s.wall_seconds)}</td></tr>`).join(''))}</table></div>
+      </div>
+      <form class="filters" id="filters" style="margin-top:.9rem">
+        <label>Graph variant<select name="variant">${raw(variants.map(v => h`<option value="${v}" ${raw(v === variant ? 'selected' : '')}>${v}</option>`).join(''))}</select></label>
+        <label>Policy<select name="policy">${raw(policies.map(p => h`<option value="${p}" ${raw(p === policy ? 'selected' : '')}>${p}</option>`).join(''))}</select></label>
+      </form>
+      <div class="card"><h3>Feasibility and placement, policy ${policy}</h3><p class="muted small">Each single job matched on an empty graph: the machine type Fluxion chose per variant, ✗ when nothing matched, n/a when the level has no vertex for what the job asks. A type in grey, marked ~, has no capture: the exact graph models it from the catalog.</p>
+        <div class="table-wrap"><table class="small"><thead><tr><th>Job</th><th>Request</th>${raw(variants.map(v => h`<th>${v}</th>`).join(''))}</tr></thead><tbody>${raw(singles.map(j => h`<tr><td>${j.id}</td><td>${j.description}</td>${raw(variants.map(v => '<td>' + cell(((r.policies[v] || {})[policy] || {})[j.id] || (j.levels.includes(v.split('-')[0]) && (r.policies[v] || {})[policy] ? { allocated: false } : null)) + '</td>').join(''))}</tr>`).join(''))}</tbody></table></div></div>
+      <div class="grid two" style="margin-top:.9rem">
+        <div class="card"><h3>Agreement with the exact graph, policy ${policy}</h3><p class="muted small">Over the single jobs both variants placed: how often the other variant chose the same machine type (and zone) as the quota-sized exact graph.</p>
+          <table class="small"><tr><th>Variant</th><th class="num">Both placed</th><th class="num">Same type</th><th class="num">Same zone</th><th class="num">Only this</th><th class="num">Only exact</th></tr>${raw(agree.map(a => h`<tr><td>${a.a}</td><td class="num">${a.both_allocated}</td><td class="num">${a.same_machine_type}</td><td class="num">${a.a.startsWith('exact') ? a.same_zone : 'n/a'}</td><td class="num">${a.only_a}</td><td class="num">${a.only_b}</td></tr>`).join(''))}</table></div>
+        <div class="card"><h3>Scale: exact graphs by nodes per offer, policy first</h3><p class="muted small">Median match time by job family; the quota-sized graph is the production one.</p>
+          <table class="small"><tr><th>Variant</th><th class="num">Vertices</th><th class="num">Load</th><th class="num">Memory</th><th class="num">cores</th><th class="num">gpu</th><th class="num">nodes</th><th class="num">failed</th></tr>${raw(variants.filter(v => graphOf(v).level === 'exact').map(v => { const g = graphOf(v); return h`<tr><td>${v}</td><td class="num">${n(g.vertices)}</td><td class="num">${secs(g.load_seconds)}</td><td class="num">${mb(g.rss_mb)}</td><td class="num">${ms(famMedian(v, 'cores', true))}</td><td class="num">${ms(famMedian(v, 'gpu', true))}</td><td class="num">${ms(famMedian(v, 'nodes', true))}</td><td class="num">${ms(famMedian(v, '', false))}</td></tr>`; }).join(''))}</table></div>
+      </div>
+      <div class="card" style="margin-top:.9rem"><h3>Where the policies disagree on ${variant}</h3><p class="muted small">Machine type chosen per policy for each single job the variant could place. A row with more than one type is a job whose placement the policy decides; the ID-ordered policies follow the alphabetical order of machine type names.</p>
+        <div class="table-wrap"><table class="small"><thead><tr><th>Job</th><th>Request</th>${raw(policies.map(p => h`<th>${p}</th>`).join(''))}</tr></thead><tbody>${raw(singles.map(j => { const ps = policies.map(p => ((r.policies[variant] || {})[p] || {})[j.id]); if (!ps.some(m => m && m.allocated)) return ''; return h`<tr><td>${j.id}</td><td>${j.description}</td>${raw(ps.map(m => '<td>' + (m && m.allocated ? cell(m) : '<span class="muted">✗</span>') + '</td>').join(''))}</tr>`; }).join(''))}</tbody></table></div></div>
+      <div class="card" style="margin-top:.9rem"><h3>Packing the stream</h3><p class="muted small">${streamN} jobs matched in order and kept, per variant and policy: jobs placed before the first failure, the job that failed first, and jobs placed in all.</p>
+        <div class="table-wrap"><table class="small"><thead><tr><th>Variant</th><th>Policy</th><th class="num">Before first failure</th><th>First failure</th><th class="num">Placed</th><th class="num">Median match</th></tr></thead><tbody>${raw(r.sessions.slice().sort((a, b) => variants.indexOf(a.variant) - variants.indexOf(b.variant) || policyOrder.indexOf(a.policy) - policyOrder.indexOf(b.policy)).map(s => h`<tr><td>${s.variant}</td><td>${s.policy}</td><td class="num">${s.stream_before_first_failure}</td><td>${(byID[s.stream_first_failure] || {}).description || ''}</td><td class="num">${s.stream_placed}/${s.stream}</td><td class="num">${ms(s.stream_median_ms)}</td></tr>`).join(''))}</tbody></table></div></div>`;
+    bindFilters(document.getElementById('filters'), q);
+    const pts = r.graphs.map(g => ({ name: g.variant, x: g.vertices, y: g.rss_mb, load: g.load_seconds }));
+    C.scatter(document.getElementById('c-fid-scale'), pts, { xLabel: 'vertices', yLabel: 'resident MB', log: true, name: d => d.name, onHover: null });
+    C.bars(document.getElementById('c-fid-policy'), sessions.map(s => ({ label: s.policy, value: s.single_median_ms })), { valueLabel: 'ms per match', format: v => ms(v), max: 12 });
   }
 
   // ---------- consistency ----------
