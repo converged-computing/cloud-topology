@@ -45,9 +45,14 @@ type Options struct {
 	// Experiments are directories written by topology/experiment.sh; their report.json is
 	// included and their arms are added as sources named <experiment>/<arm>.
 	Experiments []string
-	// Consistency is a study directory from topology/consistency.sh; its rounds are added
-	// as sources named round/<id> and a consistency report over every source is included.
+	// Consistency is a study directory from experiments/scripts/consistency.sh; its rounds
+	// are added as sources named round/<id> and its consistency.json, written by
+	// experiments/cmd/consistency, is included.
 	Consistency string
+	// Kubernetes are runs of experiments/scripts/gke.sh, as name=dir: the run's gke/
+	// directory is added as a database under the name, and its consistency.json and
+	// latency.json (experiments/cmd/consistency and cmd/latency) are included.
+	Kubernetes []string
 	// GraphSources limits graphs to these database labels (default: every database).
 	GraphSources []string
 	// Single writes one self-contained index.html with the data and images inlined.
@@ -64,6 +69,7 @@ type Manifest struct {
 	Levels      []string         `json:"levels"`
 	Graphs      []GraphInfo      `json:"graphs"`
 	Experiments []ExperimentInfo `json:"experiments"`
+	Kubernetes  []KubernetesInfo `json:"kubernetes,omitempty"`
 	Quota       string           `json:"quota,omitempty"`
 	// Consistency locates the consistency report, when a study or more than one database
 	// with captures was exported.
@@ -79,6 +85,9 @@ type DatabaseInfo struct {
 	MachineTypes int    `json:"machine_types"`
 	Captures     int    `json:"captures"`
 	Generated    string `json:"generated,omitempty"`
+	// Note is the database's NOTE.md, when present: what the reader should know about the
+	// data, such as machine types that could not be captured and why.
+	Note string `json:"note,omitempty"`
 }
 
 // GraphInfo locates one folded graph.
@@ -96,6 +105,14 @@ type ExperimentInfo struct {
 	Name string   `json:"name"`
 	File string   `json:"file"`
 	Arms []string `json:"arms"`
+}
+
+// KubernetesInfo locates one Kubernetes run's database and reports.
+type KubernetesInfo struct {
+	Name        string `json:"name"`
+	Database    string `json:"database"`
+	Consistency string `json:"consistency"`
+	Latency     string `json:"latency"`
 }
 
 // MachineType is the union view of one machine type across the sources.
@@ -120,7 +137,7 @@ type Capture struct {
 	// SVG is the image path, or in a single-file export the image itself.
 	SVG string `json:"svg,omitempty"`
 	// Hwloc is the captured object tree, for drawing the topology in the browser.
-	Hwloc *Object `json:"hwloc,omitempty"`
+	Hwloc *topology.Object `json:"hwloc,omitempty"`
 }
 
 // Summary is the reduced view of a captured topology.
@@ -182,12 +199,30 @@ func Export(dir string, opts Options) (*Manifest, error) {
 		}
 		experiments = append(experiments, info)
 	}
+	var kubernetes []KubernetesInfo
+	for _, k := range opts.Kubernetes {
+		name, dir, ok := strings.Cut(k, "=")
+		if !ok {
+			name, dir = filepath.Base(filepath.Clean(k)), k
+		}
+		if _, err := os.Stat(filepath.Join(dir, "gke", "topology")); err != nil {
+			return nil, fmt.Errorf("kubernetes run %s: %w", dir, err)
+		}
+		sources = append(sources, Source{Label: name, Dir: filepath.Join(dir, "gke")})
+		base := "data/kubernetes/" + strings.ReplaceAll(name, "/", "_")
+		kubernetes = append(kubernetes, KubernetesInfo{Name: name, Database: name, Consistency: base + "/consistency.json", Latency: base + "/latency.json"})
+		opts.Kubernetes[len(kubernetes)-1] = dir
+	}
 	if opts.Consistency != "" {
-		rounds, err := RoundSources(opts.Consistency)
+		entries, err := os.ReadDir(filepath.Join(opts.Consistency, "rounds"))
 		if err != nil {
 			return nil, fmt.Errorf("consistency study: %w", err)
 		}
-		sources = append(sources, rounds...)
+		for _, e := range entries {
+			if e.IsDir() {
+				sources = append(sources, Source{Label: "round/" + e.Name(), Dir: filepath.Join(opts.Consistency, "rounds", e.Name())})
+			}
+		}
 	}
 	if len(sources) == 0 {
 		return nil, fmt.Errorf("no databases to export")
@@ -219,7 +254,7 @@ func Export(dir string, opts Options) (*Manifest, error) {
 			return nil, err
 		}
 	}
-	m := &Manifest{Generated: time.Now().UTC().Format(time.RFC3339), Levels: opts.Levels, Experiments: experiments}
+	m := &Manifest{Generated: time.Now().UTC().Format(time.RFC3339), Levels: opts.Levels, Experiments: experiments, Kubernetes: kubernetes}
 	if opts.Quota != nil {
 		m.Quota = opts.Quota.Project
 	}
@@ -228,7 +263,11 @@ func Export(dir string, opts Options) (*Manifest, error) {
 	types := map[string]*MachineType{}
 	regions := map[string]bool{}
 	for _, l := range dbs {
-		m.Databases = append(m.Databases, DatabaseInfo{Label: l.Label, Dir: l.Dir, MachineTypes: len(l.db.MachineTypes), Captures: len(l.db.Captures)})
+		info := DatabaseInfo{Label: l.Label, Dir: l.Dir, MachineTypes: len(l.db.MachineTypes), Captures: len(l.db.Captures)}
+		if note, err := os.ReadFile(filepath.Join(l.Dir, "NOTE.md")); err == nil {
+			info.Note = strings.TrimSpace(string(note))
+		}
+		m.Databases = append(m.Databases, info)
 		for name, mt := range l.db.MachineTypes {
 			t, ok := types[name]
 			if !ok {
@@ -275,10 +314,10 @@ func Export(dir string, opts Options) (*Manifest, error) {
 			} else {
 				log(fmt.Sprintf("%s/%s: %v", l.Label, name, err))
 			}
-			if tree, err := ReadHwloc(xmlPath); err == nil && tree != nil {
+			if tree, err := topology.ReadObjects(xmlPath); err == nil && tree != nil {
 				out.Hwloc = tree
-				// The consistency fingerprint is the one notion of shape everywhere.
-				out.Hash = FingerprintOf(tree).ID()
+				// The capture fingerprint is the one notion of shape everywhere.
+				out.Hash = topology.FingerprintOf(tree).ID()
 			}
 			if svg, err := os.ReadFile(filepath.Join(l.Dir, "topology", name, "topology.svg")); err == nil {
 				if opts.Single {
@@ -350,46 +389,38 @@ func Export(dir string, opts Options) (*Manifest, error) {
 		}
 	}
 
-	// Consistency of repeated captures across every source.
-	withCaptures := 0
-	for _, l := range dbs {
-		if len(l.db.Captures) > 0 {
-			withCaptures++
+	// Kubernetes runs' reports, written by experiments/cmd/consistency and cmd/latency.
+	for i, k := range kubernetes {
+		for _, f := range []struct{ src, dst string }{{"consistency.json", k.Consistency}, {"latency.json", k.Latency}} {
+			data, err := os.ReadFile(filepath.Join(opts.Kubernetes[i], f.src))
+			if err != nil {
+				return nil, fmt.Errorf("kubernetes run %s: %w (run make gke-report first)", k.Name, err)
+			}
+			reports[f.dst] = data
+			if !opts.Single {
+				if err := os.MkdirAll(filepath.Dir(filepath.Join(dir, f.dst)), 0o755); err != nil {
+					return nil, err
+				}
+				if err := os.WriteFile(filepath.Join(dir, f.dst), data, 0o644); err != nil {
+					return nil, err
+				}
+			}
 		}
 	}
-	if withCaptures > 1 || opts.Consistency != "" {
-		cr, err := Consistency(sources)
+
+	// The consistency study's report, written by experiments/cmd/consistency.
+	if opts.Consistency != "" {
+		data, err := os.ReadFile(filepath.Join(opts.Consistency, "consistency.json"))
 		if err != nil {
-			return nil, err
-		}
-		data, err := json.Marshal(cr)
-		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("consistency study: %w (run make consistency-report first)", err)
 		}
 		m.Consistency = "data/consistency.json"
 		reports[m.Consistency] = data
 		if !opts.Single {
-			if err := os.WriteFile(filepath.Join(dir, m.Consistency), append(data, '\n'), 0o644); err != nil {
+			if err := os.WriteFile(filepath.Join(dir, m.Consistency), data, 0o644); err != nil {
 				return nil, err
 			}
 		}
-		log(fmt.Sprintf("consistency: %d types consistent, %d varying, %d captured once", cr.Consistent, cr.Varying, cr.Single))
-	}
-
-	if len(graphs) > 0 {
-		mf := MotifsFile{Motifs: Motifs(graphs, m.Graphs), Queries: Queries, Note: FoldNote}
-		data, err := json.Marshal(mf)
-		if err != nil {
-			return nil, err
-		}
-		m.Motifs = "data/motifs.json"
-		reports[m.Motifs] = data
-		if !opts.Single {
-			if err := os.WriteFile(filepath.Join(dir, m.Motifs), append(data, '\n'), 0o644); err != nil {
-				return nil, err
-			}
-		}
-		log(fmt.Sprintf("motifs: %d distinct shapes", len(mf.Motifs)))
 	}
 
 	if err := write("data/manifest.json", m); err != nil {

@@ -8,7 +8,7 @@ TOPOLOGY_AGENT_SOURCE ?= git+https://github.com/converged-computing/topology-age
 # pip needs this outside a virtualenv on Debian and Ubuntu images.
 PIP_FLAGS ?= --break-system-packages
 
-.PHONY: test vet build examples run-examples fluxion-go serve catalog index quota plan sizes plan-topology capture-all capture-agent experiment experiment-test report consistency consistency-report graphdb graphdb-query install-lbug graphs topology images cleanup install-agent site site-final site-serve
+.PHONY: test vet build examples run-examples fluxion-go serve catalog index quota plan sizes plan-topology capture-all capture-agent $(EXPERIMENT_TARGETS) graphdb graphdb-query install-lbug site site-final site-serve graphs topology images cleanup install-agent
 
 test:
 	go test ./...
@@ -76,7 +76,7 @@ plan-topology:
 capture-all:
 	@mkdir -p projects/$(PROJECT)
 	@$(MAKE) -s --no-print-directory plan-topology > projects/$(PROJECT)/captures.txt
-	DATA=$(DATA) PROJECT=$(PROJECT) TOPOLOGY_AGENT=$(TOPOLOGY_AGENT) bash topology/run-plan.sh projects/$(PROJECT)/captures.txt projects/$(PROJECT)/captures.log
+	DATA=$(DATA) PROJECT=$(PROJECT) TOPOLOGY_AGENT=$(TOPOLOGY_AGENT) PROVIDER=$(PROVIDER) CLUSTER=$(CLUSTER) bash topology/run-plan.sh projects/$(PROJECT)/captures.txt projects/$(PROJECT)/captures.log
 
 # Plan, then have the topology-agent agent work through it: make capture-agent REGION=us-central1
 # BACKEND is claude, gemini or aws; MODEL picks the model (for claude an alias such as opus or
@@ -91,81 +91,48 @@ capture-agent:
 	DATA=$(DATA) bash topology/render.sh
 	go run ./cmd/catalog --data $(DATA) --index-only
 
-# Compare the agent with the deterministic runner on the same plan: make experiment REGION=us-central1
-# The plan covers every series quota allows, including those already captured, and each arm
-# captures into its own database under $(EXPERIMENT); the comparison lands there as report.md
-# and report.json. An existing plan is kept, so a rerun (or ARMS=deterministic) continues the
-# same experiment. Takes plan-topology's options for a new plan, BACKEND, MODEL and
-# MAX_ATTEMPTS for the agent arm, RETRY_WAIT, RETRY_PASSES and STOP_AFTER_ERRORS for the
-# deterministic arm, and ARMS, FORCE and KEEP_LEFTOVERS (see topology/experiment.sh).
-# LIMIT=N keeps only the first N capture lines of a new plan (the cheapest, as plans are
-# sorted by cost).
-EXPERIMENT ?= projects/$(PROJECT)/experiment
-experiment:
-	@mkdir -p $(EXPERIMENT)
-	@test -s $(EXPERIMENT)/captures.txt || $(MAKE) -s --no-print-directory plan-topology RECAPTURE=1 | awk -v n='$(or $(LIMIT),0)' 'n && /^make topology /{ if (++i > n) next } { print }' > $(EXPERIMENT)/captures.txt
-	DATA=$(DATA) PROJECT=$(PROJECT) TOPOLOGY_AGENT=$(TOPOLOGY_AGENT) BACKEND=$(BACKEND) bash topology/experiment.sh $(EXPERIMENT)/captures.txt $(EXPERIMENT)
-
-# A small run to try the machinery before the real thing: the first LIMIT plan lines
-# (default 3) into projects/$(PROJECT)/experiment-test, retrying stockouts after 5 minutes.
-# Takes the same options as experiment; delete the directory to start over.
-experiment-test:
-	$(MAKE) --no-print-directory experiment EXPERIMENT=projects/$(PROJECT)/experiment-test LIMIT=$(or $(LIMIT),3) RETRY_WAIT=$(or $(RETRY_WAIT),300)
-
-# Consistency study: capture the whole plan repeatedly over days, each round into its own
-# database, to see whether each machine type's hardware is the same every time:
-# make consistency REGION=us-central1 (ROUNDS=6, INTERVAL=43200: twice a day for three days).
-# Rotates zones between rounds; a restarted study continues. The report is rebuilt after
-# every round; EXTRA_DATA="main=data agent=projects/p/experiment/agent" adds other databases.
-CONSISTENCY ?= projects/$(PROJECT)/consistency
-consistency:
-	@mkdir -p $(CONSISTENCY)
-	@test -s $(CONSISTENCY)/captures.txt || $(MAKE) -s --no-print-directory plan-topology RECAPTURE=1 > $(CONSISTENCY)/captures.txt
-	DATA=$(DATA) PROJECT=$(PROJECT) TOPOLOGY_AGENT=$(TOPOLOGY_AGENT) bash topology/consistency.sh $(CONSISTENCY)/captures.txt $(CONSISTENCY)
-
-# Rebuild the consistency report from the rounds on disk (FORMAT=json for the JSON form).
-consistency-report:
-	@go run ./cmd/consistency --study $(CONSISTENCY) $(foreach d,$(EXTRA_DATA),--data $(d)) --format json > $(CONSISTENCY)/consistency.json
-	@go run ./cmd/consistency --study $(CONSISTENCY) $(foreach d,$(EXTRA_DATA),--data $(d)) > $(CONSISTENCY)/consistency.md
-	@cat $(CONSISTENCY)/consistency$(if $(filter json,$(FORMAT)),.json,.md)
-
-# Rebuild the experiment's comparison from what is on disk, rewriting report.md and
-# report.json there and printing the Markdown (FORMAT=json prints the JSON instead).
-report:
-	@go run ./cmd/report --plan $(EXPERIMENT)/captures.txt --dir $(EXPERIMENT) --format json > $(EXPERIMENT)/report.json
-	@go run ./cmd/report --plan $(EXPERIMENT)/captures.txt --dir $(EXPERIMENT) > $(EXPERIMENT)/report.md
-	@cat $(EXPERIMENT)/report$(if $(filter json,$(FORMAT)),.json,.md)
+# Experiments (experiments/Makefile): the agent-versus-runner experiment, the consistency
+# study and the GKE experiment. Variables such as PROJECT and REGION pass through.
+EXPERIMENT_TARGETS := experiment experiment-test report consistency consistency-report gke gke-report
+$(EXPERIMENT_TARGETS):
+	@$(MAKE) --no-print-directory -C experiments $@
 
 # Static web site to browse, search and compare databases, captures and graphs, for
 # GitHub Pages or any static host: make site PROJECT=my-project REGION=us-central1
 # SITE_DATA lists databases as label=dir (default main=$(DATA)); EXPERIMENTS lists experiment
-# directories (name=dir or dir), whose arms and report are added; GRAPH_DATA limits graphs
+# directories (name=dir or dir), whose arms and report are added; KUBERNETES lists runs of
+# make gke (name=dir), whose gke/ database and reports are added; GRAPH_DATA limits graphs
 # to these database labels (graphs for every arm and round add up); STUDY is a consistency study directory,
 # whose rounds are added; LEVELS picks graphs (series,coarse,exact or none); SINGLE=1 writes
 # one self-contained index.html instead of a directory.
 SITE ?= site
 SITE_DATA ?= main=$(DATA)
 site:
-	go run ./cmd/site --out $(SITE) $(foreach d,$(SITE_DATA),--data $(d)) $(foreach e,$(EXPERIMENTS),--experiment $(e)) $(if $(STUDY),--consistency $(STUDY)) $(foreach g,$(GRAPH_DATA),--graph-data $(g)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) $(if $(LEVELS),--levels $(LEVELS)) $(if $(SINGLE),--single)
+	go run ./cmd/site --out $(SITE) $(foreach d,$(SITE_DATA),--data $(d)) $(foreach e,$(EXPERIMENTS),--experiment $(e)) $(foreach k,$(KUBERNETES),--kubernetes $(k)) $(if $(STUDY),--consistency $(STUDY)) $(foreach g,$(GRAPH_DATA),--graph-data $(g)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) $(if $(LEVELS),--levels $(LEVELS)) $(if $(SINGLE),--single)
 
 # The published view: the final experiment run and the consistency study, graphs from the
 # runner's arm. Older runs and data/ stay out (data/'s captures predate the current
 # capture method).
+# AGENT_MODEL picks which agent experiment is the published one.
+AGENT_MODEL ?= claude-opus-5-5
+# GKE runs under projects/$(PROJECT)/gke/<image>/gke are included as databases gke/<image>.
+GKE_RUNS = $(foreach d,$(filter-out %/trial/gke/topology,$(wildcard projects/$(PROJECT)/gke/*/gke/topology)),gke/$(word 4,$(subst /, ,$(d)))=$(patsubst %/gke/topology,%,$(d)))
 site-final:
-	$(MAKE) --no-print-directory site SITE_DATA= GRAPH_DATA=final/deterministic EXPERIMENTS=final=projects/$(PROJECT)/experiment STUDY=$(CONSISTENCY)
+	$(MAKE) --no-print-directory site SITE_DATA= KUBERNETES="$(GKE_RUNS)" GRAPH_DATA=$(AGENT_MODEL)/deterministic EXPERIMENTS=$(AGENT_MODEL)=projects/$(PROJECT)/agent/$(AGENT_MODEL) STUDY=projects/$(PROJECT)/consistency
 
 # Serve the site locally: http://localhost:8000
 site-serve:
 	python3 -m http.server --directory $(SITE) 8000
 
+
 # Graph database: the folded graphs as Parquet tables loaded into LadybugDB for Cypher
-# queries. GRAPHDB_DATA lists databases as label=dir (default the final experiment's
-# deterministic arm and data/); the exact level by default.
+# queries. GRAPHDB_DATA lists databases as label=dir (default the published agent
+# experiment's deterministic arm and data/); the exact level by default.
 #   make graphdb REGION=us-central1            export and load
 #   make graphdb-query Q=shapes                run pkg/site/queries/shapes.cypher
 #   make graphdb-query Q="MATCH (v:Vertex) RETURN v.type, count(*)"
 GRAPHDB ?= graphdb
-GRAPHDB_DATA ?= final=projects/$(PROJECT)/experiment/deterministic main=$(DATA)
+GRAPHDB_DATA ?= vm=projects/$(PROJECT)/agent/$(AGENT_MODEL)/deterministic main=$(DATA)
 GRAPHDB_LEVELS ?= exact
 graphdb:
 	go run ./cmd/graphdb export --out $(GRAPHDB) $(foreach d,$(GRAPHDB_DATA),--data $(d)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) --levels $(GRAPHDB_LEVELS)
@@ -192,8 +159,9 @@ graphs:
 # Capture one topology: make topology MACHINE_TYPE=g2-standard-8 ZONE=us-central1-a ARGS="--maintenance-policy=TERMINATE"
 # ZONE may be a comma-separated list, tried in order. --provisioning-model=SPOT in ARGS means
 # Spot (SPOT_FALLBACK=0 stops it retrying on-demand); other ARGS pass through to the create.
+# PROVIDER=gke captures on a node pool of the GKE cluster CLUSTER instead of a VM.
 topology:
-	$(TOPOLOGY_AGENT) capture $(MACHINE_TYPE) --zones $(ZONE) --out $(DATA) $(if $(PROJECT),--project $(PROJECT)) $(if $(filter --provisioning-model=SPOT,$(ARGS)),--spot) $(if $(filter 0,$(SPOT_FALLBACK)),--no-spot-fallback) $(foreach a,$(filter-out --provisioning-model=SPOT,$(ARGS)),--arg=$(a)) $(if $(STATUS_FILE),--status-file $(STATUS_FILE))
+	$(TOPOLOGY_AGENT) capture $(MACHINE_TYPE) --zones $(ZONE) --out $(DATA) $(if $(PROJECT),--project $(PROJECT)) $(if $(PROVIDER),--provider $(PROVIDER)) $(if $(CLUSTER),--cluster $(CLUSTER)) $(if $(IMAGE_TYPE),--image-type $(IMAGE_TYPE)) $(if $(filter --provisioning-model=SPOT,$(ARGS)),--spot) $(if $(filter 0,$(SPOT_FALLBACK)),--no-spot-fallback) $(foreach a,$(filter-out --provisioning-model=SPOT,$(ARGS)),--arg=$(a)) $(if $(STATUS_FILE),--status-file $(STATUS_FILE))
 	DATA=$(DATA) bash topology/render.sh $(MACHINE_TYPE)
 	go run ./cmd/catalog --data $(DATA) --index-only
 
@@ -201,9 +169,9 @@ topology:
 images:
 	DATA=$(DATA) bash topology/render.sh $(if $(FORCE),--force)
 
-# List capture instances still running; DELETE=1 deletes them.
+# List capture instances (with PROVIDER=gke CLUSTER=…, node pools) still running; DELETE=1 deletes them.
 cleanup:
-	$(TOPOLOGY_AGENT) cleanup $(if $(PROJECT),--project $(PROJECT)) $(if $(DELETE),--delete)
+	$(TOPOLOGY_AGENT) cleanup $(if $(PROJECT),--project $(PROJECT)) $(if $(PROVIDER),--provider $(PROVIDER)) $(if $(CLUSTER),--cluster $(CLUSTER)) $(if $(DELETE),--delete)
 
 # Install topology-agent from git, or editable from a local checkout:
 #   make install-agent                                    (TOPOLOGY_AGENT_SOURCE, default the git repo)

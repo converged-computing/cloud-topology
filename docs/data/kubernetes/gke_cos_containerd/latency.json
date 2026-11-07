@@ -1,0 +1,640 @@
+{
+  "paths": [
+    {
+      "label": "gke",
+      "captures": 53,
+      "mean_seconds": 91.6,
+      "median_seconds": 72.8,
+      "max_seconds": 331.9,
+      "mean_timings": {
+        "nodepool_seconds": 79.5,
+        "pod_seconds": 8.8
+      },
+      "fixed_seconds": {
+        "cluster_create": 410,
+        "cluster_delete": 1,
+        "plan": 26444
+      }
+    },
+    {
+      "label": "vm",
+      "captures": 56,
+      "mean_seconds": 80.3,
+      "median_seconds": 55.3,
+      "max_seconds": 1076.6
+    }
+  ],
+  "rows": [
+    {
+      "machine_type": "a2-highgpu-8g",
+      "seconds": {
+        "vm": 93
+      },
+      "model": {
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "a2-megagpu-16g",
+      "seconds": {
+        "vm": 174.9
+      },
+      "model": {
+        "vm": "on-demand"
+      }
+    },
+    {
+      "machine_type": "a3-highgpu-8g",
+      "seconds": {
+        "vm": 60.2
+      },
+      "model": {
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c2-standard-60",
+      "seconds": {
+        "gke": 94.2,
+        "vm": 82
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c2d-highcpu-112",
+      "seconds": {
+        "gke": 72.8,
+        "vm": 42.2
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c2d-highmem-112",
+      "seconds": {
+        "gke": 60.3,
+        "vm": 48.8
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c2d-standard-112",
+      "seconds": {
+        "gke": 67,
+        "vm": 41
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c3-highcpu-176",
+      "seconds": {
+        "gke": 71.2,
+        "vm": 47.3
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c3-highmem-176",
+      "seconds": {
+        "gke": 324.1,
+        "vm": 52.4
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c3-standard-176",
+      "seconds": {
+        "gke": 66.2,
+        "vm": 41.8
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c3d-highcpu-360",
+      "seconds": {
+        "gke": 67.3,
+        "vm": 83.6
+      },
+      "model": {
+        "gke": "on-demand",
+        "vm": "on-demand"
+      }
+    },
+    {
+      "machine_type": "c3d-highmem-360",
+      "seconds": {
+        "gke": 331.9,
+        "vm": 49.8
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c3d-standard-360",
+      "seconds": {
+        "gke": 65.7,
+        "vm": 60.8
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c4-highcpu-288",
+      "seconds": {
+        "gke": 76.7,
+        "vm": 60.9
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c4-highmem-288",
+      "seconds": {
+        "gke": 204.2,
+        "vm": 72.4
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c4-standard-288",
+      "seconds": {
+        "gke": 83.7,
+        "vm": 54.9
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c4a-highcpu-72",
+      "seconds": {
+        "gke": 62.9,
+        "vm": 38.7
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c4a-highmem-72",
+      "seconds": {
+        "gke": 57.3,
+        "vm": 35.1
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c4a-standard-72",
+      "seconds": {
+        "gke": 58.6,
+        "vm": 30.8
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c4d-highcpu-384",
+      "seconds": {
+        "gke": 89.9,
+        "vm": 47.9
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c4d-highmem-384",
+      "seconds": {
+        "gke": 192.1,
+        "vm": 54
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c4d-standard-384",
+      "seconds": {
+        "gke": 98.3,
+        "vm": 57.3
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "on-demand"
+      }
+    },
+    {
+      "machine_type": "c4n-highcpu-192",
+      "seconds": {
+        "gke": 116.5,
+        "vm": 86.7
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c4n-highmem-192",
+      "seconds": {
+        "gke": 105.3,
+        "vm": 87.9
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "c4n-standard-192",
+      "seconds": {
+        "gke": 106.8,
+        "vm": 86.5
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "e2-highcpu-32",
+      "seconds": {
+        "gke": 75.3,
+        "vm": 64
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "e2-highmem-16",
+      "seconds": {
+        "gke": 103.8,
+        "vm": 59.3
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "e2-standard-32",
+      "seconds": {
+        "gke": 78.8,
+        "vm": 62.8
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "h3-standard-88",
+      "seconds": {
+        "gke": 66,
+        "vm": 42.2
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "h4d-highmem-192",
+      "seconds": {
+        "gke": 63.1,
+        "vm": 44.4
+      },
+      "model": {
+        "gke": "on-demand",
+        "vm": "on-demand"
+      }
+    },
+    {
+      "machine_type": "h4d-standard-192",
+      "seconds": {
+        "gke": 71,
+        "vm": 42.9
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "m1-megamem-96",
+      "seconds": {
+        "gke": 79.8,
+        "vm": 87.1
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "m1-ultramem-160",
+      "seconds": {
+        "gke": 95.9,
+        "vm": 102
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "m3-megamem-128",
+      "seconds": {
+        "gke": 75.8,
+        "vm": 64.6
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "m3-ultramem-128",
+      "seconds": {
+        "gke": 76.9,
+        "vm": 79.4
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n1-highcpu-96",
+      "seconds": {
+        "gke": 75.7,
+        "vm": 61
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n1-highmem-96",
+      "seconds": {
+        "gke": 78.2,
+        "vm": 55.3
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n1-standard-96",
+      "seconds": {
+        "gke": 75.9,
+        "vm": 56.8
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n2-highcpu-96",
+      "seconds": {
+        "gke": 65.9,
+        "vm": 42.8
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n2-highmem-128",
+      "seconds": {
+        "gke": 71.7,
+        "vm": 46
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "on-demand"
+      }
+    },
+    {
+      "machine_type": "n2-standard-128",
+      "seconds": {
+        "gke": 75.5,
+        "vm": 48.9
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n2d-highcpu-224",
+      "seconds": {
+        "gke": 66.5,
+        "vm": 204.2
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "on-demand"
+      }
+    },
+    {
+      "machine_type": "n2d-highmem-96",
+      "seconds": {
+        "gke": 67.1,
+        "vm": 53.2
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n2d-standard-224",
+      "seconds": {
+        "gke": 66.7,
+        "vm": 57
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n4-highcpu-80",
+      "seconds": {
+        "gke": 60,
+        "vm": 44.6
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n4-highmem-80",
+      "seconds": {
+        "gke": 63.2,
+        "vm": 60.2
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n4-standard-80",
+      "seconds": {
+        "gke": 59.6,
+        "vm": 47
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n4a-highcpu-64",
+      "seconds": {
+        "gke": 61.5,
+        "vm": 42.6
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n4a-highmem-64",
+      "seconds": {
+        "gke": 64.3,
+        "vm": 45
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n4a-standard-64",
+      "seconds": {
+        "gke": 66.4,
+        "vm": 34.4
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n4d-highcpu-96",
+      "seconds": {
+        "gke": 66,
+        "vm": 40.7
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n4d-highmem-96",
+      "seconds": {
+        "gke": 194.6,
+        "vm": 37.8
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "n4d-standard-96",
+      "seconds": {
+        "gke": 58,
+        "vm": 47.3
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "t2a-standard-48",
+      "seconds": {
+        "gke": 86.4,
+        "vm": 94.1
+      },
+      "model": {
+        "gke": "on-demand",
+        "vm": "on-demand"
+      }
+    },
+    {
+      "machine_type": "t2d-standard-60",
+      "seconds": {
+        "gke": 61.2,
+        "vm": 60.5
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    },
+    {
+      "machine_type": "z3-highmem-176-standardlssd",
+      "seconds": {
+        "gke": 112.2,
+        "vm": 1076.6
+      },
+      "model": {
+        "gke": "spot",
+        "vm": "spot"
+      }
+    }
+  ],
+  "common": 53
+}

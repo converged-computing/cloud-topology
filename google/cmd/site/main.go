@@ -24,6 +24,8 @@ func main() {
 	out := flag.String("out", "site", "output directory")
 	flag.Var(&data, "data", "database directory, as label=dir or dir (repeatable)")
 	flag.Var(&experiments, "experiment", "experiment directory from topology/experiment.sh, as name=dir or dir; its arms are added as databases (repeatable)")
+	var kubernetes list
+	flag.Var(&kubernetes, "kubernetes", "Kubernetes run directory from experiments/scripts/gke.sh, as name=dir or dir; its gke/ database and reports are added (repeatable)")
 	var graphData list
 	flag.Var(&graphData, "graph-data", "database label to build graphs for (repeatable; default every database)")
 	flag.Var(&regions, "region", "region to build graphs for (repeatable; default every region in the databases)")
@@ -34,7 +36,7 @@ func main() {
 	single := flag.Bool("single", false, "write one self-contained index.html with the data and images inlined")
 	flag.Parse()
 
-	opts := site.Options{GraphSources: graphData, Regions: regions, Experiments: experiments, Consistency: *consistency, Nodes: *nodes, Single: *single, Log: func(s string) { fmt.Fprintln(os.Stderr, s) }}
+	opts := site.Options{GraphSources: graphData, Regions: regions, Experiments: experiments, Kubernetes: kubernetes, Consistency: *consistency, Nodes: *nodes, Single: *single, Log: func(s string) { fmt.Fprintln(os.Stderr, s) }}
 	for _, d := range data {
 		label, dir, ok := strings.Cut(d, "=")
 		if !ok {

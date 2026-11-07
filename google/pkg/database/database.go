@@ -86,6 +86,9 @@ type Capture struct {
 	// ProvisioningModel is spot or on-demand, as the capture instance actually ran.
 	ProvisioningModel string `json:"provisioning_model,omitempty"`
 	HwlocVersion      string `json:"hwloc_version,omitempty"`
+	// Timings breaks ProvisionSeconds down where the provider reports it, for example
+	// nodepool_seconds and pod_seconds on GKE.
+	Timings map[string]float64 `json:"timings,omitempty"`
 }
 
 // Index summarizes the database contents.

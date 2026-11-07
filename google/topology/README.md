@@ -4,8 +4,7 @@ Capturing a machine type's topology is done by
 [topology-agent](https://github.com/converged-computing/topology-agent): it creates an
 instance, reads its layout with hwloc, writes `data/topology/<machine-type>/hwloc.xml` and
 `capture.json`, and deletes the instance. This directory holds what this repository adds around
-it: running a whole plan (`run-plan.sh`), rendering images (`render.sh`) and the experiment
-that compares the agent with the runner (`experiment.sh`).
+it: running a whole plan (`run-plan.sh`) and rendering images (`render.sh`).
 
 ## Installing topology-agent
 
@@ -38,7 +37,8 @@ make topology MACHINE_TYPE=g2-standard-8 ZONE=us-central1-a,us-central1-b ARGS="
 ```
 
 `ZONE` is a comma-separated list tried in order: a stockout or quota error moves on to the next
-zone, and any other error stops. `--provisioning-model=SPOT` in `ARGS` means Spot, retrying
+zone, and any other error stops. `PROVIDER=gke CLUSTER=name` captures on a one-node node pool
+of that GKE cluster instead of a VM (see `experiments/README.md`). `--provisioning-model=SPOT` in `ARGS` means Spot, retrying
 on-demand in the same zone unless `SPOT_FALLBACK=0`; other `ARGS` pass through to the create.
 `STATUS_FILE=path` writes the outcome (`ok`, `stockout`, `quota` or `error`) to a file.
 After a capture the topology image is rendered and `index.json` rebuilt. Every instance carries
@@ -87,23 +87,10 @@ regions. GPU and Local SSD machine types get `--maintenance-policy=TERMINATE`, w
 Engine requires for them. Arm machine types (t2a, c4a, n4a) boot the arm64 build of the
 Ubuntu image; topology-agent looks up the architecture before creating the instance.
 
-## Repeating captures over days
+## Experiments
 
-`consistency.sh` runs a plan in rounds, each into its own database, rotating the zone order
-between rounds, and rebuilds the consistency report (`cmd/consistency`) after each. `make
-consistency REGION=us-central1` drives it; the top-level README describes the study and
-its files.
-
-## Comparing the agent with the runner
-
-`experiment.sh` runs one plan through both, each into its own database, and `cmd/report`
-compares them. `make experiment REGION=us-central1` drives it; the top-level README describes
-the run, the files it leaves in `projects/<project>/experiment/` and how to read the report.
-The script can also be called directly with a plan and an output directory:
-
-```bash
-PROJECT=my-project bash topology/experiment.sh projects/my-project/experiment/captures.txt projects/my-project/experiment
-```
+The experiments that use these captures, comparing the agent with the runner, repeating
+captures over days, and capturing on GKE, live in `experiments/`; see its README.
 
 ## Images
 

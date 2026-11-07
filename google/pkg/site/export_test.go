@@ -10,6 +10,7 @@ import (
 
 	"github.com/converged-computing/google-cloud-topology/pkg/jgf"
 	"github.com/converged-computing/google-cloud-topology/pkg/quota"
+	"github.com/converged-computing/google-cloud-topology/pkg/topology"
 )
 
 func TestExport(t *testing.T) {
@@ -54,8 +55,8 @@ func TestExport(t *testing.T) {
 		t.Errorf("hwloc tree: %+v", c.Hwloc)
 	} else {
 		pus, gpus := 0, 0
-		var walkObj func(o *Object)
-		walkObj = func(o *Object) {
+		var walkObj func(o *topology.Object)
+		walkObj = func(o *topology.Object) {
 			if o.Type == "PU" {
 				pus++
 			}

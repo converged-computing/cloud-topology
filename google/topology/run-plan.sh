@@ -7,12 +7,14 @@
 # Each log line holds the time, machine type, outcome (ok, stockout, quota or error), seconds,
 # pass number and, for errors, the capture's error message, tab-separated. Captures that
 # stocked out in every zone are retried after RETRY_WAIT seconds (default 1800), in up to
-# RETRY_PASSES more passes (default 2); quota failures are not retried. The run stops after
-# STOP_AFTER_ERRORS consecutive errors that are not about capacity (default 5); an error
-# repeating the previous one's message counts once, so a run of machine types failing the
-# same way does not stop the plan. It refuses to start while a capture instance exists
+# RETRY_PASSES more passes (default 2); errors are retried in those passes too, since most
+# are transient (a busy cluster, a killed pod), while quota failures are not. The run stops
+# after STOP_AFTER_ERRORS consecutive errors that are not about capacity (default 5); an
+# error repeating the previous one's message counts once, so a run of machine types failing
+# the same way does not stop the plan. SKIP_CAPTURED=1 skips lines whose machine type is
+# already captured in DATA, so a rerun finishes what an interrupted run left. It refuses to start while a capture instance exists
 # (ALLOW_EXISTING=1 overrides) and holds a lock next to the plan so two runs cannot overlap.
-# DATA, PROJECT and TOPOLOGY_AGENT pass through to make.
+# DATA, PROJECT, TOPOLOGY_AGENT, PROVIDER, CLUSTER and IMAGE_TYPE pass through to make.
 set -uo pipefail
 
 if [[ $# -lt 1 || $1 == -h || $1 == --help ]]; then
@@ -35,7 +37,7 @@ fi
 trap 'rmdir "$lock"' EXIT
 
 if [[ ${ALLOW_EXISTING:-0} != 1 ]]; then
-  existing=$($agent cleanup ${PROJECT:+--project "$PROJECT"} 2>&1)
+  existing=$($agent cleanup ${PROJECT:+--project "$PROJECT"} ${PROVIDER:+--provider "$PROVIDER"} ${CLUSTER:+--cluster "$CLUSTER"} 2>&1)
   if [[ $? -ne 0 || $existing != "no capture instances running" ]]; then
     echo "run-plan: refusing to start; delete capture instances (make cleanup DELETE=1) or set ALLOW_EXISTING=1:" >&2
     echo "$existing" >&2
@@ -44,10 +46,24 @@ if [[ ${ALLOW_EXISTING:-0} != 1 ]]; then
 fi
 
 lines=()
+skipped_captured=0
 while IFS= read -r line; do
-  [[ $line == "make topology "* ]] && lines+=("$line")
+  [[ $line == "make topology "* ]] || continue
+  if [[ ${SKIP_CAPTURED:-0} == 1 ]]; then
+    mt=$(sed -n 's/.*MACHINE_TYPE=\([^ ]*\).*/\1/p' <<< "$line")
+    if [[ -f ${DATA:-data}/topology/$mt/capture.json ]]; then
+      skipped_captured=$((skipped_captured + 1))
+      continue
+    fi
+  fi
+  lines+=("$line")
 done < "$plan"
+[[ $skipped_captured -gt 0 ]] && echo "run-plan: skipping ${skipped_captured} machine type(s) already captured in ${DATA:-data}" >&2
 if [[ ${#lines[@]} -eq 0 ]]; then
+  if [[ $skipped_captured -gt 0 ]]; then
+    echo "run-plan: nothing left to capture" >&2
+    exit 0
+  fi
   echo "run-plan: no 'make topology' lines in ${plan}" >&2
   exit 1
 fi
@@ -97,7 +113,7 @@ while :; do
     case $status in
       ok|quota) consecutive=0 ;;
       stockout) consecutive=0; retry+=("$line") ;;
-      *) [[ -n $message && $message == "$last_message" ]] || consecutive=$((consecutive + 1)); last_message=$message ;;
+      *) [[ -n $message && $message == "$last_message" ]] || consecutive=$((consecutive + 1)); last_message=$message; retry+=("$line") ;;
     esac
     if [[ $consecutive -ge $stop_after ]]; then
       echo "run-plan: stopping after ${consecutive} consecutive errors" >&2
@@ -106,7 +122,7 @@ while :; do
     fi
   done
   [[ $stopped -eq 1 || ${#retry[@]} -eq 0 || $pass -gt $retry_passes ]] && break
-  echo "run-plan: ${#retry[@]} capture(s) stocked out; retrying in ${retry_wait}s" >&2
+  echo "run-plan: ${#retry[@]} capture(s) stocked out or failed; retrying in ${retry_wait}s" >&2
   sleep "$retry_wait"
   pending=("${retry[@]}")
   pass=$((pass + 1))

@@ -1,0 +1,4730 @@
+{
+  "databases": [
+    "gke",
+    "vm"
+  ],
+  "types": [
+    {
+      "machine_type": "e2-standard-32",
+      "captures": 2,
+      "shapes": 2,
+      "varies": [
+        "cpu model",
+        "l2",
+        "l3"
+      ],
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:32:30Z",
+          "shape": "70cbdea0",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 16,
+            "pus": 32,
+            "numa_nodes": 1,
+            "memory_gb": 125.7,
+            "l3_mb": [
+              16
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B12"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T18:19:46Z",
+          "shape": "24696bb5",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 16,
+            "pus": 32,
+            "numa_nodes": 1,
+            "memory_gb": 125.7,
+            "l3_mb": [
+              55
+            ],
+            "l2_kb": [
+              256
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.20GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "a2-highgpu-8g",
+      "captures": 1,
+      "shapes": 1,
+      "zones": [
+        "us-central1-f"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-f",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:50:54Z",
+          "shape": "d49aaaec",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 669.2,
+            "l3_mb": [
+              38
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.20GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                4,
+                4
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "a2-megagpu-16g",
+      "captures": 1,
+      "shapes": 1,
+      "zones": [
+        "us-central1-c"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-c",
+          "model": "on-demand",
+          "captured_at": "2026-11-02T02:59:53Z",
+          "shape": "eea1012d",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 1338.5,
+            "l3_mb": [
+              38
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.20GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                8,
+                8
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "a3-highgpu-8g",
+      "captures": 1,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:54:11Z",
+          "shape": "15da5c92",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 104,
+            "pus": 208,
+            "numa_nodes": 2,
+            "memory_gb": 1842.5,
+            "l3_mb": [
+              105
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                4,
+                4
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c2-standard-60",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:38:16Z",
+          "shape": "cd7885f0",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 30,
+            "pus": 60,
+            "numa_nodes": 2,
+            "memory_gb": 236.1,
+            "l3_mb": [
+              24
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 3.10GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T18:53:24Z",
+          "shape": "cd7885f0",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 30,
+            "pus": 60,
+            "numa_nodes": 2,
+            "memory_gb": 236.1,
+            "l3_mb": [
+              24
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 3.10GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c2d-highcpu-112",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:21:38Z",
+          "shape": "5060146a",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 56,
+            "pus": 112,
+            "numa_nodes": 2,
+            "memory_gb": 220.3,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:55:33Z",
+          "shape": "5060146a",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 56,
+            "pus": 112,
+            "numa_nodes": 2,
+            "memory_gb": 220.3,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c2d-highmem-112",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:23:38Z",
+          "shape": "514ad128",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 56,
+            "pus": 112,
+            "numa_nodes": 2,
+            "memory_gb": 881.8,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:58:16Z",
+          "shape": "514ad128",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 56,
+            "pus": 112,
+            "numa_nodes": 2,
+            "memory_gb": 881.8,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c2d-standard-112",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:25:29Z",
+          "shape": "c1f65513",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 56,
+            "pus": 112,
+            "numa_nodes": 2,
+            "memory_gb": 440.8,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T20:01:01Z",
+          "shape": "c1f65513",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 56,
+            "pus": 112,
+            "numa_nodes": 2,
+            "memory_gb": 440.8,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c3-highcpu-176",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:39:39Z",
+          "shape": "f6190e86",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 88,
+            "pus": 176,
+            "numa_nodes": 4,
+            "memory_gb": 346.3,
+            "l3_mb": [
+              105
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T20:19:45Z",
+          "shape": "f6190e86",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 88,
+            "pus": 176,
+            "numa_nodes": 4,
+            "memory_gb": 346.3,
+            "l3_mb": [
+              105
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c3-highmem-176",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a",
+        "us-central1-c"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-c",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:42:24Z",
+          "shape": "46f078a7",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 88,
+            "pus": 176,
+            "numa_nodes": 4,
+            "memory_gb": 1385.8,
+            "l3_mb": [
+              105
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T20:27:01Z",
+          "shape": "46f078a7",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 88,
+            "pus": 176,
+            "numa_nodes": 4,
+            "memory_gb": 1385.8,
+            "l3_mb": [
+              105
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c3-standard-176",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:44:27Z",
+          "shape": "ea9825cf",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 88,
+            "pus": 176,
+            "numa_nodes": 4,
+            "memory_gb": 692.8,
+            "l3_mb": [
+              105
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-06T05:47:22Z",
+          "shape": "ea9825cf",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 88,
+            "pus": 176,
+            "numa_nodes": 4,
+            "memory_gb": 692.8,
+            "l3_mb": [
+              105
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c3d-highcpu-360",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "on-demand",
+          "captured_at": "2026-11-02T02:36:27Z",
+          "shape": "89d8885d",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 180,
+            "pus": 360,
+            "numa_nodes": 2,
+            "memory_gb": 696.6,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B14"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "on-demand",
+          "captured_at": "2026-11-06T16:06:53Z",
+          "shape": "89d8885d",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 180,
+            "pus": 360,
+            "numa_nodes": 2,
+            "memory_gb": 696.6,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B14"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c3d-highmem-360",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a",
+        "us-central1-b"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-b",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:38:51Z",
+          "shape": "f3c89f26",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 180,
+            "pus": 360,
+            "numa_nodes": 2,
+            "memory_gb": 2834.6,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B14"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-06T16:13:59Z",
+          "shape": "f3c89f26",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 180,
+            "pus": 360,
+            "numa_nodes": 2,
+            "memory_gb": 2834.7,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B14"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c3d-standard-360",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:41:03Z",
+          "shape": "8dd84fcb",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 180,
+            "pus": 360,
+            "numa_nodes": 2,
+            "memory_gb": 1417.1,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B14"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T23:53:05Z",
+          "shape": "8dd84fcb",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 180,
+            "pus": 360,
+            "numa_nodes": 2,
+            "memory_gb": 1417.2,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B14"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4-highcpu-288",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a",
+        "us-central1-b"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-b",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:27:49Z",
+          "shape": "655338ea",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 144,
+            "pus": 288,
+            "numa_nodes": 6,
+            "memory_gb": 566.7,
+            "l3_mb": [
+              504
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) 6985P-C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T22:41:13Z",
+          "shape": "655338ea",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 144,
+            "pus": 288,
+            "numa_nodes": 6,
+            "memory_gb": 566.7,
+            "l3_mb": [
+              504
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) 6985P-C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4-highmem-288",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a",
+        "us-central1-b"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-b",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:30:43Z",
+          "shape": "5af8e7a0",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 144,
+            "pus": 288,
+            "numa_nodes": 6,
+            "memory_gb": 2196.8,
+            "l3_mb": [
+              504
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) 6985P-C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T22:46:27Z",
+          "shape": "5af8e7a0",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 144,
+            "pus": 288,
+            "numa_nodes": 6,
+            "memory_gb": 2196.8,
+            "l3_mb": [
+              504
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) 6985P-C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4-standard-288",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a",
+        "us-central1-b"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-b",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:33:33Z",
+          "shape": "fbb97166",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 144,
+            "pus": 288,
+            "numa_nodes": 6,
+            "memory_gb": 1062.8,
+            "l3_mb": [
+              504
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) 6985P-C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T22:49:40Z",
+          "shape": "fbb97166",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 144,
+            "pus": 288,
+            "numa_nodes": 6,
+            "memory_gb": 1062.8,
+            "l3_mb": [
+              504
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) 6985P-C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4a-highcpu-72",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:48:12Z",
+          "shape": "90ddf9c5",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 72,
+            "pus": 72,
+            "numa_nodes": 1,
+            "memory_gb": 141.1,
+            "l3_mb": [
+              80
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:07:20Z",
+          "shape": "90ddf9c5",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 72,
+            "pus": 72,
+            "numa_nodes": 1,
+            "memory_gb": 141.1,
+            "l3_mb": [
+              80
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4a-highmem-72",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:50:05Z",
+          "shape": "4af0532f",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 72,
+            "pus": 72,
+            "numa_nodes": 1,
+            "memory_gb": 565.3,
+            "l3_mb": [
+              80
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:09:56Z",
+          "shape": "4af0532f",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 72,
+            "pus": 72,
+            "numa_nodes": 1,
+            "memory_gb": 565.3,
+            "l3_mb": [
+              80
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4a-standard-72",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:52:01Z",
+          "shape": "b49d4486",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 72,
+            "pus": 72,
+            "numa_nodes": 1,
+            "memory_gb": 282.6,
+            "l3_mb": [
+              80
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:12:33Z",
+          "shape": "b49d4486",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 72,
+            "pus": 72,
+            "numa_nodes": 1,
+            "memory_gb": 282.6,
+            "l3_mb": [
+              80
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4d-highcpu-384",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:42:59Z",
+          "shape": "d982adc2",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 192,
+            "pus": 384,
+            "numa_nodes": 2,
+            "memory_gb": 708.4,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T23:56:12Z",
+          "shape": "d982adc2",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 192,
+            "pus": 384,
+            "numa_nodes": 2,
+            "memory_gb": 708.4,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4d-highmem-384",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:45:01Z",
+          "shape": "78a0e1cb",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 192,
+            "pus": 384,
+            "numa_nodes": 2,
+            "memory_gb": 2976.4,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-06T00:01:08Z",
+          "shape": "78a0e1cb",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 192,
+            "pus": 384,
+            "numa_nodes": 2,
+            "memory_gb": 2976.4,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4d-standard-384",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "on-demand",
+          "captured_at": "2026-11-02T03:32:35Z",
+          "shape": "cbd256b5",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 192,
+            "pus": 384,
+            "numa_nodes": 2,
+            "memory_gb": 1464.4,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-06T00:04:34Z",
+          "shape": "cbd256b5",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 192,
+            "pus": 384,
+            "numa_nodes": 2,
+            "memory_gb": 1464.4,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4n-highcpu-192",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:06:47Z",
+          "shape": "aaa5b742",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 96,
+            "pus": 192,
+            "numa_nodes": 4,
+            "memory_gb": 377.8,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T21:10:06Z",
+          "shape": "aaa5b742",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 96,
+            "pus": 192,
+            "numa_nodes": 4,
+            "memory_gb": 377.8,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4n-highmem-192",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:09:32Z",
+          "shape": "b94c5af8",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 96,
+            "pus": 192,
+            "numa_nodes": 4,
+            "memory_gb": 1464.5,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T21:13:41Z",
+          "shape": "b94c5af8",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 96,
+            "pus": 192,
+            "numa_nodes": 4,
+            "memory_gb": 1464.5,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "c4n-standard-192",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:12:11Z",
+          "shape": "700063f5",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 96,
+            "pus": 192,
+            "numa_nodes": 4,
+            "memory_gb": 708.5,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T21:17:24Z",
+          "shape": "700063f5",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 96,
+            "pus": 192,
+            "numa_nodes": 4,
+            "memory_gb": 708.5,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.30GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "e2-highcpu-32",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:30:10Z",
+          "shape": "e69f3d87",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 16,
+            "pus": 32,
+            "numa_nodes": 1,
+            "memory_gb": 31.3,
+            "l3_mb": [
+              16
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B12"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T18:16:34Z",
+          "shape": "e69f3d87",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 16,
+            "pus": 32,
+            "numa_nodes": 1,
+            "memory_gb": 31.3,
+            "l3_mb": [
+              16
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B12"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "e2-highmem-16",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:27:47Z",
+          "shape": "41aed319",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 8,
+            "pus": 16,
+            "numa_nodes": 1,
+            "memory_gb": 125.7,
+            "l3_mb": [
+              16
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B12"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T18:13:23Z",
+          "shape": "41aed319",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 8,
+            "pus": 16,
+            "numa_nodes": 1,
+            "memory_gb": 125.7,
+            "l3_mb": [
+              16
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B12"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "h3-standard-88",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:00:14Z",
+          "shape": "ecacac4c",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 88,
+            "pus": 88,
+            "numa_nodes": 4,
+            "memory_gb": 346.3,
+            "l3_mb": [
+              105
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:23:40Z",
+          "shape": "ecacac4c",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 88,
+            "pus": 88,
+            "numa_nodes": 4,
+            "memory_gb": 346.3,
+            "l3_mb": [
+              105
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "h4d-highmem-192",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "on-demand",
+          "captured_at": "2026-11-02T02:15:10Z",
+          "shape": "44d58c30",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 192,
+            "pus": 192,
+            "numa_nodes": 2,
+            "memory_gb": 1464.5,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "on-demand",
+          "captured_at": "2026-11-06T15:30:51Z",
+          "shape": "44d58c30",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 192,
+            "pus": 192,
+            "numa_nodes": 2,
+            "memory_gb": 1464.5,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "h4d-standard-192",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:17:02Z",
+          "shape": "ac5643b2",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 192,
+            "pus": 192,
+            "numa_nodes": 2,
+            "memory_gb": 708.5,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T21:50:53Z",
+          "shape": "ac5643b2",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 192,
+            "pus": 192,
+            "numa_nodes": 2,
+            "memory_gb": 708.5,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "m1-megamem-96",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:02:56Z",
+          "shape": "2b764d80",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 1411,
+            "l3_mb": [
+              38
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.00GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:26:48Z",
+          "shape": "2b764d80",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 1411,
+            "l3_mb": [
+              38
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.00GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "m1-ultramem-160",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:37:40Z",
+          "shape": "069a6430",
+          "fingerprint": {
+            "sockets": 4,
+            "cores": 80,
+            "pus": 160,
+            "numa_nodes": 4,
+            "memory_gb": 3783.7,
+            "l3_mb": [
+              55
+            ],
+            "l2_kb": [
+              256
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.20GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T20:16:44Z",
+          "shape": "069a6430",
+          "fingerprint": {
+            "sockets": 4,
+            "cores": 80,
+            "pus": 160,
+            "numa_nodes": 4,
+            "memory_gb": 3783.7,
+            "l3_mb": [
+              55
+            ],
+            "l2_kb": [
+              256
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.20GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "m3-megamem-128",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:27:46Z",
+          "shape": "2a89fbab",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 64,
+            "pus": 128,
+            "numa_nodes": 2,
+            "memory_gb": 1921.3,
+            "l3_mb": [
+              54
+            ],
+            "l2_kb": [
+              1280
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.60GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T20:04:06Z",
+          "shape": "2a89fbab",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 64,
+            "pus": 128,
+            "numa_nodes": 2,
+            "memory_gb": 1921.3,
+            "l3_mb": [
+              54
+            ],
+            "l2_kb": [
+              1280
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.60GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "m3-ultramem-128",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:30:14Z",
+          "shape": "8d4618cb",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 64,
+            "pus": 128,
+            "numa_nodes": 2,
+            "memory_gb": 3842.8,
+            "l3_mb": [
+              54
+            ],
+            "l2_kb": [
+              1280
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.60GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T20:07:15Z",
+          "shape": "8d4618cb",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 64,
+            "pus": 128,
+            "numa_nodes": 2,
+            "memory_gb": 3842.8,
+            "l3_mb": [
+              54
+            ],
+            "l2_kb": [
+              1280
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.60GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n1-highcpu-96",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:05:14Z",
+          "shape": "c2b29d73",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 84.8,
+            "l3_mb": [
+              38
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.00GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:29:48Z",
+          "shape": "c2b29d73",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 84.9,
+            "l3_mb": [
+              38
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.00GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n1-highmem-96",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:07:26Z",
+          "shape": "4baf2583",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 614,
+            "l3_mb": [
+              38
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.00GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:32:57Z",
+          "shape": "4baf2583",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 614.1,
+            "l3_mb": [
+              38
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.00GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n1-standard-96",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:09:39Z",
+          "shape": "4fc011d0",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 354.2,
+            "l3_mb": [
+              38
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.00GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:36:08Z",
+          "shape": "4fc011d0",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 354.2,
+            "l3_mb": [
+              38
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.00GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n2-highcpu-96",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:11:37Z",
+          "shape": "27963c46",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 94.3,
+            "l3_mb": [
+              54
+            ],
+            "l2_kb": [
+              1280
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.60GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:39:10Z",
+          "shape": "27963c46",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 94.3,
+            "l3_mb": [
+              54
+            ],
+            "l2_kb": [
+              1280
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.60GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n2-highmem-128",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "on-demand",
+          "captured_at": "2026-11-02T01:32:25Z",
+          "shape": "d4ba5f79",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 64,
+            "pus": 128,
+            "numa_nodes": 2,
+            "memory_gb": 850.3,
+            "l3_mb": [
+              54
+            ],
+            "l2_kb": [
+              1280
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.60GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T20:10:16Z",
+          "shape": "d4ba5f79",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 64,
+            "pus": 128,
+            "numa_nodes": 2,
+            "memory_gb": 850.3,
+            "l3_mb": [
+              54
+            ],
+            "l2_kb": [
+              1280
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.60GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n2-standard-128",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:34:24Z",
+          "shape": "7134677c",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 64,
+            "pus": 128,
+            "numa_nodes": 2,
+            "memory_gb": 503.8,
+            "l3_mb": [
+              54
+            ],
+            "l2_kb": [
+              1280
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.60GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T20:13:21Z",
+          "shape": "7134677c",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 64,
+            "pus": 128,
+            "numa_nodes": 2,
+            "memory_gb": 503.8,
+            "l3_mb": [
+              54
+            ],
+            "l2_kb": [
+              1280
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) CPU @ 2.60GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n2d-highcpu-224",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "on-demand",
+          "captured_at": "2026-11-02T02:21:55Z",
+          "shape": "b04d4c35",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 112,
+            "pus": 224,
+            "numa_nodes": 2,
+            "memory_gb": 220.3,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-06T15:33:37Z",
+          "shape": "b04d4c35",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 112,
+            "pus": 224,
+            "numa_nodes": 2,
+            "memory_gb": 220.3,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n2d-highmem-96",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:14:16Z",
+          "shape": "1ba3a421",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 755.8,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:42:01Z",
+          "shape": "1ba3a421",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 2,
+            "memory_gb": 755.8,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n2d-standard-224",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:24:03Z",
+          "shape": "7f8abb0d",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 112,
+            "pus": 224,
+            "numa_nodes": 2,
+            "memory_gb": 881.8,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-06T07:01:48Z",
+          "shape": "7f8abb0d",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 112,
+            "pus": 224,
+            "numa_nodes": 2,
+            "memory_gb": 881.8,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n4-highcpu-80",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:53:59Z",
+          "shape": "ce31995c",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 40,
+            "pus": 80,
+            "numa_nodes": 1,
+            "memory_gb": 157.1,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.10GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:15:16Z",
+          "shape": "ce31995c",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 40,
+            "pus": 80,
+            "numa_nodes": 1,
+            "memory_gb": 157.1,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.10GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n4-highmem-80",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:56:21Z",
+          "shape": "ec39b66a",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 40,
+            "pus": 80,
+            "numa_nodes": 1,
+            "memory_gb": 629.4,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.10GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:18:04Z",
+          "shape": "ec39b66a",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 40,
+            "pus": 80,
+            "numa_nodes": 1,
+            "memory_gb": 629.4,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.10GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n4-standard-80",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:58:20Z",
+          "shape": "048fa32d",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 40,
+            "pus": 80,
+            "numa_nodes": 1,
+            "memory_gb": 314.6,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.10GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:20:47Z",
+          "shape": "048fa32d",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 40,
+            "pus": 80,
+            "numa_nodes": 1,
+            "memory_gb": 314.6,
+            "l3_mb": [
+              260
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.10GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n4a-highcpu-64",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:42:29Z",
+          "shape": "ab650fa5",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 64,
+            "pus": 64,
+            "numa_nodes": 1,
+            "memory_gb": 125.5,
+            "l3_mb": [
+              112
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T18:59:03Z",
+          "shape": "ab650fa5",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 64,
+            "pus": 64,
+            "numa_nodes": 1,
+            "memory_gb": 125.5,
+            "l3_mb": [
+              112
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n4a-highmem-64",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:44:32Z",
+          "shape": "c9108010",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 64,
+            "pus": 64,
+            "numa_nodes": 1,
+            "memory_gb": 502.6,
+            "l3_mb": [
+              112
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:01:47Z",
+          "shape": "c9108010",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 64,
+            "pus": 64,
+            "numa_nodes": 1,
+            "memory_gb": 502.7,
+            "l3_mb": [
+              112
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n4a-standard-64",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:46:17Z",
+          "shape": "f2f3f81a",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 64,
+            "pus": 64,
+            "numa_nodes": 1,
+            "memory_gb": 251.1,
+            "l3_mb": [
+              112
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:04:32Z",
+          "shape": "f2f3f81a",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 64,
+            "pus": 64,
+            "numa_nodes": 1,
+            "memory_gb": 251.2,
+            "l3_mb": [
+              112
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n4d-highcpu-96",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:16:03Z",
+          "shape": "211763ea",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 1,
+            "memory_gb": 188.6,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:45:05Z",
+          "shape": "211763ea",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 1,
+            "memory_gb": 188.6,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n4d-highmem-96",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:17:48Z",
+          "shape": "d7e628f3",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 1,
+            "memory_gb": 755.4,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:49:58Z",
+          "shape": "d7e628f3",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 1,
+            "memory_gb": 755.4,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "n4d-standard-96",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T01:19:42Z",
+          "shape": "f17aaf15",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 1,
+            "memory_gb": 377.6,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T19:52:41Z",
+          "shape": "f17aaf15",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 48,
+            "pus": 96,
+            "numa_nodes": 1,
+            "memory_gb": 377.6,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "cpu_models": [
+              "AMD EPYC 9B45"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "t2a-standard-48",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "on-demand",
+          "captured_at": "2026-11-02T00:35:41Z",
+          "shape": "7ede2a41",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 48,
+            "pus": 48,
+            "numa_nodes": 1,
+            "memory_gb": 188.3,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "on-demand",
+          "captured_at": "2026-11-06T14:58:14Z",
+          "shape": "7ede2a41",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 48,
+            "pus": 48,
+            "numa_nodes": 1,
+            "memory_gb": 188.3,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              1024
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "t2d-standard-60",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T00:40:29Z",
+          "shape": "ccd50ff0",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 60,
+            "pus": 60,
+            "numa_nodes": 1,
+            "memory_gb": 235.9,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T18:56:12Z",
+          "shape": "ccd50ff0",
+          "fingerprint": {
+            "sockets": 1,
+            "cores": 60,
+            "pus": 60,
+            "numa_nodes": 1,
+            "memory_gb": 235.9,
+            "l3_mb": [
+              32
+            ],
+            "l2_kb": [
+              512
+            ],
+            "cpu_models": [
+              "AMD EPYC 7B13"
+            ],
+            "gpus": {
+              "per_socket": [
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                0
+              ],
+              "machine": 1
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    },
+    {
+      "machine_type": "z3-highmem-176-standardlssd",
+      "captures": 2,
+      "shapes": 1,
+      "zones": [
+        "us-central1-a"
+      ],
+      "observations": [
+        {
+          "database": "vm",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-02T02:03:36Z",
+          "shape": "46f078a7",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 88,
+            "pus": 176,
+            "numa_nodes": 4,
+            "memory_gb": 1385.8,
+            "l3_mb": [
+              105
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "7.0.0-1014-gcp",
+            "hwloc": "2.10.0"
+          }
+        },
+        {
+          "database": "gke",
+          "zone": "us-central1-a",
+          "model": "spot",
+          "captured_at": "2026-11-05T21:05:56Z",
+          "shape": "46f078a7",
+          "fingerprint": {
+            "sockets": 2,
+            "cores": 88,
+            "pus": 176,
+            "numa_nodes": 4,
+            "memory_gb": 1385.8,
+            "l3_mb": [
+              105
+            ],
+            "l2_kb": [
+              2048
+            ],
+            "cpu_models": [
+              "Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz"
+            ],
+            "gpus": {
+              "per_socket": [
+                0,
+                0
+              ],
+              "machine": 0
+            },
+            "nics": {
+              "per_socket": [
+                1,
+                0
+              ],
+              "machine": 0
+            },
+            "kernel": "6.12.105+",
+            "hwloc": "2.10.0"
+          }
+        }
+      ]
+    }
+  ],
+  "consistent": 52,
+  "varying": 1,
+  "single": 3
+}

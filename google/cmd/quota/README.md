@@ -34,7 +34,7 @@ can run on-demand, since smaller sizes are derived from it. By default it:
 
 `--verify` adds each series' smallest runnable size, to check the derivation against a real
 capture. `--recapture` plans series that are already captured too, for a plan that every run
-of an experiment can start from (see `topology/experiment.sh`). Both `plan` outputs end with a report: quotas with no limit, families whose quota rule was
+of an experiment can start from (see `experiments/README.md`). Both `plan` outputs end with a report: quotas with no limit, families whose quota rule was
 inferred from the snapshot, families with no rule (left out), families that are not ordinary VMs
 (Cloud TPU hosts and legacy shared-core, not planned), series with no on-demand quota and the
 quota that blocks them, and machine types not captured. A CPU

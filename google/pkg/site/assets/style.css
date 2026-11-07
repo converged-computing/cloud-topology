@@ -130,3 +130,7 @@ tr.row { cursor: pointer; } tr.row:hover td { background: var(--panel); } tr.hi 
 .badge.clickable { cursor: pointer; } .badge.clickable:hover { border-color: var(--text-secondary); }
 
 .chart.glyph svg { height: 44px; width: 240px; } .chart.glyph rect:hover { stroke: var(--text-primary); stroke-width: 1px; }
+
+/* A database's NOTE.md: what the reader should know about the data. */
+.note { white-space: pre-line; border-left: 3px solid var(--status-warning); padding: .4rem .7rem; margin: .4rem 0 .8rem; font-size: .9rem; }
+td.note { border-left: none; padding-left: 1.6rem; color: var(--text-secondary); }

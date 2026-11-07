@@ -82,6 +82,7 @@
       else if (view === 'graphs') await graphsView(q);
       else if (view === 'compare') compareView(q);
       else if (view === 'experiments') await experimentsView(parts[1], q);
+      else if (view === 'kubernetes') await kubernetesView(parts[1], q);
       else if (view === 'consistency') await consistencyView(q);
       else if (view === 'motifs') await motifsView(q);
       else overview();
@@ -104,12 +105,13 @@
         <div class="tile"><div class="v">${n(manifest.graphs.length)}</div><div class="l">resource graphs</div><div class="d">${manifest.levels.join(', ')}</div></div>
       </div>
       <div class="grid two">
-        <div class="card"><h3>Captures per database</h3><div class="chart" id="c-db"></div><table class="small"><tr><th>Database</th><th>Directory</th><th class="num">Machine types</th><th class="num">Captures</th></tr>${raw(dbRows().map(d => h`<tr><td><a href="${d.link}">${d.label}</a></td><td class="muted">${d.dir}</td><td class="num">${n(d.machine_types)}</td><td class="num">${n(d.captures)}</td></tr>`).join(''))}</table></div>
+        <div class="card"><h3>Captures per database</h3><div class="chart" id="c-db"></div><table class="small"><tr><th>Database</th><th>Directory</th><th class="num">Machine types</th><th class="num">Captures</th></tr>${raw(dbRows().map(d => h`<tr><td><a href="${d.link}">${d.label}</a></td><td class="muted">${d.dir}</td><td class="num">${n(d.machine_types)}</td><td class="num">${n(d.captures)}</td></tr>` + (d.note ? h`<tr><td colspan="4" class="note">${d.note}</td></tr>` : '')).join(''))}</table></div>
         <div class="card"><h3>Machine types per family</h3><p class="muted small">Click a bar to list the family.</p><div class="chart" id="c-fam"></div></div>
       </div>
       <div class="grid two" style="margin-top:.9rem">
         <div class="card"><h3>Resource graphs</h3>${raw(manifest.graphs.length ? '<table class="small"><tr><th>Database</th><th>Level</th><th>Region</th><th class="num">Vertices</th></tr>' + manifest.graphs.map(g => h`<tr><td>${g.database}</td><td><a href="#/graphs?database=${g.database}&level=${g.level}&region=${g.region}">${g.level}</a></td><td>${g.region}</td><td class="num">${n(g.vertices)}</td></tr>`).join('') + '</table>' : '<p class="empty">No graphs were exported.</p>')}</div>
         <div class="card"><h3>Experiments</h3>${raw(exps ? '<ul>' + exps + '</ul>' : '<p class="empty">None exported. Pass EXPERIMENTS=… to make site.</p>')}
+          ${raw((manifest.kubernetes || []).length ? '<h3>Kubernetes</h3><ul>' + manifest.kubernetes.map(k => h`<li><a href="#/kubernetes/${k.name}">${k.name}</a> <span class="muted">node topology and provisioning time against the VM captures</span></li>`).join('') + '</ul>' : '')}
           <h3>Reading this site</h3><p class="small secondary">A <b>database</b> is a directory of machine types and captures: <code>data/</code>, or one arm of an experiment. A <b>capture</b> is hwloc's reading of a real instance, drawn here from its object tree. <b>Resource graphs</b> are what Fluxion schedules on: <i>series</i> pools a machine series' vCPUs, GPUs and memory as totals, <i>coarse</i> has one pooled node per machine type, and <i>exact</i> places cores and GPUs on sockets from the captures, NICs with their bandwidth on nodes, nodes in compact placement groups, and storage pools on offers. Graphs are drawn folded, identical siblings as one entry with a count; <b>Motifs</b> lists the shapes that recur and the Cypher that finds them.</p></div>
       </div>`;
     C.bars(document.getElementById('c-db'), dbRows(), { label: d => d.label, value: d => d.captures, valueLabel: 'captures', onClick: d => { location.hash = d.link; } });
@@ -239,6 +241,7 @@
     main.innerHTML = h`
       <h1>Captured topologies</h1>
       <p class="lede">Each capture is hwloc's view of one real instance. The explorer draws the object tree: packages, NUMA memory, caches, cores and processing units, and the PCI devices attached to each.</p>
+      ${raw((manifest.databases.find(d => d.label === db) || {}).note ? h`<p class="note">${manifest.databases.find(d => d.label === db).note}</p>` : '')}
       <form class="filters" id="filters">
         <label>Database<select name="db">${raw(labels().map(l => h`<option value="${l}" ${raw(l === db ? 'selected' : '')}>${l} (${Object.keys(captures[l] || {}).length})</option>`).join(''))}</select></label>
         <label>Filter<input type="search" name="q" value="${q.q || ''}" placeholder="machine type"></label>
@@ -401,6 +404,51 @@
     const elapsed = r.arms.every(a => a.start);
     const lanes = r.arms.map(a => { const t0 = elapsed ? new Date(a.start).getTime() : 0; return { name: a.arm, items: r.rows.map(row => { const o = row.outcomes[a.arm]; if (!o || !o.captured_at) return null; const endMs = new Date(o.captured_at).getTime(); const dur = (o.seconds || o.provision_seconds || 60) * 1000; const item = { label: row.machine_type, status: o.status, extra: [{ k: 'zone', v: o.zone || '' }, { k: 'model', v: o.provisioning_model || '' }, { k: 'captured', v: o.captured_at }] }; if (elapsed) { item.start = Math.max(0, (endMs - dur - t0) / 1000); item.end = Math.max(item.start + 1, (endMs - t0) / 1000); } else { item.start = new Date(endMs - dur); item.end = new Date(endMs); } return item; }).filter(Boolean) }; });
     if (lanes.some(l => l.items.length)) C.timeline(document.getElementById('c-timeline'), lanes, { elapsed }); else document.getElementById('c-timeline').innerHTML = '<p class="empty">No timestamps yet.</p>';
+  }
+
+  // ---------- kubernetes ----------
+  async function kubernetesView(name) {
+    const runs = manifest.kubernetes || [];
+    if (!runs.length) { main.innerHTML = '<h1>Kubernetes</h1><p class="empty">No Kubernetes runs were exported. Pass KUBERNETES=… to make site.</p>'; return; }
+    const k = runs.find(x => x.name === name) || runs[0];
+    const [cons, lat] = await Promise.all([load(k.consistency), load(k.latency)]);
+    const db = manifest.databases.find(d => d.label === k.database) || {};
+    const gke = lat.paths.find(p => p.label === 'gke') || lat.paths[0];
+    const vm = lat.paths.find(p => p !== gke) || { label: 'vm', captures: 0 };
+    const inGke = t => t.observations.some(o => o.database === gke.label);
+    const varying = cons.types.filter(t => t.shapes > 1);
+    const vmOnly = cons.types.filter(t => !inGke(t));
+    const planned = cons.types.length;
+    const fixed = gke.fixed_seconds || {};
+    const timings = gke.mean_timings || {};
+    const vmDb = manifest.databases.map(d => d.label).find(l => l.endsWith('/deterministic')) || '';
+    const cpu = t => [...new Set(t.observations.flatMap(o => (o.fingerprint || {}).cpu_models || []))].join(', ');
+    const obs = t => t.observations.map(o => h`<span class="badge ${o.database === gke.label ? 'ok' : ''}">${o.database} ${o.zone}${o.model ? ' · ' + o.model : ''}</span>`).join(' ');
+    main.innerHTML = h`
+      <h1>Kubernetes ${k.name}</h1>
+      ${raw(runs.length > 1 ? '<p class="pill-list">' + runs.map(x => h`<a href="#/kubernetes/${x.name}">${x.name}</a>`).join(' ') + '</p>' : '')}
+      <p class="lede">The same plan captured on one-node GKE node pools instead of VMs: does a Kubernetes node see the same hardware, and what does the Kubernetes path cost in time? Each node pool is created, its node captured from a privileged pod, and deleted; the cluster is a fixed cost paid once.</p>
+      ${raw(db.note ? h`<p class="note">${db.note}</p>` : '')}
+      <div class="tiles">
+        <div class="tile"><div class="v">${gke.captures}<span class="muted" style="font-size:1rem">/${planned}</span></div><div class="l">captured on ${gke.label}</div><div class="d">of ${planned} captured on either path · ${vm.captures} on ${vm.label} · ${lat.common} on both</div></div>
+        <div class="tile"><div class="v">${cons.consistent}</div><div class="l">same shape on node and VM</div><div class="d">${cons.varying} differ · ${cons.single} captured on one path only</div></div>
+        <div class="tile"><div class="v">${secs(gke.median_seconds)}</div><div class="l">median node ready</div><div class="d">VM ${secs(vm.median_seconds || 0)} · mean ${secs(gke.mean_seconds)} vs ${secs(vm.mean_seconds || 0)}</div></div>
+        <div class="tile"><div class="v">${secs(fixed.cluster_create || 0)}</div><div class="l">cluster create, once</div><div class="d">node pool ${secs(timings.nodepool_seconds || 0)} + pod ${secs(timings.pod_seconds || 0)} per type (mean)</div></div>
+      </div>
+      <div class="grid two">
+        <div class="card"><h3>Provisioning time per machine type</h3><p class="muted small">Log scale. Node pool creation plus the pod becoming ready, against the VM's create to SSH.</p><div class="legend">${raw([gke.label, vm.label].map((a, i) => h`<span><span class="sw" style="border-radius:50%;background:${C.slot(i + 1)}"></span>${a}</span>`).join(''))}</div><div class="chart" id="c-k8s-dumbbell"></div></div>
+        <div class="card"><h3>Paths</h3><table class="small"><tr><th>Path</th><th class="num">Captures</th><th class="num">Median</th><th class="num">Mean</th><th class="num">Max</th><th>Breakdown (mean)</th><th>Fixed costs</th></tr>${raw(lat.paths.map(p => h`<tr><td>${p.label}</td><td class="num">${p.captures}</td><td class="num">${secs(p.median_seconds)}</td><td class="num">${secs(p.mean_seconds)}</td><td class="num">${secs(p.max_seconds)}</td><td class="muted">${Object.entries(p.mean_timings || {}).map(([a, b]) => a.replace('_seconds', '') + ' ' + secs(b)).join(', ')}</td><td class="muted">${Object.entries(p.fixed_seconds || {}).filter(([a]) => a !== 'plan').map(([a, b]) => a + ' ' + secs(b)).join(', ')}</td></tr>`).join(''))}</table>
+          <h3>Shapes that differ</h3>${raw(varying.length ? '<table class="small"><tr><th>Machine type</th><th>Varies in</th><th>CPU</th><th>Observed</th></tr>' + varying.map(t => h`<tr><td><a href="#/types/${encodeURIComponent(t.machine_type)}">${t.machine_type}</a></td><td>${(t.varies || []).join(', ')}</td><td class="muted">${cpu(t)}</td><td>${raw(obs(t))}</td></tr>`).join('') + '</table>' : '<p class="muted small">Every machine type captured on both paths has the same shape.</p>')}
+          <h3>Captured on one path only</h3>${raw(vmOnly.length || cons.types.some(t => t.captures === 1 && inGke(t)) ? '<table class="small"><tr><th>Machine type</th><th>Observed</th></tr>' + cons.types.filter(t => t.captures === 1).map(t => h`<tr><td><a href="#/types/${encodeURIComponent(t.machine_type)}">${t.machine_type}</a></td><td>${raw(obs(t))}</td></tr>`).join('') + '</table>' : '<p class="muted small">None.</p>')}
+        </div>
+      </div>
+      <h2>Machine types</h2>
+      <div class="table-wrap"><table><thead><tr><th>Machine type</th><th>${gke.label}</th><th>${vm.label}</th><th>Shapes</th><th>CPU</th></tr></thead>
+      <tbody>${raw(cons.types.map(t => { const r = lat.rows.find(x => x.machine_type === t.machine_type) || { seconds: {}, model: {} }; const cell = l => r.seconds[l] != null ? secs(r.seconds[l]) + (r.model[l] ? ' (' + r.model[l] + ')' : '') : '<span class="muted">—</span>'; return h`<tr><td><a href="#/types/${encodeURIComponent(t.machine_type)}">${t.machine_type}</a></td><td>${raw(cell(gke.label))}</td><td>${raw(cell(vm.label))}</td><td>${t.shapes > 1 ? raw(badge(t.shapes + ' shapes', 'warn')) : t.captures > 1 ? raw(badge('same', 'ok')) : raw('<span class="muted">one capture</span>')}</td><td class="muted small">${cpu(t)}</td></tr>`; }).join(''))}</tbody></table></div>
+      <p class="small">Browse the node captures as a database: <a href="#/topologies?db=${k.database}">${k.database}</a>${raw(vmDb ? '; or <a href="#/compare?db=' + esc(k.database + ',' + vmDb) + '">compare them with ' + esc(vmDb) + '</a>' : '')}.</p>`;
+    const dRows = lat.rows.map(r => ({ label: r.machine_type, a: r.seconds[gke.label] || null, b: r.seconds[vm.label] || null })).filter(x => x.a || x.b);
+    if (dRows.length) C.dumbbell(document.getElementById('c-k8s-dumbbell'), dRows, { aName: gke.label, bName: vm.label, onClick: x => { location.hash = '#/types/' + encodeURIComponent(x.label); } });
+    else document.getElementById('c-k8s-dumbbell').innerHTML = '<p class="empty">No captures yet.</p>';
   }
 
   // ---------- consistency ----------
