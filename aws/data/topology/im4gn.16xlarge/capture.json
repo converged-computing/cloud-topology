@@ -1,0 +1,10 @@
+{
+  "machine_type": "im4gn.16xlarge",
+  "provider": "aws",
+  "zone": "us-east-1c",
+  "image": "ami-09a93d801db0bafae",
+  "captured_at": "2026-11-07T21:29:44Z",
+  "provision_seconds": 61.1,
+  "provisioning_model": "spot",
+  "hwloc_version": "2.10.0"
+}

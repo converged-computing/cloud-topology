@@ -1,0 +1,49 @@
+{
+  "name": "c5a.8xlarge",
+  "family": "c5a",
+  "architecture": "x86_64",
+  "vcpus": 32,
+  "cores": 16,
+  "threads_per_core": 2,
+  "memory_mb": 65536,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3.3
+  },
+  "network": {
+    "performance": "10 Gigabit",
+    "max_interfaces": 8,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 10,
+        "peak_gbps": 10
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 3170,
+    "max_mbps": 3170,
+    "baseline_iops": 13300,
+    "max_iops": 13300,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

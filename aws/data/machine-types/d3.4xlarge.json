@@ -1,0 +1,59 @@
+{
+  "name": "d3.4xlarge",
+  "family": "d3",
+  "architecture": "x86_64",
+  "vcpus": 16,
+  "cores": 8,
+  "threads_per_core": 2,
+  "memory_mb": 131072,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.1
+  },
+  "network": {
+    "performance": "Up to 15 Gigabit",
+    "max_interfaces": 4,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 12.5,
+        "peak_gbps": 15
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 23760,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 1980,
+        "count": 12,
+        "type": "hdd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 2800,
+    "max_mbps": 2800,
+    "baseline_iops": 15000,
+    "max_iops": 15000,
+    "max_attachments": 15
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

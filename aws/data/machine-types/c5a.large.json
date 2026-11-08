@@ -1,0 +1,49 @@
+{
+  "name": "c5a.large",
+  "family": "c5a",
+  "architecture": "x86_64",
+  "vcpus": 2,
+  "cores": 1,
+  "threads_per_core": 2,
+  "memory_mb": 4096,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3.3
+  },
+  "network": {
+    "performance": "Up to 10 Gigabit",
+    "max_interfaces": 3,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 0.75,
+        "peak_gbps": 10
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 200,
+    "max_mbps": 3170,
+    "baseline_iops": 800,
+    "max_iops": 13300,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

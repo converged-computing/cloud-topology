@@ -1,10 +1,10 @@
 # Hyperscheduler level: three nodes, each with 2 GPUs and 16 cores, from one offer.
 version: 9999
 resources:
-  - type: cluster
+  - type: site
     count: 1
     with:
-      - type: site
+      - type: provider
         count: 1
         with:
           - type: region

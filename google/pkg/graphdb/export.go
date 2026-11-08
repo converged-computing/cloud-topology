@@ -5,6 +5,7 @@
 package graphdb
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -167,4 +168,30 @@ func gpuCount(s string) int64 {
 		}
 	}
 	return total
+}
+
+// Folded is a folded graph written by another provider's graph command (aws/cmd/graph
+// --fold) for export alongside the graphs built here.
+type Folded struct {
+	Provider string     `json:"provider"`
+	Database string     `json:"database"`
+	Level    string     `json:"level"`
+	Region   string     `json:"region"`
+	Tree     *site.Tree `json:"tree"`
+}
+
+// ReadFolded reads a folded graph file.
+func ReadFolded(path string) (Graph, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return Graph{}, err
+	}
+	var f Folded
+	if err := json.Unmarshal(data, &f); err != nil {
+		return Graph{}, fmt.Errorf("%s: %w", path, err)
+	}
+	if f.Tree == nil {
+		return Graph{}, fmt.Errorf("%s: no tree", path)
+	}
+	return Graph{Database: f.Database, Level: f.Level, Region: f.Region, Provider: f.Provider, Tree: f.Tree}, nil
 }

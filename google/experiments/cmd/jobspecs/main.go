@@ -111,7 +111,7 @@ func Spec(j Job, level string) string {
 			leaves = append(leaves, res{Type: "memory", Count: j.MemoryGB})
 		}
 		slot := res{Type: "slot", Count: nodes, Label: "default", With: leaves}
-		root = res{Type: "cluster", Count: 1, With: []res{{Type: "site", Count: 1, With: []res{{Type: "region", Count: 1, With: []res{{Type: "offer", Count: 1, With: []res{slot}}}}}}}}
+		root = res{Type: "site", Count: 1, With: []res{{Type: "provider", Count: 1, With: []res{{Type: "region", Count: 1, With: []res{{Type: "offer", Count: 1, With: []res{slot}}}}}}}}
 	case "coarse":
 		leaves := []res{}
 		if j.GPUs > 0 {
@@ -133,7 +133,7 @@ func Spec(j Job, level string) string {
 			offer = append(offer, res{Type: "pd_ssd", Count: j.PDSSDGB})
 		}
 		offer = append(offer, node)
-		root = res{Type: "cluster", Count: 1, With: []res{{Type: "site", Count: 1, With: []res{{Type: "region", Count: 1, With: []res{{Type: "offer", Count: 1, With: offer}}}}}}}
+		root = res{Type: "site", Count: 1, With: []res{{Type: "provider", Count: 1, With: []res{{Type: "region", Count: 1, With: []res{{Type: "offer", Count: 1, With: offer}}}}}}}
 	case "exact":
 		per := []res{{Type: "core", Count: j.Cores / sockets}}
 		if j.GPUs > 0 {
@@ -155,7 +155,7 @@ func Spec(j Job, level string) string {
 			offer = append(offer, res{Type: "pd_ssd", Count: j.PDSSDGB})
 		}
 		offer = append(offer, res{Type: "placement", Count: 1, With: []res{node}})
-		root = res{Type: "cluster", Count: 1, With: []res{{Type: "region", Count: 1, With: []res{{Type: "zone", Count: 1, With: []res{{Type: "offer", Count: 1, With: offer}}}}}}}
+		root = res{Type: "site", Count: 1, With: []res{{Type: "provider", Count: 1, With: []res{{Type: "region", Count: 1, With: []res{{Type: "zone", Count: 1, With: []res{{Type: "offer", Count: 1, With: offer}}}}}}}}}
 	default:
 		return ""
 	}

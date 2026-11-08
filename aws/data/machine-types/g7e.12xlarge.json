@@ -1,0 +1,71 @@
+{
+  "name": "g7e.12xlarge",
+  "family": "g7e",
+  "architecture": "x86_64",
+  "vcpus": 48,
+  "cores": 24,
+  "threads_per_core": 2,
+  "memory_mb": 524288,
+  "accelerators": [
+    {
+      "type": "nvidia-rtx-pro-server-6000",
+      "count": 2,
+      "manufacturer": "NVIDIA",
+      "name": "RTX PRO Server 6000",
+      "memory_mib": 98304
+    }
+  ],
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 2.4
+  },
+  "network": {
+    "performance": "400 Gigabit",
+    "max_interfaces": 10,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 400,
+        "peak_gbps": 400,
+        "efa": true
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 3800,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 3800,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 25000,
+    "max_mbps": 25000,
+    "baseline_iops": 100000,
+    "max_iops": 100000,
+    "max_attachments": 32
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

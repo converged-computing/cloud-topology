@@ -1,0 +1,60 @@
+{
+  "name": "i3en.xlarge",
+  "family": "i3en",
+  "architecture": "x86_64",
+  "vcpus": 4,
+  "cores": 2,
+  "threads_per_core": 2,
+  "memory_mb": 32768,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.1
+  },
+  "network": {
+    "performance": "Up to 25 Gigabit",
+    "max_interfaces": 4,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 4.2,
+        "peak_gbps": 25
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 2500,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 2500,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 1153,
+    "max_mbps": 4750,
+    "baseline_iops": 6000,
+    "max_iops": 20000,
+    "max_attachments": 26
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "name": "inf2.48xlarge",
+  "family": "inf2",
+  "architecture": "x86_64",
+  "vcpus": 192,
+  "cores": 96,
+  "threads_per_core": 2,
+  "memory_mb": 786432,
+  "accelerators": [
+    {
+      "type": "aws-inferentia2",
+      "count": 12,
+      "manufacturer": "AWS",
+      "name": "Inferentia2",
+      "memory_mib": 32768
+    }
+  ],
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3.6
+  },
+  "network": {
+    "performance": "100 Gigabit",
+    "max_interfaces": 15,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 100,
+        "peak_gbps": 100
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 60000,
+    "max_mbps": 60000,
+    "baseline_iops": 240000,
+    "max_iops": 240000,
+    "max_attachments": 28
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

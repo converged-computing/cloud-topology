@@ -1,0 +1,60 @@
+{
+  "name": "c6gd.8xlarge",
+  "family": "c6gd",
+  "architecture": "arm64",
+  "vcpus": 32,
+  "cores": 32,
+  "threads_per_core": 1,
+  "memory_mb": 65536,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AWS",
+    "clock_ghz": 2.5
+  },
+  "network": {
+    "performance": "12 Gigabit",
+    "max_interfaces": 8,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 12,
+        "peak_gbps": 12
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 1900,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 1900,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 9500,
+    "max_mbps": 9500,
+    "baseline_iops": 40000,
+    "max_iops": 40000,
+    "max_attachments": 26
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

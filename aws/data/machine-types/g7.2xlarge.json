@@ -1,0 +1,68 @@
+{
+  "name": "g7.2xlarge",
+  "family": "g7",
+  "architecture": "x86_64",
+  "vcpus": 8,
+  "cores": 8,
+  "threads_per_core": 1,
+  "memory_mb": 32768,
+  "accelerators": [
+    {
+      "type": "nvidia-rtx-pro-4500",
+      "count": 1,
+      "manufacturer": "NVIDIA",
+      "name": "RTX PRO 4500",
+      "memory_mib": 32768
+    }
+  ],
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.9
+  },
+  "network": {
+    "performance": "Up to 60 Gigabit",
+    "max_interfaces": 4,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 40,
+        "peak_gbps": 60
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 440,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 440,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 4000,
+    "max_mbps": 8000,
+    "baseline_iops": 16000,
+    "max_iops": 32000,
+    "max_attachments": 32
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

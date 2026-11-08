@@ -1,0 +1,78 @@
+{
+  "name": "g7.48xlarge",
+  "family": "g7",
+  "architecture": "x86_64",
+  "vcpus": 192,
+  "cores": 192,
+  "threads_per_core": 1,
+  "memory_mb": 786432,
+  "accelerators": [
+    {
+      "type": "nvidia-rtx-pro-4500",
+      "count": 8,
+      "manufacturer": "NVIDIA",
+      "name": "RTX PRO 4500",
+      "memory_mib": 32768
+    }
+  ],
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.9
+  },
+  "network": {
+    "performance": "700 Gigabit",
+    "max_interfaces": 24,
+    "efa_supported": true,
+    "max_efa_interfaces": 2,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 350,
+        "peak_gbps": 350,
+        "efa": true
+      },
+      {
+        "index": 1,
+        "baseline_gbps": 350,
+        "peak_gbps": 350,
+        "efa": true
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 7600,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 3800,
+        "count": 2,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 80000,
+    "max_mbps": 80000,
+    "baseline_iops": 320000,
+    "max_iops": 320000,
+    "max_attachments": 128
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

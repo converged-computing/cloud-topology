@@ -1,0 +1,47 @@
+{
+  "name": "u-3tb1.56xlarge",
+  "family": "u-3tb1",
+  "architecture": "x86_64",
+  "vcpus": 224,
+  "cores": 112,
+  "threads_per_core": 2,
+  "memory_mb": 3145728,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 2.1
+  },
+  "network": {
+    "performance": "50 Gigabit",
+    "max_interfaces": 8,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 50,
+        "peak_gbps": 50
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 19000,
+    "max_mbps": 19000,
+    "baseline_iops": 80000,
+    "max_iops": 80000,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

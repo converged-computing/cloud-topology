@@ -1,0 +1,60 @@
+{
+  "name": "x2iedn.2xlarge",
+  "family": "x2iedn",
+  "architecture": "x86_64",
+  "vcpus": 8,
+  "cores": 4,
+  "threads_per_core": 2,
+  "memory_mb": 262144,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.5
+  },
+  "network": {
+    "performance": "Up to 25 Gigabit",
+    "max_interfaces": 4,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 5,
+        "peak_gbps": 25
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 237,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 237,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 5000,
+    "max_mbps": 20000,
+    "baseline_iops": 16250,
+    "max_iops": 65000,
+    "max_attachments": 26
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

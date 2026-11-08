@@ -1,0 +1,49 @@
+{
+  "name": "m5zn.6xlarge",
+  "family": "m5zn",
+  "architecture": "x86_64",
+  "vcpus": 24,
+  "cores": 12,
+  "threads_per_core": 2,
+  "memory_mb": 98304,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 4.5
+  },
+  "network": {
+    "performance": "50 Gigabit",
+    "max_interfaces": 8,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 50,
+        "peak_gbps": 50
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 9500,
+    "max_mbps": 9500,
+    "baseline_iops": 40000,
+    "max_iops": 40000,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

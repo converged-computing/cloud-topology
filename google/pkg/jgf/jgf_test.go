@@ -139,7 +139,7 @@ func TestJSONShape(t *testing.T) {
 		t.Fatal(err)
 	}
 	root := doc.Graph.Nodes[0].Metadata
-	if root.Paths["containment"] != "/heuretes" || root.Rank != -1 || root.Size != 1 {
+	if root.Paths["containment"] != "/site0" || root.Rank != -1 || root.Size != 1 {
 		t.Errorf("unexpected root metadata %+v", root)
 	}
 }

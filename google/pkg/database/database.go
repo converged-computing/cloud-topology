@@ -142,6 +142,11 @@ func (db *Database) DiskTypesIn(zone string) []DiskType {
 
 // RegionOf returns the region for a zone name such as us-central1-a.
 func RegionOf(zone string) string {
+	// An AWS zone ends in the region's digit and a zone letter (us-east-1a); a Google zone
+	// in a separate letter segment (us-central1-a).
+	if parts := strings.Split(zone, "-"); len(parts) == 3 && parts[2] != "" && parts[2][0] >= '0' && parts[2][0] <= '9' {
+		return parts[0] + "-" + parts[1] + "-" + strings.TrimRight(parts[2], "abcdefghijklmnopqrstuvwxyz")
+	}
 	i := strings.LastIndex(zone, "-")
 	if i <= 0 {
 		return zone
@@ -151,17 +156,37 @@ func RegionOf(zone string) string {
 
 // FamilyOf returns the machine family prefix of a machine type name such as a3-highgpu-1g.
 func FamilyOf(name string) string {
+	if i := strings.Index(name, "."); i > 0 {
+		return name[:i] // AWS: c7i for c7i.48xlarge, u-6tb1 for u-6tb1.112xlarge
+	}
 	if i := strings.Index(name, "-"); i > 0 {
 		return name[:i]
 	}
 	return name
 }
 
+// awsSize returns the size of an AWS instance type name (48xlarge for c7i.48xlarge) and
+// whether the name is one; Google machine type names have no dot.
+func awsSize(name string) (string, bool) {
+	if i := strings.Index(name, "."); i > 0 {
+		return name[i+1:], true
+	}
+	return "", false
+}
+
 // SeriesOf returns the machine series of a machine type name: the first two name
 // segments, such as n2-standard for n2-standard-8 or a3-highgpu for a3-highgpu-1g.
 // Bare-metal types form their own series (c3-standard-metal), since a VM is not a cut
-// of a bare-metal host. Local SSD variants (-lssd) stay in their series.
+// of a bare-metal host. Local SSD variants (-lssd) stay in their series. AWS instance
+// type names (family.size) are recognized too, so the site can hold both catalogs.
 func SeriesOf(name string) string {
+	if _, ok := awsSize(name); ok {
+		// AWS: the family is the series (c7i), bare-metal sizes their own (c7i.metal).
+		if IsMetal(name) {
+			return FamilyOf(name) + ".metal"
+		}
+		return FamilyOf(name)
+	}
 	parts := strings.Split(name, "-")
 	if len(parts) < 3 {
 		return name
@@ -175,6 +200,9 @@ func SeriesOf(name string) string {
 
 // IsMetal reports whether a machine type is bare metal (a "metal" name segment).
 func IsMetal(name string) bool {
+	if size, ok := awsSize(name); ok {
+		return strings.HasPrefix(size, "metal")
+	}
 	parts := strings.Split(name, "-")
 	for _, p := range parts[min(3, len(parts)):] {
 		if p == "metal" {

@@ -17,7 +17,11 @@ The series example uses `testdata/quota-example`, sized by its synthetic quota s
   vCPUs; preferring CPU series for CPU-only work is for the layer above Fluxion.
 - `quota sizes --series n2-standard --vcpus 16` then lists the concrete choices (2 x
   n2-standard-8, 4 x n2-standard-4, 8 x n2-standard-2). `exact-n2-standard-8.json` with
-  `jobspecs/exact-8-cores.yaml` is the exact graph for the first choice.
+  `jobspecs/exact-8-cores.yaml` is the exact graph for the first choice; its core vertices
+  are physical cores (two vCPUs each on x86), so the jobspec asks for four per node.
+
+Every graph hangs off the same root, `site0 › provider › region`, so the jobspecs start
+with `site` and `provider` and the same jobspec matches a Google or an AWS graph.
 
 Two ways to run them, both inside the devcontainer:
 

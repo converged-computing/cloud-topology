@@ -1,0 +1,47 @@
+{
+  "name": "hpc7g.8xlarge",
+  "family": "hpc7g",
+  "architecture": "arm64",
+  "vcpus": 32,
+  "cores": 32,
+  "threads_per_core": 1,
+  "memory_mb": 131072,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand"
+  ],
+  "processor": {
+    "manufacturer": "AWS",
+    "clock_ghz": 2.6
+  },
+  "network": {
+    "performance": "200 Gigabit",
+    "max_interfaces": 4,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 200,
+        "peak_gbps": 200,
+        "efa": true
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 87,
+    "max_mbps": 2085,
+    "baseline_iops": 500,
+    "max_iops": 11000,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a"
+  ]
+}

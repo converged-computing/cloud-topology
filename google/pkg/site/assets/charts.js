@@ -204,8 +204,9 @@ window.Charts = (function () {
     const matches = d => q && (d.data.name.toLowerCase().includes(q) || d.data.type.includes(q) || Object.entries(d.data.properties || {}).some(([k, v]) => (k + '=' + v).toLowerCase().includes(q)));
     root.each(d => { d.hit = matches(d); d.hasHit = false; });
     root.eachAfter(d => { d.hasHit = d.hit || (d.children || []).some(c => c.hasHit); });
-    // With a query, keep only matches and their ancestors, expanded; otherwise collapse below o.depth.
-    if (q) root.each(d => { if (d.children) { d.children = d.children.filter(c => c.hasHit); if (!d.children.length) d.children = null; } });
+    // With a query, keep matches, their ancestors and their own children (collapsed below),
+    // expanded; otherwise collapse below o.depth.
+    if (q) root.each(d => { if (d.children && !d.hit) { d.children = d.children.filter(c => c.hasHit); if (!d.children.length) d.children = null; } });
     root.each(d => { if (d.children && !(d.depth < o.depth || (q && d.hasHit))) { d._children = d.children; d.children = null; } });
     const layout = d3.tree().nodeSize([22, 230]);
     const link = d3.linkHorizontal().x(d => d.y).y(d => d.x);

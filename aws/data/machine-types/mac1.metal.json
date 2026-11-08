@@ -1,0 +1,44 @@
+{
+  "name": "mac1.metal",
+  "family": "mac1",
+  "architecture": "x86_64_mac",
+  "vcpus": 12,
+  "cores": 6,
+  "threads_per_core": 2,
+  "memory_mb": 32768,
+  "bare_metal": true,
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.2
+  },
+  "network": {
+    "performance": "25 Gigabit",
+    "max_interfaces": 8,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 25,
+        "peak_gbps": 25
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 14000,
+    "max_mbps": 14000,
+    "baseline_iops": 80000,
+    "max_iops": 80000,
+    "max_attachments": 16
+  },
+  "placement_strategies": [
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1d"
+  ]
+}

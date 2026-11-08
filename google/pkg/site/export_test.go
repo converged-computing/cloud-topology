@@ -72,13 +72,25 @@ func TestExport(t *testing.T) {
 			t.Errorf("hwloc tree: %d PUs (summary %d), %d PCI devices", pus, c.Summary.PUs, gpus)
 		}
 	}
-	for _, g := range m.Graphs {
+	// Each level is one merged file: a site root with every source's provider subtree,
+	// so its vertices are the parts' less their own roots, plus one.
+	if len(m.Merged) != 3 {
+		t.Fatalf("merged graphs: %d, want 3", len(m.Merged))
+	}
+	for _, g := range m.Merged {
 		var tree Tree
 		readJSON(t, filepath.Join(dir, g.File), &tree)
-		if tree.Vertices != g.Vertices || tree.Vertices == 0 {
-			t.Errorf("%s: %d vertices in file, %d in manifest", g.File, tree.Vertices, g.Vertices)
+		want := 1
+		for _, p := range g.Parts {
+			want += p.Vertices - 1
+			if p.File != g.File || p.Provider != "google-cloud" {
+				t.Errorf("%s part %s: file %s provider %q", g.Level, p.Database, p.File, p.Provider)
+			}
 		}
-		if g.Database == "quota" && g.Level == "exact" {
+		if tree.Vertices != g.Vertices || tree.Vertices != want || tree.Type != "site" || len(tree.Children) != len(g.Parts) {
+			t.Errorf("%s: %d vertices in file, %d in manifest, %d from parts; root %s with %d children", g.File, tree.Vertices, g.Vertices, want, tree.Type, len(tree.Children))
+		}
+		if g.Level == "exact" {
 			// n2-standard-8 is allowed more than one node by the example quota: the fold
 			// must restore that count although the graph was built with one node.
 			found := false
@@ -106,7 +118,7 @@ func TestExport(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, want := range []string{`id="site-data"`, `"data/manifest.json"`, `"data/graphs/f/coarse-us-central1.json"`, "<style>", "function"} {
+	for _, want := range []string{`id="site-data"`, `"data/manifest.json"`, `"data/graphs/coarse.json"`, "<style>", "function"} {
 		if !strings.Contains(string(html), want) {
 			t.Errorf("single-file export lacks %s", want)
 		}

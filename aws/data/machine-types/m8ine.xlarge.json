@@ -1,0 +1,48 @@
+{
+  "name": "m8ine.xlarge",
+  "family": "m8ine",
+  "architecture": "x86_64",
+  "vcpus": 4,
+  "cores": 2,
+  "threads_per_core": 2,
+  "memory_mb": 16384,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.9
+  },
+  "network": {
+    "performance": "6.25 Gigabit",
+    "max_interfaces": 4,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 6.25,
+        "peak_gbps": 6.25
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 1250,
+    "max_mbps": 10000,
+    "baseline_iops": 6000,
+    "max_iops": 40000,
+    "max_attachments": 32
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "name": "x1e.xlarge",
+  "family": "x1e",
+  "architecture": "x86_64",
+  "vcpus": 4,
+  "cores": 2,
+  "threads_per_core": 2,
+  "memory_mb": 124928,
+  "hypervisor": "xen",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 2.3
+  },
+  "network": {
+    "performance": "Up to 10 Gigabit",
+    "max_interfaces": 3,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 0.625,
+        "peak_gbps": 10
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 120,
+    "nvme": "unsupported",
+    "disks": [
+      {
+        "size_gb": 120,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 500,
+    "max_mbps": 500,
+    "baseline_iops": 3700,
+    "max_iops": 3700,
+    "max_attachments": 40
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

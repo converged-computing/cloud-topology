@@ -1,0 +1,60 @@
+{
+  "name": "c8id.4xlarge",
+  "family": "c8id",
+  "architecture": "x86_64",
+  "vcpus": 16,
+  "cores": 8,
+  "threads_per_core": 2,
+  "memory_mb": 32768,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.9
+  },
+  "network": {
+    "performance": "Up to 15 Gigabit",
+    "max_interfaces": 8,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 7.5,
+        "peak_gbps": 15
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 950,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 950,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 5000,
+    "max_mbps": 10000,
+    "baseline_iops": 20000,
+    "max_iops": 40000,
+    "max_attachments": 32
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

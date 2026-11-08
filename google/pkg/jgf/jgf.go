@@ -222,6 +222,26 @@ func memoryGB(mb int) int64 {
 	return int64(mb) / 1024
 }
 
+// Every graph, at every level and from every cloud, hangs off the same root: the site,
+// with one provider vertex per cloud under it and the regions under that, so graphs from
+// two clouds merge by attaching their provider subtrees to one site.
+const (
+	RootPath     = "/site0"
+	ProviderName = "google-cloud"
+)
+
+// ProviderPath is the containment path of a cloud's provider vertex.
+func ProviderPath(provider string) string {
+	return RootPath + "/" + provider
+}
+
+// AddRoot adds the site root and the provider vertex under it, returning the provider
+// vertex id: the parent for regions.
+func AddRoot(g *Graph, provider string) string {
+	root := g.Add(Vertex{Type: "site", Path: RootPath}, "")
+	return g.Add(Vertex{Type: "provider", Path: ProviderPath(provider), Properties: map[string]string{"provider": provider}}, root)
+}
+
 // BuildCoarse builds the hyperscheduler summary: site > region > offer > node, with
 // each potential node holding pooled gpu, core and memory counts.
 func BuildCoarse(db *database.Database, opts Options) (*Graph, error) {
@@ -231,10 +251,9 @@ func BuildCoarse(db *database.Database, opts Options) (*Graph, error) {
 		return nil, err
 	}
 	g := New()
-	root := g.Add(Vertex{Type: "cluster", Path: "/heuretes"}, "")
-	site := g.Add(Vertex{Type: "site", Path: "/heuretes/gcp", Properties: map[string]string{"provider": "google-cloud"}}, root)
-	regionPath := "/heuretes/gcp/" + opts.Region
-	region := g.Add(Vertex{Type: "region", Path: regionPath}, site)
+	root := AddRoot(g, ProviderName)
+	regionPath := ProviderPath(ProviderName) + "/" + opts.Region
+	region := g.Add(Vertex{Type: "region", Path: regionPath}, root)
 	for _, mt := range selected {
 		var zones []string
 		for _, z := range mt.Zones {
@@ -363,8 +382,8 @@ func BuildExact(db *database.Database, opts Options, load TopologyLoader) (*Grap
 	}
 
 	g := New()
-	root := g.Add(Vertex{Type: "cluster", Path: "/gcp", Properties: map[string]string{"provider": "google-cloud"}}, "")
-	regionPath := "/gcp/" + opts.Region
+	root := AddRoot(g, ProviderName)
+	regionPath := ProviderPath(ProviderName) + "/" + opts.Region
 	region := g.Add(Vertex{Type: "region", Path: regionPath}, root)
 
 	zoneOffers := map[string][]database.MachineType{}

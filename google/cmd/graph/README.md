@@ -7,7 +7,12 @@ go run ./cmd/graph --level coarse --region us-central1 --nodes 4 --out coarse.js
 go run ./cmd/graph --level exact --region us-central1 --machine-types g2-standard-8 --nodes 2 --out exact.json
 ```
 
-**Series** (hyperscheduler, matching on totals): `/heuretes/gcp/<region>/<series>.<model>`,
+Every graph, at every level and from every cloud, hangs off the same root: the site
+(`/site0`), one `provider` vertex per cloud under it (`google-cloud`, `aws`), and the
+regions under that, so graphs from two clouds merge by attaching their provider subtrees
+to one site.
+
+**Series** (hyperscheduler, matching on totals): `/site0/google-cloud/<region>/<series>.<model>`,
 where a series is a machine family and type such as `n2-standard` or `g2-standard`; bare-metal
 types form their own series, such as `c3-standard-metal`. Each offer
 holds one `core` vertex per vCPU and one `gpu` vertex per GPU that quota allows, and memory in
@@ -22,10 +27,10 @@ Units are individual vertices because Fluxion v0.56.0 hands a pooled vertex to a
 go run ./cmd/graph --level series --region us-central1 --quota projects/my-project/quota.json --out series.json
 ```
 
-**Coarse** (per machine type): `/heuretes/gcp/<region>/<offer>/node<i>`, where each potential node
+**Coarse** (per machine type): `/site0/google-cloud/<region>/<offer>/node<i>`, where each potential node
 holds pooled `gpu`, `core` and `memory` counts. Offer properties include the zones offering it.
 
-**Exact** (secretary): `/gcp/<region>/<zone>/<offer>/placement<k>/node<i>/socket<j>/...` with
+**Exact** (secretary): `/site0/google-cloud/<region>/<zone>/<offer>/placement<k>/node<i>/socket<j>/...` with
 individual cores and GPUs placed on the socket they are local to. NICs sit on the node, so
 every node has the same shape for a jobspec (`node > nic`); the socket hwloc saw a NIC local
 to, when it saw one, is its `local_socket` property. The offer's `topology`

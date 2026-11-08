@@ -1,0 +1,16 @@
+{
+  "name": "gp3",
+  "description": "General Purpose SSD (gp3)",
+  "min_gb": 1,
+  "max_gb": 65536,
+  "max_iops": 80000,
+  "max_mibps": 2000,
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ]
+}

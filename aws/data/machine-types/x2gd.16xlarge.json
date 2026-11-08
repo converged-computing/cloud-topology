@@ -1,0 +1,60 @@
+{
+  "name": "x2gd.16xlarge",
+  "family": "x2gd",
+  "architecture": "arm64",
+  "vcpus": 64,
+  "cores": 64,
+  "threads_per_core": 1,
+  "memory_mb": 1048576,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AWS",
+    "clock_ghz": 2.5
+  },
+  "network": {
+    "performance": "25 Gigabit",
+    "max_interfaces": 15,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 25,
+        "peak_gbps": 25
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 3800,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 1900,
+        "count": 2,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 19000,
+    "max_mbps": 19000,
+    "baseline_iops": 80000,
+    "max_iops": 80000,
+    "max_attachments": 25
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

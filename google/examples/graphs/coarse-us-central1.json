@@ -286,9 +286,9 @@
    {
     "id": "0",
     "metadata": {
-     "type": "cluster",
-     "basename": "cluster",
-     "name": "heuretes",
+     "type": "site",
+     "basename": "site",
+     "name": "site0",
      "id": 0,
      "uniq_id": 0,
      "rank": -1,
@@ -296,16 +296,16 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes"
+      "containment": "/site0"
      }
     }
    },
    {
     "id": "1",
     "metadata": {
-     "type": "site",
-     "basename": "site",
-     "name": "gcp",
+     "type": "provider",
+     "basename": "provider",
+     "name": "google-cloud",
      "id": 0,
      "uniq_id": 1,
      "rank": -1,
@@ -313,7 +313,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp"
+      "containment": "/site0/google-cloud"
      },
      "properties": {
       "provider": "google-cloud"
@@ -333,7 +333,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1"
+      "containment": "/site0/google-cloud/us-central1"
      }
     }
    },
@@ -350,7 +350,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand"
      },
      "properties": {
       "family": "test",
@@ -375,7 +375,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node0"
      }
     }
    },
@@ -392,7 +392,7 @@
      "unit": "",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node0/core0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node0/core0"
      }
     }
    },
@@ -409,7 +409,7 @@
      "unit": "GB",
      "size": 16,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node0/memory0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node0/memory0"
      }
     }
    },
@@ -426,7 +426,7 @@
      "unit": "Gbps",
      "size": 8,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node0/nic0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node0/nic0"
      },
      "properties": {
       "kinds": "gvnic:1"
@@ -446,7 +446,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node1"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node1"
      }
     }
    },
@@ -463,7 +463,7 @@
      "unit": "",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node1/core0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node1/core0"
      }
     }
    },
@@ -480,7 +480,7 @@
      "unit": "GB",
      "size": 16,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node1/memory0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node1/memory0"
      }
     }
    },
@@ -497,7 +497,7 @@
      "unit": "Gbps",
      "size": 8,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node1/nic0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node1/nic0"
      },
      "properties": {
       "kinds": "gvnic:1"
@@ -517,7 +517,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node2"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node2"
      }
     }
    },
@@ -534,7 +534,7 @@
      "unit": "",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node2/core0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node2/core0"
      }
     }
    },
@@ -551,7 +551,7 @@
      "unit": "GB",
      "size": 16,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node2/memory0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node2/memory0"
      }
     }
    },
@@ -568,7 +568,7 @@
      "unit": "Gbps",
      "size": 8,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node2/nic0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node2/nic0"
      },
      "properties": {
       "kinds": "gvnic:1"
@@ -588,7 +588,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node3"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node3"
      }
     }
    },
@@ -605,7 +605,7 @@
      "unit": "",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node3/core0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node3/core0"
      }
     }
    },
@@ -622,7 +622,7 @@
      "unit": "GB",
      "size": 16,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node3/memory0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node3/memory0"
      }
     }
    },
@@ -639,7 +639,7 @@
      "unit": "Gbps",
      "size": 8,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-cpu-4.on-demand/node3/nic0"
+      "containment": "/site0/google-cloud/us-central1/test-cpu-4.on-demand/node3/nic0"
      },
      "properties": {
       "kinds": "gvnic:1"
@@ -659,7 +659,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand"
      },
      "properties": {
       "accelerators": "nvidia-h100-80gb:2",
@@ -685,7 +685,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node0"
      }
     }
    },
@@ -702,7 +702,7 @@
      "unit": "",
      "size": 2,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node0/gpu0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node0/gpu0"
      }
     }
    },
@@ -719,7 +719,7 @@
      "unit": "",
      "size": 16,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node0/core0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node0/core0"
      }
     }
    },
@@ -736,7 +736,7 @@
      "unit": "GB",
      "size": 128,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node0/memory0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node0/memory0"
      }
     }
    },
@@ -753,7 +753,7 @@
      "unit": "Gbps",
      "size": 32,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node0/nic0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node0/nic0"
      },
      "properties": {
       "kinds": "gvnic:1"
@@ -773,7 +773,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node1"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node1"
      }
     }
    },
@@ -790,7 +790,7 @@
      "unit": "",
      "size": 2,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node1/gpu0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node1/gpu0"
      }
     }
    },
@@ -807,7 +807,7 @@
      "unit": "",
      "size": 16,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node1/core0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node1/core0"
      }
     }
    },
@@ -824,7 +824,7 @@
      "unit": "GB",
      "size": 128,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node1/memory0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node1/memory0"
      }
     }
    },
@@ -841,7 +841,7 @@
      "unit": "Gbps",
      "size": 32,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node1/nic0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node1/nic0"
      },
      "properties": {
       "kinds": "gvnic:1"
@@ -861,7 +861,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node2"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node2"
      }
     }
    },
@@ -878,7 +878,7 @@
      "unit": "",
      "size": 2,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node2/gpu0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node2/gpu0"
      }
     }
    },
@@ -895,7 +895,7 @@
      "unit": "",
      "size": 16,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node2/core0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node2/core0"
      }
     }
    },
@@ -912,7 +912,7 @@
      "unit": "GB",
      "size": 128,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node2/memory0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node2/memory0"
      }
     }
    },
@@ -929,7 +929,7 @@
      "unit": "Gbps",
      "size": 32,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node2/nic0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node2/nic0"
      },
      "properties": {
       "kinds": "gvnic:1"
@@ -949,7 +949,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node3"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node3"
      }
     }
    },
@@ -966,7 +966,7 @@
      "unit": "",
      "size": 2,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node3/gpu0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node3/gpu0"
      }
     }
    },
@@ -983,7 +983,7 @@
      "unit": "",
      "size": 16,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node3/core0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node3/core0"
      }
     }
    },
@@ -1000,7 +1000,7 @@
      "unit": "GB",
      "size": 128,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node3/memory0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node3/memory0"
      }
     }
    },
@@ -1017,7 +1017,7 @@
      "unit": "Gbps",
      "size": 32,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/test-gpu-2g.on-demand/node3/nic0"
+      "containment": "/site0/google-cloud/us-central1/test-gpu-2g.on-demand/node3/nic0"
      },
      "properties": {
       "kinds": "gvnic:1"

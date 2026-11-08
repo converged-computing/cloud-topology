@@ -1,0 +1,61 @@
+{
+  "name": "r6id.12xlarge",
+  "family": "r6id",
+  "architecture": "x86_64",
+  "vcpus": 48,
+  "cores": 24,
+  "threads_per_core": 2,
+  "memory_mb": 393216,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.5
+  },
+  "network": {
+    "performance": "18.75 Gigabit",
+    "max_interfaces": 8,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 18.75,
+        "peak_gbps": 18.75
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 2850,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 1425,
+        "count": 2,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 15000,
+    "max_mbps": 15000,
+    "baseline_iops": 60000,
+    "max_iops": 60000,
+    "max_attachments": 25
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

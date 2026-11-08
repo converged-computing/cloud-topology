@@ -108,19 +108,29 @@ $(EXPERIMENT_TARGETS):
 # one self-contained index.html instead of a directory.
 SITE ?= site
 SITE_DATA ?= main=$(DATA)
+# FOLDED lists graphs folded elsewhere (aws/cmd/graph --fold), included under their own label;
+# LABELS renames databases (old=new); HIDE keeps databases out of the lists.
 site:
-	go run ./cmd/site --out $(SITE) $(foreach d,$(SITE_DATA),--data $(d)) $(foreach e,$(EXPERIMENTS),--experiment $(e)) $(foreach k,$(KUBERNETES),--kubernetes $(k)) $(foreach f,$(FIDELITY_RUNS),--fidelity $(f)) $(if $(STUDY),--consistency $(STUDY)) $(foreach g,$(GRAPH_DATA),--graph-data $(g)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) $(if $(LEVELS),--levels $(LEVELS)) $(if $(SINGLE),--single)
+	go run ./cmd/site --out $(SITE) $(foreach d,$(SITE_DATA),--data $(d)) $(foreach f,$(FOLDED),--folded $(f)) $(foreach l,$(LABELS),--label $(l)) $(foreach h,$(HIDE),--hide $(h)) $(foreach e,$(EXPERIMENTS),--experiment $(e)) $(foreach k,$(KUBERNETES),--kubernetes $(k)) $(foreach f,$(FIDELITY_RUNS),--fidelity $(f)) $(if $(STUDY),--consistency $(STUDY)) $(foreach g,$(GRAPH_DATA),--graph-data $(g)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) $(if $(LEVELS),--levels $(LEVELS)) $(if $(SINGLE),--single)
 
 # The published view: the final experiment run and the consistency study, graphs from the
 # runner's arm. Older runs and data/ stay out (data/'s captures predate the current
-# capture method).
+# capture method). The deterministic arm is the published Compute Engine database and is
+# labelled compute-engine, next to aws; the agent arm captured the same cloud again, so it
+# is hidden from the database lists and reached from the experiment page.
 # AGENT_MODEL picks which agent experiment is the published one.
 AGENT_MODEL ?= claude-opus-5-5
 # GKE runs under projects/$(PROJECT)/gke/<image>/gke are included as databases gke/<image>.
 GKE_RUNS = $(foreach d,$(filter-out %/trial/gke/topology,$(wildcard projects/$(PROJECT)/gke/*/gke/topology)),gke/$(word 4,$(subst /, ,$(d)))=$(patsubst %/gke/topology,%,$(d)))
 FIDELITY_DIRS = $(if $(wildcard projects/$(PROJECT)/fidelity/fidelity.json),fidelity=projects/$(PROJECT)/fidelity)
+# AWS joins as the database "aws" with its folded graphs (make -C ../aws folded), when present.
+# The site shows one graph, the exact level, so only that level is built and imported.
+AWS_DATA ?= ../aws/data
+AWS_FOLDED ?= $(wildcard ../aws/projects/*/folded/exact-*.json)
+SITE_LABELS ?= $(AGENT_MODEL)/deterministic=compute-engine
+SITE_HIDE ?= $(AGENT_MODEL)/agent
 site-final:
-	$(MAKE) --no-print-directory site SITE_DATA= KUBERNETES="$(GKE_RUNS)" FIDELITY_RUNS="$(FIDELITY_DIRS)" GRAPH_DATA=$(AGENT_MODEL)/deterministic EXPERIMENTS=$(AGENT_MODEL)=projects/$(PROJECT)/agent/$(AGENT_MODEL) STUDY=projects/$(PROJECT)/consistency
+	$(MAKE) --no-print-directory site LEVELS=exact SITE_DATA="$(if $(wildcard $(AWS_DATA)/index.json),aws=$(AWS_DATA))" FOLDED="$(AWS_FOLDED)" LABELS="$(SITE_LABELS)" HIDE="$(SITE_HIDE)" KUBERNETES="$(GKE_RUNS)" FIDELITY_RUNS="$(FIDELITY_DIRS)" GRAPH_DATA=compute-engine EXPERIMENTS=$(AGENT_MODEL)=projects/$(PROJECT)/agent/$(AGENT_MODEL) STUDY=projects/$(PROJECT)/consistency
 
 # Serve the site locally: http://localhost:8000
 site-serve:
@@ -134,10 +144,13 @@ site-serve:
 #   make graphdb-query Q=shapes                run pkg/site/queries/shapes.cypher
 #   make graphdb-query Q="MATCH (v:Vertex) RETURN v.type, count(*)"
 GRAPHDB ?= graphdb
+# FOLDED lists folded graphs from another provider (aws: make -C ../aws folded) to load
+# into the same database, so one Cypher query spans both clouds.
 GRAPHDB_DATA ?= vm=projects/$(PROJECT)/agent/$(AGENT_MODEL)/deterministic main=$(DATA)
 GRAPHDB_LEVELS ?= exact
+FOLDED ?=
 graphdb:
-	go run ./cmd/graphdb export --out $(GRAPHDB) $(foreach d,$(GRAPHDB_DATA),--data $(d)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) --levels $(GRAPHDB_LEVELS)
+	go run ./cmd/graphdb export --out $(GRAPHDB) $(foreach d,$(GRAPHDB_DATA),--data $(d)) $(foreach f,$(FOLDED),--folded $(f)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) --levels $(GRAPHDB_LEVELS)
 	go run ./cmd/graphdb load --in $(GRAPHDB) --db $(GRAPHDB)/graph.lbug
 
 graphdb-query:

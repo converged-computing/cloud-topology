@@ -1,0 +1,49 @@
+{
+  "name": "t3.nano",
+  "family": "t3",
+  "architecture": "x86_64",
+  "vcpus": 2,
+  "cores": 1,
+  "threads_per_core": 2,
+  "memory_mb": 512,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "burstable": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 2.5
+  },
+  "network": {
+    "performance": "Up to 5 Gigabit",
+    "max_interfaces": 2,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 0.032,
+        "peak_gbps": 5
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 43,
+    "max_mbps": 2085,
+    "baseline_iops": 250,
+    "max_iops": 11800,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "name": "i4i.12xlarge",
+  "family": "i4i",
+  "architecture": "x86_64",
+  "vcpus": 48,
+  "cores": 24,
+  "threads_per_core": 2,
+  "memory_mb": 393216,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.5
+  },
+  "network": {
+    "performance": "28.12 Gigabit",
+    "max_interfaces": 8,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 28.125,
+        "peak_gbps": 28.125
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 11250,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 3750,
+        "count": 3,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 15000,
+    "max_mbps": 15000,
+    "baseline_iops": 60000,
+    "max_iops": 60000,
+    "max_attachments": 24
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ]
+}

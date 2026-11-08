@@ -1,0 +1,49 @@
+{
+  "name": "m8g.xlarge",
+  "family": "m8g",
+  "architecture": "arm64",
+  "vcpus": 4,
+  "cores": 4,
+  "threads_per_core": 1,
+  "memory_mb": 16384,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AWS",
+    "clock_ghz": 2.8
+  },
+  "network": {
+    "performance": "Up to 12.5 Gigabit",
+    "max_interfaces": 4,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 1.875,
+        "peak_gbps": 12.5
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 1250,
+    "max_mbps": 10000,
+    "baseline_iops": 6000,
+    "max_iops": 40000,
+    "max_attachments": 32
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

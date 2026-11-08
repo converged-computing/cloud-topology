@@ -1,0 +1,63 @@
+{
+  "name": "i3en.metal",
+  "family": "i3en",
+  "architecture": "x86_64",
+  "vcpus": 96,
+  "cores": 48,
+  "threads_per_core": 2,
+  "memory_mb": 786432,
+  "bare_metal": true,
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.1
+  },
+  "network": {
+    "performance": "100 Gigabit",
+    "max_interfaces": 15,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 100,
+        "peak_gbps": 100,
+        "efa": true
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 60000,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 7500,
+        "count": 8,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 19000,
+    "max_mbps": 19000,
+    "baseline_iops": 80000,
+    "max_iops": 80000,
+    "max_attachments": 31
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

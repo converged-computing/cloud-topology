@@ -1,0 +1,16 @@
+{
+  "name": "st1",
+  "description": "Throughput Optimized HDD (st1)",
+  "min_gb": 125,
+  "max_gb": 16384,
+  "max_iops": 500,
+  "max_mibps": 500,
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ]
+}

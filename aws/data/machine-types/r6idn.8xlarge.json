@@ -1,0 +1,61 @@
+{
+  "name": "r6idn.8xlarge",
+  "family": "r6idn",
+  "architecture": "x86_64",
+  "vcpus": 32,
+  "cores": 16,
+  "threads_per_core": 2,
+  "memory_mb": 262144,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.5
+  },
+  "network": {
+    "performance": "50 Gigabit",
+    "max_interfaces": 8,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 50,
+        "peak_gbps": 50
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 1900,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 1900,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 25000,
+    "max_mbps": 25000,
+    "baseline_iops": 100000,
+    "max_iops": 100000,
+    "max_attachments": 26
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

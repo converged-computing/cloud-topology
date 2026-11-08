@@ -1,0 +1,60 @@
+{
+  "name": "c5ad.16xlarge",
+  "family": "c5ad",
+  "architecture": "x86_64",
+  "vcpus": 64,
+  "cores": 32,
+  "threads_per_core": 2,
+  "memory_mb": 131072,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3.3
+  },
+  "network": {
+    "performance": "20 Gigabit",
+    "max_interfaces": 15,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 20,
+        "peak_gbps": 20
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 2400,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 1200,
+        "count": 2,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 6300,
+    "max_mbps": 6300,
+    "baseline_iops": 26700,
+    "max_iops": 26700,
+    "max_attachments": 25
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

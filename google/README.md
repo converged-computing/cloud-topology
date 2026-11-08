@@ -71,6 +71,14 @@ experiment, the consistency study over days, and the GKE experiment. See
 `experiments/README.md`; the targets (`make experiment`, `make consistency`, `make gke`,
 and their reports) work from this directory too.
 
+## AWS
+
+`../aws/` is the EC2 side: the same database, quota snapshot and graphs built from the
+EC2 API, in its own Go module that imports the provider-neutral packages here. `make
+graphdb` at the repository root folds the AWS graphs and loads them with the Google ones
+into one LadybugDB (`FOLDED=` on `make graphdb` here does the same by hand), and
+`make graphdb-query Q=providers` asks the same pattern of both clouds.
+
 ## Graph queries
 
 The resource graphs can be queried with Cypher in an embedded graph database,
@@ -90,6 +98,7 @@ make graphdb-query Q=summary          # rows and folded siblings per graph and v
 make graphdb-query Q=shapes           # node shapes by how many machine types, zones and regions carry them
 make graphdb-query Q=pattern          # offers that fit 8 GPUs, a GPU or RDMA NIC and a Hyperdisk ML pool
 make graphdb-query Q=varying          # machine types whose node shape differs between graphs
+make graphdb-query Q=providers        # 8-accelerator offers with an RDMA-class NIC, per cloud (needs the AWS graphs)
 make graphdb-query MODE=csv Q=shapes  # csv, tsv, json, jsonlines, markdown or box output
 
 # your own Cypher, inline or from a file
@@ -115,9 +124,18 @@ make site REGION=$REGION                                      # data/ as "main",
 make site REGION=$REGION EXPERIMENTS=projects/$PROJECT/agent/test
 make site REGION=$REGION STUDY=projects/$PROJECT/consistency
 make site REGION=$REGION SITE_DATA="main=data agent=projects/$PROJECT/agent/claude-opus-5-5/agent"
-make site-final REGION=$REGION                                # final experiment run + consistency study only
+make site-final REGION=$REGION                                # final experiment run + consistency study, plus ../aws when present
 make site-serve                                               # http://localhost:8000
 ```
+
+`site-final` publishes the deterministic arm of the final experiment as the database
+`compute-engine`; the agent arm captured the same cloud again, so it is hidden from the
+database lists and reached from the experiment page (`SITE_LABELS` and `SITE_HIDE` hold
+these; `LABELS=old=new` and `HIDE=label` work on `make site` too) and adds the AWS database
+(`../aws/data`) and its folded graphs (`make -C ../aws folded`) as `aws` when they exist;
+`FOLDED` passes folded graph files to `make site` directly. The published site is built
+by `make site` at the repository root, which refolds the AWS graphs first and writes
+`docs/`.
 
 ## Updating
 

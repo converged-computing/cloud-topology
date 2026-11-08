@@ -1,0 +1,52 @@
+{
+  "name": "c9g.metal-48xl",
+  "family": "c9g",
+  "architecture": "arm64",
+  "vcpus": 192,
+  "cores": 192,
+  "threads_per_core": 1,
+  "memory_mb": 393216,
+  "bare_metal": true,
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AWS",
+    "clock_ghz": 3.3
+  },
+  "network": {
+    "performance": "100 Gigabit",
+    "max_interfaces": 24,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 100,
+        "peak_gbps": 100,
+        "efa": true
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 72000,
+    "max_mbps": 72000,
+    "baseline_iops": 288000,
+    "max_iops": 288000,
+    "max_attachments": 79
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

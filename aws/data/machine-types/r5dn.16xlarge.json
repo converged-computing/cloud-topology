@@ -1,0 +1,60 @@
+{
+  "name": "r5dn.16xlarge",
+  "family": "r5dn",
+  "architecture": "x86_64",
+  "vcpus": 64,
+  "cores": 32,
+  "threads_per_core": 2,
+  "memory_mb": 524288,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.1
+  },
+  "network": {
+    "performance": "75 Gigabit",
+    "max_interfaces": 15,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 75,
+        "peak_gbps": 75
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 2400,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 600,
+        "count": 4,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 13600,
+    "max_mbps": 13600,
+    "baseline_iops": 60000,
+    "max_iops": 60000,
+    "max_attachments": 23
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

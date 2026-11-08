@@ -1,0 +1,70 @@
+{
+  "name": "g4ad.16xlarge",
+  "family": "g4ad",
+  "architecture": "x86_64",
+  "vcpus": 64,
+  "cores": 32,
+  "threads_per_core": 2,
+  "memory_mb": 262144,
+  "accelerators": [
+    {
+      "type": "amd-radeon-pro-v520",
+      "count": 4,
+      "manufacturer": "AMD",
+      "name": "Radeon Pro V520",
+      "memory_mib": 8192
+    }
+  ],
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3
+  },
+  "network": {
+    "performance": "25 Gigabit",
+    "max_interfaces": 8,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 25,
+        "peak_gbps": 25
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 2400,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 1200,
+        "count": 2,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 6300,
+    "max_mbps": 6300,
+    "baseline_iops": 26667,
+    "max_iops": 26667,
+    "max_attachments": 21
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ]
+}

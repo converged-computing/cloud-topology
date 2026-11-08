@@ -1,0 +1,53 @@
+{
+  "name": "m7a.metal-48xl",
+  "family": "m7a",
+  "architecture": "x86_64",
+  "vcpus": 192,
+  "cores": 192,
+  "threads_per_core": 1,
+  "memory_mb": 786432,
+  "bare_metal": true,
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3.7
+  },
+  "network": {
+    "performance": "50 Gigabit",
+    "max_interfaces": 15,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 50,
+        "peak_gbps": 50,
+        "efa": true
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 40000,
+    "max_mbps": 40000,
+    "baseline_iops": 240000,
+    "max_iops": 240000,
+    "max_attachments": 79
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

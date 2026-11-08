@@ -44,7 +44,7 @@
     }
    },
    {
-    "source": "5",
+    "source": "6",
     "target": "7",
     "metadata": {
      "subsystem": "containment"
@@ -58,35 +58,35 @@
     }
    },
    {
-    "source": "6",
+    "source": "7",
     "target": "9",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "6",
+    "source": "7",
     "target": "10",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "6",
+    "source": "7",
     "target": "11",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "6",
+    "source": "4",
     "target": "12",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "3",
+    "source": "12",
     "target": "13",
     "metadata": {
      "subsystem": "containment"
@@ -100,7 +100,7 @@
     }
    },
    {
-    "source": "14",
+    "source": "13",
     "target": "15",
     "metadata": {
      "subsystem": "containment"
@@ -114,42 +114,42 @@
     }
    },
    {
-    "source": "15",
+    "source": "14",
     "target": "17",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "15",
+    "source": "14",
     "target": "18",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "15",
+    "source": "3",
     "target": "19",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "15",
+    "source": "19",
     "target": "20",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "15",
+    "source": "20",
     "target": "21",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "2",
+    "source": "21",
     "target": "22",
     "metadata": {
      "subsystem": "containment"
@@ -163,238 +163,238 @@
     }
    },
    {
-    "source": "23",
+    "source": "22",
     "target": "24",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "24",
+    "source": "22",
     "target": "25",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "25",
+    "source": "22",
     "target": "26",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "25",
+    "source": "22",
     "target": "27",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "25",
+    "source": "21",
     "target": "28",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "25",
+    "source": "22",
     "target": "29",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "25",
+    "source": "21",
     "target": "30",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "24",
+    "source": "30",
     "target": "31",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "25",
+    "source": "30",
     "target": "32",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "24",
+    "source": "30",
     "target": "33",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "33",
+    "source": "30",
     "target": "34",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "33",
+    "source": "30",
     "target": "35",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "33",
+    "source": "30",
     "target": "36",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "33",
+    "source": "19",
     "target": "37",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "33",
+    "source": "37",
     "target": "38",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "33",
+    "source": "38",
     "target": "39",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "22",
+    "source": "39",
     "target": "40",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "40",
+    "source": "39",
     "target": "41",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "41",
+    "source": "39",
     "target": "42",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "42",
+    "source": "39",
     "target": "43",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "42",
+    "source": "39",
     "target": "44",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "42",
+    "source": "38",
     "target": "45",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "42",
+    "source": "39",
     "target": "46",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "42",
+    "source": "38",
     "target": "47",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "41",
+    "source": "47",
     "target": "48",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "42",
+    "source": "47",
     "target": "49",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "41",
+    "source": "47",
     "target": "50",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "50",
+    "source": "47",
     "target": "51",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "50",
+    "source": "47",
     "target": "52",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "50",
+    "source": "47",
     "target": "53",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "50",
+    "source": "2",
     "target": "54",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "50",
+    "source": "54",
     "target": "55",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "50",
+    "source": "55",
     "target": "56",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "1",
+    "source": "56",
     "target": "57",
     "metadata": {
      "subsystem": "containment"
@@ -415,232 +415,211 @@
     }
    },
    {
-    "source": "59",
+    "source": "58",
     "target": "60",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "60",
+    "source": "58",
     "target": "61",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "61",
+    "source": "58",
     "target": "62",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "61",
+    "source": "58",
     "target": "63",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "61",
+    "source": "57",
     "target": "64",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "61",
+    "source": "58",
     "target": "65",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "61",
+    "source": "57",
     "target": "66",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "60",
+    "source": "66",
     "target": "67",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "61",
+    "source": "66",
     "target": "68",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "60",
+    "source": "66",
     "target": "69",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "69",
+    "source": "66",
     "target": "70",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "69",
+    "source": "66",
     "target": "71",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "69",
+    "source": "66",
     "target": "72",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "69",
+    "source": "55",
     "target": "73",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "69",
+    "source": "73",
     "target": "74",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "69",
+    "source": "74",
     "target": "75",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "58",
+    "source": "75",
     "target": "76",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "76",
+    "source": "75",
     "target": "77",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "77",
+    "source": "75",
     "target": "78",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "78",
+    "source": "75",
     "target": "79",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "78",
+    "source": "75",
     "target": "80",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "78",
+    "source": "74",
     "target": "81",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "78",
+    "source": "75",
     "target": "82",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "78",
+    "source": "74",
     "target": "83",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "77",
+    "source": "83",
     "target": "84",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "78",
+    "source": "83",
     "target": "85",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "77",
+    "source": "83",
     "target": "86",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "86",
+    "source": "83",
     "target": "87",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "86",
+    "source": "83",
     "target": "88",
     "metadata": {
      "subsystem": "containment"
     }
    },
    {
-    "source": "86",
+    "source": "83",
     "target": "89",
-    "metadata": {
-     "subsystem": "containment"
-    }
-   },
-   {
-    "source": "86",
-    "target": "90",
-    "metadata": {
-     "subsystem": "containment"
-    }
-   },
-   {
-    "source": "86",
-    "target": "91",
-    "metadata": {
-     "subsystem": "containment"
-    }
-   },
-   {
-    "source": "86",
-    "target": "92",
     "metadata": {
      "subsystem": "containment"
     }
@@ -650,9 +629,9 @@
    {
     "id": "0",
     "metadata": {
-     "type": "cluster",
-     "basename": "cluster",
-     "name": "gcp",
+     "type": "site",
+     "basename": "site",
+     "name": "site0",
      "id": 0,
      "uniq_id": 0,
      "rank": -1,
@@ -660,19 +639,16 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp"
-     },
-     "properties": {
-      "provider": "google-cloud"
+      "containment": "/site0"
      }
     }
    },
    {
     "id": "1",
     "metadata": {
-     "type": "region",
-     "basename": "region",
-     "name": "us-central1",
+     "type": "provider",
+     "basename": "provider",
+     "name": "google-cloud",
      "id": 0,
      "uniq_id": 1,
      "rank": -1,
@@ -680,16 +656,19 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1"
+      "containment": "/site0/google-cloud"
+     },
+     "properties": {
+      "provider": "google-cloud"
      }
     }
    },
    {
     "id": "2",
     "metadata": {
-     "type": "zone",
-     "basename": "zone",
-     "name": "us-central1-a",
+     "type": "region",
+     "basename": "region",
+     "name": "us-central1",
      "id": 0,
      "uniq_id": 2,
      "rank": -1,
@@ -697,16 +676,16 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a"
+      "containment": "/site0/google-cloud/us-central1"
      }
     }
    },
    {
     "id": "3",
     "metadata": {
-     "type": "offer",
-     "basename": "offer",
-     "name": "test-cpu-4.on-demand",
+     "type": "zone",
+     "basename": "zone",
+     "name": "us-central1-a",
      "id": 0,
      "uniq_id": 3,
      "rank": -1,
@@ -714,7 +693,24 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a"
+     }
+    }
+   },
+   {
+    "id": "4",
+    "metadata": {
+     "type": "offer",
+     "basename": "offer",
+     "name": "test-cpu-4.on-demand",
+     "id": 0,
+     "uniq_id": 4,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand"
      },
      "properties": {
       "bandwidth_rule": "general rule: 2 Gbps per vCPU, capped at 32 (series not in the table)",
@@ -730,19 +726,19 @@
     }
    },
    {
-    "id": "4",
+    "id": "5",
     "metadata": {
      "type": "placement",
      "basename": "placement",
      "name": "placement0",
      "id": 0,
-     "uniq_id": 4,
+     "uniq_id": 5,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement0"
      },
      "properties": {
       "compact": "false",
@@ -751,19 +747,19 @@
     }
    },
    {
-    "id": "5",
+    "id": "6",
     "metadata": {
      "type": "node",
      "basename": "node",
      "name": "node0",
      "id": 0,
-     "uniq_id": 5,
+     "uniq_id": 6,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0"
      },
      "properties": {
       "state": "potential"
@@ -771,57 +767,43 @@
     }
    },
    {
-    "id": "6",
+    "id": "7",
     "metadata": {
      "type": "socket",
      "basename": "socket",
      "name": "socket0",
      "id": 0,
-     "uniq_id": 6,
+     "uniq_id": 7,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0"
-     }
-    }
-   },
-   {
-    "id": "7",
-    "metadata": {
-     "type": "nic",
-     "basename": "nic",
-     "name": "nic0",
-     "id": 0,
-     "uniq_id": 7,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "Gbps",
-     "size": 8,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/nic0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0"
      },
      "properties": {
-      "kind": "gvnic",
-      "source": "rule"
+      "threads_per_core": "2"
      }
     }
    },
    {
     "id": "8",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core0",
+     "type": "nic",
+     "basename": "nic",
+     "name": "nic0",
      "id": 0,
      "uniq_id": 8,
      "rank": -1,
      "exclusive": true,
-     "unit": "",
-     "size": 1,
+     "unit": "Gbps",
+     "size": 8,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/core0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/nic0"
+     },
+     "properties": {
+      "kind": "gvnic",
+      "source": "rule"
      }
     }
    },
@@ -830,15 +812,15 @@
     "metadata": {
      "type": "core",
      "basename": "core",
-     "name": "core1",
-     "id": 1,
+     "name": "core0",
+     "id": 0,
      "uniq_id": 9,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/core1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/core0"
      }
     }
    },
@@ -847,66 +829,49 @@
     "metadata": {
      "type": "core",
      "basename": "core",
-     "name": "core2",
-     "id": 2,
+     "name": "core1",
+     "id": 1,
      "uniq_id": 10,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/core2"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/core1"
      }
     }
    },
    {
     "id": "11",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core3",
-     "id": 3,
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 0,
      "uniq_id": 11,
      "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 16,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/core3"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/memory0"
      }
     }
    },
    {
     "id": "12",
     "metadata": {
-     "type": "memory",
-     "basename": "memory",
-     "name": "memory0",
-     "id": 0,
-     "uniq_id": 12,
-     "rank": -1,
-     "exclusive": false,
-     "unit": "GB",
-     "size": 16,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement0/node0/socket0/memory0"
-     }
-    }
-   },
-   {
-    "id": "13",
-    "metadata": {
      "type": "placement",
      "basename": "placement",
      "name": "placement1",
      "id": 1,
-     "uniq_id": 13,
+     "uniq_id": 12,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement1"
      },
      "properties": {
       "compact": "false",
@@ -915,19 +880,19 @@
     }
    },
    {
-    "id": "14",
+    "id": "13",
     "metadata": {
      "type": "node",
      "basename": "node",
      "name": "node1",
      "id": 1,
-     "uniq_id": 14,
+     "uniq_id": 13,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1"
      },
      "properties": {
       "state": "potential"
@@ -935,36 +900,39 @@
     }
    },
    {
-    "id": "15",
+    "id": "14",
     "metadata": {
      "type": "socket",
      "basename": "socket",
      "name": "socket0",
      "id": 1,
-     "uniq_id": 15,
+     "uniq_id": 14,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0"
+     },
+     "properties": {
+      "threads_per_core": "2"
      }
     }
    },
    {
-    "id": "16",
+    "id": "15",
     "metadata": {
      "type": "nic",
      "basename": "nic",
      "name": "nic0",
      "id": 1,
-     "uniq_id": 16,
+     "uniq_id": 15,
      "rank": -1,
      "exclusive": true,
      "unit": "Gbps",
      "size": 8,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/nic0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/nic0"
      },
      "properties": {
       "kind": "gvnic",
@@ -973,104 +941,70 @@
     }
    },
    {
-    "id": "17",
+    "id": "16",
     "metadata": {
      "type": "core",
      "basename": "core",
      "name": "core0",
-     "id": 4,
+     "id": 2,
+     "uniq_id": 16,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "17",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 3,
      "uniq_id": 17,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/core0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/core1"
      }
     }
    },
    {
     "id": "18",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core1",
-     "id": 5,
+     "type": "memory",
+     "basename": "memory",
+     "name": "memory0",
+     "id": 1,
      "uniq_id": 18,
      "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
+     "exclusive": false,
+     "unit": "GB",
+     "size": 16,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/core1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/memory0"
      }
     }
    },
    {
     "id": "19",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core2",
-     "id": 6,
-     "uniq_id": 19,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/core2"
-     }
-    }
-   },
-   {
-    "id": "20",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core3",
-     "id": 7,
-     "uniq_id": 20,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/core3"
-     }
-    }
-   },
-   {
-    "id": "21",
-    "metadata": {
-     "type": "memory",
-     "basename": "memory",
-     "name": "memory0",
-     "id": 1,
-     "uniq_id": 21,
-     "rank": -1,
-     "exclusive": false,
-     "unit": "GB",
-     "size": 16,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-cpu-4.on-demand/placement1/node1/socket0/memory0"
-     }
-    }
-   },
-   {
-    "id": "22",
-    "metadata": {
      "type": "offer",
      "basename": "offer",
      "name": "test-gpu-2g.on-demand",
      "id": 1,
-     "uniq_id": 22,
+     "uniq_id": 19,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand"
      },
      "properties": {
       "accelerators": "nvidia-h100-80gb:2",
@@ -1087,19 +1021,19 @@
     }
    },
    {
-    "id": "23",
+    "id": "20",
     "metadata": {
      "type": "placement",
      "basename": "placement",
      "name": "placement0",
      "id": 2,
-     "uniq_id": 23,
+     "uniq_id": 20,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0"
      },
      "properties": {
       "compact": "false",
@@ -1108,19 +1042,19 @@
     }
    },
    {
-    "id": "24",
+    "id": "21",
     "metadata": {
      "type": "node",
      "basename": "node",
      "name": "node0",
      "id": 2,
-     "uniq_id": 24,
+     "uniq_id": 21,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0"
      },
      "properties": {
       "state": "potential"
@@ -1128,19 +1062,70 @@
     }
    },
    {
-    "id": "25",
+    "id": "22",
     "metadata": {
      "type": "socket",
      "basename": "socket",
      "name": "socket0",
      "id": 2,
-     "uniq_id": 25,
+     "uniq_id": 22,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0"
+     }
+    }
+   },
+   {
+    "id": "23",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 4,
+     "uniq_id": 23,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "24",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 5,
+     "uniq_id": 24,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "25",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 6,
+     "uniq_id": 25,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core2"
      }
     }
    },
@@ -1149,83 +1134,32 @@
     "metadata": {
      "type": "core",
      "basename": "core",
-     "name": "core0",
-     "id": 8,
+     "name": "core3",
+     "id": 7,
      "uniq_id": 26,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core3"
      }
     }
    },
    {
     "id": "27",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core1",
-     "id": 9,
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 0,
      "uniq_id": 27,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core1"
-     }
-    }
-   },
-   {
-    "id": "28",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core2",
-     "id": 10,
-     "uniq_id": 28,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core2"
-     }
-    }
-   },
-   {
-    "id": "29",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core3",
-     "id": 11,
-     "uniq_id": 29,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/core3"
-     }
-    }
-   },
-   {
-    "id": "30",
-    "metadata": {
-     "type": "gpu",
-     "basename": "gpu",
-     "name": "gpu0",
-     "id": 0,
-     "uniq_id": 30,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/gpu0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/gpu0"
      },
      "properties": {
       "device_id": "2330",
@@ -1236,19 +1170,19 @@
     }
    },
    {
-    "id": "31",
+    "id": "28",
     "metadata": {
      "type": "nic",
      "basename": "nic",
      "name": "nic0",
      "id": 2,
-     "uniq_id": 31,
+     "uniq_id": 28,
      "rank": -1,
      "exclusive": true,
      "unit": "Gbps",
      "size": 32,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/nic0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/nic0"
      },
      "properties": {
       "device_id": "0042",
@@ -1260,36 +1194,87 @@
     }
    },
    {
-    "id": "32",
+    "id": "29",
     "metadata": {
      "type": "memory",
      "basename": "memory",
      "name": "memory0",
      "id": 2,
-     "uniq_id": 32,
+     "uniq_id": 29,
      "rank": -1,
      "exclusive": false,
      "unit": "GB",
      "size": 64,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/memory0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "30",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket1",
+     "id": 3,
+     "uniq_id": 30,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1"
+     }
+    }
+   },
+   {
+    "id": "31",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core4",
+     "id": 8,
+     "uniq_id": 31,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core4"
+     }
+    }
+   },
+   {
+    "id": "32",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core5",
+     "id": 9,
+     "uniq_id": 32,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core5"
      }
     }
    },
    {
     "id": "33",
     "metadata": {
-     "type": "socket",
-     "basename": "socket",
-     "name": "socket1",
-     "id": 3,
+     "type": "core",
+     "basename": "core",
+     "name": "core6",
+     "id": 10,
      "uniq_id": 33,
      "rank": -1,
-     "exclusive": false,
+     "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core6"
      }
     }
    },
@@ -1298,83 +1283,32 @@
     "metadata": {
      "type": "core",
      "basename": "core",
-     "name": "core4",
-     "id": 12,
+     "name": "core7",
+     "id": 11,
      "uniq_id": 34,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core4"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core7"
      }
     }
    },
    {
     "id": "35",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core5",
-     "id": 13,
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu1",
+     "id": 1,
      "uniq_id": 35,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core5"
-     }
-    }
-   },
-   {
-    "id": "36",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core6",
-     "id": 14,
-     "uniq_id": 36,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core6"
-     }
-    }
-   },
-   {
-    "id": "37",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core7",
-     "id": 15,
-     "uniq_id": 37,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/core7"
-     }
-    }
-   },
-   {
-    "id": "38",
-    "metadata": {
-     "type": "gpu",
-     "basename": "gpu",
-     "name": "gpu1",
-     "id": 1,
-     "uniq_id": 38,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/gpu1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/gpu1"
      },
      "properties": {
       "device_id": "2330",
@@ -1385,36 +1319,36 @@
     }
    },
    {
-    "id": "39",
+    "id": "36",
     "metadata": {
      "type": "memory",
      "basename": "memory",
      "name": "memory1",
      "id": 3,
-     "uniq_id": 39,
+     "uniq_id": 36,
      "rank": -1,
      "exclusive": false,
      "unit": "GB",
      "size": 64,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/memory1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement0/node0/socket1/memory1"
      }
     }
    },
    {
-    "id": "40",
+    "id": "37",
     "metadata": {
      "type": "placement",
      "basename": "placement",
      "name": "placement1",
      "id": 3,
-     "uniq_id": 40,
+     "uniq_id": 37,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1"
      },
      "properties": {
       "compact": "false",
@@ -1423,19 +1357,19 @@
     }
    },
    {
-    "id": "41",
+    "id": "38",
     "metadata": {
      "type": "node",
      "basename": "node",
      "name": "node1",
      "id": 3,
-     "uniq_id": 41,
+     "uniq_id": 38,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1"
      },
      "properties": {
       "state": "potential"
@@ -1443,19 +1377,70 @@
     }
    },
    {
-    "id": "42",
+    "id": "39",
     "metadata": {
      "type": "socket",
      "basename": "socket",
      "name": "socket0",
      "id": 4,
-     "uniq_id": 42,
+     "uniq_id": 39,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0"
+     }
+    }
+   },
+   {
+    "id": "40",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 12,
+     "uniq_id": 40,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "41",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 13,
+     "uniq_id": 41,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "42",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 14,
+     "uniq_id": 42,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core2"
      }
     }
    },
@@ -1464,83 +1449,32 @@
     "metadata": {
      "type": "core",
      "basename": "core",
-     "name": "core0",
-     "id": 16,
+     "name": "core3",
+     "id": 15,
      "uniq_id": 43,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core3"
      }
     }
    },
    {
     "id": "44",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core1",
-     "id": 17,
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 2,
      "uniq_id": 44,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core1"
-     }
-    }
-   },
-   {
-    "id": "45",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core2",
-     "id": 18,
-     "uniq_id": 45,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core2"
-     }
-    }
-   },
-   {
-    "id": "46",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core3",
-     "id": 19,
-     "uniq_id": 46,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/core3"
-     }
-    }
-   },
-   {
-    "id": "47",
-    "metadata": {
-     "type": "gpu",
-     "basename": "gpu",
-     "name": "gpu0",
-     "id": 2,
-     "uniq_id": 47,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/gpu0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/gpu0"
      },
      "properties": {
       "device_id": "2330",
@@ -1551,19 +1485,19 @@
     }
    },
    {
-    "id": "48",
+    "id": "45",
     "metadata": {
      "type": "nic",
      "basename": "nic",
      "name": "nic0",
      "id": 3,
-     "uniq_id": 48,
+     "uniq_id": 45,
      "rank": -1,
      "exclusive": true,
      "unit": "Gbps",
      "size": 32,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/nic0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/nic0"
      },
      "properties": {
       "device_id": "0042",
@@ -1575,36 +1509,87 @@
     }
    },
    {
-    "id": "49",
+    "id": "46",
     "metadata": {
      "type": "memory",
      "basename": "memory",
      "name": "memory0",
      "id": 4,
-     "uniq_id": 49,
+     "uniq_id": 46,
      "rank": -1,
      "exclusive": false,
      "unit": "GB",
      "size": 64,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/memory0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "47",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket1",
+     "id": 5,
+     "uniq_id": 47,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1"
+     }
+    }
+   },
+   {
+    "id": "48",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core4",
+     "id": 16,
+     "uniq_id": 48,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core4"
+     }
+    }
+   },
+   {
+    "id": "49",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core5",
+     "id": 17,
+     "uniq_id": 49,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core5"
      }
     }
    },
    {
     "id": "50",
     "metadata": {
-     "type": "socket",
-     "basename": "socket",
-     "name": "socket1",
-     "id": 5,
+     "type": "core",
+     "basename": "core",
+     "name": "core6",
+     "id": 18,
      "uniq_id": 50,
      "rank": -1,
-     "exclusive": false,
+     "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core6"
      }
     }
    },
@@ -1613,83 +1598,32 @@
     "metadata": {
      "type": "core",
      "basename": "core",
-     "name": "core4",
-     "id": 20,
+     "name": "core7",
+     "id": 19,
      "uniq_id": 51,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core4"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core7"
      }
     }
    },
    {
     "id": "52",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core5",
-     "id": 21,
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu1",
+     "id": 3,
      "uniq_id": 52,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core5"
-     }
-    }
-   },
-   {
-    "id": "53",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core6",
-     "id": 22,
-     "uniq_id": 53,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core6"
-     }
-    }
-   },
-   {
-    "id": "54",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core7",
-     "id": 23,
-     "uniq_id": 54,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/core7"
-     }
-    }
-   },
-   {
-    "id": "55",
-    "metadata": {
-     "type": "gpu",
-     "basename": "gpu",
-     "name": "gpu1",
-     "id": 3,
-     "uniq_id": 55,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/gpu1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/gpu1"
      },
      "properties": {
       "device_id": "2330",
@@ -1700,53 +1634,53 @@
     }
    },
    {
-    "id": "56",
+    "id": "53",
     "metadata": {
      "type": "memory",
      "basename": "memory",
      "name": "memory1",
      "id": 5,
-     "uniq_id": 56,
+     "uniq_id": 53,
      "rank": -1,
      "exclusive": false,
      "unit": "GB",
      "size": 64,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/memory1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-a/test-gpu-2g.on-demand/placement1/node1/socket1/memory1"
      }
     }
    },
    {
-    "id": "57",
+    "id": "54",
     "metadata": {
      "type": "zone",
      "basename": "zone",
      "name": "us-central1-b",
      "id": 1,
-     "uniq_id": 57,
+     "uniq_id": 54,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b"
      }
     }
    },
    {
-    "id": "58",
+    "id": "55",
     "metadata": {
      "type": "offer",
      "basename": "offer",
      "name": "test-gpu-2g.on-demand",
      "id": 2,
-     "uniq_id": 58,
+     "uniq_id": 55,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand"
      },
      "properties": {
       "accelerators": "nvidia-h100-80gb:2",
@@ -1763,19 +1697,19 @@
     }
    },
    {
-    "id": "59",
+    "id": "56",
     "metadata": {
      "type": "placement",
      "basename": "placement",
      "name": "placement0",
      "id": 4,
-     "uniq_id": 59,
+     "uniq_id": 56,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0"
      },
      "properties": {
       "compact": "false",
@@ -1784,19 +1718,19 @@
     }
    },
    {
-    "id": "60",
+    "id": "57",
     "metadata": {
      "type": "node",
      "basename": "node",
      "name": "node0",
      "id": 4,
-     "uniq_id": 60,
+     "uniq_id": 57,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0"
      },
      "properties": {
       "state": "potential"
@@ -1804,19 +1738,70 @@
     }
    },
    {
-    "id": "61",
+    "id": "58",
     "metadata": {
      "type": "socket",
      "basename": "socket",
      "name": "socket0",
      "id": 6,
-     "uniq_id": 61,
+     "uniq_id": 58,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0"
+     }
+    }
+   },
+   {
+    "id": "59",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 20,
+     "uniq_id": 59,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "60",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 21,
+     "uniq_id": 60,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "61",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 22,
+     "uniq_id": 61,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core2"
      }
     }
    },
@@ -1825,83 +1810,32 @@
     "metadata": {
      "type": "core",
      "basename": "core",
-     "name": "core0",
-     "id": 24,
+     "name": "core3",
+     "id": 23,
      "uniq_id": 62,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core3"
      }
     }
    },
    {
     "id": "63",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core1",
-     "id": 25,
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 4,
      "uniq_id": 63,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core1"
-     }
-    }
-   },
-   {
-    "id": "64",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core2",
-     "id": 26,
-     "uniq_id": 64,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core2"
-     }
-    }
-   },
-   {
-    "id": "65",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core3",
-     "id": 27,
-     "uniq_id": 65,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/core3"
-     }
-    }
-   },
-   {
-    "id": "66",
-    "metadata": {
-     "type": "gpu",
-     "basename": "gpu",
-     "name": "gpu0",
-     "id": 4,
-     "uniq_id": 66,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/gpu0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/gpu0"
      },
      "properties": {
       "device_id": "2330",
@@ -1912,19 +1846,19 @@
     }
    },
    {
-    "id": "67",
+    "id": "64",
     "metadata": {
      "type": "nic",
      "basename": "nic",
      "name": "nic0",
      "id": 4,
-     "uniq_id": 67,
+     "uniq_id": 64,
      "rank": -1,
      "exclusive": true,
      "unit": "Gbps",
      "size": 32,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/nic0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/nic0"
      },
      "properties": {
       "device_id": "0042",
@@ -1936,36 +1870,87 @@
     }
    },
    {
-    "id": "68",
+    "id": "65",
     "metadata": {
      "type": "memory",
      "basename": "memory",
      "name": "memory0",
      "id": 6,
-     "uniq_id": 68,
+     "uniq_id": 65,
      "rank": -1,
      "exclusive": false,
      "unit": "GB",
      "size": 64,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/memory0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "66",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket1",
+     "id": 7,
+     "uniq_id": 66,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1"
+     }
+    }
+   },
+   {
+    "id": "67",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core4",
+     "id": 24,
+     "uniq_id": 67,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core4"
+     }
+    }
+   },
+   {
+    "id": "68",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core5",
+     "id": 25,
+     "uniq_id": 68,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core5"
      }
     }
    },
    {
     "id": "69",
     "metadata": {
-     "type": "socket",
-     "basename": "socket",
-     "name": "socket1",
-     "id": 7,
+     "type": "core",
+     "basename": "core",
+     "name": "core6",
+     "id": 26,
      "uniq_id": 69,
      "rank": -1,
-     "exclusive": false,
+     "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core6"
      }
     }
    },
@@ -1974,83 +1959,32 @@
     "metadata": {
      "type": "core",
      "basename": "core",
-     "name": "core4",
-     "id": 28,
+     "name": "core7",
+     "id": 27,
      "uniq_id": 70,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core4"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core7"
      }
     }
    },
    {
     "id": "71",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core5",
-     "id": 29,
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu1",
+     "id": 5,
      "uniq_id": 71,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core5"
-     }
-    }
-   },
-   {
-    "id": "72",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core6",
-     "id": 30,
-     "uniq_id": 72,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core6"
-     }
-    }
-   },
-   {
-    "id": "73",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core7",
-     "id": 31,
-     "uniq_id": 73,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/core7"
-     }
-    }
-   },
-   {
-    "id": "74",
-    "metadata": {
-     "type": "gpu",
-     "basename": "gpu",
-     "name": "gpu1",
-     "id": 5,
-     "uniq_id": 74,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/gpu1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/gpu1"
      },
      "properties": {
       "device_id": "2330",
@@ -2061,36 +1995,36 @@
     }
    },
    {
-    "id": "75",
+    "id": "72",
     "metadata": {
      "type": "memory",
      "basename": "memory",
      "name": "memory1",
      "id": 7,
-     "uniq_id": 75,
+     "uniq_id": 72,
      "rank": -1,
      "exclusive": false,
      "unit": "GB",
      "size": 64,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/memory1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement0/node0/socket1/memory1"
      }
     }
    },
    {
-    "id": "76",
+    "id": "73",
     "metadata": {
      "type": "placement",
      "basename": "placement",
      "name": "placement1",
      "id": 5,
-     "uniq_id": 76,
+     "uniq_id": 73,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1"
      },
      "properties": {
       "compact": "false",
@@ -2099,19 +2033,19 @@
     }
    },
    {
-    "id": "77",
+    "id": "74",
     "metadata": {
      "type": "node",
      "basename": "node",
      "name": "node1",
      "id": 5,
-     "uniq_id": 77,
+     "uniq_id": 74,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1"
      },
      "properties": {
       "state": "potential"
@@ -2119,19 +2053,70 @@
     }
    },
    {
-    "id": "78",
+    "id": "75",
     "metadata": {
      "type": "socket",
      "basename": "socket",
      "name": "socket0",
      "id": 8,
-     "uniq_id": 78,
+     "uniq_id": 75,
      "rank": -1,
      "exclusive": false,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0"
+     }
+    }
+   },
+   {
+    "id": "76",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core0",
+     "id": 28,
+     "uniq_id": 76,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core0"
+     }
+    }
+   },
+   {
+    "id": "77",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core1",
+     "id": 29,
+     "uniq_id": 77,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core1"
+     }
+    }
+   },
+   {
+    "id": "78",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core2",
+     "id": 30,
+     "uniq_id": 78,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core2"
      }
     }
    },
@@ -2140,83 +2125,32 @@
     "metadata": {
      "type": "core",
      "basename": "core",
-     "name": "core0",
-     "id": 32,
+     "name": "core3",
+     "id": 31,
      "uniq_id": 79,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core3"
      }
     }
    },
    {
     "id": "80",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core1",
-     "id": 33,
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu0",
+     "id": 6,
      "uniq_id": 80,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core1"
-     }
-    }
-   },
-   {
-    "id": "81",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core2",
-     "id": 34,
-     "uniq_id": 81,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core2"
-     }
-    }
-   },
-   {
-    "id": "82",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core3",
-     "id": 35,
-     "uniq_id": 82,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/core3"
-     }
-    }
-   },
-   {
-    "id": "83",
-    "metadata": {
-     "type": "gpu",
-     "basename": "gpu",
-     "name": "gpu0",
-     "id": 6,
-     "uniq_id": 83,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/gpu0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/gpu0"
      },
      "properties": {
       "device_id": "2330",
@@ -2227,19 +2161,19 @@
     }
    },
    {
-    "id": "84",
+    "id": "81",
     "metadata": {
      "type": "nic",
      "basename": "nic",
      "name": "nic0",
      "id": 5,
-     "uniq_id": 84,
+     "uniq_id": 81,
      "rank": -1,
      "exclusive": true,
      "unit": "Gbps",
      "size": 32,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/nic0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/nic0"
      },
      "properties": {
       "device_id": "0042",
@@ -2251,36 +2185,87 @@
     }
    },
    {
-    "id": "85",
+    "id": "82",
     "metadata": {
      "type": "memory",
      "basename": "memory",
      "name": "memory0",
      "id": 8,
-     "uniq_id": 85,
+     "uniq_id": 82,
      "rank": -1,
      "exclusive": false,
      "unit": "GB",
      "size": 64,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/memory0"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket0/memory0"
+     }
+    }
+   },
+   {
+    "id": "83",
+    "metadata": {
+     "type": "socket",
+     "basename": "socket",
+     "name": "socket1",
+     "id": 9,
+     "uniq_id": 83,
+     "rank": -1,
+     "exclusive": false,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1"
+     }
+    }
+   },
+   {
+    "id": "84",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core4",
+     "id": 32,
+     "uniq_id": 84,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core4"
+     }
+    }
+   },
+   {
+    "id": "85",
+    "metadata": {
+     "type": "core",
+     "basename": "core",
+     "name": "core5",
+     "id": 33,
+     "uniq_id": 85,
+     "rank": -1,
+     "exclusive": true,
+     "unit": "",
+     "size": 1,
+     "paths": {
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core5"
      }
     }
    },
    {
     "id": "86",
     "metadata": {
-     "type": "socket",
-     "basename": "socket",
-     "name": "socket1",
-     "id": 9,
+     "type": "core",
+     "basename": "core",
+     "name": "core6",
+     "id": 34,
      "uniq_id": 86,
      "rank": -1,
-     "exclusive": false,
+     "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core6"
      }
     }
    },
@@ -2289,83 +2274,32 @@
     "metadata": {
      "type": "core",
      "basename": "core",
-     "name": "core4",
-     "id": 36,
+     "name": "core7",
+     "id": 35,
      "uniq_id": 87,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core4"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core7"
      }
     }
    },
    {
     "id": "88",
     "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core5",
-     "id": 37,
+     "type": "gpu",
+     "basename": "gpu",
+     "name": "gpu1",
+     "id": 7,
      "uniq_id": 88,
      "rank": -1,
      "exclusive": true,
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core5"
-     }
-    }
-   },
-   {
-    "id": "89",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core6",
-     "id": 38,
-     "uniq_id": 89,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core6"
-     }
-    }
-   },
-   {
-    "id": "90",
-    "metadata": {
-     "type": "core",
-     "basename": "core",
-     "name": "core7",
-     "id": 39,
-     "uniq_id": 90,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/core7"
-     }
-    }
-   },
-   {
-    "id": "91",
-    "metadata": {
-     "type": "gpu",
-     "basename": "gpu",
-     "name": "gpu1",
-     "id": 7,
-     "uniq_id": 91,
-     "rank": -1,
-     "exclusive": true,
-     "unit": "",
-     "size": 1,
-     "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/gpu1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/gpu1"
      },
      "properties": {
       "device_id": "2330",
@@ -2376,19 +2310,19 @@
     }
    },
    {
-    "id": "92",
+    "id": "89",
     "metadata": {
      "type": "memory",
      "basename": "memory",
      "name": "memory1",
      "id": 9,
-     "uniq_id": 92,
+     "uniq_id": 89,
      "rank": -1,
      "exclusive": false,
      "unit": "GB",
      "size": 64,
      "paths": {
-      "containment": "/gcp/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/memory1"
+      "containment": "/site0/google-cloud/us-central1/us-central1-b/test-gpu-2g.on-demand/placement1/node1/socket1/memory1"
      }
     }
    }

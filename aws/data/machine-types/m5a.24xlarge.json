@@ -1,0 +1,49 @@
+{
+  "name": "m5a.24xlarge",
+  "family": "m5a",
+  "architecture": "x86_64",
+  "vcpus": 96,
+  "cores": 48,
+  "threads_per_core": 2,
+  "memory_mb": 393216,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 2.5
+  },
+  "network": {
+    "performance": "20 Gigabit",
+    "max_interfaces": 15,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 20,
+        "peak_gbps": 20
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 13750,
+    "max_mbps": 13750,
+    "baseline_iops": 60000,
+    "max_iops": 60000,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

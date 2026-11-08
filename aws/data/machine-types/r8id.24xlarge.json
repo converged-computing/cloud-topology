@@ -1,0 +1,61 @@
+{
+  "name": "r8id.24xlarge",
+  "family": "r8id",
+  "architecture": "x86_64",
+  "vcpus": 96,
+  "cores": 48,
+  "threads_per_core": 2,
+  "memory_mb": 786432,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.9
+  },
+  "network": {
+    "performance": "40 Gigabit",
+    "max_interfaces": 16,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 40,
+        "peak_gbps": 40
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 5700,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 2850,
+        "count": 2,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 30000,
+    "max_mbps": 30000,
+    "baseline_iops": 120000,
+    "max_iops": 120000,
+    "max_attachments": 64
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

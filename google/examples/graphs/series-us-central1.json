@@ -664,9 +664,9 @@
    {
     "id": "0",
     "metadata": {
-     "type": "cluster",
-     "basename": "cluster",
-     "name": "heuretes",
+     "type": "site",
+     "basename": "site",
+     "name": "site0",
      "id": 0,
      "uniq_id": 0,
      "rank": -1,
@@ -674,16 +674,16 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes"
+      "containment": "/site0"
      }
     }
    },
    {
     "id": "1",
     "metadata": {
-     "type": "site",
-     "basename": "site",
-     "name": "gcp",
+     "type": "provider",
+     "basename": "provider",
+     "name": "google-cloud",
      "id": 0,
      "uniq_id": 1,
      "rank": -1,
@@ -691,7 +691,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp"
+      "containment": "/site0/google-cloud"
      },
      "properties": {
       "provider": "google-cloud"
@@ -711,7 +711,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1"
+      "containment": "/site0/google-cloud/us-central1"
      }
     }
    },
@@ -728,7 +728,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand"
      },
      "properties": {
       "family": "g2",
@@ -755,7 +755,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core0"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core0"
      }
     }
    },
@@ -772,7 +772,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core1"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core1"
      }
     }
    },
@@ -789,7 +789,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core2"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core2"
      }
     }
    },
@@ -806,7 +806,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core3"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core3"
      }
     }
    },
@@ -823,7 +823,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core4"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core4"
      }
     }
    },
@@ -840,7 +840,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core5"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core5"
      }
     }
    },
@@ -857,7 +857,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core6"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core6"
      }
     }
    },
@@ -874,7 +874,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core7"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core7"
      }
     }
    },
@@ -891,7 +891,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core8"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core8"
      }
     }
    },
@@ -908,7 +908,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core9"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core9"
      }
     }
    },
@@ -925,7 +925,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core10"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core10"
      }
     }
    },
@@ -942,7 +942,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core11"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core11"
      }
     }
    },
@@ -959,7 +959,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core12"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core12"
      }
     }
    },
@@ -976,7 +976,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core13"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core13"
      }
     }
    },
@@ -993,7 +993,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core14"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core14"
      }
     }
    },
@@ -1010,7 +1010,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core15"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core15"
      }
     }
    },
@@ -1027,7 +1027,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core16"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core16"
      }
     }
    },
@@ -1044,7 +1044,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core17"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core17"
      }
     }
    },
@@ -1061,7 +1061,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core18"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core18"
      }
     }
    },
@@ -1078,7 +1078,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core19"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core19"
      }
     }
    },
@@ -1095,7 +1095,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core20"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core20"
      }
     }
    },
@@ -1112,7 +1112,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core21"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core21"
      }
     }
    },
@@ -1129,7 +1129,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core22"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core22"
      }
     }
    },
@@ -1146,7 +1146,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/core23"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/core23"
      }
     }
    },
@@ -1163,7 +1163,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/gpu0"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/gpu0"
      }
     }
    },
@@ -1180,7 +1180,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/gpu1"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/gpu1"
      }
     }
    },
@@ -1197,7 +1197,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory0"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory0"
      }
     }
    },
@@ -1214,7 +1214,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory1"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory1"
      }
     }
    },
@@ -1231,7 +1231,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory2"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory2"
      }
     }
    },
@@ -1248,7 +1248,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory3"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory3"
      }
     }
    },
@@ -1265,7 +1265,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory4"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory4"
      }
     }
    },
@@ -1282,7 +1282,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory5"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory5"
      }
     }
    },
@@ -1299,7 +1299,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory6"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory6"
      }
     }
    },
@@ -1316,7 +1316,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory7"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory7"
      }
     }
    },
@@ -1333,7 +1333,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory8"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory8"
      }
     }
    },
@@ -1350,7 +1350,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory9"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory9"
      }
     }
    },
@@ -1367,7 +1367,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory10"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory10"
      }
     }
    },
@@ -1384,7 +1384,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory11"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory11"
      }
     }
    },
@@ -1401,7 +1401,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory12"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory12"
      }
     }
    },
@@ -1418,7 +1418,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory13"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory13"
      }
     }
    },
@@ -1435,7 +1435,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory14"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory14"
      }
     }
    },
@@ -1452,7 +1452,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory15"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory15"
      }
     }
    },
@@ -1469,7 +1469,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory16"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory16"
      }
     }
    },
@@ -1486,7 +1486,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory17"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory17"
      }
     }
    },
@@ -1503,7 +1503,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory18"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory18"
      }
     }
    },
@@ -1520,7 +1520,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory19"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory19"
      }
     }
    },
@@ -1537,7 +1537,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory20"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory20"
      }
     }
    },
@@ -1554,7 +1554,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory21"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory21"
      }
     }
    },
@@ -1571,7 +1571,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory22"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory22"
      }
     }
    },
@@ -1588,7 +1588,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/g2-standard.on-demand/memory23"
+      "containment": "/site0/google-cloud/us-central1/g2-standard.on-demand/memory23"
      }
     }
    },
@@ -1605,7 +1605,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand"
      },
      "properties": {
       "family": "n2",
@@ -1632,7 +1632,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core0"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core0"
      }
     }
    },
@@ -1649,7 +1649,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core1"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core1"
      }
     }
    },
@@ -1666,7 +1666,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core2"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core2"
      }
     }
    },
@@ -1683,7 +1683,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core3"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core3"
      }
     }
    },
@@ -1700,7 +1700,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core4"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core4"
      }
     }
    },
@@ -1717,7 +1717,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core5"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core5"
      }
     }
    },
@@ -1734,7 +1734,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core6"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core6"
      }
     }
    },
@@ -1751,7 +1751,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core7"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core7"
      }
     }
    },
@@ -1768,7 +1768,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core8"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core8"
      }
     }
    },
@@ -1785,7 +1785,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core9"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core9"
      }
     }
    },
@@ -1802,7 +1802,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core10"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core10"
      }
     }
    },
@@ -1819,7 +1819,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core11"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core11"
      }
     }
    },
@@ -1836,7 +1836,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core12"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core12"
      }
     }
    },
@@ -1853,7 +1853,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core13"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core13"
      }
     }
    },
@@ -1870,7 +1870,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core14"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core14"
      }
     }
    },
@@ -1887,7 +1887,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core15"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core15"
      }
     }
    },
@@ -1904,7 +1904,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core16"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core16"
      }
     }
    },
@@ -1921,7 +1921,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core17"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core17"
      }
     }
    },
@@ -1938,7 +1938,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core18"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core18"
      }
     }
    },
@@ -1955,7 +1955,7 @@
      "unit": "",
      "size": 1,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/core19"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/core19"
      }
     }
    },
@@ -1972,7 +1972,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory0"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory0"
      }
     }
    },
@@ -1989,7 +1989,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory1"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory1"
      }
     }
    },
@@ -2006,7 +2006,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory2"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory2"
      }
     }
    },
@@ -2023,7 +2023,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory3"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory3"
      }
     }
    },
@@ -2040,7 +2040,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory4"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory4"
      }
     }
    },
@@ -2057,7 +2057,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory5"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory5"
      }
     }
    },
@@ -2074,7 +2074,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory6"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory6"
      }
     }
    },
@@ -2091,7 +2091,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory7"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory7"
      }
     }
    },
@@ -2108,7 +2108,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory8"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory8"
      }
     }
    },
@@ -2125,7 +2125,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory9"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory9"
      }
     }
    },
@@ -2142,7 +2142,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory10"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory10"
      }
     }
    },
@@ -2159,7 +2159,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory11"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory11"
      }
     }
    },
@@ -2176,7 +2176,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory12"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory12"
      }
     }
    },
@@ -2193,7 +2193,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory13"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory13"
      }
     }
    },
@@ -2210,7 +2210,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory14"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory14"
      }
     }
    },
@@ -2227,7 +2227,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory15"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory15"
      }
     }
    },
@@ -2244,7 +2244,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory16"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory16"
      }
     }
    },
@@ -2261,7 +2261,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory17"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory17"
      }
     }
    },
@@ -2278,7 +2278,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory18"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory18"
      }
     }
    },
@@ -2295,7 +2295,7 @@
      "unit": "GB",
      "size": 4,
      "paths": {
-      "containment": "/heuretes/gcp/us-central1/n2-standard.on-demand/memory19"
+      "containment": "/site0/google-cloud/us-central1/n2-standard.on-demand/memory19"
      }
     }
    }

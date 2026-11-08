@@ -1,0 +1,61 @@
+{
+  "name": "i3.16xlarge",
+  "family": "i3",
+  "architecture": "x86_64",
+  "vcpus": 64,
+  "cores": 32,
+  "threads_per_core": 2,
+  "memory_mb": 499712,
+  "hypervisor": "xen",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 2.3
+  },
+  "network": {
+    "performance": "25 Gigabit",
+    "max_interfaces": 15,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 25,
+        "peak_gbps": 25
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 15200,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 1900,
+        "count": 8,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 14000,
+    "max_mbps": 14000,
+    "baseline_iops": 65000,
+    "max_iops": 65000,
+    "max_attachments": 40
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ]
+}

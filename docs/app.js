@@ -5,10 +5,11 @@
   const inline = document.getElementById('site-data');
   const SITE = inline ? JSON.parse(inline.textContent) : null;
   const cache = {};
+  const VERSION = (() => { const s = document.querySelector('script[src*="app.js"]'); const m = s && /[?&]v=([^&]+)/.exec(s.getAttribute('src') || ''); return m ? m[1] : ''; })();
   async function load(path) {
     if (cache[path]) return cache[path];
     if (SITE) { cache[path] = SITE[path]; return cache[path]; }
-    const r = await fetch(path);
+    const r = await fetch(path + (VERSION ? '?v=' + VERSION : ''));
     if (!r.ok) throw new Error(path + ': ' + r.status);
     cache[path] = await r.json();
     return cache[path];
@@ -30,12 +31,16 @@
   let manifest, types, captures;
   const isRound = l => l.startsWith('round/');
   const allLabels = () => manifest.databases.map(d => d.label);
-  const labels = () => allLabels().filter(l => !isRound(l));
+  // Hidden databases (an experiment arm that captured the same cloud again) stay out of
+  // the lists and badges; they are reached by label from the experiment page.
+  const isHidden = l => !!(manifest.databases.find(d => d.label === l) || {}).hidden;
+  const labels = () => allLabels().filter(l => !isRound(l) && !isHidden(l));
+  const visibleCaps = t => (t.captured || []).filter(l => !isHidden(l));
   const rounds = () => allLabels().filter(isRound);
   const roundName = l => { const i = rounds().indexOf(l); const ts = l.slice(6); return 'study round ' + (i + 1) + ' (' + ts.slice(0, 4) + '-' + ts.slice(4, 6) + '-' + ts.slice(6, 8) + ' ' + ts.slice(9, 11) + ':' + ts.slice(11, 13) + ' UTC)'; };
   const dbName = l => isRound(l) ? roundName(l) : l;
   // Rows for listing databases: the study's rounds folded into one.
-  const dbRows = () => { const rows = manifest.databases.filter(d => !isRound(d.label)).map(d => Object.assign({ link: '#/topologies?db=' + encodeURIComponent(d.label) }, d)); const rs = manifest.databases.filter(d => isRound(d.label)); if (rs.length) rows.push({ label: 'consistency study', dir: rs[0].dir.replace(/\/rounds\/[^/]+$/, '') + ' (' + rs.length + ' rounds)', machine_types: d3.max(rs, d => d.machine_types), captures: d3.sum(rs, d => d.captures), link: '#/consistency' }); return rows; };
+  const dbRows = () => { const rows = manifest.databases.filter(d => !isRound(d.label) && !d.hidden).map(d => Object.assign({ link: '#/topologies?db=' + encodeURIComponent(d.label) }, d)); const rs = manifest.databases.filter(d => isRound(d.label)); if (rs.length) rows.push({ label: 'consistency study', dir: rs[0].dir.replace(/\/rounds\/[^/]+$/, '') + ' (' + rs.length + ' rounds)', machine_types: d3.max(rs, d => d.machine_types), captures: d3.sum(rs, d => d.captures), link: '#/consistency' }); return rows; };
   const studyCaptures = name => rounds().map(l => cap(l, name)).filter(Boolean);
   const cap = (l, name) => captures[l] && captures[l][name];
   const families = () => [...new Set(types.map(t => t.family))].sort();
@@ -93,7 +98,7 @@
 
   // ---------- overview ----------
   function overview() {
-    const capturedAny = types.filter(t => (t.captured || []).length).length;
+    const capturedAny = types.filter(t => visibleCaps(t).length).length;
     const famCounts = d3.rollups(types, v => v.length, t => t.family).map(([family, count]) => ({ family, count }));
     const exps = experimentList().map(e => h`<li><a href="${e.link}">${e.title}</a> <span class="muted">${e.hook}</span></li>`).join('');
     main.innerHTML = h`
@@ -103,14 +108,14 @@
         <div class="tile"><div class="v">${n(types.length)}</div><div class="l">machine types</div><div class="d">${families().length} families, ${regions().length} region${regions().length === 1 ? '' : 's'}</div></div>
         <div class="tile"><div class="v">${n(capturedAny)}</div><div class="l">captured in any database</div><div class="d">${pct(types.length ? capturedAny / types.length : 0)} of machine types</div></div>
         <div class="tile"><div class="v">${n(dbRows().length)}</div><div class="l">databases</div><div class="d">${n(d3.sum(manifest.databases, d => d.captures))} captures in all${raw(manifest.consistency ? ' · <a href="#/consistency">consistency</a>' : '')}</div></div>
-        <div class="tile"><div class="v">${n(manifest.graphs.length)}</div><div class="l">resource graphs</div><div class="d">${manifest.levels.join(', ')}</div></div>
+        <div class="tile"><div class="v">${n(((manifest.merged || [])[0] || {}).vertices || 0)}</div><div class="l">graph vertices</div><div class="d">${(((manifest.merged || [])[0] || {}).parts || []).map(p => p.provider + ' ' + n(p.vertices)).join(' · ') || 'no graph'}</div></div>
       </div>
       <div class="grid two">
         <div class="card"><h3>Captures per database</h3><div class="chart" id="c-db"></div><table class="small"><tr><th>Database</th><th>Directory</th><th class="num">Machine types</th><th class="num">Captures</th></tr>${raw(dbRows().map(d => h`<tr><td><a href="${d.link}">${d.label}</a></td><td class="muted">${d.dir}</td><td class="num">${n(d.machine_types)}</td><td class="num">${n(d.captures)}</td></tr>` + (d.note ? h`<tr><td colspan="4" class="note">${d.note}</td></tr>` : '')).join(''))}</table></div>
         <div class="card"><h3>Machine types per family</h3><p class="muted small">Click a bar to list the family.</p><div class="chart" id="c-fam"></div></div>
       </div>
       <div class="grid two" style="margin-top:.9rem">
-        <div class="card"><h3>Resource graphs</h3>${raw(manifest.graphs.length ? '<table class="small"><tr><th>Database</th><th>Level</th><th>Region</th><th class="num">Vertices</th></tr>' + manifest.graphs.map(g => h`<tr><td>${g.database}</td><td><a href="#/graphs?database=${g.database}&level=${g.level}&region=${g.region}">${g.level}</a></td><td>${g.region}</td><td class="num">${n(g.vertices)}</td></tr>`).join('') + '</table>' : '<p class="empty">No graphs were exported.</p>')}</div>
+        <div class="card"><h3><a href="#/graphs">Resource graph</a></h3>${raw((manifest.merged || []).length ? '<table class="small"><tr><th>Provider</th><th>Region</th><th class="num">Vertices</th></tr>' + manifest.merged[0].parts.map(p => h`<tr><td><a href="#/graphs?provider=${p.provider}">${p.provider}</a></td><td>${p.region}</td><td class="num">${n(p.vertices)}</td></tr>`).join('') + h`<tr><td><b>all</b></td><td></td><td class="num"><b>${n(manifest.merged[0].vertices)}</b></td></tr>` + '</table>' : '<p class="empty">No graph was exported.</p>')}</div>
         <div class="card"><h3><a href="#/experiments">Experiments</a></h3>${raw(exps ? '<ul>' + exps + '</ul>' : '<p class="empty">None exported. Pass EXPERIMENTS=…, KUBERNETES=… or FIDELITY_RUNS=… to make site.</p>')}
           <h3>Reading this site</h3><p class="small secondary">A <b>database</b> is a directory of machine types and captures: <code>data/</code>, or one arm of an experiment. A <b>capture</b> is hwloc's reading of a real instance, drawn here from its object tree. <b>Resource graphs</b> are what Fluxion schedules on: <i>series</i> pools a machine series' vCPUs, GPUs and memory as totals, <i>coarse</i> has one pooled node per machine type, and <i>exact</i> places cores and GPUs on sockets from the captures, NICs with their bandwidth on nodes, nodes in compact placement groups, and storage pools on offers. Graphs are drawn folded, identical siblings as one entry with a count; <b>Motifs</b> lists the shapes that recur and the Cypher that finds them.</p></div>
       </div>`;
@@ -125,7 +130,7 @@
       (!text || t.name.includes(text) || t.series.includes(text) || (t.description || '').toLowerCase().includes(text)) &&
       (!q.family || t.family === q.family) && (!q.region || t.regions.includes(q.region)) && (!q.zone || t.zones.includes(q.zone)) &&
       (!q.min_vcpus || t.vcpus >= +q.min_vcpus) && (!q.max_vcpus || t.vcpus <= +q.max_vcpus) && (!q.min_gpus || t.gpus >= +q.min_gpus) &&
-      (!q.captured || (q.captured === 'any' ? (t.captured || []).length > 0 : q.captured === 'study' ? (t.captured || []).some(isRound) : (t.captured || []).includes(q.captured))) &&
+      (!q.captured || (q.captured === 'any' ? visibleCaps(t).length > 0 : q.captured === 'study' ? (t.captured || []).some(isRound) : (t.captured || []).includes(q.captured))) &&
       (!q.in || t.in.includes(q.in)) && (!q.no_metal || !t.metal) && (!q.lssd || t.local_ssd) && (!q.no_deprecated || !t.deprecated));
   }
   function sortTypes(list, key, asc) {
@@ -159,13 +164,13 @@
         <div class="chart" id="c-scatter"></div></div>
       <h2>${list.length} machine types</h2>
       <div class="table-wrap"><table><thead><tr>${raw(th('name', 'Machine type'))}${raw(th('series', 'Series'))}${raw(th('vcpus', 'vCPUs', 'num'))}${raw(th('memory', 'Memory GB', 'num'))}${raw(th('gpus', 'GPUs', 'num'))}${raw(th('accel', 'Accelerator'))}${raw(th('zones', 'Zones', 'num'))}${raw(th('captured', 'Captured in'))}</tr></thead>
-      <tbody>${raw(list.map(t => h`<tr class="row" data-name="${t.name}"><td><a href="#/types/${encodeURIComponent(t.name)}">${t.name}</a>${raw(t.deprecated ? ' ' + badge(t.deprecated.toLowerCase(), 'warn') : '')}${raw(t.metal ? ' ' + badge('metal') : '')}${raw(t.local_ssd ? ' ' + badge('lssd') : '')}${raw(t.shared_cpu ? ' ' + badge('shared core') : '')}</td><td>${t.series}</td><td class="num">${t.vcpus}</td><td class="num">${gb(t.memory_mb)}</td><td class="num">${t.gpus || ''}</td><td class="small">${(t.accelerators || []).map(a => a.type).join(', ')}</td><td class="num" title="${t.zones.join(', ')}">${t.zones.length}</td><td>${raw((t.captured || []).filter(l => !isRound(l)).map(l => badge(l, 'ok')).join('') + (rounds().length && (t.captured || []).some(isRound) ? badge('study ' + (t.captured || []).filter(isRound).length + '/' + rounds().length, 'ok') : ''))}</td></tr>`).join(''))}</tbody></table></div>`;
+      <tbody>${raw(list.map(t => h`<tr class="row" data-name="${t.name}"><td><a href="#/types/${encodeURIComponent(t.name)}">${t.name}</a>${raw(t.deprecated ? ' ' + badge(t.deprecated.toLowerCase(), 'warn') : '')}${raw(t.metal ? ' ' + badge('metal') : '')}${raw(t.local_ssd ? ' ' + badge('lssd') : '')}${raw(t.shared_cpu ? ' ' + badge('shared core') : '')}</td><td>${t.series}</td><td class="num">${t.vcpus}</td><td class="num">${gb(t.memory_mb)}</td><td class="num">${t.gpus || ''}</td><td class="small">${(t.accelerators || []).map(a => a.type).join(', ')}</td><td class="num" title="${t.zones.join(', ')}">${t.zones.length}</td><td>${raw(visibleCaps(t).filter(l => !isRound(l)).map(l => badge(l, 'ok')).join('') + (rounds().length && (t.captured || []).some(isRound) ? badge('study ' + (t.captured || []).filter(isRound).length + '/' + rounds().length, 'ok') : ''))}</td></tr>`).join(''))}</tbody></table></div>`;
     const hi = q.hi || q.family;
     const scatterPts = (hi ? types.filter(t => filterTypes(Object.assign({}, q, { family: '' })).includes(t) || t.family === hi) : list);
     C.scatter(document.getElementById('c-scatter'), hi ? list.concat(types.filter(t => t.family !== hi && !list.includes(t) && filterTypes(Object.assign({}, q, { family: '', hi: '' })).includes(t))) : list, {
       x: t => t.vcpus, y: t => t.memory_mb / 1024, xLabel: 'vCPUs', yLabel: 'memory GB', name: t => t.name,
       isAlt: t => t.gpus > 0, emphasis: hi ? (t => t.family === hi) : null,
-      extra: t => [{ k: 'series', v: t.series }].concat(t.gpus ? [{ k: 'GPUs', v: t.gpus + ' × ' + ((t.accelerators || [])[0] || {}).type }] : []).concat((t.captured || []).length ? [{ k: 'captured in', v: t.captured.join(', ') }] : []),
+      extra: t => [{ k: 'series', v: t.series }].concat(t.gpus ? [{ k: 'GPUs', v: t.gpus + ' × ' + ((t.accelerators || [])[0] || {}).type }] : []).concat(visibleCaps(t).length ? [{ k: 'captured in', v: visibleCaps(t).join(', ') }] : []),
       onClick: t => { location.hash = '#/types/' + encodeURIComponent(t.name); },
       onHover: t => { main.querySelectorAll('tr.hi').forEach(r => r.classList.remove('hi')); if (t) { const r = main.querySelector(`tr[data-name="${CSS.escape(t.name)}"]`); if (r) r.classList.add('hi'); } },
     });
@@ -205,7 +210,7 @@
   async function typeDetail(name) {
     const t = types.find(x => x.name === name);
     if (!t) { main.innerHTML = h`<p class="empty">No machine type ${name}.</p>`; return; }
-    t.in = t.in.filter(l => !isRound(l)).concat(t.in.some(isRound) ? ['consistency study'] : []);
+    t.in = t.in.filter(l => !isRound(l) && !isHidden(l)).concat(t.in.some(isRound) ? ['consistency study'] : []);
     const have = labels().filter(l => cap(l, name));
     const sc = studyCaptures(name), sShapes = new Set(sc.map(c => c.hash));
     const study = rounds().length ? h`<p>${raw(badge('consistency study: captured in ' + sc.length + ' of ' + rounds().length + ' rounds' + (sc.length > 1 ? ', ' + (sShapes.size === 1 ? 'the same shape every time' : sShapes.size + ' different shapes') : ''), sc.length && sShapes.size > 1 ? 'warn' : sc.length ? 'ok' : ''))} <a href="#/consistency?show=all">see consistency</a></p>` : '';
@@ -243,7 +248,7 @@
       <p class="lede">Each capture is hwloc's view of one real instance. The explorer draws the object tree: packages, NUMA memory, caches, cores and processing units, and the PCI devices attached to each.</p>
       ${raw((manifest.databases.find(d => d.label === db) || {}).note ? h`<p class="note">${manifest.databases.find(d => d.label === db).note}</p>` : '')}
       <form class="filters" id="filters">
-        <label>Database<select name="db">${raw(labels().map(l => h`<option value="${l}" ${raw(l === db ? 'selected' : '')}>${l} (${Object.keys(captures[l] || {}).length})</option>`).join(''))}</select></label>
+        <label>Database<select name="db">${raw([...new Set([...labels(), db])].map(l => h`<option value="${l}" ${raw(l === db ? 'selected' : '')}>${l} (${Object.keys(captures[l] || {}).length})</option>`).join(''))}</select></label>
         <label>Filter<input type="search" name="q" value="${q.q || ''}" placeholder="machine type"></label>
         <label>Machine type<select name="mt">${raw(shown.map(x => h`<option value="${x}" ${raw(x === sel ? 'selected' : '')}>${x}</option>`).join(''))}</select></label>
       </form>
@@ -277,35 +282,46 @@
 
   // ---------- graphs ----------
   async function graphsView(q) {
-    const graphs = manifest.graphs;
-    if (!graphs.length) { main.innerHTML = '<h1>Resource graphs</h1><p class="empty">No graphs were exported.</p>'; return; }
-    const info = graphs.find(g => g.database === (q.database || graphs[0].database) && g.level === (q.level || 'exact') && g.region === (q.region || graphs[0].region)) || graphs.find(g => g.level === (q.level || 'exact')) || graphs[0];
-    const tree = await load(info.file);
+    const merged = manifest.merged || [];
+    if (!merged.length) { main.innerHTML = '<h1>Resource graphs</h1><p class="empty">No graphs were exported.</p>'; return; }
+    const info = merged.find(g => g.level === q.level) || merged.find(g => g.level === 'exact') || merged[0];
+    const full = await load(info.file);
+    // The merged tree is site › provider › region › …; the provider and region filters
+    // prune the rest away, and the totals are of what remains.
+    const providers = (full.children || []).map(c => c.name);
+    const provider = providers.includes(q.provider) ? q.provider : '';
+    const kept = (full.children || []).filter(c => !provider || c.name === provider);
+    const regions = [...new Set(kept.flatMap(c => (c.children || []).map(r => r.name)))].sort();
+    const region = regions.includes(q.region) ? q.region : '';
+    const recount = t => Object.assign({}, t, { vertices: 1 + (t.children || []).reduce((a, c) => a + c.vertices, 0) });
+    const tree = recount(Object.assign({}, full, { children: kept.map(c => region ? recount(Object.assign({}, c, { children: (c.children || []).filter(r => r.name === region) })) : c) }));
     const view = q.view || 'tree';
-    const pick = (k, vals, sel) => h`<label>${k[0].toUpperCase() + k.slice(1)}<select name="${k}">${raw(vals.map(v => h`<option value="${v}" ${raw(v === sel ? 'selected' : '')}>${v}</option>`).join(''))}</select></label>`;
+    const pick = (k, vals, sel, all) => h`<label>${k[0].toUpperCase() + k.slice(1)}<select name="${k}">${raw((all ? [['', all]] : []).concat(vals.map(v => [v, v])).map(([v, t]) => h`<option value="${v}" ${raw(v === sel ? 'selected' : '')}>${t}</option>`).join(''))}</select></label>`;
     const counts = {}; (function walk(t, mult) { const k = mult * t.count; counts[t.type] = (counts[t.type] || 0) + k; (t.children || []).forEach(c => walk(c, k)); })(tree, 1);
+    const scope = (provider || 'every provider') + (region ? ', ' + region : '');
     main.innerHTML = h`
-      <h1>Resource graphs</h1>
-      <p class="lede">The Fluxion graph as a tree. Exact: cluster › region › zone › offer › placement › node › socket › core, gpu, memory, with NICs on the node and storage pools (pd_ssd, hyperdisk_balanced, …) on the offer. Coarse: offers with one pooled node each. Series: one offer per machine series with pooled totals.</p>
+      <h1>Resource graph</h1>
+      <p class="lede">One Fluxion graph, every cloud under one site: site › provider › region › zone › offer › placement › node › socket › core, gpu, memory, with NICs on the node and storage pools (pd_ssd, hyperdisk_balanced, ebs_gp3, …) on the offer. Choosing a provider or region prunes the others away; the totals are of what is shown.</p>
       <p class="small secondary"><b>Folding.</b> Siblings with the same shape are one entry with a count, so a 96-core node is one core entry ×96 and an offer's 64 identical nodes one node entry ×64. The vertex and edge totals below are expanded, every core counted; the tree and the per-type tiles are what Fluxion sees, drawn folded. Cypher queries over the same fold are on the <a href="#/motifs">Motifs</a> page.</p>
       <form class="filters" id="filters">
-        ${raw(pick('database', [...new Set(graphs.map(g => g.database))], info.database))}
-        ${raw(pick('level', [...new Set(graphs.map(g => g.level))], info.level))}
-        ${raw(pick('region', [...new Set(graphs.map(g => g.region))], info.region))}
+        ${raw(merged.length > 1 ? pick('level', ['series', 'coarse', 'exact'].filter(l => merged.some(g => g.level === l)), info.level) : '')}
+        ${raw(pick('provider', providers, provider, 'all providers'))}
+        ${raw(pick('region', regions, region, 'all regions'))}
         <label>Find<input type="search" name="q" value="${q.q || ''}" placeholder="offer, machine type, property"></label>
         <label>View<span class="tabs"><button type="button" data-view="tree" class="${view === 'tree' ? 'on' : ''}">tree</button><button type="button" data-view="list" class="${view === 'list' ? 'on' : ''}">list</button></span></label>
         <button type="button" id="expand">Expand all</button><button type="button" id="collapse">Collapse</button>${raw(view === 'tree' ? '<button type="button" id="recenter">Recenter</button>' : '')}
       </form>
-      <div class="tiles"><div class="tile"><div class="v">${n(info.vertices)}</div><div class="l">vertices</div><div class="d">${info.level} graph of ${info.region}, ${info.database}</div></div><div class="tile"><div class="v">${n(info.edges != null ? info.edges : info.vertices - 1)}</div><div class="l">edges</div><div class="d">containment, expanded</div></div><div class="tile"><div class="v">${n(countFolded(tree))}</div><div class="l">folded entries</div><div class="d">what the tree below draws</div></div></div>
-      <div class="tiles">${raw(['offer', 'placement', 'node', 'socket', 'core', 'gpu', 'nic', 'memory', 'local_ssd', 'pd_standard', 'pd_balanced', 'pd_ssd', 'pd_extreme', 'hyperdisk_balanced', 'hyperdisk_extreme', 'hyperdisk_throughput', 'hyperdisk_ml'].filter(k => counts[k]).map(k => h`<div class="tile"><div class="v">${n(counts[k])}</div><div class="l">${k} vertices</div></div>`).join(''))}</div>
+      <div class="tiles"><div class="tile"><div class="v">${n(tree.vertices)}</div><div class="l">vertices</div><div class="d">${scope}</div></div><div class="tile"><div class="v">${n(tree.vertices - 1)}</div><div class="l">edges</div><div class="d">containment, expanded</div></div><div class="tile"><div class="v">${n(countFolded(tree))}</div><div class="l">folded entries</div><div class="d">what the tree below draws</div></div>${raw(kept.length > 1 ? kept.map(c => h`<div class="tile"><div class="v">${n(c.vertices)}</div><div class="l">${c.name}</div><div class="d">${(c.children || []).map(r => r.name).join(', ')}</div></div>`).join('') : '')}</div>
+      <div class="tiles">${raw(['offer', 'placement', 'node', 'socket', 'core', 'gpu', 'nic', 'memory', 'local_ssd', 'local_hdd', 'pd_standard', 'pd_balanced', 'pd_ssd', 'pd_extreme', 'hyperdisk_balanced', 'hyperdisk_extreme', 'hyperdisk_throughput', 'hyperdisk_ml', 'ebs_gp3', 'ebs_gp2', 'ebs_io2', 'ebs_io1', 'ebs_st1', 'ebs_sc1'].filter(k => counts[k]).map(k => h`<div class="tile"><div class="v">${n(counts[k])}</div><div class="l">${k} vertices</div></div>`).join(''))}</div>
       ${raw(view === 'tree' ? '<div class="gtree-wrap"><div class="chart" id="gtree"></div><div class="card" id="gsel"><h3>Selected vertex</h3><p class="muted small">Click a vertex to see its properties here. Filled circles have hidden children; drag to pan, scroll to zoom.</p></div></div>' : '<div class="card list-tree" id="glist"></div>')}`;
     const q2 = (q.q || '').toLowerCase();
     let api;
     if (view === 'tree') {
-      api = C.graphTree(document.getElementById('gtree'), tree, { depth: q2 ? 1 : (info.level === 'series' ? 3 : 2), query: q2, onSelect: d => {
+      api = C.graphTree(document.getElementById('gtree'), tree, { depth: q2 ? 1 : (info.level === 'series' ? 4 : 3), query: q2, onSelect: d => {
         const el = document.getElementById('gsel');
-        const props = Object.entries(d.data.properties || {}).map(([k, v]) => h`<dt>${k}</dt><dd>${v}</dd>`).join('');
-        el.innerHTML = h`<h3>${d.data.type} ${d.data.name}${d.data.count > 1 ? ' ×' + n(d.data.count) : ''}</h3><dl class="kv"><dt>vertices</dt><dd>${n(d.data.vertices)}</dd>${raw(d.data.count > 1 ? h`<dt>folded</dt><dd>${d.data.name} … ${d.data.last}</dd>` : '')}${raw(d.data.size ? h`<dt>size</dt><dd>${d.data.size} ${d.data.unit || ''}</dd>` : '')}${raw(d.data.exclusive ? '<dt>exclusive</dt><dd>yes</dd>' : '')}${raw(props)}</dl>${raw(d.data.properties && d.data.properties.machine_type ? h`<p class="small"><a href="#/types/${encodeURIComponent(d.data.properties.machine_type)}">machine type ${d.data.properties.machine_type}</a></p>` : '')}`;
+        const props = Object.entries(d.data.properties || {}).filter(([k, v]) => !(k === d.data.type && v === d.data.name)).map(([k, v]) => h`<dt>${k}</dt><dd>${v}</dd>`).join('');
+        const below = (d.children || d._children || []).length;
+        el.innerHTML = h`<h3>${d.data.type} ${d.data.name}${d.data.count > 1 ? ' ×' + n(d.data.count) : ''}</h3><dl class="kv"><dt>vertices in subtree</dt><dd>${n(d.data.vertices)}</dd>${raw(below ? h`<dt>children</dt><dd>${n(below)} entr${below === 1 ? 'y' : 'ies'}${d._children ? ' (click to expand)' : ''}</dd>` : '')}${raw(d.data.count > 1 ? h`<dt>folded</dt><dd>${d.data.name} … ${d.data.last}</dd>` : '')}${raw(d.data.size ? h`<dt>size</dt><dd>${d.data.size} ${d.data.unit || ''}</dd>` : '')}${raw(d.data.exclusive ? '<dt>exclusive</dt><dd>yes</dd>' : '')}${raw(props)}</dl>${raw(d.data.properties && d.data.properties.machine_type ? h`<p class="small"><a href="#/types/${encodeURIComponent(d.data.properties.machine_type)}">machine type ${d.data.properties.machine_type}</a></p>` : '')}`;
       } });
       document.getElementById('recenter').onclick = () => api.reset();
     } else {
@@ -339,8 +355,9 @@
 
   // ---------- compare ----------
   function compareView(q) {
-    const all = labels();
-    const chosen = q.db ? q.db.split(',').filter(l => all.includes(l)) : all;
+    const named = q.db ? q.db.split(',').filter(l => captures[l]) : [];
+    const all = [...new Set([...labels(), ...named])];
+    const chosen = named.length ? named : labels();
     const only = q.only || 'captured';
     const rows = types.filter(t => {
       const caps = chosen.map(l => cap(l, t.name)); const k = caps.filter(Boolean).length;
@@ -414,7 +431,7 @@
     const e = exps.find(x => x.name === name) || exps[0];
     const r = await load(e.file);
     const armNames = r.arms.map(a => a.arm);
-    const armDb = a => e.arms.find(l => l.endsWith('/' + a));
+    const armDb = a => e.arms.find(l => l.endsWith('/' + a)) || e.arms[armNames.indexOf(a)];
     const outcome = o => { if (!o) return ''; const notes = []; if (o.status === 'ok') { if (o.provision_seconds) notes.push(secs(o.provision_seconds) + ' provision'); if (o.provisioning_model) notes.push(o.provisioning_model); if (o.zone) notes.push(o.zone); } if (o.attempts > 1) notes.push(o.attempts + ' attempts'); if (o.seconds && o.status !== 'ok') notes.push(secs(o.seconds)); if (o.error && o.status !== 'ok') notes.push(o.error); return badge((C.statusIcon[o.status] || '') + ' ' + o.status, statusCls(o.status)) + h` <span class="small muted">${notes.join(' · ')}</span>`; };
     const groups = r.arms.map(a => { const counts = {}; r.rows.forEach(row => { const s = (row.outcomes[a.arm] || {}).status || 'other'; const k = ['ok', 'stockout', 'quota', 'error'].includes(s) ? s : 'other'; counts[k] = (counts[k] || 0) + 1; }); return { name: a.arm, counts }; });
     main.innerHTML = h`
@@ -462,7 +479,8 @@
     const planned = cons.types.length;
     const fixed = gke.fixed_seconds || {};
     const timings = gke.mean_timings || {};
-    const vmDb = manifest.databases.map(d => d.label).find(l => l.endsWith('/deterministic')) || '';
+    const vmLabels = manifest.databases.map(d => d.label);
+    const vmDb = vmLabels.find(l => l === 'compute-engine') || vmLabels.find(l => l.endsWith('/deterministic')) || '';
     const cpu = t => [...new Set(t.observations.flatMap(o => (o.fingerprint || {}).cpu_models || []))].join(', ');
     const obs = t => t.observations.map(o => h`<span class="badge ${o.database === gke.label ? 'ok' : ''}">${o.database} ${o.zone}${o.model ? ' · ' + o.model : ''}</span>`).join(' ');
     main.innerHTML = h`

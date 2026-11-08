@@ -1,0 +1,63 @@
+{
+  "name": "m5dn.24xlarge",
+  "family": "m5dn",
+  "architecture": "x86_64",
+  "vcpus": 96,
+  "cores": 48,
+  "threads_per_core": 2,
+  "memory_mb": 393216,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.1
+  },
+  "network": {
+    "performance": "100 Gigabit",
+    "max_interfaces": 15,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 100,
+        "peak_gbps": 100,
+        "efa": true
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 3600,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 900,
+        "count": 4,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 19000,
+    "max_mbps": 19000,
+    "baseline_iops": 80000,
+    "max_iops": 80000,
+    "max_attachments": 23
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

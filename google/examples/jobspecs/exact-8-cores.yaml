@@ -1,34 +1,38 @@
-# Secretary level: two nodes in one compact placement group, each with 8 cores. N2
-# supports compact placement, so an offer's nodes share one group.
+# Secretary level: two nodes in one compact placement group, each with 8 vCPUs: four
+# cores of two threads, which is what an exact-graph core is. N2 supports compact
+# placement, so an offer's nodes share one group.
 version: 9999
 resources:
-  - type: cluster
+  - type: site
     count: 1
     with:
-      - type: region
+      - type: provider
         count: 1
         with:
-          - type: zone
+          - type: region
             count: 1
             with:
-              - type: offer
+              - type: zone
                 count: 1
                 with:
-                  - type: placement
+                  - type: offer
                     count: 1
                     with:
-                      - type: node
-                        count: 2
+                      - type: placement
+                        count: 1
                         with:
-                          - type: slot
-                            count: 1
-                            label: default
+                          - type: node
+                            count: 2
                             with:
-                              - type: socket
+                              - type: slot
                                 count: 1
+                                label: default
                                 with:
-                                  - type: core
-                                    count: 8
+                                  - type: socket
+                                    count: 1
+                                    with:
+                                      - type: core
+                                        count: 4
 attributes:
   system:
     duration: 3600

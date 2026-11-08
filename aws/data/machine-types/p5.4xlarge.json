@@ -1,0 +1,75 @@
+{
+  "name": "p5.4xlarge",
+  "family": "p5",
+  "architecture": "x86_64",
+  "vcpus": 16,
+  "cores": 8,
+  "threads_per_core": 2,
+  "memory_mb": 262144,
+  "accelerators": [
+    {
+      "type": "nvidia-h100",
+      "count": 1,
+      "manufacturer": "NVIDIA",
+      "name": "H100",
+      "memory_mib": 81920
+    }
+  ],
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "capacity-block",
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3.6
+  },
+  "network": {
+    "performance": "100 Gigabit",
+    "max_interfaces": 4,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 100,
+        "peak_gbps": 100,
+        "efa": true
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 3800,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 3800,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 10000,
+    "max_mbps": 10000,
+    "baseline_iops": 32500,
+    "max_iops": 32500,
+    "max_attachments": 32
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "name": "g7e.2xlarge",
+  "family": "g7e",
+  "architecture": "x86_64",
+  "vcpus": 8,
+  "cores": 4,
+  "threads_per_core": 2,
+  "memory_mb": 65536,
+  "accelerators": [
+    {
+      "type": "nvidia-rtx-pro-server-6000",
+      "count": 1,
+      "manufacturer": "NVIDIA",
+      "name": "RTX PRO Server 6000",
+      "memory_mib": 98304
+    }
+  ],
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 2.4
+  },
+  "network": {
+    "performance": "50 Gigabit",
+    "max_interfaces": 4,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 50,
+        "peak_gbps": 50
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 1900,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 1900,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 2000,
+    "max_mbps": 5000,
+    "baseline_iops": 8000,
+    "max_iops": 20000,
+    "max_attachments": 32
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

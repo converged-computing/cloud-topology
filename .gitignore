@@ -12,3 +12,6 @@ google/graphdb/
 *.lock
 # LadybugDB shell history (written where lbug runs)
 history.txt
+aws/projects/
+aws/graphdb/
+aws/bin/

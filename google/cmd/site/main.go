@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/converged-computing/google-cloud-topology/pkg/graphdb"
 	"github.com/converged-computing/google-cloud-topology/pkg/quota"
 	"github.com/converged-computing/google-cloud-topology/pkg/site"
 )
@@ -29,6 +30,12 @@ func main() {
 	var fidelity list
 	flag.Var(&fidelity, "fidelity", "scheduling-fidelity experiment directory (make fidelity), as name=dir or dir; its report is added (repeatable)")
 	var graphData list
+	var labels list
+	flag.Var(&labels, "label", "rename a database: old=new, e.g. claude-opus-5-5/deterministic=compute-engine (repeatable)")
+	var hidden list
+	flag.Var(&hidden, "hide", "keep a database out of the site's lists, reachable by label only, e.g. an experiment arm (repeatable)")
+	var folded list
+	flag.Var(&folded, "folded", "folded graph file from aws/cmd/graph --fold, included as it is (repeatable)")
 	flag.Var(&graphData, "graph-data", "database label to build graphs for (repeatable; default every database)")
 	flag.Var(&regions, "region", "region to build graphs for (repeatable; default every region in the databases)")
 	quotaFile := flag.String("quota", "", "quota snapshot (from quota fetch) to size graph offers by quota")
@@ -38,7 +45,7 @@ func main() {
 	single := flag.Bool("single", false, "write one self-contained index.html with the data and images inlined")
 	flag.Parse()
 
-	opts := site.Options{GraphSources: graphData, Regions: regions, Experiments: experiments, Kubernetes: kubernetes, Fidelity: fidelity, Consistency: *consistency, Nodes: *nodes, Single: *single, Log: func(s string) { fmt.Fprintln(os.Stderr, s) }}
+	opts := site.Options{Hidden: hidden, GraphSources: graphData, Regions: regions, Experiments: experiments, Kubernetes: kubernetes, Fidelity: fidelity, Consistency: *consistency, Nodes: *nodes, Single: *single, Log: func(s string) { fmt.Fprintln(os.Stderr, s) }}
 	for _, d := range data {
 		label, dir, ok := strings.Cut(d, "=")
 		if !ok {
@@ -53,6 +60,23 @@ func main() {
 		opts.Levels = strings.Split(*levels, ",")
 	} else {
 		opts.Levels = []string{}
+	}
+	for _, l := range labels {
+		from, to, ok := strings.Cut(l, "=")
+		if !ok {
+			log.Fatalf("--label %q: want old=new", l)
+		}
+		if opts.Labels == nil {
+			opts.Labels = map[string]string{}
+		}
+		opts.Labels[from] = to
+	}
+	for _, path := range folded {
+		g, err := graphdb.ReadFolded(path)
+		if err != nil {
+			log.Fatal(err)
+		}
+		opts.Folded = append(opts.Folded, site.ImportedGraph{Database: g.Database, Level: g.Level, Region: g.Region, Tree: g.Tree})
 	}
 	if *quotaFile != "" {
 		snap, err := quota.Load(*quotaFile)

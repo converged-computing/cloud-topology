@@ -1,0 +1,16 @@
+{
+  "name": "io2",
+  "description": "Provisioned IOPS SSD (io2) Block Express",
+  "min_gb": 4,
+  "max_gb": 65536,
+  "max_iops": 256000,
+  "max_mibps": 4000,
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ]
+}

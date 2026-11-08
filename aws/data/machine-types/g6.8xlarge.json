@@ -1,0 +1,72 @@
+{
+  "name": "g6.8xlarge",
+  "family": "g6",
+  "architecture": "x86_64",
+  "vcpus": 32,
+  "cores": 16,
+  "threads_per_core": 2,
+  "memory_mb": 131072,
+  "accelerators": [
+    {
+      "type": "nvidia-l4",
+      "count": 1,
+      "manufacturer": "NVIDIA",
+      "name": "L4",
+      "memory_mib": 22888
+    }
+  ],
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3.4
+  },
+  "network": {
+    "performance": "25 Gigabit",
+    "max_interfaces": 8,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 25,
+        "peak_gbps": 25,
+        "efa": true
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 900,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 450,
+        "count": 2,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 16000,
+    "max_mbps": 16000,
+    "baseline_iops": 64000,
+    "max_iops": 64000,
+    "max_attachments": 32
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

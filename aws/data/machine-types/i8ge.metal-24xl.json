@@ -1,0 +1,59 @@
+{
+  "name": "i8ge.metal-24xl",
+  "family": "i8ge",
+  "architecture": "arm64",
+  "vcpus": 96,
+  "cores": 96,
+  "threads_per_core": 1,
+  "memory_mb": 786432,
+  "bare_metal": true,
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AWS",
+    "clock_ghz": 2.8
+  },
+  "network": {
+    "performance": "150 Gigabit",
+    "max_interfaces": 16,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 150,
+        "peak_gbps": 150
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 60000,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 7500,
+        "count": 8,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 30000,
+    "max_mbps": 30000,
+    "baseline_iops": 120000,
+    "max_iops": 120000,
+    "max_attachments": 39
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

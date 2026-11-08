@@ -1,0 +1,69 @@
+{
+  "name": "g4dn.4xlarge",
+  "family": "g4dn",
+  "architecture": "x86_64",
+  "vcpus": 16,
+  "cores": 8,
+  "threads_per_core": 2,
+  "memory_mb": 65536,
+  "accelerators": [
+    {
+      "type": "nvidia-t4",
+      "count": 1,
+      "manufacturer": "NVIDIA",
+      "name": "T4",
+      "memory_mib": 16384
+    }
+  ],
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 2.5
+  },
+  "network": {
+    "performance": "Up to 25 Gigabit",
+    "max_interfaces": 3,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 20,
+        "peak_gbps": 25
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 225,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 225,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 4750,
+    "max_mbps": 4750,
+    "baseline_iops": 20000,
+    "max_iops": 20000,
+    "max_attachments": 25
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

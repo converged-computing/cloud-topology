@@ -1,0 +1,60 @@
+{
+  "name": "z1d.2xlarge",
+  "family": "z1d",
+  "architecture": "x86_64",
+  "vcpus": 8,
+  "cores": 4,
+  "threads_per_core": 2,
+  "memory_mb": 65536,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 4
+  },
+  "network": {
+    "performance": "Up to 10 Gigabit",
+    "max_interfaces": 4,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 2.5,
+        "peak_gbps": 10
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 300,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 300,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 3170,
+    "max_mbps": 3170,
+    "baseline_iops": 13333,
+    "max_iops": 13333,
+    "max_attachments": 26
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

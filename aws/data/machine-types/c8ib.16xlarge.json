@@ -1,0 +1,49 @@
+{
+  "name": "c8ib.16xlarge",
+  "family": "c8ib",
+  "architecture": "x86_64",
+  "vcpus": 64,
+  "cores": 32,
+  "threads_per_core": 2,
+  "memory_mb": 131072,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.9
+  },
+  "network": {
+    "performance": "66.66 Gigabit",
+    "max_interfaces": 16,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 66.666,
+        "peak_gbps": 66.666
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 50000,
+    "max_mbps": 50000,
+    "baseline_iops": 240000,
+    "max_iops": 240000,
+    "max_attachments": 48
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

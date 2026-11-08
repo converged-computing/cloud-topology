@@ -1,0 +1,49 @@
+{
+  "name": "c7a.medium",
+  "family": "c7a",
+  "architecture": "x86_64",
+  "vcpus": 1,
+  "cores": 1,
+  "threads_per_core": 1,
+  "memory_mb": 2048,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3.7
+  },
+  "network": {
+    "performance": "Up to 12.5 Gigabit",
+    "max_interfaces": 2,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 0.39,
+        "peak_gbps": 12.5
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 325,
+    "max_mbps": 10000,
+    "baseline_iops": 2500,
+    "max_iops": 40000,
+    "max_attachments": 32
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

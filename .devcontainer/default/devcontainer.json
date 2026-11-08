@@ -1,0 +1,27 @@
+{
+  "name": "Google Cloud topology",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    // Where topology-agent is installed from; "" skips it (then: make install-agent).
+    "args": {
+      "TOPOLOGY_AGENT_SOURCE": "git+https://github.com/converged-computing/topology-agent@main",
+      "TOPOLOGY_AGENT_EXTRAS": "claude"
+    }
+  },
+  // Keeps the Claude Code login (~/.claude) across container rebuilds.
+  "mounts": [
+    "source=google-cloud-topology-claude,target=/home/vscode/.claude,type=volume"
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "golang.go"
+      ]
+    }
+  },
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
+}

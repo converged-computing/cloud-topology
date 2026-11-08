@@ -1,0 +1,60 @@
+{
+  "name": "m7gd.4xlarge",
+  "family": "m7gd",
+  "architecture": "arm64",
+  "vcpus": 16,
+  "cores": 16,
+  "threads_per_core": 1,
+  "memory_mb": 65536,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AWS",
+    "clock_ghz": 2.6
+  },
+  "network": {
+    "performance": "Up to 15 Gigabit",
+    "max_interfaces": 8,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 7.5,
+        "peak_gbps": 15
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 950,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 950,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 5000,
+    "max_mbps": 10000,
+    "baseline_iops": 20000,
+    "max_iops": 40000,
+    "max_attachments": 26
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

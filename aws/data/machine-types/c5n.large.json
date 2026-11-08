@@ -1,0 +1,49 @@
+{
+  "name": "c5n.large",
+  "family": "c5n",
+  "architecture": "x86_64",
+  "vcpus": 2,
+  "cores": 1,
+  "threads_per_core": 2,
+  "memory_mb": 5376,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.4
+  },
+  "network": {
+    "performance": "Up to 25 Gigabit",
+    "max_interfaces": 3,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 3,
+        "peak_gbps": 25
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 650,
+    "max_mbps": 4750,
+    "baseline_iops": 4000,
+    "max_iops": 20000,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

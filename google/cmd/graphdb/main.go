@@ -44,16 +44,17 @@ func main() {
 
 func export(args []string) {
 	fs := flag.NewFlagSet("export", flag.ExitOnError)
-	var data, regions list
+	var data, regions, folded list
 	fs.Var(&data, "data", "database directory, as label=dir or dir (repeatable)")
+	fs.Var(&folded, "folded", "folded graph file from another provider (aws/cmd/graph --fold; repeatable)")
 	fs.Var(&regions, "region", "region to build graphs for (repeatable; default every region in the databases)")
 	quotaFile := fs.String("quota", "", "quota snapshot to size offers and storage by quota")
 	levels := fs.String("levels", "exact", "comma-separated graph levels to export")
 	out := fs.String("out", "graphdb", "output directory for the Parquet tables and schema")
 	provider := fs.String("provider", "gcp", "cloud provider label")
 	fs.Parse(args)
-	if len(data) == 0 {
-		log.Fatal("--data is required")
+	if len(data) == 0 && len(folded) == 0 {
+		log.Fatal("--data or --folded is required")
 	}
 	opts := site.Options{Nodes: 1}
 	if *quotaFile != "" {
@@ -98,6 +99,14 @@ func export(args []string) {
 				fmt.Fprintf(os.Stderr, "%s: %s graph for %s, %d vertices\n", label, level, region, tree.Vertices)
 			}
 		}
+	}
+	for _, path := range folded {
+		g, err := graphdb.ReadFolded(path)
+		if err != nil {
+			log.Fatal(err)
+		}
+		graphs = append(graphs, g)
+		fmt.Fprintf(os.Stderr, "%s (%s): %s graph for %s, %d vertices\n", g.Database, g.Provider, g.Level, g.Region, g.Tree.Vertices)
 	}
 	vs, es, ss, err := graphdb.Export(*out, graphs)
 	if err != nil {

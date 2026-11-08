@@ -1,0 +1,63 @@
+{
+  "name": "i3en.12xlarge",
+  "family": "i3en",
+  "architecture": "x86_64",
+  "vcpus": 48,
+  "cores": 24,
+  "threads_per_core": 2,
+  "memory_mb": 393216,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.1
+  },
+  "network": {
+    "performance": "50 Gigabit",
+    "max_interfaces": 8,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 50,
+        "peak_gbps": 50,
+        "efa": true
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 30000,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 7500,
+        "count": 4,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 9500,
+    "max_mbps": 9500,
+    "baseline_iops": 40000,
+    "max_iops": 40000,
+    "max_attachments": 23
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "vt1.24xlarge",
+  "family": "vt1",
+  "architecture": "x86_64",
+  "vcpus": 96,
+  "cores": 48,
+  "threads_per_core": 2,
+  "memory_mb": 196608,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 2.5
+  },
+  "network": {
+    "performance": "25 Gigabit",
+    "max_interfaces": 15,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 25,
+        "peak_gbps": 25,
+        "efa": true
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 19000,
+    "max_mbps": 19000,
+    "baseline_iops": 80000,
+    "max_iops": 80000,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1b",
+    "us-east-1c"
+  ]
+}

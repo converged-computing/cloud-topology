@@ -1,0 +1,64 @@
+{
+  "name": "c8id.96xlarge",
+  "family": "c8id",
+  "architecture": "x86_64",
+  "vcpus": 384,
+  "cores": 192,
+  "threads_per_core": 2,
+  "memory_mb": 786432,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.9
+  },
+  "network": {
+    "performance": "100 Gigabit",
+    "max_interfaces": 24,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 100,
+        "peak_gbps": 100,
+        "efa": true
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 22800,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 3800,
+        "count": 6,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 80000,
+    "max_mbps": 80000,
+    "baseline_iops": 480000,
+    "max_iops": 480000,
+    "max_attachments": 128
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

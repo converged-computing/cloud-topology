@@ -1,0 +1,16 @@
+{
+  "name": "io1",
+  "description": "Provisioned IOPS SSD (io1)",
+  "min_gb": 4,
+  "max_gb": 16384,
+  "max_iops": 64000,
+  "max_mibps": 1000,
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ]
+}

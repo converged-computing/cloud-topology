@@ -1,0 +1,16 @@
+{
+  "name": "gp2",
+  "description": "General Purpose SSD (gp2)",
+  "min_gb": 1,
+  "max_gb": 16384,
+  "max_iops": 16000,
+  "max_mibps": 250,
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ]
+}

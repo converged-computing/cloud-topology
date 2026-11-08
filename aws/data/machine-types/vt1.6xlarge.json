@@ -1,0 +1,45 @@
+{
+  "name": "vt1.6xlarge",
+  "family": "vt1",
+  "architecture": "x86_64",
+  "vcpus": 24,
+  "cores": 12,
+  "threads_per_core": 2,
+  "memory_mb": 49152,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 2.5
+  },
+  "network": {
+    "performance": "6.25 Gigabit",
+    "max_interfaces": 8,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 6.25,
+        "peak_gbps": 6.25
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 4750,
+    "max_mbps": 4750,
+    "baseline_iops": 20000,
+    "max_iops": 20000,
+    "max_attachments": 23
+  },
+  "placement_strategies": [
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1b",
+    "us-east-1c"
+  ]
+}

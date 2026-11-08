@@ -1,0 +1,49 @@
+{
+  "name": "t3a.2xlarge",
+  "family": "t3a",
+  "architecture": "x86_64",
+  "vcpus": 8,
+  "cores": 4,
+  "threads_per_core": 2,
+  "memory_mb": 32768,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "burstable": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 2.2
+  },
+  "network": {
+    "performance": "Up to 5 Gigabit",
+    "max_interfaces": 4,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 2.048,
+        "peak_gbps": 5
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 695,
+    "max_mbps": 2780,
+    "baseline_iops": 4000,
+    "max_iops": 15700,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

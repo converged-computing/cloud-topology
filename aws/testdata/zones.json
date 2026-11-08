@@ -1,0 +1,22 @@
+{
+  "us-east-1-atl-2a": "use1-atl2-az1",
+  "us-east-1-atl-2b": "use1-atl2-az2",
+  "us-east-1-bos-1a": "use1-bos1-az1",
+  "us-east-1-bue-1a": "use1-bue1-az1",
+  "us-east-1-chi-2a": "use1-chi2-az1",
+  "us-east-1-dfw-2a": "use1-dfw2-az1",
+  "us-east-1-iah-2a": "use1-iah2-az1",
+  "us-east-1-lim-1a": "use1-lim1-az1",
+  "us-east-1-mci-1a": "use1-mci1-az1",
+  "us-east-1-mia-2a": "use1-mia2-az1",
+  "us-east-1-msp-1a": "use1-msp1-az1",
+  "us-east-1-nyc-2a": "use1-nyc2-az1",
+  "us-east-1-phl-1a": "use1-phl1-az1",
+  "us-east-1-scl-1a": "use1-scl1-az1",
+  "us-east-1a": "use1-az6",
+  "us-east-1b": "use1-az1",
+  "us-east-1c": "use1-az2",
+  "us-east-1d": "use1-az4",
+  "us-east-1e": "use1-az3",
+  "us-east-1f": "use1-az5"
+}

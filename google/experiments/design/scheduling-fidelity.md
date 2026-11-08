@@ -157,6 +157,11 @@ node idle for 13 hours (about $690).
 
 ### Then: AWS
 
+Status 2026-11-07: the data side is built (`aws/`): catalog, quotas, the three graph
+levels for us-east-1 and the folded graphs loaded with Google's into one LadybugDB, all
+from read-only API calls at no cost. Captures are the remaining step and the only one
+that spends money.
+
 The same plan on EC2, for cross-cloud motifs. Provider `aws` in the agent: catalog from
 `describe-instance-types`, quotas from Service Quotas, largest size per family (c7i, c7a,
 c7g, m7i, r7i, hpc7a, g5, g6, p4d, p5, trn1), Spot with capacity-optimized allocation, SSM

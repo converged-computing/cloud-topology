@@ -1,37 +1,41 @@
-# Secretary level: two nodes in one compact placement group, each with 8 cores, plus
+# Secretary level: two nodes in one compact placement group, each with 8 vCPUs (four
+# two-thread cores, the exact graph's unit), plus
 # 500 GB of SSD Persistent Disk from the offer's pool. N2 attaches pd-ssd; a series that
 # attaches only Hyperdisk has no pd_ssd pool, so this jobspec cannot land there.
 version: 9999
 resources:
-  - type: cluster
+  - type: site
     count: 1
     with:
-      - type: region
+      - type: provider
         count: 1
         with:
-          - type: zone
+          - type: region
             count: 1
             with:
-              - type: offer
+              - type: zone
                 count: 1
                 with:
-                  - type: pd_ssd
-                    count: 500
-                  - type: placement
+                  - type: offer
                     count: 1
                     with:
-                      - type: node
-                        count: 2
+                      - type: pd_ssd
+                        count: 500
+                      - type: placement
+                        count: 1
                         with:
-                          - type: slot
-                            count: 1
-                            label: default
+                          - type: node
+                            count: 2
                             with:
-                              - type: socket
+                              - type: slot
                                 count: 1
+                                label: default
                                 with:
-                                  - type: core
-                                    count: 8
+                                  - type: socket
+                                    count: 1
+                                    with:
+                                      - type: core
+                                        count: 4
 attributes:
   system:
     duration: 3600

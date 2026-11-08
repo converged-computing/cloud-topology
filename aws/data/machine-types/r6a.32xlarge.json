@@ -1,0 +1,50 @@
+{
+  "name": "r6a.32xlarge",
+  "family": "r6a",
+  "architecture": "x86_64",
+  "vcpus": 128,
+  "cores": 64,
+  "threads_per_core": 2,
+  "memory_mb": 1048576,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3.6
+  },
+  "network": {
+    "performance": "50 Gigabit",
+    "max_interfaces": 15,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 50,
+        "peak_gbps": 50
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 40000,
+    "max_mbps": 40000,
+    "baseline_iops": 160000,
+    "max_iops": 160000,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

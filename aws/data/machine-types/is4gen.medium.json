@@ -1,0 +1,59 @@
+{
+  "name": "is4gen.medium",
+  "family": "is4gen",
+  "architecture": "arm64",
+  "vcpus": 1,
+  "cores": 1,
+  "threads_per_core": 1,
+  "memory_mb": 6144,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AWS",
+    "clock_ghz": 2.5
+  },
+  "network": {
+    "performance": "Up to 25 Gigabit",
+    "max_interfaces": 2,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 1.562,
+        "peak_gbps": 25
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 937,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 937,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 625,
+    "max_mbps": 10000,
+    "baseline_iops": 2500,
+    "max_iops": 40000,
+    "max_attachments": 26
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

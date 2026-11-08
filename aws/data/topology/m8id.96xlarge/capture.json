@@ -1,0 +1,10 @@
+{
+  "machine_type": "m8id.96xlarge",
+  "provider": "aws",
+  "zone": "us-east-1a",
+  "image": "ami-0d6dd9e8265d48906",
+  "captured_at": "2026-11-07T23:49:23Z",
+  "provision_seconds": 42.7,
+  "provisioning_model": "on-demand",
+  "hwloc_version": "2.10.0"
+}

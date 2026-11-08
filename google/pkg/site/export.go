@@ -58,19 +58,40 @@ type Options struct {
 	Fidelity []string
 	// GraphSources limits graphs to these database labels (default: every database).
 	GraphSources []string
+	// Folded are graphs folded by another builder (aws/cmd/graph --fold), included as
+	// they are under their own database label.
+	Folded []ImportedGraph
+	// Labels renames databases: a source, experiment arm or Kubernetes run whose label
+	// is a key appears under the value, so the published site can call the deterministic
+	// arm of the final experiment "compute-engine" next to "aws". GraphSources name the
+	// new labels.
+	Labels map[string]string
+	// Hidden lists database labels (after Labels) kept out of the site's database lists:
+	// an experiment arm that captured the same cloud again belongs on the experiment page,
+	// not next to the clouds. Hidden databases stay reachable by label.
+	Hidden []string
 	// Single writes one self-contained index.html with the data and images inlined.
 	Single bool
 	// Log receives progress lines.
 	Log func(string)
 }
 
+// ImportedGraph is a graph folded elsewhere, included in the export as it is.
+type ImportedGraph struct {
+	Database, Level, Region string
+	Tree                    *Tree
+}
+
 // Manifest describes the export.
 type Manifest struct {
-	Generated   string           `json:"generated"`
-	Databases   []DatabaseInfo   `json:"databases"`
-	Regions     []string         `json:"regions"`
-	Levels      []string         `json:"levels"`
-	Graphs      []GraphInfo      `json:"graphs"`
+	Generated string         `json:"generated"`
+	Databases []DatabaseInfo `json:"databases"`
+	Regions   []string       `json:"regions"`
+	Levels    []string       `json:"levels"`
+	Graphs    []GraphInfo    `json:"graphs"`
+	// Merged holds, per level, every source's graph under one site root: what the graphs
+	// page draws, with the provider and region subtrees to prune.
+	Merged      []MergedGraph    `json:"merged,omitempty"`
 	Experiments []ExperimentInfo `json:"experiments"`
 	Kubernetes  []KubernetesInfo `json:"kubernetes,omitempty"`
 	Fidelity    []FidelityInfo   `json:"fidelity,omitempty"`
@@ -89,6 +110,8 @@ type DatabaseInfo struct {
 	MachineTypes int    `json:"machine_types"`
 	Captures     int    `json:"captures"`
 	Generated    string `json:"generated,omitempty"`
+	// Hidden keeps the database out of the general lists (Options.Hidden).
+	Hidden bool `json:"hidden,omitempty"`
 	// Note is the database's NOTE.md, when present: what the reader should know about the
 	// data, such as machine types that could not be captured and why.
 	Note string `json:"note,omitempty"`
@@ -97,11 +120,23 @@ type DatabaseInfo struct {
 // GraphInfo locates one folded graph.
 type GraphInfo struct {
 	Database string `json:"database"`
+	Provider string `json:"provider,omitempty"`
 	Level    string `json:"level"`
 	Region   string `json:"region"`
+	// File is the merged graph of the level that holds this graph.
 	File     string `json:"file"`
 	Vertices int    `json:"vertices"`
 	Edges    int    `json:"edges"`
+}
+
+// MergedGraph is one level's graphs from every source under a single site root, the
+// provider vertices of each source's graph as its children.
+type MergedGraph struct {
+	Level    string      `json:"level"`
+	File     string      `json:"file"`
+	Vertices int         `json:"vertices"`
+	Edges    int         `json:"edges"`
+	Parts    []GraphInfo `json:"parts"`
 }
 
 // ExperimentInfo locates one experiment report.
@@ -192,10 +227,19 @@ func Export(dir string, opts Options) (*Manifest, error) {
 	if log == nil {
 		log = func(string) {}
 	}
-	if len(opts.Levels) == 0 {
+	if opts.Levels == nil {
 		opts.Levels = []string{"series", "coarse", "exact"}
 	}
-	sources := append([]Source(nil), opts.Sources...)
+	relabel := func(l string) string {
+		if v, ok := opts.Labels[l]; ok {
+			return v
+		}
+		return l
+	}
+	var sources []Source
+	for _, s := range opts.Sources {
+		sources = append(sources, Source{Label: relabel(s.Label), Dir: s.Dir})
+	}
 	var experiments []ExperimentInfo
 	for i, e := range opts.Experiments {
 		name, dir, ok := strings.Cut(e, "=")
@@ -207,8 +251,8 @@ func Export(dir string, opts Options) (*Manifest, error) {
 		info := ExperimentInfo{Name: name, File: "data/experiments/" + name + ".json"}
 		for _, arm := range []string{"agent", "deterministic"} {
 			if _, err := os.Stat(filepath.Join(e, arm, "topology")); err == nil {
-				sources = append(sources, Source{Label: name + "/" + arm, Dir: filepath.Join(e, arm)})
-				info.Arms = append(info.Arms, name+"/"+arm)
+				sources = append(sources, Source{Label: relabel(name + "/" + arm), Dir: filepath.Join(e, arm)})
+				info.Arms = append(info.Arms, relabel(name+"/"+arm))
 			}
 		}
 		experiments = append(experiments, info)
@@ -222,9 +266,9 @@ func Export(dir string, opts Options) (*Manifest, error) {
 		if _, err := os.Stat(filepath.Join(dir, "gke", "topology")); err != nil {
 			return nil, fmt.Errorf("kubernetes run %s: %w", dir, err)
 		}
-		sources = append(sources, Source{Label: name, Dir: filepath.Join(dir, "gke")})
+		sources = append(sources, Source{Label: relabel(name), Dir: filepath.Join(dir, "gke")})
 		base := "data/kubernetes/" + strings.ReplaceAll(name, "/", "_")
-		kubernetes = append(kubernetes, KubernetesInfo{Name: name, Database: name, Consistency: base + "/consistency.json", Latency: base + "/latency.json"})
+		kubernetes = append(kubernetes, KubernetesInfo{Name: name, Database: relabel(name), Consistency: base + "/consistency.json", Latency: base + "/latency.json"})
 		opts.Kubernetes[len(kubernetes)-1] = dir
 	}
 	if opts.Consistency != "" {
@@ -277,7 +321,7 @@ func Export(dir string, opts Options) (*Manifest, error) {
 	types := map[string]*MachineType{}
 	regions := map[string]bool{}
 	for _, l := range dbs {
-		info := DatabaseInfo{Label: l.Label, Dir: l.Dir, MachineTypes: len(l.db.MachineTypes), Captures: len(l.db.Captures)}
+		info := DatabaseInfo{Label: l.Label, Dir: l.Dir, MachineTypes: len(l.db.MachineTypes), Captures: len(l.db.Captures), Hidden: contains(opts.Hidden, l.Label)}
 		if note, err := os.ReadFile(filepath.Join(l.Dir, "NOTE.md")); err == nil {
 			info.Note = strings.TrimSpace(string(note))
 		}
@@ -354,10 +398,20 @@ func Export(dir string, opts Options) (*Manifest, error) {
 		return nil, err
 	}
 
-	// Graphs, folded.
+	// Graphs, folded, then merged per level under one site root.
 	graphs := map[string]*Tree{}
+	type part struct {
+		GraphInfo
+		tree *Tree
+	}
+	var parts []part
+	imported := map[string]bool{}
+	for _, f := range opts.Folded {
+		imported[f.Database] = true
+	}
 	for _, l := range dbs {
-		if len(opts.GraphSources) > 0 && !contains(opts.GraphSources, l.Label) {
+		// A database whose graphs were folded elsewhere is not built again here.
+		if len(opts.GraphSources) > 0 && !contains(opts.GraphSources, l.Label) || imported[l.Label] {
 			continue
 		}
 		for _, region := range m.Regions {
@@ -369,21 +423,70 @@ func Export(dir string, opts Options) (*Manifest, error) {
 				if tree == nil {
 					continue
 				}
-				key := fmt.Sprintf("%s/%s-%s", safe(l.Label), level, region)
 				// The fold keeps every vertex; the graph is a containment tree, so edges are
 				// vertices less the root.
-				info := GraphInfo{Database: l.Label, Level: level, Region: region, File: "data/graphs/" + key + ".json", Vertices: tree.Vertices, Edges: tree.Vertices - 1}
-				m.Graphs = append(m.Graphs, info)
-				graphs[info.File] = tree
-				if !opts.Single {
-					if err := os.MkdirAll(filepath.Dir(filepath.Join(dir, info.File)), 0o755); err != nil {
+				parts = append(parts, part{GraphInfo{Database: l.Label, Provider: providerOf(tree), Level: level, Region: region, Vertices: tree.Vertices, Edges: tree.Vertices - 1}, tree})
+				log(fmt.Sprintf("%s: %s graph for %s, %d vertices", l.Label, level, region, tree.Vertices))
+			}
+		}
+	}
+	for _, f := range opts.Folded {
+		if f.Tree == nil {
+			continue
+		}
+		parts = append(parts, part{GraphInfo{Database: f.Database, Provider: providerOf(f.Tree), Level: f.Level, Region: f.Region, Vertices: f.Tree.Vertices, Edges: f.Tree.Vertices - 1}, f.Tree})
+		if !contains(m.Regions, f.Region) {
+			m.Regions = append(m.Regions, f.Region)
+			sort.Strings(m.Regions)
+		}
+		log(fmt.Sprintf("%s: %s graph for %s, %d vertices (folded elsewhere)", f.Database, f.Level, f.Region, f.Tree.Vertices))
+	}
+	for _, level := range []string{"series", "coarse", "exact"} {
+		root := &Tree{Type: "site", Name: jgf.RootPath[1:], Count: 1, Vertices: 1}
+		merged := MergedGraph{Level: level, File: "data/graphs/" + level + ".json"}
+		seen := map[string]int{}
+		for _, p := range parts {
+			if p.Level != level {
+				continue
+			}
+			for _, c := range providerSubtrees(p.tree) {
+				// Two sources with the same provider (an experiment's arms, say) stay apart.
+				if seen[c.Name] > 0 {
+					c = &Tree{Type: c.Type, Name: c.Name + " (" + p.Database + ")", Count: c.Count, Vertices: c.Vertices, Properties: c.Properties, Children: c.Children, Signature: c.Signature}
+				}
+				seen[c.Name]++
+				root.Children = append(root.Children, c)
+				root.Vertices += c.Vertices
+			}
+			p.File = merged.File
+			merged.Parts = append(merged.Parts, p.GraphInfo)
+			m.Graphs = append(m.Graphs, p.GraphInfo)
+		}
+		if len(merged.Parts) == 0 {
+			continue
+		}
+		merged.Vertices, merged.Edges = root.Vertices, root.Vertices-1
+		m.Merged = append(m.Merged, merged)
+		graphs[merged.File] = root
+		if !opts.Single {
+			if err := os.MkdirAll(filepath.Join(dir, "data/graphs"), 0o755); err != nil {
+				return nil, err
+			}
+		}
+		if err := write(merged.File, root); err != nil {
+			return nil, err
+		}
+		log(fmt.Sprintf("merged %s graph: %d vertices from %d source(s)", level, root.Vertices, len(merged.Parts)))
+	}
+	// Graph files from an earlier export that this one did not write would be stale.
+	if !opts.Single {
+		if entries, err := os.ReadDir(filepath.Join(dir, "data/graphs")); err == nil {
+			for _, e := range entries {
+				if name := "data/graphs/" + e.Name(); graphs[name] == nil {
+					if err := os.RemoveAll(filepath.Join(dir, name)); err != nil {
 						return nil, err
 					}
 				}
-				if err := write(info.File, tree); err != nil {
-					return nil, err
-				}
-				log(fmt.Sprintf("%s: %s graph for %s, %d vertices", l.Label, level, region, tree.Vertices))
 			}
 		}
 	}
@@ -585,6 +688,26 @@ func hashSummary(s *Summary) string {
 	}
 	fmt.Fprintf(h, "mem=%.2g;", s.MemoryGB)
 	return hex.EncodeToString(h.Sum(nil))[:12]
+}
+
+// providerSubtrees returns a graph's provider vertices: the children of its site root, or
+// the root itself for a graph built before the site root existed.
+func providerSubtrees(t *Tree) []*Tree {
+	if t.Type == "site" && len(t.Children) > 0 {
+		return t.Children
+	}
+	return []*Tree{t}
+}
+
+// providerOf names the cloud a graph describes, from its provider vertex.
+func providerOf(t *Tree) string {
+	for _, c := range providerSubtrees(t) {
+		if p := c.Properties["provider"]; p != "" {
+			return p
+		}
+		return c.Name
+	}
+	return ""
 }
 
 func safe(label string) string {

@@ -1,0 +1,78 @@
+{
+  "name": "g6e.24xlarge",
+  "family": "g6e",
+  "architecture": "x86_64",
+  "vcpus": 96,
+  "cores": 48,
+  "threads_per_core": 2,
+  "memory_mb": 786432,
+  "accelerators": [
+    {
+      "type": "nvidia-l40s",
+      "count": 4,
+      "manufacturer": "NVIDIA",
+      "name": "L40S",
+      "memory_mib": 45776
+    }
+  ],
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3.4
+  },
+  "network": {
+    "performance": "200 Gigabit",
+    "max_interfaces": 20,
+    "efa_supported": true,
+    "max_efa_interfaces": 2,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 200,
+        "peak_gbps": 200,
+        "efa": true
+      },
+      {
+        "index": 1,
+        "baseline_gbps": 200,
+        "peak_gbps": 200,
+        "efa": true
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 3800,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 1900,
+        "count": 2,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 30000,
+    "max_mbps": 30000,
+    "baseline_iops": 120000,
+    "max_iops": 120000,
+    "max_attachments": 64
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

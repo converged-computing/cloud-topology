@@ -56,6 +56,13 @@ func TestRegionAndFamily(t *testing.T) {
 	if FamilyOf("a3-highgpu-1g") != "a3" || FamilyOf("e2") != "e2" {
 		t.Error("FamilyOf")
 	}
+	// AWS names and zones.
+	if RegionOf("us-east-1a") != "us-east-1" || RegionOf("us-east-1") != "us-east-1" || RegionOf("ap-southeast-2c") != "ap-southeast-2" {
+		t.Error("RegionOf aws")
+	}
+	if FamilyOf("c7i.48xlarge") != "c7i" || FamilyOf("u-6tb1.112xlarge") != "u-6tb1" {
+		t.Error("FamilyOf aws")
+	}
 }
 
 func TestSeriesVariants(t *testing.T) {
@@ -69,6 +76,10 @@ func TestSeriesVariants(t *testing.T) {
 		{"z3-highmem-192-highlssd-metal", "z3-highmem-metal", true, true},
 		{"a3-edgegpu-8g-nolssd", "a3-edgegpu", false, false},
 		{"e2-micro", "e2-micro", false, false},
+		{"c7i.48xlarge", "c7i", false, false},
+		{"c7i.metal-48xl", "c7i.metal", true, false},
+		{"u-6tb1.112xlarge", "u-6tb1", false, false},
+		{"c7i-flex.16xlarge", "c7i-flex", false, false},
 	}
 	for _, c := range cases {
 		if got := SeriesOf(c.name); got != c.series {

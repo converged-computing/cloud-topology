@@ -1,0 +1,64 @@
+{
+  "name": "m6id.32xlarge",
+  "family": "m6id",
+  "architecture": "x86_64",
+  "vcpus": 128,
+  "cores": 64,
+  "threads_per_core": 2,
+  "memory_mb": 524288,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.5
+  },
+  "network": {
+    "performance": "50 Gigabit",
+    "max_interfaces": 15,
+    "efa_supported": true,
+    "max_efa_interfaces": 1,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 50,
+        "peak_gbps": 50,
+        "efa": true
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 7600,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 1900,
+        "count": 4,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 40000,
+    "max_mbps": 40000,
+    "baseline_iops": 160000,
+    "max_iops": 160000,
+    "max_attachments": 23
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

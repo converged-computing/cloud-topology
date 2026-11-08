@@ -2,10 +2,10 @@
 # A lower level chooses the concrete machine types (see quota sizes).
 version: 9999
 resources:
-  - type: cluster
+  - type: site
     count: 1
     with:
-      - type: site
+      - type: provider
         count: 1
         with:
           - type: region

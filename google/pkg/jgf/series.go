@@ -61,10 +61,9 @@ func BuildSeries(db *database.Database, opts SeriesOptions) (*Graph, error) {
 	}
 
 	g := New()
-	root := g.Add(Vertex{Type: "cluster", Path: "/heuretes"}, "")
-	site := g.Add(Vertex{Type: "site", Path: "/heuretes/gcp", Properties: map[string]string{"provider": "google-cloud"}}, root)
-	regionPath := "/heuretes/gcp/" + opts.Region
-	region := g.Add(Vertex{Type: "region", Path: regionPath}, site)
+	root := AddRoot(g, ProviderName)
+	regionPath := ProviderPath(ProviderName) + "/" + opts.Region
+	region := g.Add(Vertex{Type: "region", Path: regionPath}, root)
 
 	for _, name := range names {
 		members := groups[name]

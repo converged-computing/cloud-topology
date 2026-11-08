@@ -1,0 +1,49 @@
+{
+  "name": "c8ib.24xlarge",
+  "family": "c8ib",
+  "architecture": "x86_64",
+  "vcpus": 96,
+  "cores": 48,
+  "threads_per_core": 2,
+  "memory_mb": 196608,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.9
+  },
+  "network": {
+    "performance": "100 Gigabit",
+    "max_interfaces": 16,
+    "ena_srd": true,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 100,
+        "peak_gbps": 100
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 75000,
+    "max_mbps": 75000,
+    "baseline_iops": 360000,
+    "max_iops": 360000,
+    "max_attachments": 64
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

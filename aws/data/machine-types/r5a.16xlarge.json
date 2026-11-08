@@ -1,0 +1,49 @@
+{
+  "name": "r5a.16xlarge",
+  "family": "r5a",
+  "architecture": "x86_64",
+  "vcpus": 64,
+  "cores": 32,
+  "threads_per_core": 2,
+  "memory_mb": 524288,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 2.5
+  },
+  "network": {
+    "performance": "12 Gigabit",
+    "max_interfaces": 15,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 12,
+        "peak_gbps": 12
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 9500,
+    "max_mbps": 9500,
+    "baseline_iops": 40000,
+    "max_iops": 40000,
+    "max_attachments": 27
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

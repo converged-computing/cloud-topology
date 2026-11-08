@@ -1,0 +1,68 @@
+{
+  "name": "g6f.4xlarge",
+  "family": "g6f",
+  "architecture": "x86_64",
+  "vcpus": 16,
+  "cores": 8,
+  "threads_per_core": 2,
+  "memory_mb": 65536,
+  "accelerators": [
+    {
+      "type": "nvidia-l4",
+      "count": 0,
+      "manufacturer": "NVIDIA",
+      "name": "L4",
+      "memory_mib": 11444
+    }
+  ],
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 3.4
+  },
+  "network": {
+    "performance": "Up to 25 Gigabit",
+    "max_interfaces": 8,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 10,
+        "peak_gbps": 25
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 450,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 450,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 6000,
+    "max_mbps": 6000,
+    "baseline_iops": 24000,
+    "max_iops": 24000,
+    "max_attachments": 32
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d"
+  ]
+}

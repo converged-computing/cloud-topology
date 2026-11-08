@@ -1,0 +1,48 @@
+{
+  "name": "r8i-flex.8xlarge",
+  "family": "r8i-flex",
+  "architecture": "x86_64",
+  "vcpus": 32,
+  "cores": 16,
+  "threads_per_core": 2,
+  "memory_mb": 262144,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "Intel",
+    "clock_ghz": 3.9
+  },
+  "network": {
+    "performance": "Up to 15 Gigabit",
+    "max_interfaces": 10,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 7.5,
+        "peak_gbps": 15
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 5000,
+    "max_mbps": 10000,
+    "baseline_iops": 20000,
+    "max_iops": 40000,
+    "max_attachments": 32
+  },
+  "placement_strategies": [
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "mac2-m1ultra.metal",
+  "family": "mac2-m1ultra",
+  "architecture": "arm64_mac",
+  "vcpus": 20,
+  "cores": 20,
+  "threads_per_core": 1,
+  "memory_mb": 131072,
+  "bare_metal": true,
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand"
+  ],
+  "processor": {
+    "manufacturer": "Apple",
+    "clock_ghz": 3.2
+  },
+  "network": {
+    "performance": "10 Gigabit",
+    "max_interfaces": 8,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 10,
+        "peak_gbps": 10
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 10000,
+    "max_mbps": 10000,
+    "baseline_iops": 55000,
+    "max_iops": 55000,
+    "max_attachments": 10
+  },
+  "placement_strategies": [
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1d"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "name": "r5ad.large",
+  "family": "r5ad",
+  "architecture": "x86_64",
+  "vcpus": 2,
+  "cores": 1,
+  "threads_per_core": 2,
+  "memory_mb": 16384,
+  "hypervisor": "nitro",
+  "current_generation": true,
+  "usage_classes": [
+    "on-demand",
+    "spot"
+  ],
+  "processor": {
+    "manufacturer": "AMD",
+    "clock_ghz": 2.2
+  },
+  "network": {
+    "performance": "Up to 10 Gigabit",
+    "max_interfaces": 3,
+    "cards": [
+      {
+        "index": 0,
+        "baseline_gbps": 0.75,
+        "peak_gbps": 10
+      }
+    ]
+  },
+  "instance_store": {
+    "total_gb": 75,
+    "nvme": "required",
+    "disks": [
+      {
+        "size_gb": 75,
+        "count": 1,
+        "type": "ssd"
+      }
+    ]
+  },
+  "ebs": {
+    "baseline_mbps": 650,
+    "max_mbps": 2880,
+    "baseline_iops": 3600,
+    "max_iops": 16000,
+    "max_attachments": 26
+  },
+  "placement_strategies": [
+    "cluster",
+    "partition",
+    "spread"
+  ],
+  "zones": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1f"
+  ]
+}
