@@ -1,0 +1,42 @@
+# The request set: each has the words a user might say and, where there is one, the
+# structured request the agent may not go below (the floor). "expect" is what the engine
+# says, for the report to check the agent against.
+- name: gpu-training
+  floor: requests/gpu-training.yaml
+  text: >
+    I need two nodes with eight H100-class GPUs each, lots of memory, and a fast
+    interconnect so they can train together. Tell me where to put it and what it costs per hour.
+  expect: fits
+- name: tight-coupled
+  floor: requests/tight-coupled.yaml
+  text: >
+    An MPI job: 32 nodes, 32 cores each, 64 GB a node is fine, all in one placement group
+    with at least 100 Gbps between them. On-demand only.
+  expect: fits
+- name: cpu-batch
+  floor: requests/cpu-batch.yaml
+  text: >
+    Sixteen plain CPU boxes for a batch run, 32 cores and 128 GB each. Placement does not matter.
+  expect: fits
+- name: big-memory
+  floor: requests/big-memory.yaml
+  text: >
+    One machine with two terabytes of memory and 32 cores, plus four terabytes of fast block
+    storage attached.
+  expect: fits
+- name: single-gpu
+  floor: requests/single-gpu.yaml
+  text: >
+    The cheapest single-GPU node for development: any GPU, four cores, 16 GB, with a local SSD.
+  expect: fits
+- name: impossible-gpu
+  floor: requests/impossible-gpu.yaml
+  text: >
+    Four nodes with eight H100s each, in one placement group, on demand. If that cannot be
+    done anywhere, say so and tell me the closest thing that can.
+  expect: nothing
+- name: words-only
+  text: >
+    A small test box: a couple of cores and a few gigabytes of memory, anywhere, as cheap
+    as possible.
+  expect: fits

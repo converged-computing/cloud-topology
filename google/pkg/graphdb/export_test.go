@@ -42,7 +42,7 @@ func TestExport(t *testing.T) {
 		switch r.Type {
 		case "offer":
 			offers++
-			if r.MachineType == "" || r.Zone == "" || r.Signature == "" || r.VCPUs == 0 || r.Graph != "q/exact/us-central1" {
+			if r.MachineType == "" || r.Zone == "" || r.Signature == "" || r.VCPUs == 0 || r.Cores == 0 || r.MemoryGB == 0 || r.Graph != "q/exact/us-central1" {
 				t.Errorf("offer row: %+v", r)
 			}
 		case "node":

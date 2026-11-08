@@ -44,6 +44,13 @@
   const studyCaptures = name => rounds().map(l => cap(l, name)).filter(Boolean);
   const cap = (l, name) => captures[l] && captures[l][name];
   const families = () => [...new Set(types.map(t => t.family))].sort();
+  // Clouds: one color each everywhere, Compute Engine blue and AWS orange.
+  const cloudName = c => ({ 'google-cloud': 'Compute Engine', aws: 'AWS' })[c] || c;
+  const cloudColor = c => C.token('--cloud-' + c) || C.slot(3);
+  const clouds = () => [...new Set(types.map(t => t.cloud))].sort().reverse();
+  const cloudLegend = list => list.map(c => h`<span><span class="sw" style="background:${cloudColor(c)}"></span>${cloudName(c)}</span>`).join('');
+  // Graph databases are the sources of the merged graph; the rest belong to experiments.
+  const graphDBs = () => new Map(((manifest.merged || [])[0] || { parts: [] }).parts.map(p => [p.database, p.provider]));
   const regions = () => [...new Set(types.flatMap(t => t.regions))].sort();
 
   async function init() {
@@ -99,7 +106,8 @@
   // ---------- overview ----------
   function overview() {
     const capturedAny = types.filter(t => visibleCaps(t).length).length;
-    const famCounts = d3.rollups(types, v => v.length, t => t.family).map(([family, count]) => ({ family, count }));
+    const famCounts = d3.rollups(types, v => v.length, t => t.cloud + '|' + t.family).map(([k, count]) => ({ cloud: k.split('|')[0], family: k.split('|')[1], count }));
+    const graphRows = dbRows().filter(d => graphDBs().has(d.label)), otherRows = dbRows().filter(d => !graphDBs().has(d.label));
     const exps = experimentList().map(e => h`<li><a href="${e.link}">${e.title}</a> <span class="muted">${e.hook}</span></li>`).join('');
     main.innerHTML = h`
       <h1>Cloud topology</h1>
@@ -111,16 +119,33 @@
         <div class="tile"><div class="v">${n(((manifest.merged || [])[0] || {}).vertices || 0)}</div><div class="l">graph vertices</div><div class="d">${(((manifest.merged || [])[0] || {}).parts || []).map(p => p.provider + ' ' + n(p.vertices)).join(' · ') || 'no graph'}</div></div>
       </div>
       <div class="grid two">
-        <div class="card"><h3>Captures per database</h3><div class="chart" id="c-db"></div><table class="small"><tr><th>Database</th><th>Directory</th><th class="num">Machine types</th><th class="num">Captures</th></tr>${raw(dbRows().map(d => h`<tr><td><a href="${d.link}">${d.label}</a></td><td class="muted">${d.dir}</td><td class="num">${n(d.machine_types)}</td><td class="num">${n(d.captures)}</td></tr>` + (d.note ? h`<tr><td colspan="4" class="note">${d.note}</td></tr>` : '')).join(''))}</table></div>
-        <div class="card"><h3>Machine types per family</h3><p class="muted small">Click a bar to list the family.</p><div class="chart" id="c-fam"></div></div>
+        <div class="card"><h3>Captures behind the graphs</h3><p class="muted small">The databases the resource graph is built from. A capture is one machine type read by hwloc on a real instance.</p><div class="chart" id="c-db"></div><table class="small"><tr><th>Database</th><th>Cloud</th><th class="num">Machine types</th><th class="num">Captured</th></tr>${raw(graphRows.map(d => h`<tr><td><a href="${d.link}">${d.label}</a></td><td>${cloudName(graphDBs().get(d.label))}</td><td class="num">${n(d.machine_types)}</td><td class="num">${n(d.captures)}</td></tr>`).join(''))}</table>
+          ${raw(otherRows.length ? h`<h3 style="margin-top:1rem">Captures from experiments</h3><p class="muted small">Taken to answer a question, not to build the graphs.</p><table class="small"><tr><th>Captures</th><th>Directory</th><th class="num">Machine types</th><th class="num">Captures</th></tr>${raw(otherRows.map(d => h`<tr><td><a href="${d.link}">${d.label}</a></td><td class="muted">${d.dir}</td><td class="num">${n(d.machine_types)}</td><td class="num">${n(d.captures)}</td></tr>` + (d.note ? h`<tr><td colspan="4" class="note">${d.note}</td></tr>` : '')).join(''))}</table>` : '')}</div>
+        <div class="card"><div class="row-flex" style="justify-content:space-between"><h3 style="margin:0">Machine types per family</h3><select id="fam-cloud">${raw(['all', ...clouds()].map(c => h`<option value="${c}">${c === 'all' ? 'both clouds' : cloudName(c)}</option>`).join(''))}</select></div>
+          <div class="legend">${raw(cloudLegend(clouds()))}</div><div class="chart" id="c-fam"></div><p class="muted small" id="fam-note"></p></div>
       </div>
       <div class="grid two" style="margin-top:.9rem">
         <div class="card"><h3><a href="#/graphs">Resource graph</a></h3>${raw((manifest.merged || []).length ? '<table class="small"><tr><th>Provider</th><th>Region</th><th class="num">Vertices</th></tr>' + manifest.merged[0].parts.map(p => h`<tr><td><a href="#/graphs?provider=${p.provider}">${p.provider}</a></td><td>${p.region}</td><td class="num">${n(p.vertices)}</td></tr>`).join('') + h`<tr><td><b>all</b></td><td></td><td class="num"><b>${n(manifest.merged[0].vertices)}</b></td></tr>` + '</table>' : '<p class="empty">No graph was exported.</p>')}</div>
         <div class="card"><h3><a href="#/experiments">Experiments</a></h3>${raw(exps ? '<ul>' + exps + '</ul>' : '<p class="empty">None exported. Pass EXPERIMENTS=…, KUBERNETES=… or FIDELITY_RUNS=… to make site.</p>')}
           <h3>Reading this site</h3><p class="small secondary">A <b>database</b> is a directory of machine types and captures: <code>data/</code>, or one arm of an experiment. A <b>capture</b> is hwloc's reading of a real instance, drawn here from its object tree. <b>Resource graphs</b> are what Fluxion schedules on: <i>series</i> pools a machine series' vCPUs, GPUs and memory as totals, <i>coarse</i> has one pooled node per machine type, and <i>exact</i> places cores and GPUs on sockets from the captures, NICs with their bandwidth on nodes, nodes in compact placement groups, and storage pools on offers. Graphs are drawn folded, identical siblings as one entry with a count; <b>Motifs</b> lists the shapes that recur and the Cypher that finds them.</p></div>
       </div>`;
-    C.bars(document.getElementById('c-db'), dbRows(), { label: d => d.label, value: d => d.captures, valueLabel: 'captures', onClick: d => { location.hash = d.link; } });
-    C.bars(document.getElementById('c-fam'), famCounts, { label: d => d.family, value: d => d.count, valueLabel: 'machine types', max: 16, onClick: d => { location.hash = '#/types?family=' + d.family; } });
+    C.bars(document.getElementById('c-db'), graphRows, { label: d => d.label, value: d => d.captures, valueLabel: 'captures', colorOf: d => cloudColor(graphDBs().get(d.label)), onClick: d => { location.hash = d.link; } });
+    // The largest families of the chosen cloud, colored by cloud. The rest are counted in
+    // words, since one bar for them would dwarf every other bar.
+    const drawFamilies = cloud => {
+      // Both clouds: the largest eight of each, so AWS's many small families are not
+      // crowded out by Compute Engine's few large ones.
+      const per = cloud === 'all' ? 8 : 15;
+      const byCloud = (cloud === 'all' ? clouds() : [cloud]).map(c => famCounts.filter(f => f.cloud === c).sort((a, b) => b.count - a.count));
+      const shown = byCloud.flatMap(l => l.slice(0, per)).sort((a, b) => b.count - a.count), rest = byCloud.flatMap(l => l.slice(per));
+      const top = shown.length;
+      document.getElementById('c-fam').innerHTML = '';
+      C.bars(document.getElementById('c-fam'), shown, { label: d => d.family, value: d => d.count, valueLabel: 'machine types', max: top, other: false, colorOf: d => cloudColor(d.cloud), onClick: d => { location.hash = '#/types?family=' + d.family; } });
+      document.getElementById('fam-note').textContent = rest.length ? `The other ${rest.length} families hold ${n(d3.sum(rest, f => f.count))} machine types. Click a bar to list a family.` : 'Click a bar to list a family.';
+    };
+    const sel = document.getElementById('fam-cloud');
+    sel.onchange = () => drawFamilies(sel.value);
+    drawFamilies('all');
   }
 
   // ---------- machine types ----------
@@ -128,7 +153,7 @@
     const text = (q.q || '').toLowerCase();
     return types.filter(t =>
       (!text || t.name.includes(text) || t.series.includes(text) || (t.description || '').toLowerCase().includes(text)) &&
-      (!q.family || t.family === q.family) && (!q.region || t.regions.includes(q.region)) && (!q.zone || t.zones.includes(q.zone)) &&
+      (!q.cloud || t.cloud === q.cloud) && (!q.family || t.family === q.family) && (!q.region || t.regions.includes(q.region)) && (!q.zone || t.zones.includes(q.zone)) &&
       (!q.min_vcpus || t.vcpus >= +q.min_vcpus) && (!q.max_vcpus || t.vcpus <= +q.max_vcpus) && (!q.min_gpus || t.gpus >= +q.min_gpus) &&
       (!q.captured || (q.captured === 'any' ? visibleCaps(t).length > 0 : q.captured === 'study' ? (t.captured || []).some(isRound) : (t.captured || []).includes(q.captured))) &&
       (!q.in || t.in.includes(q.in)) && (!q.no_metal || !t.metal) && (!q.lssd || t.local_ssd) && (!q.no_deprecated || !t.deprecated));
@@ -141,13 +166,15 @@
   function typesView(q) {
     const key = q.sort || 'name', asc = q.dir !== 'desc';
     const list = sortTypes(filterTypes(q), key, asc);
+    const memClouds = q.cloud ? [q.cloud] : clouds();
     const th = (k, label, cls) => h`<th class="${(cls || '') + (key === k ? ' sorted' + (asc ? ' asc' : '') : '')}" data-sort="${k}">${label}</th>`;
     main.innerHTML = h`
       <h1>Machine types</h1>
       <p class="lede">Every machine type in the loaded databases. Filters scope the chart and the table together; a highlighted family stands out in the chart, the rest recede.</p>
       <form class="filters" id="filters">
         <label>Search<input type="search" name="q" value="${q.q || ''}" placeholder="name, series, description"></label>
-        <label>Family<select name="family">${raw(opts(families(), q.family, 'all'))}</select></label>
+        <label>Cloud<select name="cloud">${raw(h`<option value="">both</option>` + clouds().map(c => h`<option value="${c}" ${raw(c === q.cloud ? 'selected' : '')}>${cloudName(c)}</option>`).join(''))}</select></label>
+        <label>Family<select name="family">${raw(opts(families().filter(f => !q.cloud || types.some(t => t.family === f && t.cloud === q.cloud)), q.family, 'all'))}</select></label>
         <label>Region<select name="region">${raw(opts(regions(), q.region, 'all'))}</select></label>
         <label>Zone<input type="text" name="zone" value="${q.zone || ''}" placeholder="us-central1-a" style="width:9rem"></label>
         <label>vCPUs ≥<input type="number" name="min_vcpus" value="${q.min_vcpus || ''}" min="0"></label>
@@ -160,8 +187,12 @@
         <button type="button" data-clear>Clear</button>
       </form>
       <div class="card"><div class="row-flex"><h3 style="margin:0">vCPUs and memory</h3><span class="muted small">${list.length} of ${types.length} machine types · log scales · hover for the nearest point, click to open</span></div>
-        <div class="legend"><span><span class="sw" style="background:${C.slot(1)}"></span>${q.hi || q.family ? 'family ' + (q.hi || q.family) : 'machine type'}</span>${raw(q.hi || q.family ? '<span><span class="sw" style="background:' + C.token('--deemph') + '"></span>other families</span>' : '')}<span><span class="dia" style="background:${C.token('--text-secondary')}"></span>has GPUs</span><span><span class="sw" style="border-radius:50%;background:${C.token('--text-secondary')}"></span>CPU only</span></div>
+        <div class="legend">${raw(cloudLegend(q.cloud ? [q.cloud] : clouds()))}${raw(q.hi || q.family ? '<span><span class="sw" style="background:' + C.token('--deemph') + '"></span>other families</span>' : '')}<span><span class="dia" style="background:${C.token('--text-secondary')}"></span>has GPUs</span><span><span class="sw" style="border-radius:50%;background:${C.token('--text-secondary')}"></span>CPU only</span></div>
         <div class="chart" id="c-scatter"></div></div>
+      <div class="grid two" style="margin-top:.9rem">
+        <div class="card"><h3>Memory per vCPU</h3><p class="muted small">How many machine types offer each ratio. Compute-optimized types sit at 1 or 2 GB, general purpose at 4, memory-optimized at 8 and above.</p><div class="legend">${raw(cloudLegend(memClouds))}</div><div class="chart" id="c-mem-ratio"></div></div>
+        <div class="card"><h3>Memory per machine</h3><p class="muted small">How many machine types fall in each size range.</p><div class="legend">${raw(cloudLegend(memClouds))}</div><div class="chart" id="c-mem-size"></div></div>
+      </div>
       <h2>${list.length} machine types</h2>
       <div class="table-wrap"><table><thead><tr>${raw(th('name', 'Machine type'))}${raw(th('series', 'Series'))}${raw(th('vcpus', 'vCPUs', 'num'))}${raw(th('memory', 'Memory GB', 'num'))}${raw(th('gpus', 'GPUs', 'num'))}${raw(th('accel', 'Accelerator'))}${raw(th('zones', 'Zones', 'num'))}${raw(th('captured', 'Captured in'))}</tr></thead>
       <tbody>${raw(list.map(t => h`<tr class="row" data-name="${t.name}"><td><a href="#/types/${encodeURIComponent(t.name)}">${t.name}</a>${raw(t.deprecated ? ' ' + badge(t.deprecated.toLowerCase(), 'warn') : '')}${raw(t.metal ? ' ' + badge('metal') : '')}${raw(t.local_ssd ? ' ' + badge('lssd') : '')}${raw(t.shared_cpu ? ' ' + badge('shared core') : '')}</td><td>${t.series}</td><td class="num">${t.vcpus}</td><td class="num">${gb(t.memory_mb)}</td><td class="num">${t.gpus || ''}</td><td class="small">${(t.accelerators || []).map(a => a.type).join(', ')}</td><td class="num" title="${t.zones.join(', ')}">${t.zones.length}</td><td>${raw(visibleCaps(t).filter(l => !isRound(l)).map(l => badge(l, 'ok')).join('') + (rounds().length && (t.captured || []).some(isRound) ? badge('study ' + (t.captured || []).filter(isRound).length + '/' + rounds().length, 'ok') : ''))}</td></tr>`).join(''))}</tbody></table></div>`;
@@ -169,12 +200,19 @@
     const scatterPts = (hi ? types.filter(t => filterTypes(Object.assign({}, q, { family: '' })).includes(t) || t.family === hi) : list);
     C.scatter(document.getElementById('c-scatter'), hi ? list.concat(types.filter(t => t.family !== hi && !list.includes(t) && filterTypes(Object.assign({}, q, { family: '', hi: '' })).includes(t))) : list, {
       x: t => t.vcpus, y: t => t.memory_mb / 1024, xLabel: 'vCPUs', yLabel: 'memory GB', name: t => t.name,
-      isAlt: t => t.gpus > 0, emphasis: hi ? (t => t.family === hi) : null,
+      isAlt: t => t.gpus > 0, emphasis: hi ? (t => t.family === hi) : null, colorOf: t => cloudColor(t.cloud),
       extra: t => [{ k: 'series', v: t.series }].concat(t.gpus ? [{ k: 'GPUs', v: t.gpus + ' × ' + ((t.accelerators || [])[0] || {}).type }] : []).concat(visibleCaps(t).length ? [{ k: 'captured in', v: visibleCaps(t).join(', ') }] : []),
       onClick: t => { location.hash = '#/types/' + encodeURIComponent(t.name); },
       onHover: t => { main.querySelectorAll('tr.hi').forEach(r => r.classList.remove('hi')); if (t) { const r = main.querySelector(`tr[data-name="${CSS.escape(t.name)}"]`); if (r) r.classList.add('hi'); } },
     });
     void scatterPts;
+    // Memory histograms over the filtered list, one column per cloud.
+    const binOf = (v, edges) => { let i = 0; while (i < edges.length && v >= edges[i]) i++; return i; };
+    const ratioEdges = [1, 2, 4, 8, 16, 32], ratioBins = ['<1', '1', '2', '4', '8', '16', '32+'];
+    const sizeEdges = [8, 32, 128, 512, 2048], sizeBins = ['<8', '8–32', '32–128', '128–512', '512–2048', '2048+'];
+    const hist = (f, edges, nbins) => memClouds.map(c => { const v = new Array(nbins).fill(0); list.filter(t => t.cloud === c && t.vcpus > 0).forEach(t => { v[binOf(f(t), edges)]++; }); return { name: cloudName(c), color: cloudColor(c), values: v }; });
+    C.groupedColumns(document.getElementById('c-mem-ratio'), ratioBins, hist(t => t.memory_mb / 1024 / t.vcpus, ratioEdges, ratioBins.length), { binLabel: 'GB per vCPU', valueLabel: 'machine types' });
+    C.groupedColumns(document.getElementById('c-mem-size'), sizeBins, hist(t => t.memory_mb / 1024, sizeEdges, sizeBins.length), { binLabel: 'GB of memory', valueLabel: 'machine types' });
     bindFilters(document.getElementById('filters'), q, { sort: q.sort, dir: q.dir });
     main.querySelectorAll('th[data-sort]').forEach(el => el.onclick = () => { const k = el.dataset.sort; setQuery(Object.assign({}, q, { sort: k, dir: key === k && asc ? 'desc' : 'asc' })); route(); });
     main.querySelectorAll('tr.row').forEach(tr => tr.onclick = e => { if (e.target.tagName !== 'A') location.hash = '#/types/' + encodeURIComponent(tr.dataset.name); });
@@ -364,6 +402,9 @@
       return only === 'all' ? true : only === 'captured' ? k > 0 : only === 'differ' ? (k > 1 && new Set(caps.filter(Boolean).map(c => c.hash)).size > 1) : only === 'missing' ? (k > 0 && k < chosen.length) : true;
     }).sort((a, b) => a.vcpus - b.vcpus || a.name.localeCompare(b.name));
     const verdict = t => { const hs = chosen.map(l => cap(l, t.name)).filter(Boolean).map(c => c.hash); return hs.length < 2 ? '' : new Set(hs).size === 1 ? '✓ same shape' : '✕ differs'; };
+    // A cloud's own database takes the cloud's color; experiment scenarios take the next slots.
+    const scenarioColor = l => graphDBs().has(l) ? cloudColor(graphDBs().get(l)) : C.slot(3 + all.filter(x => !graphDBs().has(x)).indexOf(l));
+    const provPts = rows.flatMap(t => chosen.map(l => { const c = cap(l, t.name); return c && c.provision_seconds > 0 ? { name: t.name, db: l, vcpus: t.vcpus, secs: c.provision_seconds, c } : null; }).filter(Boolean));
     const totals = chosen.map(l => ({ label: l, captures: rows.filter(t => cap(l, t.name)).length, mean: d3.mean(rows.map(t => cap(l, t.name)).filter(c => c && c.provision_seconds > 0), c => c.provision_seconds) }));
     main.innerHTML = h`
       <h1>Compare databases</h1>
@@ -373,12 +414,14 @@
         <label>Show<select name="only">${raw(['captured', 'differ', 'missing', 'all'].map(v => h`<option value="${v}" ${raw(v === only ? 'selected' : '')}>${{ captured: 'captured in any', differ: 'shapes differ', missing: 'captured in some, not all', all: 'every machine type' }[v]}</option>`).join(''))}</select></label>
       </form>
       <div class="tiles">${raw(totals.map(s => h`<div class="tile"><div class="v">${s.captures}</div><div class="l">captured in ${s.label}</div><div class="d">${s.mean ? 'mean provision ' + secs(s.mean) : ''}</div></div>`).join(''))}</div>
-      <div class="card"><h3>Provisioning time by machine type and database</h3><p class="muted small">${rows.length} machine types. Colors run from yellow (fast) to dark blue (slow) in fixed steps, finest around one minute where most captures fall. Empty cells were not captured. Click a row to open the machine type.</p>
-        ${raw(rows.length ? '<div class="chart" id="c-heat"></div>' : '<p class="empty">Nothing to compare with this filter.</p>')}</div>
+      <div class="card"><h3>Provisioning time by machine size</h3><p class="muted small">One point per capture, colored by where it was taken. Time runs from the create request until the instance answered. Log scales. Hover for the capture, click to open the machine type.</p>
+        <div class="legend">${raw(chosen.map(l => h`<span><span class="sw" style="border-radius:50%;background:${scenarioColor(l)}"></span>${l}</span>`).join(''))}</div>
+        ${raw(provPts.length ? '<div class="chart" id="c-prov"></div>' : '<p class="empty">No provisioning times with this filter.</p>')}</div>
       <h2>Table</h2>
       <div class="table-wrap"><table><thead><tr><th>Machine type</th><th class="num">vCPUs</th>${raw(chosen.map(l => h`<th>${l}</th>`).join(''))}<th>Shape</th></tr></thead>
       <tbody>${raw(rows.map(t => h`<tr><td><a href="#/types/${encodeURIComponent(t.name)}">${t.name}</a></td><td class="num">${t.vcpus}</td>${raw(chosen.map(l => { const c = cap(l, t.name); return '<td>' + (c ? badge('ok', 'ok') + h` <span class="small">${secs(c.provision_seconds)} · ${c.provisioning_model || ''} · ${c.zone}</span>` : '<span class="muted">—</span>') + '</td>'; }).join(''))}<td>${raw(verdict(t) ? badge(verdict(t), verdict(t).startsWith('✓') ? 'ok' : 'bad') : '')}</td></tr>`).join(''))}</tbody></table></div>`;
-    if (rows.length) C.heatmap(document.getElementById('c-heat'), rows, chosen, { value: (t, l) => { const c = cap(l, t.name); return c && c.provision_seconds > 0 ? c.provision_seconds : null; }, format: secs, rowLabel: t => t.name, colLabel: l => l, extra: verdict, tipExtra: (t, l) => { const c = cap(l, t.name); return c ? [{ k: 'zone', v: c.zone }, { k: 'model', v: c.provisioning_model || '' }, { k: 'captured', v: c.captured_at }] : []; }, onClick: t => { location.hash = '#/types/' + encodeURIComponent(t.name); } });
+    if (provPts.length) C.scatter(document.getElementById('c-prov'), provPts, { x: d => d.vcpus, y: d => d.secs, xLabel: 'vCPUs', yLabel: 'seconds to provision', name: d => d.name, colorOf: d => scenarioColor(d.db), nice: false,
+      extra: d => [{ k: 'captured in', v: d.db }, { k: 'zone', v: d.c.zone }, { k: 'model', v: d.c.provisioning_model || '' }], onClick: d => { location.hash = '#/types/' + encodeURIComponent(d.name); } });
     const form = document.getElementById('filters');
     form.addEventListener('change', () => { const dbs = [...form.querySelectorAll('[name=db]:checked')].map(i => i.value); setQuery({ db: dbs.join(','), only: form.only.value }); route(); });
   }
@@ -388,14 +431,21 @@
   function experimentList() {
     const list = [];
     manifest.experiments.forEach(e => list.push({ kind: 'Capture', key: e.name, title: 'Capture ' + e.name, link: '#/experiments/' + e.name,
-      hook: 'the same plan captured by an agent and by a deterministic script (' + e.arms.join(', ') + '): what each reaches, and what it costs',
+      hook: 'The same capture plan run by an agent and by a plain script, compared on coverage, time and cost.',
+      learned: 'The agent and the script captured nearly the same types in about the same time, so the agent added flexibility but no coverage.',
       make: 'make experiment', summary: e.arms.length + ' arms' }));
     (manifest.kubernetes || []).forEach(k => list.push({ kind: 'Kubernetes', key: 'kubernetes/' + k.name, title: 'Kubernetes ' + k.name, link: '#/experiments/kubernetes/' + k.name,
-      hook: 'the same plan on one-node GKE node pools: does a Kubernetes node see the hardware the VM captures saw, and what does the path cost in time?',
+      hook: 'The same plan on one-node GKE node pools, to see whether a Kubernetes node sees the hardware a VM sees and what the extra layer costs in time.',
+      learned: 'GKE nodes matched the VM captures for 52 of 53 types and the one miss was e2 landing on another CPU, so Kubernetes adds time but not error.',
       make: 'make gke', summary: 'database ' + k.database }));
     (manifest.fidelity || []).forEach(f => list.push({ kind: 'Scheduling fidelity', key: 'fidelity/' + f.name, title: 'Scheduling fidelity' + ((manifest.fidelity || []).length > 1 ? ' ' + f.name : ''), link: '#/experiments/fidelity/' + f.name,
-      hook: 'the same jobs matched by Fluxion on the series, coarse and exact graphs under every policy: what each level gets right, and what it costs to hold and search. Runs locally; nothing in the cloud',
-      make: 'make fidelity', summary: n(f.graphs) + ' graph variants · ' + n(f.policies) + ' policies · ' + n(f.sessions) + ' sessions · ' + n(f.jobs) + ' jobs' }));
+      hook: 'The same jobs matched by Fluxion on the series, coarse and exact graphs, to see what each level gets right and what it costs. Runs locally.',
+      learned: 'The coarse graphs accept 3 of 33 jobs that cannot really be placed, and the exact graph needs about 25 times the memory to avoid that.',
+      make: 'make fidelity', summary: n(f.graphs) + ' graph variants, ' + n(f.policies) + ' policies, ' + n(f.jobs) + ' jobs' }));
+    (manifest.ingest || []).forEach(g => list.push({ kind: 'Ingest', key: 'ingest/' + g.name, title: 'Ingest' + ((manifest.ingest || []).length > 1 ? ' ' + g.name : ''), link: '#/experiments/ingest/' + g.name,
+      hook: 'An agent turns a request in words or as a jobspec into an offer on either cloud, checked against the deterministic matcher.',
+      learned: g.summary || '',
+      make: 'experiments/ingest/batch.sh', summary: n(g.requests) + ' requests, ' + n(g.runs) + ' agent runs' + (g.batches > 1 ? ', ' + g.batches + ' batches' : '') }));
     return list;
   }
 
@@ -410,18 +460,19 @@
     // Run names may hold slashes (gke/cos_containerd), so the rest of the path is the name.
     if (parts[0] === 'kubernetes') return kubernetesView(parts.slice(1).join('/'), q);
     if (parts[0] === 'fidelity') return fidelityView(parts.slice(1).join('/'), q);
+    if (parts[0] === 'ingest') return ingestView(parts.slice(1).join('/'), q);
     if (parts[0]) return experimentView(parts.join('/'), q);
     return experimentsIndex();
   }
 
   function experimentsIndex() {
     const list = experimentList();
-    if (!list.length) { main.innerHTML = '<h1>Experiments</h1><p class="empty">No experiments were exported. Pass EXPERIMENTS=…, KUBERNETES=… or FIDELITY_RUNS=… to make site.</p>'; return; }
+    if (!list.length) { main.innerHTML = '<h1>Experiments</h1><p class="empty">No experiments were exported. Pass EXPERIMENTS=…, KUBERNETES=…, FIDELITY_RUNS=… or INGEST_RUNS=… to make site.</p>'; return; }
     main.innerHTML = h`
       <h1>Experiments</h1>
-      <p class="lede">Everything that was run to answer a question about the captures or the graphs built from them. Each experiment is reproducible from its make target; the site shows the reports those write.</p>
+      <p class="lede">Each experiment answers one question about the captures or the graphs built from them, and each can be rerun from its command.</p>
       <div class="grid two">
-        ${raw(list.map(e => h`<div class="card"><h3><a href="${e.link}">${e.title}</a></h3><p class="small secondary">${e.hook}.</p><p class="small muted">${e.summary} · <code>${e.make}</code></p></div>`).join(''))}
+        ${raw(list.map(e => h`<div class="card"><h3><a href="${e.link}">${e.title}</a></h3><p class="small secondary">${e.hook}</p><p class="small muted">${e.summary}, run with <code>${e.make}</code></p>${raw(e.learned ? h`<p class="small learned"><b>Learned.</b> ${e.learned}</p>` : '')}</div>`).join(''))}
       </div>`;
   }
 
@@ -574,6 +625,66 @@
     const pts = r.graphs.map(g => ({ name: g.variant, x: g.vertices, y: g.rss_mb, load: g.load_seconds }));
     C.scatter(document.getElementById('c-fid-scale'), pts, { xLabel: 'vertices', yLabel: 'resident MB', log: true, name: d => d.name, onHover: null });
     C.bars(document.getElementById('c-fid-policy'), sessions.map(s => ({ label: s.policy, value: s.single_median_ms })), { valueLabel: 'ms per match', format: v => ms(v), max: 12 });
+  }
+
+  // ---------- ingest ----------
+  async function ingestView(name, q) {
+    const runs = manifest.ingest || [];
+    if (!runs.length) { main.innerHTML = '<h1>Ingest</h1><p class="empty">No ingest report was exported. Run experiments/ingest/batch.sh, then make site.</p>'; return; }
+    const g = runs.find(x => x.name === name) || runs[0];
+    const r = await load(g.file);
+    const latest = r.batches[r.batches.length - 1];
+    const earlier = r.batches.slice(0, -1);
+    const batchName = b => b.label === 'latest' ? 'Latest batch' : b.label;
+    const pct = (a, b) => b ? Math.round(100 * a / b) + '%' : '—';
+    const money = x => '$' + (x >= 1 ? x.toFixed(2) : x.toFixed(3));
+    const kind = v => ({ 'agrees with engine': 'ok', 'right: declined': 'ok', 'widened': 'bad', 'differs': 'bad', 'no recommendation': 'bad', 'backend error': 'bad', 'no run': 'bad' })[v] || '';
+    const strip = c => (c || '').replace(/\/on-demand|\/spot/, m => m === '/spot' ? ' (spot)' : '');
+    // The picks of a request's runs in one arm, as "type ×n".
+    const picks = (b, req, arm) => {
+      const rows = b.rows.filter(x => x.name === req && x.arm === arm);
+      if (!rows.length) return '<span class="muted">—</span>';
+      const counts = d3.rollups(rows, v => v.length, x => strip(x.chosen) || 'nothing');
+      const verdicts = [...new Set(rows.map(x => x.verdict))];
+      return counts.map(([c, k]) => h`<div>${c}${k > 1 ? ' ×' + k : ''}</div>`).join('') + verdicts.map(v => badge(v.replace(': ', ', '), kind(v))).join('');
+    };
+    const engineTop = (b, req) => strip((b.rows.find(x => x.name === req && x.engine_top) || {}).engine_top) || '<span class="muted">nothing fits</span>';
+    const tot = (b, f) => d3.sum(b.arms, a => a[f]);
+    const runsN = tot(latest, 'finished'), agreeN = tot(latest, 'agree');
+    const batch = q.batch && r.batches.some(b => b.label === q.batch) ? r.batches.find(b => b.label === q.batch) : latest;
+    const arm = q.arm === 'flexible' || q.arm === 'strict' ? q.arm : 'all';
+    const detail = batch.rows.filter(x => arm === 'all' || x.arm === arm);
+    main.innerHTML = h`
+      <h1>Ingest${runs.length > 1 ? ' ' + g.name : ''}</h1>
+      ${raw(experimentPills('ingest/' + g.name))}
+      <p class="lede">${r.question} Each request goes to the matcher and to the agent, which uses the matcher as a tool. Nothing is created in any cloud.</p>
+      <div class="tiles">
+        <div class="tile"><div class="v">${n(runsN)}</div><div class="l">agent runs, latest batch</div><div class="d">${r.requests.length} requests, ${latest.arms.length} arms, three repeats</div></div>
+        <div class="tile"><div class="v">${pct(agreeN, runsN)}</div><div class="l">agree with the matcher</div><div class="d">${earlier.length ? pct(tot(earlier[earlier.length - 1], 'agree'), tot(earlier[earlier.length - 1], 'finished')) + ' in the batch before. Agreement is not correctness' : 'Agreement is not correctness'}</div></div>
+        <div class="tile"><div class="v">${money(tot(latest, 'cost_usd') / Math.max(runsN, 1))}</div><div class="l">per agent run</div><div class="d">${money(tot(latest, 'cost_usd'))} for the batch in model calls</div></div>
+        <div class="tile"><div class="v">${Math.round(d3.mean(latest.arms, a => a.seconds))} s</div><div class="l">per agent run</div><div class="d">${d3.mean(latest.arms, a => a.turns).toFixed(1)} turns, against under a second for the matcher</div></div>
+      </div>
+      <h2>What we learned</h2>
+      <div class="grid two">${raw(r.findings.map(f => h`<div class="card"><h3>${f.title}</h3><p class="small">${f.text}</p></div>`).join(''))}</div>
+      ${raw((r.hypotheses || []).length ? h`<div class="card" style="margin-top:.9rem"><h3>The hypotheses</h3><table class="small"><tr><th>Hypothesis</th><th>Outcome</th><th>Why</th></tr>${raw(r.hypotheses.map(x => h`<tr><td><b>${x.id}</b> ${x.claim}</td><td>${raw(badge(x.outcome, x.outcome === 'supported' ? 'ok' : 'warn'))}</td><td>${x.text}</td></tr>`).join(''))}</table></div>` : '')}
+      ${raw(r.next ? h`<div class="card" style="margin-top:.9rem"><h3>What to do next</h3><p class="small">${r.next}</p></div>` : '')}
+      <h2>Request by request</h2>
+      <p class="muted small">The matcher's first choice and the agent's choices across repeats. Strict mode treats the jobspec as a floor. Flexible mode may reshape it if the totals hold. A closest offer is one the agent named when nothing fit.${earlier.length ? ' The earlier batch is judged against its own matcher, which saw only part of the database.' : ''}</p>
+      <div class="table-wrap"><table class="small"><thead><tr><th>Request</th><th>Matcher's first</th><th>Agent, strict</th><th>Agent, flexible</th>${raw(earlier.map(b => h`<th>${batchName(b)}, strict</th>`).join(''))}</tr></thead><tbody>
+      ${raw(r.requests.map(q2 => h`<tr><td><b>${q2.name}</b><div class="secondary">${q2.text}</div>${raw(q2.jobspec ? h`<div class="muted">Jobspec ${q2.jobspec}</div>` : '<div class="muted">Words only, no jobspec</div>')}</td><td>${raw(engineTop(latest, q2.name))}</td><td>${raw(picks(latest, q2.name, 'strict'))}</td><td>${raw(picks(latest, q2.name, 'flexible'))}</td>${raw(earlier.map(b => '<td>' + picks(b, q2.name, 'strict') + '</td>').join(''))}</tr>`).join(''))}
+      </tbody></table></div>
+      <h2>Every run</h2>
+      <form class="filters" id="filters">
+        <label>Batch<select name="batch">${raw(r.batches.map(b => h`<option value="${b.label}" ${raw(b === batch ? 'selected' : '')}>${batchName(b)}</option>`).join(''))}</select></label>
+        <label>Arm<select name="arm">${raw(['all', 'strict', 'flexible'].map(a => h`<option value="${a}" ${raw(a === arm ? 'selected' : '')}>${a}</option>`).join(''))}</select></label>
+      </form>
+      <div class="table-wrap"><table class="small"><thead><tr><th>Run</th><th>Arm</th><th>Agent chose</th><th>Verdict</th><th class="num">Matches</th><th class="num">Turns</th><th class="num">Cost</th><th class="num">Time</th><th>The agent's reason</th></tr></thead><tbody>
+      ${raw(detail.map(x => h`<tr><td>${x.request}</td><td>${x.arm}</td><td>${strip(x.chosen) || '—'}</td><td>${raw(badge(x.verdict.replace(': ', ', ') + (x.cause ? ', ' + x.cause : ''), kind(x.verdict)))}</td><td class="num">${x.matches_used}</td><td class="num">${x.turns}</td><td class="num">${money(x.cost_usd)}</td><td class="num">${Math.round(x.wall_seconds)} s</td><td><details><summary class="secondary">${x.reason.split('. ')[0].slice(0, 140)}…</summary><p>${x.reason}</p>${raw(x.changes ? h`<p class="muted">Changes. ${x.changes}</p>` : '')}</details></td></tr>`).join(''))}
+      </tbody></table></div>
+      <div class="card" style="margin-top:.9rem"><h3>What each batch cost</h3><p class="muted small">Model calls priced from tokens at list price. The matcher and database run locally.</p>
+        <table class="small"><tr><th>Batch</th><th>Arm</th><th>Model</th><th class="num">Runs</th><th class="num">Agree</th><th class="num">Cost</th><th class="num">Per run</th><th class="num">Turns</th><th class="num">Time</th></tr>
+        ${raw(r.batches.flatMap(b => b.arms.map(a => h`<tr><td>${batchName(b)}</td><td>${a.arm}</td><td>${a.model}</td><td class="num">${a.finished}/${a.runs}</td><td class="num">${a.agree}</td><td class="num">${money(a.cost_usd)}</td><td class="num">${money(a.cost_per_run)}</td><td class="num">${a.turns}</td><td class="num">${Math.round(a.seconds)} s</td></tr>`)).join(''))}</table></div>`;
+    bindFilters(document.getElementById('filters'), q);
   }
 
   // ---------- consistency ----------

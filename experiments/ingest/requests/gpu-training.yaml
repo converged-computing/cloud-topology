@@ -1,0 +1,27 @@
+# Two nodes of eight H100-class GPUs in one placement group, with an RDMA-class NIC.
+version: 9999
+resources:
+- type: node
+  count: 2
+  with:
+  - type: slot
+    count: 1
+    label: default
+    with:
+    - {type: core, count: 48}
+    - {type: gpu, count: 8}
+    - {type: memory, count: 512}
+    - {type: nic, count: 400}
+attributes:
+  system:
+    duration: 3600
+    job: {name: gpu-training}
+    requires:
+      gpu: nvidia-h100
+      nic: [efa, rdma, tcpxo, tcpx]
+      placement: compact
+      models: [on-demand, spot]
+tasks:
+- command: [app]
+  slot: default
+  count: {per_slot: 1}

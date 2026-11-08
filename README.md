@@ -10,6 +10,10 @@ High level, we want the graphs to mirror resources we have quota for. Quota does
   provider-neutral packages of `google/`.
 - `make graphdb` here folds both clouds' graphs into one LadybugDB;
   `make graphdb-query Q=providers` asks the same question of both.
+- `make ingest REQUEST=…` matches a request for nodes of a shape against both clouds in
+  the graph database and ranks the offers, through the
+  [ingest-agent](https://github.com/converged-computing/ingest-agent) library, the sibling
+  of topology-agent (`google/experiments/design/ingest.md`; `make install-agents`).
 - `make site` here builds the web site into `docs/`: the published Google experiment,
   the AWS database with its captures, and both clouds' graphs merged under one site
   root, `site0 › provider › region › …`, with a provider filter that prunes the rest.

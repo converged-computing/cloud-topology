@@ -8,10 +8,12 @@ ARG GO_VERSION=1.26.10
 ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=1000
-# topology-agent install: a pip source (git URL or path inside the build context) and the
-# behalf backend extra. Set TOPOLOGY_AGENT_SOURCE to "" to skip it.
+# The agent libraries: a pip source each (git URL or path inside the build context) and the
+# behalf backend extra. Set a source to "" to skip it (then: make install-agents).
 ARG TOPOLOGY_AGENT_SOURCE=git+https://github.com/converged-computing/topology-agent@main
 ARG TOPOLOGY_AGENT_EXTRAS=claude
+ARG INGEST_AGENT_SOURCE=git+https://github.com/converged-computing/ingest-agent@main
+ARG INGEST_AGENT_EXTRAS=claude
 USER root
 
 RUN apt-get update && apt-get -qq install -y --no-install-recommends \
@@ -64,5 +66,10 @@ RUN groupadd -g ${USER_GID} ${USERNAME} \
  && adduser --disabled-password --uid ${USER_UID} --gid ${USER_GID} --gecos "" ${USERNAME} \
  && echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USERNAME}
 
-ENV PATH=/opt/topology-agent/bin:$PATH
+# Both agents in one virtual environment on the PATH.
+RUN python3 -m venv /opt/agents \
+ && if [ -n "${TOPOLOGY_AGENT_SOURCE}" ]; then /opt/agents/bin/pip install -q "topology-agent[${TOPOLOGY_AGENT_EXTRAS}] @ ${TOPOLOGY_AGENT_SOURCE}"; fi \
+ && if [ -n "${INGEST_AGENT_SOURCE}" ]; then /opt/agents/bin/pip install -q "ingest-agent[${INGEST_AGENT_EXTRAS}] @ ${INGEST_AGENT_SOURCE}"; fi \
+ && chown -R ${USER_UID}:${USER_GID} /opt/agents
+ENV PATH=/opt/agents/bin:$PATH
 USER ${USERNAME}

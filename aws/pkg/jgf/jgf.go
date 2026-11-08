@@ -374,6 +374,10 @@ func HwlocLoader(db *database.Database) TopologyLoader {
 	}
 }
 
+// ClusterGroupNodes stands for the capacity of an EC2 cluster placement group, which
+// EC2 does not cap; the fold restores an offer's quota-sized node count into one group.
+const ClusterGroupNodes = 65536
+
 // BuildExact builds the secretary's detailed graph: region > zone > offer > placement >
 // node > socket > cores, GPUs and memory, with NICs and instance store on the node.
 // Nodes use the captured or derived topology when there is one, otherwise one socket
@@ -452,7 +456,13 @@ func BuildExact(db *database.Database, opts Options, load TopologyLoader) (*Grap
 				for n := 0; n < count; n++ {
 					if n%groupSize == 0 {
 						groupPath = fmt.Sprintf("%s/placement%d", offerPath, n/groupSize)
-						group = g.Add(Vertex{Type: "placement", Path: groupPath, Properties: map[string]string{"compact": strconv.FormatBool(mt.Cluster()), "max_nodes": strconv.Itoa(groupSize)}}, offer)
+						// max_nodes is the group's capacity, which the fold uses to restore the
+						// quota's node count: unbounded for a cluster group, one otherwise.
+						capacity := 1
+						if mt.Cluster() {
+							capacity = ClusterGroupNodes
+						}
+						group = g.Add(Vertex{Type: "placement", Path: groupPath, Properties: map[string]string{"compact": strconv.FormatBool(mt.Cluster()), "max_nodes": strconv.Itoa(capacity)}}, offer)
 					}
 					nodePath := fmt.Sprintf("%s/node%d", groupPath, n)
 					node := g.Add(Vertex{Type: "node", Path: nodePath, Exclusive: true, Properties: map[string]string{"state": "potential"}}, group)

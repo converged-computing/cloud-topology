@@ -51,7 +51,7 @@ func export(args []string) {
 	quotaFile := fs.String("quota", "", "quota snapshot to size offers and storage by quota")
 	levels := fs.String("levels", "exact", "comma-separated graph levels to export")
 	out := fs.String("out", "graphdb", "output directory for the Parquet tables and schema")
-	provider := fs.String("provider", "gcp", "cloud provider label")
+	provider := fs.String("provider", "google-cloud", "cloud provider label, as in the graph's provider vertex")
 	fs.Parse(args)
 	if len(data) == 0 && len(folded) == 0 {
 		log.Fatal("--data or --folded is required")

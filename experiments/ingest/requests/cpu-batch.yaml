@@ -1,0 +1,23 @@
+# Sixteen CPU nodes for a batch run, no placement constraint. (The graph database holds
+# On-Demand offers; Spot offers for both clouds are a follow-up.)
+version: 9999
+resources:
+- type: node
+  count: 16
+  with:
+  - type: slot
+    count: 1
+    label: default
+    with:
+    - {type: core, count: 32}
+    - {type: memory, count: 128}
+attributes:
+  system:
+    duration: 3600
+    job: {name: cpu-batch}
+    requires:
+      models: [on-demand]
+tasks:
+- command: [app]
+  slot: default
+  count: {per_slot: 1}

@@ -15,3 +15,7 @@ history.txt
 aws/projects/
 aws/graphdb/
 aws/bin/
+experiments/ingest/results/
+experiments/ingest/archive/
+__pycache__/
+.pytest_cache/

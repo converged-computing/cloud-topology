@@ -56,6 +56,11 @@ type Vertex struct {
 	Kind        string `parquet:"kind,plain"`
 	DiskType    string `parquet:"disk_type,plain"`
 	Topology    string `parquet:"topology,plain"`
+	// What a request asks of an offer's node: physical cores, memory and the accelerator
+	// model, so the ingest query compares numbers instead of parsing properties.
+	Cores       int64  `parquet:"cores,plain"`
+	MemoryGB    int64  `parquet:"memory_gb,plain"`
+	Accelerator string `parquet:"accelerator,plain"`
 }
 
 // Edge is a containment edge from a folded entry to one of its children; Count is how
@@ -107,6 +112,9 @@ func Export(dir string, graphs []Graph) (vertices, edges, shapes int, err error)
 			v.MachineType, v.Family, v.Model = t.Properties["machine_type"], t.Properties["family"], t.Properties["provisioning_model"]
 			v.VCPUs, v.GPUs, v.EgressGbps = atoi(t.Properties["vcpus"]), gpuCount(t.Properties["accelerators"]), atoi(t.Properties["egress_gbps"])
 			v.Kind, v.DiskType, v.Topology = t.Properties["kind"], t.Properties["disk_type"], t.Properties["topology"]
+			if t.Type == "offer" {
+				v.Cores, v.MemoryGB, v.Accelerator = nodeCores(t), (atoi(t.Properties["memory_mb"])+1023)/1024, acceleratorType(t.Properties["accelerators"])
+			}
 			vs = append(vs, v)
 			if parent != 0 {
 				es = append(es, Edge{From: parent, To: id, Count: int64(t.Count)})
@@ -157,6 +165,45 @@ func atoi(s string) int64 {
 	var n int64
 	fmt.Sscanf(s, "%d", &n)
 	return n
+}
+
+// nodeCores counts the physical cores of one node of an offer: the first node beneath it
+// (through a placement group when there is one), its sockets times the cores each holds;
+// a pooled core vertex counts as is. Zero when the offer has no node, as in a series graph.
+func nodeCores(offer *site.Tree) int64 {
+	node := offer
+	for _, step := range []string{"placement", "node"} {
+		for _, c := range node.Children {
+			if c.Type == step {
+				node = c
+				break
+			}
+		}
+	}
+	if node == offer || node.Type != "node" {
+		return 0
+	}
+	var under func(t *site.Tree) int64
+	under = func(t *site.Tree) int64 {
+		var n int64
+		for _, c := range t.Children {
+			switch c.Type {
+			case "core":
+				n += int64(c.Count)
+			case "socket":
+				n += int64(c.Count) * under(c)
+			}
+		}
+		return n
+	}
+	return under(node)
+}
+
+// acceleratorType returns the first accelerator model of "type:count,type:count".
+func acceleratorType(s string) string {
+	first, _, _ := strings.Cut(s, ",")
+	model, _, _ := strings.Cut(first, ":")
+	return model
 }
 
 // gpuCount sums "type:count,type:count".

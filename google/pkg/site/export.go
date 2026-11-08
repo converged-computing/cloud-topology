@@ -56,6 +56,9 @@ type Options struct {
 	// Fidelity are scheduling-fidelity experiment directories (experiments/cmd/fidelity),
 	// as name=dir; their fidelity.json is included.
 	Fidelity []string
+	// Ingest are ingest experiment reports (experiments/ingest/report.py --site), as
+	// name=file; the agent's matches across clouds against the engine's.
+	Ingest []string
 	// GraphSources limits graphs to these database labels (default: every database).
 	GraphSources []string
 	// Folded are graphs folded by another builder (aws/cmd/graph --fold), included as
@@ -95,6 +98,7 @@ type Manifest struct {
 	Experiments []ExperimentInfo `json:"experiments"`
 	Kubernetes  []KubernetesInfo `json:"kubernetes,omitempty"`
 	Fidelity    []FidelityInfo   `json:"fidelity,omitempty"`
+	Ingest      []IngestInfo     `json:"ingest,omitempty"`
 	Quota       string           `json:"quota,omitempty"`
 	// Consistency locates the consistency report, when a study or more than one database
 	// with captures was exported.
@@ -164,12 +168,24 @@ type FidelityInfo struct {
 	Jobs     int    `json:"jobs"`
 }
 
+// IngestInfo locates one ingest experiment report, with its size for the index.
+type IngestInfo struct {
+	Name     string `json:"name"`
+	File     string `json:"file"`
+	Requests int    `json:"requests"`
+	Runs     int    `json:"runs"`
+	Batches  int    `json:"batches"`
+	// Summary is the one line on what the experiment taught, from its findings.
+	Summary string `json:"summary,omitempty"`
+}
+
 // MachineType is the union view of one machine type across the sources.
 type MachineType struct {
 	database.MachineType
 	Series   string   `json:"series"`
 	GPUs     int      `json:"gpus"`
 	Regions  []string `json:"regions"`
+	Cloud    string   `json:"cloud"`
 	Metal    bool     `json:"metal,omitempty"`
 	LocalSSD bool     `json:"local_ssd,omitempty"`
 	// In lists the databases that hold the machine type, and Captured those with a capture.
@@ -303,7 +319,7 @@ func Export(dir string, opts Options) (*Manifest, error) {
 		}
 		return writeJSON(filepath.Join(dir, path), v)
 	}
-	subdirs := []string{"data/graphs", "data/experiments", "svg"}
+	subdirs := []string{"data/graphs", "data/experiments", "data/ingest", "svg"}
 	if opts.Single {
 		subdirs = nil
 	}
@@ -329,7 +345,7 @@ func Export(dir string, opts Options) (*Manifest, error) {
 		for name, mt := range l.db.MachineTypes {
 			t, ok := types[name]
 			if !ok {
-				t = &MachineType{MachineType: mt, Series: database.SeriesOf(name), GPUs: mt.GPUs(), Regions: mt.Regions(),
+				t = &MachineType{MachineType: mt, Series: database.SeriesOf(name), GPUs: mt.GPUs(), Regions: mt.Regions(), Cloud: database.CloudOf(name),
 					Metal: database.IsMetal(name), LocalSSD: mt.LocalSSD()}
 				types[name] = t
 			}
@@ -525,6 +541,43 @@ func Export(dir string, opts Options) (*Manifest, error) {
 		}
 	}
 
+	// Ingest experiment reports, written by experiments/ingest/report.py --site.
+	for _, f := range opts.Ingest {
+		name, file, ok := strings.Cut(f, "=")
+		if !ok {
+			name, file = "ingest", f
+		}
+		data, err := os.ReadFile(file)
+		if err != nil {
+			return nil, fmt.Errorf("ingest %s: %w (experiments/ingest/run.sh writes it)", name, err)
+		}
+		var shape struct {
+			Summary  string            `json:"summary"`
+			Requests []json.RawMessage `json:"requests"`
+			Batches  []struct {
+				Rows []json.RawMessage `json:"rows"`
+			} `json:"batches"`
+		}
+		if err := json.Unmarshal(data, &shape); err != nil {
+			return nil, fmt.Errorf("ingest %s: %w", name, err)
+		}
+		info := IngestInfo{Name: name, File: "data/ingest/" + strings.ReplaceAll(name, "/", "_") + ".json",
+			Requests: len(shape.Requests), Batches: len(shape.Batches), Summary: shape.Summary}
+		if n := len(shape.Batches); n > 0 {
+			info.Runs = len(shape.Batches[n-1].Rows)
+		}
+		m.Ingest = append(m.Ingest, info)
+		reports[info.File] = data
+		if !opts.Single {
+			if err := os.MkdirAll(filepath.Dir(filepath.Join(dir, info.File)), 0o755); err != nil {
+				return nil, err
+			}
+			if err := os.WriteFile(filepath.Join(dir, info.File), data, 0o644); err != nil {
+				return nil, err
+			}
+		}
+	}
+
 	// Scheduling-fidelity reports, written by experiments/cmd/fidelity.
 	for _, f := range opts.Fidelity {
 		name, fdir, ok := strings.Cut(f, "=")
@@ -576,6 +629,23 @@ func Export(dir string, opts Options) (*Manifest, error) {
 				return nil, err
 			}
 		}
+	}
+
+	// Motifs: the shapes that recur across the graphs, and the Cypher that finds them.
+	if len(graphs) > 0 {
+		mf := MotifsFile{Motifs: Motifs(graphs, m.Graphs), Queries: Queries, Note: FoldNote}
+		data, err := json.Marshal(mf)
+		if err != nil {
+			return nil, err
+		}
+		m.Motifs = "data/motifs.json"
+		reports[m.Motifs] = data
+		if !opts.Single {
+			if err := os.WriteFile(filepath.Join(dir, m.Motifs), append(data, '\n'), 0o644); err != nil {
+				return nil, err
+			}
+		}
+		log(fmt.Sprintf("motifs: %d distinct shapes", len(mf.Motifs)))
 	}
 
 	if err := write("data/manifest.json", m); err != nil {

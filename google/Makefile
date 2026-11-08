@@ -8,7 +8,7 @@ TOPOLOGY_AGENT_SOURCE ?= git+https://github.com/converged-computing/topology-age
 # pip needs this outside a virtualenv on Debian and Ubuntu images.
 PIP_FLAGS ?= --break-system-packages
 
-.PHONY: test vet build examples run-examples fluxion-go serve catalog index quota plan sizes plan-topology capture-all capture-agent $(EXPERIMENT_TARGETS) graphdb graphdb-query install-lbug site site-final site-serve graphs topology images cleanup install-agent
+.PHONY: test vet build examples run-examples fluxion-go serve catalog index quota prices plan sizes plan-topology capture-all capture-agent $(EXPERIMENT_TARGETS) graphdb graphdb-query install-lbug site site-final site-serve graphs topology images cleanup install-agent install-ingest-agent
 
 test:
 	go test ./...
@@ -49,6 +49,12 @@ catalog:
 
 index:
 	go run ./cmd/catalog --data $(DATA) --index-only
+
+# Hourly On-Demand and Spot prices for the region's machine types from the Cloud Billing
+# Catalog (read-only, no cost): make prices PROJECT=my-project
+PRICES ?= projects/$(PROJECT)/prices.json
+prices:
+	go run ./cmd/prices --data $(DATA) --region $(REGION) --out $(PRICES)
 
 # Snapshot the project's quotas: make quota PROJECT=my-project REGIONS=us-central1
 quota:
@@ -93,7 +99,7 @@ capture-agent:
 
 # Experiments (experiments/Makefile): the agent-versus-runner experiment, the consistency
 # study and the GKE experiment. Variables such as PROJECT and REGION pass through.
-EXPERIMENT_TARGETS := experiment experiment-test report consistency consistency-report gke gke-report fidelity fidelity-graphs fidelity-jobspecs fidelity-report
+EXPERIMENT_TARGETS := experiment experiment-test report consistency consistency-report gke gke-report fidelity fidelity-graphs fidelity-jobspecs fidelity-report ingest ingest-all
 $(EXPERIMENT_TARGETS):
 	@$(MAKE) --no-print-directory -C experiments $@
 
@@ -111,7 +117,7 @@ SITE_DATA ?= main=$(DATA)
 # FOLDED lists graphs folded elsewhere (aws/cmd/graph --fold), included under their own label;
 # LABELS renames databases (old=new); HIDE keeps databases out of the lists.
 site:
-	go run ./cmd/site --out $(SITE) $(foreach d,$(SITE_DATA),--data $(d)) $(foreach f,$(FOLDED),--folded $(f)) $(foreach l,$(LABELS),--label $(l)) $(foreach h,$(HIDE),--hide $(h)) $(foreach e,$(EXPERIMENTS),--experiment $(e)) $(foreach k,$(KUBERNETES),--kubernetes $(k)) $(foreach f,$(FIDELITY_RUNS),--fidelity $(f)) $(if $(STUDY),--consistency $(STUDY)) $(foreach g,$(GRAPH_DATA),--graph-data $(g)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) $(if $(LEVELS),--levels $(LEVELS)) $(if $(SINGLE),--single)
+	go run ./cmd/site --out $(SITE) $(foreach d,$(SITE_DATA),--data $(d)) $(foreach f,$(FOLDED),--folded $(f)) $(foreach l,$(LABELS),--label $(l)) $(foreach h,$(HIDE),--hide $(h)) $(foreach e,$(EXPERIMENTS),--experiment $(e)) $(foreach k,$(KUBERNETES),--kubernetes $(k)) $(foreach f,$(FIDELITY_RUNS),--fidelity $(f)) $(foreach f,$(INGEST_RUNS),--ingest $(f)) $(if $(STUDY),--consistency $(STUDY)) $(foreach g,$(GRAPH_DATA),--graph-data $(g)) $(if $(PROJECT),--quota $(QUOTA)) $(if $(REGION),--region $(REGION)) $(if $(LEVELS),--levels $(LEVELS)) $(if $(SINGLE),--single)
 
 # The published view: the final experiment run and the consistency study, graphs from the
 # runner's arm. Older runs and data/ stay out (data/'s captures predate the current
@@ -122,6 +128,8 @@ site:
 AGENT_MODEL ?= claude-opus-5-5
 # GKE runs under projects/$(PROJECT)/gke/<image>/gke are included as databases gke/<image>.
 GKE_RUNS = $(foreach d,$(filter-out %/trial/gke/topology,$(wildcard projects/$(PROJECT)/gke/*/gke/topology)),gke/$(word 4,$(subst /, ,$(d)))=$(patsubst %/gke/topology,%,$(d)))
+# The ingest experiment's report, when run.sh has written it.
+INGEST_REPORT = $(if $(wildcard ../experiments/ingest/results/ingest.json),ingest=../experiments/ingest/results/ingest.json)
 FIDELITY_DIRS = $(if $(wildcard projects/$(PROJECT)/fidelity/fidelity.json),fidelity=projects/$(PROJECT)/fidelity)
 # AWS joins as the database "aws" with its folded graphs (make -C ../aws folded), when present.
 # The site shows one graph, the exact level, so only that level is built and imported.
@@ -130,7 +138,7 @@ AWS_FOLDED ?= $(wildcard ../aws/projects/*/folded/exact-*.json)
 SITE_LABELS ?= $(AGENT_MODEL)/deterministic=compute-engine
 SITE_HIDE ?= $(AGENT_MODEL)/agent
 site-final:
-	$(MAKE) --no-print-directory site LEVELS=exact SITE_DATA="$(if $(wildcard $(AWS_DATA)/index.json),aws=$(AWS_DATA))" FOLDED="$(AWS_FOLDED)" LABELS="$(SITE_LABELS)" HIDE="$(SITE_HIDE)" KUBERNETES="$(GKE_RUNS)" FIDELITY_RUNS="$(FIDELITY_DIRS)" GRAPH_DATA=compute-engine EXPERIMENTS=$(AGENT_MODEL)=projects/$(PROJECT)/agent/$(AGENT_MODEL) STUDY=projects/$(PROJECT)/consistency
+	$(MAKE) --no-print-directory site LEVELS=exact SITE_DATA="$(if $(wildcard $(AWS_DATA)/index.json),aws=$(AWS_DATA))" FOLDED="$(AWS_FOLDED)" LABELS="$(SITE_LABELS)" HIDE="$(SITE_HIDE)" KUBERNETES="$(GKE_RUNS)" FIDELITY_RUNS="$(FIDELITY_DIRS)" INGEST_RUNS="$(INGEST_REPORT)" GRAPH_DATA=compute-engine EXPERIMENTS=$(AGENT_MODEL)=projects/$(PROJECT)/agent/$(AGENT_MODEL) STUDY=projects/$(PROJECT)/consistency
 
 # Serve the site locally: http://localhost:8000
 site-serve:
@@ -187,6 +195,11 @@ images:
 # List capture instances (with PROVIDER=gke CLUSTER=…, node pools) still running; DELETE=1 deletes them.
 cleanup:
 	$(TOPOLOGY_AGENT) cleanup $(if $(PROJECT),--project $(PROJECT)) $(if $(PROVIDER),--provider $(PROVIDER)) $(if $(CLUSTER),--cluster $(CLUSTER)) $(if $(DELETE),--delete)
+
+# Install ingest-agent (make ingest) the same way: make install-ingest-agent [INGEST_AGENT_SOURCE=../../ingest-agent]
+INGEST_AGENT_SOURCE ?= git+https://github.com/converged-computing/ingest-agent@main
+install-ingest-agent:
+	pip install $(PIP_FLAGS) $(if $(filter git+% http%,$(INGEST_AGENT_SOURCE)),"ingest-agent[$(BACKEND)] @ $(INGEST_AGENT_SOURCE)",-e "$(INGEST_AGENT_SOURCE)[$(BACKEND)]")
 
 # Install topology-agent from git, or editable from a local checkout:
 #   make install-agent                                    (TOPOLOGY_AGENT_SOURCE, default the git repo)

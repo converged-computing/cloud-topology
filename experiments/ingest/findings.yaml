@@ -1,0 +1,74 @@
+# What the ingest experiment showed, in plain words. report.py --site puts this on the
+# site's page next to the numbers. Update it when a batch changes the picture.
+question: >
+  Can an agent turn a compute request into the right offer across two clouds, and where
+  does it add something the deterministic matcher cannot?
+summary: >
+  The agent only adds value where the request is incomplete or the ranking misses the
+  workload, and without a gold standard we cannot yet say how often it is right.
+findings:
+  - title: There is no gold standard yet
+    text: >
+      Every verdict here compares the agent with the matcher. Agreement shows the two are
+      consistent, not that either is right. We need requests with answers fixed in advance
+      before we can measure correctness.
+  - title: On a complete jobspec the agent explains but does not decide
+    text: >
+      On the four plain requests every run picked the matcher's first answer. The agent
+      added a short explanation for about 20 cents and half a minute. A complete jobspec
+      needs only the matcher.
+  - title: The agent did better when the ranking ignored the workload
+    text: >
+      For the tightly coupled MPI job the matcher chose an exact fit. Every agent run chose
+      hpc7g instead, which costs less in total and has an RDMA network. The ranking should
+      learn this, or the agent stays for such cases.
+  - title: Repeatable answers can still be wrong
+    text: >
+      The first batch gave the same answer on every repeat, and many answers were wrong
+      because the match tool saw only part of the database. The agent reasoned well from
+      bad data and invented a cause for the impossible request.
+  - title: Better tools fixed what prompts would not
+    text: >
+      Once the match tool explained an empty result itself, all six impossible runs named
+      the real cause, the quota, and cost half as much. Nothing in the prompt changed.
+  - title: Requests leave out what users care about
+    text: >
+      The cheapest answers are now mostly Arm or burstable machines. No request says
+      which CPU it needs, so a user with x86 code would get a machine that cannot run it.
+  - title: Flexible mode went untested
+    text: >
+      It matched strict mode on every run because no request needed reshaping. The set
+      needs a request whose shape fails while its totals fit.
+  - title: AWS winning reflects our accounts
+    text: >
+      Google's quota here allows one node per placement group for most types, and each
+      cloud has one region. A fair cross-cloud comparison needs similar quotas and more
+      regions.
+next: >
+  Build a gold standard first. Then add CPU architecture to the request, add requests
+  that only flexible mode can place, and hand the pick to the secretary to try the
+  allocation.
+hypotheses:
+  - id: H1
+    claim: For a request that fits, the agent picks the matcher's first offer, or one in its top ten for a reason the ranking does not weigh.
+    outcome: supported
+    text: >
+      Every plain request matched the first offer. Every MPI run chose from the top ten
+      for its RDMA network.
+  - id: H2
+    claim: The agent's jobspec never asks for less than the user did, and from words alone it keeps every stated constraint.
+    outcome: supported, with a gap
+    text: >
+      The code refuses weaker requests, and the words were read the same way every time.
+      But the words never state a CPU architecture, so a faithful reading still picks Arm.
+  - id: H3
+    claim: When nothing fits, the agent says so and never shrinks the request.
+    outcome: supported after the tool fix
+    text: >
+      It never shrank the request. It gave the right cause only once the match tool
+      reported it.
+  - id: H4
+    claim: A request costs cents, not dollars.
+    outcome: supported
+    text: >
+      A run cost 20 cents on average and 33 at most on Bedrock with Claude Opus 5.

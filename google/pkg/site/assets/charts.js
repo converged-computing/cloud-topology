@@ -53,10 +53,12 @@ window.Charts = (function () {
 
   // ---- horizontal bars, one series (slot 1) ----
   function bars(el, data, o) {
-    o = Object.assign({ label: d => d.label, value: d => d.value, format: d3.format(','), color: slot(1), max: 20 }, o || {});
-    data = data.slice().sort((a, b) => o.value(b) - o.value(a));
+    o = Object.assign({ label: d => d.label, value: d => d.value, format: d3.format(','), color: slot(1), colorOf: null, max: 20, other: true, sort: true }, o || {});
+    data = o.sort ? data.slice().sort((a, b) => o.value(b) - o.value(a)) : data.slice();
     let rest = 0;
-    if (data.length > o.max) { rest = d3.sum(data.slice(o.max - 1), o.value); data = data.slice(0, o.max - 1); }
+    // With other: false the bars past max are left out, not summed into one bar that
+    // dwarfs the rest; the caller says what was left out.
+    if (data.length > o.max) { if (o.other) rest = d3.sum(data.slice(o.max - 1), o.value); data = data.slice(0, o.other ? o.max - 1 : o.max); }
     const rows = data.map(d => ({ label: o.label(d), value: o.value(d), d }));
     if (rest) rows.push({ label: 'Other', value: rest, other: true });
     const W = width(el, 600), labelW = Math.min(180, d3.max(rows, r => textW(r.label)) + 12), m = { t: 6, r: 56, b: 24, l: labelW }, rowH = 26, H = m.t + m.b + rows.length * rowH;
@@ -67,7 +69,7 @@ window.Charts = (function () {
     svg.append('g').selectAll('line').data(x.ticks(6)).join('line').attr('class', 'gridline').attr('x1', d => x(d)).attr('x2', d => x(d)).attr('y1', m.t).attr('y2', H - m.b);
     svg.append('g').selectAll('text').data(rows).join('text').attr('x', m.l - 8).attr('y', r => y(r.label) + y.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'end').attr('class', 'primary').text(r => r.label.length > 26 ? r.label.slice(0, 25) + '…' : r.label);
     const bh = Math.min(24, y.bandwidth());
-    svg.append('g').selectAll('path').data(rows).join('path').attr('d', r => barPath(x(0), y(r.label) + (y.bandwidth() - bh) / 2, x(r.value) - x(0), bh, 4)).attr('fill', r => r.other ? token('--deemph') : o.color)
+    svg.append('g').selectAll('path').data(rows).join('path').attr('d', r => barPath(x(0), y(r.label) + (y.bandwidth() - bh) / 2, x(r.value) - x(0), bh, 4)).attr('fill', r => r.other ? token('--deemph') : o.colorOf ? o.colorOf(r.d) : o.color)
       .on('pointerenter pointermove', (e, r) => showTip(e, [r.label, { k: o.valueLabel || 'value', v: o.format(r.value) }])).on('pointerleave', hideTip)
       .on('click', (e, r) => { if (o.onClick && !r.other) o.onClick(r.d); }).style('cursor', o.onClick ? 'pointer' : null);
     const top = rows[0];
@@ -109,7 +111,10 @@ window.Charts = (function () {
     const svg = svgIn(el, W, H);
     const pts = points.filter(d => o.x(d) > 0 && o.y(d) > 0);
     const x = (o.log ? d3.scaleLog() : d3.scaleLinear()).domain(d3.extent(pts, o.x)).nice().range([m.l, W - m.r]);
-    const y = (o.log ? d3.scaleLog() : d3.scaleLinear()).domain(d3.extent(pts, o.y)).nice().range([H - m.b, m.t]);
+    // nice: false fits the axis to the data, where rounding a log axis out to the next
+    // power of ten would leave most of the chart empty.
+    const yExt = d3.extent(pts, o.y), y = (o.log ? d3.scaleLog() : d3.scaleLinear()).domain(o.nice === false && o.log ? [yExt[0] / 1.25, yExt[1] * 1.25] : yExt).range([H - m.b, m.t]);
+    if (o.nice !== false) y.nice();
     const fmt = d3.format('~s');
     svg.append('g').selectAll('line').data(y.ticks(6)).join('line').attr('class', 'gridline').attr('x1', m.l).attr('x2', W - m.r).attr('y1', d => y(d)).attr('y2', d => y(d));
     svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(8, fmt).tickSize(0).tickPadding(8)).call(g => g.select('.domain').attr('stroke', token('--axis')));
@@ -122,7 +127,7 @@ window.Charts = (function () {
     const marks = g.selectAll('path').data(pts.slice().sort((a, b) => emph(a) - emph(b))).join('path')
       .attr('transform', d => `translate(${x(o.x(d))},${y(o.y(d))})`)
       .attr('d', d => sym.type(o.isAlt(d) ? d3.symbolDiamond : d3.symbolCircle)())
-      .attr('fill', d => emph(d) ? slot(1) : token('--deemph')).attr('fill-opacity', d => emph(d) ? 0.9 : 0.55)
+      .attr('fill', d => emph(d) ? (o.colorOf ? o.colorOf(d) : slot(1)) : token('--deemph')).attr('fill-opacity', d => emph(d) ? 0.9 : 0.55)
       .attr('stroke', token('--surface-1')).attr('stroke-width', 2);
     // Nearest-point hover: a Delaunay layer so the pointer only has to be closest.
     const delaunay = d3.Delaunay.from(pts, d => x(o.x(d)), d => y(o.y(d)));
@@ -365,5 +370,31 @@ window.Charts = (function () {
     return svg;
   }
 
-  return { motifGlyph, shapeStrip, slot, token, statusColor, statusIcon, fmtSecs, fmtBytes, showTip, hideTip, bars, stackedStatus, scatter, icicle, graphTree, heatmap, dumbbell, timeline, objLabel };
+  function columnPath(x, y, w, h, r) {
+    r = Math.min(r, w / 2, h);
+    if (h <= 0 || w <= 0) return '';
+    return `M${x},${y + h}v${-(h - r)}a${r},${r} 0 0 1 ${r},${-r}h${w - 2 * r}a${r},${r} 0 0 1 ${r},${r}v${h - r}z`;
+  }
+
+  // ---- grouped columns: one group per bin, one column per series, side by side ----
+  // series: [{ name, color, values: [count per bin] }]; bins: labels in order.
+  function groupedColumns(el, bins, series, o) {
+    o = Object.assign({ height: 260, valueLabel: 'count', binLabel: '', format: d3.format(',') }, o || {});
+    const W = width(el, 600), H = o.height, m = { t: 12, r: 12, b: 44, l: 44 };
+    const svg = svgIn(el, W, H);
+    const x0 = d3.scaleBand().domain(bins).range([m.l, W - m.r]).paddingInner(0.2);
+    const x1 = d3.scaleBand().domain(series.map(s => s.name)).range([0, x0.bandwidth()]).padding(0.08);
+    const y = d3.scaleLinear().domain([0, d3.max(series, s => d3.max(s.values)) || 1]).nice().range([H - m.b, m.t]);
+    svg.append('g').selectAll('line').data(y.ticks(5)).join('line').attr('class', 'gridline').attr('x1', m.l).attr('x2', W - m.r).attr('y1', d => y(d)).attr('y2', d => y(d));
+    svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x0).tickSize(0).tickPadding(6)).call(g => g.select('.domain').attr('stroke', token('--axis')));
+    svg.append('g').attr('class', 'axis').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5, '~s').tickSize(0).tickPadding(6)).call(g => g.select('.domain').remove());
+    if (o.binLabel) svg.append('text').attr('x', W - m.r).attr('y', H - 6).attr('text-anchor', 'end').text(o.binLabel);
+    const cells = series.flatMap(s => s.values.map((v, i) => ({ s, bin: bins[i], v })));
+    svg.append('g').selectAll('path').data(cells).join('path')
+      .attr('d', c => columnPath(x0(c.bin) + x1(c.s.name), y(c.v), x1.bandwidth(), y(0) - y(c.v), 3)).attr('fill', c => c.s.color)
+      .on('pointerenter pointermove', (e, c) => showTip(e, [c.s.name, { k: o.binLabel || 'bin', v: c.bin }, { k: o.valueLabel, v: o.format(c.v) }])).on('pointerleave', hideTip);
+    return svg;
+  }
+
+  return { groupedColumns, motifGlyph, shapeStrip, slot, token, statusColor, statusIcon, fmtSecs, fmtBytes, showTip, hideTip, bars, stackedStatus, scatter, icicle, graphTree, heatmap, dumbbell, timeline, objLabel };
 })();

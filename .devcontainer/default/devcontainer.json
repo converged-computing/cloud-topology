@@ -3,10 +3,12 @@
   "build": {
     "dockerfile": "Dockerfile",
     "context": "..",
-    // Where topology-agent is installed from; "" skips it (then: make install-agent).
+    // Where the agent libraries are installed from; "" skips one (then: make install-agents).
     "args": {
       "TOPOLOGY_AGENT_SOURCE": "git+https://github.com/converged-computing/topology-agent@main",
-      "TOPOLOGY_AGENT_EXTRAS": "claude"
+      "TOPOLOGY_AGENT_EXTRAS": "claude",
+      "INGEST_AGENT_SOURCE": "git+https://github.com/converged-computing/ingest-agent@main",
+      "INGEST_AGENT_EXTRAS": "claude"
     }
   },
   // Keeps the Claude Code login (~/.claude) across container rebuilds.

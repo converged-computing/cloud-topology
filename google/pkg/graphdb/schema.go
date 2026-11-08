@@ -9,7 +9,7 @@ const Schema = `CREATE NODE TABLE IF NOT EXISTS Vertex(
   type STRING, name STRING, path STRING, depth INT32, count INT64, vertices INT64, size INT64, unit STRING,
   exclusive BOOLEAN, signature STRING, parent_id INT64, properties STRING,
   machine_type STRING, family STRING, provisioning_model STRING, vcpus INT64, gpus INT64, egress_gbps INT64,
-  kind STRING, disk_type STRING, topology STRING);
+  kind STRING, disk_type STRING, topology STRING, cores INT64, memory_gb INT64, accelerator STRING);
 CREATE NODE TABLE IF NOT EXISTS Shape(signature STRING PRIMARY KEY, type STRING, description STRING, vertices INT64, occurrences INT64);
 CREATE REL TABLE IF NOT EXISTS Contains(FROM Vertex TO Vertex, count INT64);
 CREATE REL TABLE IF NOT EXISTS HasShape(FROM Vertex TO Shape);

@@ -9,6 +9,8 @@
   --status-good: #0ca30c; --status-warning: #fab219; --status-serious: #ec835a; --status-critical: #d03b3b;
   --deemph: #c3c2b7; --accent: #2a78d6; --accent-ink: #1c5cab; --link: #1c5cab;
   --side-w: 15rem;
+  /* One color per cloud everywhere: Compute Engine blue, AWS orange. */
+  --cloud-google-cloud: var(--series-1); --cloud-aws: var(--series-2);
 }
 :root[data-theme="dark"] { color-scheme: dark; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; } }
@@ -135,3 +137,5 @@ tr.row { cursor: pointer; } tr.row:hover td { background: var(--panel); } tr.hi 
 /* A database's NOTE.md: what the reader should know about the data. */
 .note { white-space: pre-line; border-left: 3px solid var(--status-warning); padding: .4rem .7rem; margin: .4rem 0 .8rem; font-size: .9rem; }
 td.note { border-left: none; padding-left: 1.6rem; color: var(--text-secondary); }
+
+.learned { border-top: 1px solid var(--border); padding-top: .5rem; margin-top: .6rem; }

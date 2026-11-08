@@ -261,3 +261,25 @@ captured-only graph. Fluxion's ID-ordered policies are not placement policies fo
 catalog, where IDs are alphabetical; assigning IDs at build time in cost or capacity order
 would make `low` mean cheapest. For a region-wide exact graph the practical operating
 point is first-fit, or one graph per zone.
+
+## Ingest: one request against both clouds
+
+Design: [design/ingest.md](design/ingest.md). The code is the
+[ingest-agent](https://github.com/converged-computing/ingest-agent) library
+(`make install-ingest-agent`), the sibling of topology-agent. Entirely local; it queries
+the graph database that `make graphdb` at the repository root builds from the Google and
+AWS exact graphs. A request (nodes of one shape, with network, storage and placement
+constraints) becomes one Cypher query, and the offers in either cloud that can hold it
+come back ranked by how little of the node they leave idle, price breaking ties where a
+price file covers them (`RANK=price` puts priced offers first).
+
+```bash
+ingest-agent example > req.yaml                               # a request to start from
+make ingest REQUEST=req.yaml                                  # the ranked offers, both clouds
+make ingest REQUEST=../experiments/ingest/requests/gpu-training.yaml FORMAT=cypher   # the query itself
+make ingest-all                                               # every sample request
+ingest-agent run --text "two nodes with eight H100s" --db graphdb/graph.lbug --auto-approve   # the agent
+```
+
+From the repository root, `make ingest REQUEST=experiments/ingest/requests/cpu-batch.yaml`
+runs the same with the AWS price file picked up automatically.

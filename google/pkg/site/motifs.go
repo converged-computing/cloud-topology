@@ -104,10 +104,6 @@ func glyph(t *Tree, depth int) *Glyph {
 // is one motif. Only types that recur in interesting ways are kept (node and below, plus
 // offers).
 func Motifs(graphs map[string]*Tree, infos []GraphInfo) []Motif {
-	byFile := map[string]GraphInfo{}
-	for _, g := range infos {
-		byFile[g.File] = g
-	}
 	keep := map[string]bool{"offer": true, "node": true, "socket": true}
 	acc := map[string]*Motif{}
 	sets := map[string]map[string]map[string]bool{}
@@ -122,13 +118,30 @@ func Motifs(graphs map[string]*Tree, infos []GraphInfo) []Motif {
 			sets[sig][kind][value] = true
 		}
 	}
+	// A merged graph holds several sources under one site root, one provider vertex each;
+	// the provider vertex says which source the shapes below it come from.
+	sourceOf := func(file, provider string) GraphInfo {
+		var first GraphInfo
+		for _, g := range infos {
+			if g.File != file {
+				continue
+			}
+			if first.File == "" {
+				first = g
+			}
+			if provider == g.Provider || provider == g.Provider+" ("+g.Database+")" {
+				return g
+			}
+		}
+		return first
+	}
 	for file, tree := range graphs {
-		info := byFile[file]
-		label := fmt.Sprintf("%s/%s/%s", info.Database, info.Level, info.Region)
-		var walk func(t *Tree, mult int, zone, mt string)
-		walk = func(t *Tree, mult int, zone, mt string) {
+		var walk func(t *Tree, mult int, zone, mt string, info GraphInfo)
+		walk = func(t *Tree, mult int, zone, mt string, info GraphInfo) {
 			k := mult * t.Count
 			switch t.Type {
+			case "provider":
+				info = sourceOf(file, t.Name)
 			case "zone":
 				zone = t.Name
 			case "offer":
@@ -144,14 +157,14 @@ func Motifs(graphs map[string]*Tree, infos []GraphInfo) []Motif {
 				add(t.Signature, "mt", mt)
 				add(t.Signature, "zone", zone)
 				add(t.Signature, "region", info.Region)
-				add(t.Signature, "graph", label)
+				add(t.Signature, "graph", info.Database)
 				add(t.Signature, "level", info.Level)
 			}
 			for _, c := range t.Children {
-				walk(c, k, zone, mt)
+				walk(c, k, zone, mt, info)
 			}
 		}
-		walk(tree, 1, "", "")
+		walk(tree, 1, "", "", sourceOf(file, ""))
 	}
 	var out []Motif
 	for sig, m := range acc {

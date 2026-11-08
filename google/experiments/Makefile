@@ -11,7 +11,7 @@ BACKEND ?= claude
 MODEL ?= claude-opus-5-5
 IMAGE_TYPE ?= COS_CONTAINERD
 
-.PHONY: experiment experiment-test report consistency consistency-report gke gke-report fidelity fidelity-graphs fidelity-jobspecs fidelity-report
+.PHONY: experiment experiment-test report consistency consistency-report gke gke-report fidelity fidelity-graphs fidelity-jobspecs fidelity-report ingest ingest-all
 
 # Compare the agent with the deterministic runner on the same plan: make experiment REGION=us-central1
 # The plan covers every series quota allows, including those already captured, and each arm
@@ -100,3 +100,20 @@ fidelity: fidelity-jobspecs
 fidelity-report:
 	cd $(ROOT) && go run ./experiments/cmd/fidelity report --runs $(FIDELITY)/runs --jobs $(FIDELITY)/jobspecs/jobs.tsv --graphs $(FIDELITY)/graphs --out $(FIDELITY) --captured $(FIDELITY_DB) --offers $(FIDELITY)/graphs/exact-n1.json
 	@cat $(ROOT)/$(FIDELITY)/fidelity.md
+
+# Ingest: one request against the folded exact graphs of every cloud in LadybugDB (the
+# repository root's make graphdb), through ingest-agent
+# (https://github.com/converged-computing/ingest-agent; make install-ingest-agent):
+#   make ingest REQUEST=experiments/requests/gpu-training.yaml [PRICES="aws=../aws/projects/<account>/prices.json"]
+# FORMAT=json or cypher; TOP limits the rows printed; RANK=fit (default) or price.
+# ingest-all runs every request in experiments/requests.
+INGEST_AGENT ?= ingest-agent
+GRAPHDB ?= graphdb
+REQUEST ?= $(ROOT)/../experiments/ingest/requests/gpu-training.yaml
+PRICES ?= $(foreach p,$(wildcard $(ROOT)/../aws/projects/*/prices.json),aws=$(p)) $(foreach p,$(wildcard $(ROOT)/projects/*/prices.json),google-cloud=$(p))
+TOP ?= 12
+ingest:
+	@cd $(ROOT) && $(INGEST_AGENT) match --request $(REQUEST) --db $(GRAPHDB)/graph.lbug --top $(TOP) $(foreach p,$(PRICES),--prices $(p)) $(if $(FORMAT),--format $(FORMAT)) $(if $(RANK),--rank $(RANK))
+
+ingest-all:
+	@for r in $(ROOT)/../experiments/ingest/requests/*.yaml; do $(MAKE) -s --no-print-directory ingest REQUEST=$$r || exit 1; echo; done

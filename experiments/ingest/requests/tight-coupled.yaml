@@ -1,0 +1,25 @@
+# Thirty-two nodes in one placement group with a fast NIC, CPU only: the HPC case.
+version: 9999
+resources:
+- type: node
+  count: 32
+  with:
+  - type: slot
+    count: 1
+    label: default
+    with:
+    - {type: core, count: 32}
+    - {type: memory, count: 64}
+    - {type: nic, count: 100}
+attributes:
+  system:
+    duration: 3600
+    job: {name: tight-coupled}
+    requires:
+      nic: [efa, rdma, tcpxo, tcpx, gvnic, ena]
+      placement: compact
+      models: [on-demand]
+tasks:
+- command: [app]
+  slot: default
+  count: {per_slot: 1}

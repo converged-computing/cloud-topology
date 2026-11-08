@@ -1,0 +1,29 @@
+# Four nodes of eight H100s in one placement group: more than either cloud's quota allows
+# (AWS p5: 2 nodes; Google a3: 1). Nothing fits; the agent should say so, or widen only
+# along the axes the user left open, not shrink the request.
+version: 9999
+resources:
+- type: node
+  count: 4
+  with:
+  - type: slot
+    count: 1
+    label: default
+    with:
+    - {type: core, count: 48}
+    - {type: gpu, count: 8}
+    - {type: memory, count: 512}
+    - {type: nic, count: 400}
+attributes:
+  system:
+    duration: 3600
+    job: {name: impossible-gpu}
+    requires:
+      gpu: nvidia-h100
+      nic: [efa, rdma, tcpxo, tcpx]
+      placement: compact
+      models: [on-demand]
+tasks:
+- command: [app]
+  slot: default
+  count: {per_slot: 1}

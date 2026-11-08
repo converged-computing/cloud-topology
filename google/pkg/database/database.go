@@ -154,6 +154,15 @@ func RegionOf(zone string) string {
 	return zone[:i]
 }
 
+// CloudOf names the cloud a machine type belongs to: AWS names have a size after a dot
+// (c7i.48xlarge), Compute Engine names never do (n2-standard-8).
+func CloudOf(name string) string {
+	if strings.Contains(name, ".") {
+		return "aws"
+	}
+	return "google-cloud"
+}
+
 // FamilyOf returns the machine family prefix of a machine type name such as a3-highgpu-1g.
 func FamilyOf(name string) string {
 	if i := strings.Index(name, "."); i > 0 {
