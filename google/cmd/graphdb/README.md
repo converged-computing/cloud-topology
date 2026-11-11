@@ -29,5 +29,13 @@ schema (`Vertex` and `Shape` node tables, `Contains` and `HasShape` relationship
 copies the tables in. `query` runs a Cypher file or string through the shell.
 
 The tables are plain Parquet, so they load into DuckDB, Neo4j or any other engine as well;
-the database is a derived artifact, rebuilt by `make graphdb`, never the source of truth.
-Several providers go in the same database with different `provider` and `graph` values.
+the graphs in the database are a derived artifact, rebuilt by `make graphdb`, never the
+source of truth. Several providers go in the same database with different `provider` and
+`graph` values.
+
+The schema also has an `Allocation` table, which is not derived: it is the scheduler's
+record of nodes of an offer held for a span of time (`offer` is the offer vertex's path,
+`nodes`, `from_time`, `to_time`, `request`). ingest-agent's `match` subtracts it from the
+quota counts to say what is free over a request's window and when the rest comes free, and
+its `reserve` and `release` write it. `load` saves the table to `allocations.parquet`
+before it recreates the database and copies it back in, so a rebuild keeps them.

@@ -1,0 +1,32 @@
+apiVersion: batch.volcano.sh/v1alpha1
+kind: Job
+metadata:
+  name: lm-mpi-job
+spec:
+  minAvailable: 3
+  schedulerName: volcano
+  queue: default
+  plugins:
+    ssh: []
+    svc: []
+  tasks:
+    - replicas: 1
+      name: mpimaster
+      template:
+        spec:
+          containers:
+            - image: volcanosh/example-mpi:0.0.1
+              name: mpimaster
+              resources:
+                requests:
+                  cpu: 500m
+    - replicas: 2
+      name: mpiworker
+      template:
+        spec:
+          containers:
+            - image: volcanosh/example-mpi:0.0.1
+              name: mpiworker
+              resources:
+                requests:
+                  cpu: 500m

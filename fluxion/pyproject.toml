@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fluxion-graphdb"
+version = "0.0.1"
+description = "Fluxion's resource service answered from the cloud-topology graph database, so sched-fluxion-qmanager schedules over every cloud's offers without a resource graph in memory."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+# The matcher and the allocation ledger; the Flux Python bindings come with Flux itself
+# (run under flux python).
+dependencies = [
+    "ingest-agent @ git+https://github.com/converged-computing/ingest-agent@main",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+fluxion-graphdb = "fluxion_graphdb.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["fluxion_graphdb*"]

@@ -1,0 +1,61 @@
+apiVersion: ray.io/v1
+kind: RayJob
+metadata:
+  name: rayjob-sample
+spec:
+  entrypoint: python /home/ray/samples/sample_code.py
+  shutdownAfterJobFinishes: true
+  rayClusterSpec:
+    rayVersion: '2.9.0'
+    headGroupSpec:
+      rayStartParams:
+        dashboard-host: '0.0.0.0'
+      template:
+        spec:
+          containers:
+            - name: ray-head
+              image: rayproject/ray:2.9.0
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: 2Gi
+                requests:
+                  cpu: "1"
+                  memory: 2Gi
+              volumeMounts:
+                - mountPath: /home/ray/samples
+                  name: code-sample
+          volumes:
+            - name: code-sample
+              configMap:
+                name: ray-job-code-sample
+                items:
+                  - key: sample_code.py
+                    path: sample_code.py
+    workerGroupSpecs:
+      - replicas: 3
+        minReplicas: 1
+        maxReplicas: 5
+        groupName: small-group
+        rayStartParams: {}
+        template:
+          spec:
+            containers:
+              - name: ray-worker
+                image: rayproject/ray:2.9.0
+                resources:
+                  limits:
+                    cpu: "2"
+                    memory: 4Gi
+                  requests:
+                    cpu: "2"
+                    memory: 4Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ray-job-code-sample
+data:
+  sample_code.py: |
+    import ray
+    ray.init()

@@ -14,6 +14,8 @@ ARG TOPOLOGY_AGENT_SOURCE=git+https://github.com/converged-computing/topology-ag
 ARG TOPOLOGY_AGENT_EXTRAS=claude
 ARG INGEST_AGENT_SOURCE=git+https://github.com/converged-computing/ingest-agent@main
 ARG INGEST_AGENT_EXTRAS=claude
+# LadybugDB's Python package, the storage version of the lbug shell (make install-lbug).
+ARG LADYBUG_VERSION=0.22.1
 USER root
 
 RUN apt-get update && apt-get -qq install -y --no-install-recommends \
@@ -72,4 +74,11 @@ RUN python3 -m venv /opt/agents \
  && if [ -n "${INGEST_AGENT_SOURCE}" ]; then /opt/agents/bin/pip install -q "ingest-agent[${INGEST_AGENT_EXTRAS}] @ ${INGEST_AGENT_SOURCE}"; fi \
  && chown -R ${USER_UID}:${USER_GID} /opt/agents
 ENV PATH=/opt/agents/bin:$PATH
+
+# Fluxion's resource service over the graph database (fluxion/) runs under flux python, the
+# system interpreter where the Flux bindings are, with the matcher it answers with.
+COPY fluxion /opt/fluxion
+RUN if [ -n "${INGEST_AGENT_SOURCE}" ]; then \
+      pip install -q --break-system-packages "ingest-agent @ ${INGEST_AGENT_SOURCE}" "ladybug==${LADYBUG_VERSION}" \
+      && pip install -q --break-system-packages --no-deps /opt/fluxion; fi
 USER ${USERNAME}

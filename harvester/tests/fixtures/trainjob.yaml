@@ -1,0 +1,18 @@
+apiVersion: trainer.kubeflow.org/v1alpha1
+kind: TrainJob
+metadata:
+  name: torch-distributed
+spec:
+  runtimeRef:
+    name: torch-distributed
+  trainer:
+    image: pytorch/pytorch:2.5.0-cuda12.4-cudnn9-runtime
+    numNodes: 4
+    numProcPerNode: 8
+    resourcesPerNode:
+      requests:
+        cpu: "32"
+        memory: 256Gi
+        nvidia.com/gpu: 8
+      limits:
+        nvidia.com/gpu: 8

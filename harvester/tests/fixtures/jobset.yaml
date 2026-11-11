@@ -1,0 +1,29 @@
+apiVersion: jobset.x-k8s.io/v1alpha2
+kind: JobSet
+metadata:
+  name: network-jobset
+spec:
+  network:
+    enableDNSHostnames: true
+  replicatedJobs:
+  - name: workers
+    replicas: 2
+    template:
+      spec:
+        parallelism: 4
+        completions: 4
+        backoffLimit: 0
+        template:
+          spec:
+            topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: topology.kubernetes.io/zone
+              whenUnsatisfiable: DoNotSchedule
+            containers:
+            - name: worker
+              image: bash:latest
+              command: ["bash", "-c", "sleep 30"]
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 256Mi

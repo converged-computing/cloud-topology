@@ -11,6 +11,8 @@
 #                           both clouds in the graph database with ingest-agent;
 #                           make ingest-all runs them all; make install-agents installs
 #                           topology-agent and ingest-agent
+#   make install-fluxion    fluxion/ (Fluxion's resource service over the database) and
+#                           ingest-agent into the interpreter flux python uses
 #
 # GOOGLE_PROJECT and GOOGLE_REGION select the Google data; AWS_REGION the AWS region.
 GOOGLE_PROJECT ?= llnl-flux
@@ -20,7 +22,7 @@ AWS_REGION ?= us-east-1
 GOOGLE_DATABASE ?= google/projects/$(GOOGLE_PROJECT)/agent/claude-opus-5-5/deterministic
 LEVELS ?= exact
 
-.PHONY: graphdb graphdb-query site serve ingest ingest-all install-agents test
+.PHONY: graphdb graphdb-query site serve ingest ingest-all install-agents install-fluxion test
 
 graphdb:
 	$(MAKE) --no-print-directory -C aws folded REGION=$(AWS_REGION) LEVELS="$(LEVELS)"
@@ -46,8 +48,17 @@ install-agents:
 	$(MAKE) --no-print-directory -C google install-agent $(if $(wildcard google/topology-agent/pyproject.toml),TOPOLOGY_AGENT_SOURCE=topology-agent)
 	$(MAKE) --no-print-directory -C google install-ingest-agent $(if $(wildcard ingest-agent/pyproject.toml),INGEST_AGENT_SOURCE=../ingest-agent)
 
+# The Flux Python bindings live in the system interpreter, so the service does too; editable
+# from the checkouts next to this file when present (ingest-agent is its own repository).
+LADYBUG_VERSION ?= 0.22.1
+PIP_FLAGS ?= --break-system-packages --user
+install-fluxion:
+	$(if $(wildcard ingest-agent/pyproject.toml),python3 -m pip install $(PIP_FLAGS) -e ingest-agent,python3 -m pip install $(PIP_FLAGS) "ingest-agent @ git+https://github.com/converged-computing/ingest-agent@main")
+	python3 -m pip install $(PIP_FLAGS) "ladybug==$(LADYBUG_VERSION)" && python3 -m pip install $(PIP_FLAGS) --no-deps -e fluxion
+
 test:
 	$(MAKE) -C google test
 	$(MAKE) -C aws test
+	cd fluxion && PYTHONPATH=../ingest-agent python3 -m pytest -q
 
 , := ,

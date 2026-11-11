@@ -124,17 +124,38 @@ func load(args []string) {
 	dbPath := fs.String("db", "graphdb/graph.lbug", "database to create")
 	shell := fs.String("shell", "lbug", "LadybugDB shell")
 	fs.Parse(args)
-	if err := os.RemoveAll(*dbPath); err != nil {
-		log.Fatal(err)
-	}
 	abs, err := filepath.Abs(*in)
 	if err != nil {
 		log.Fatal(err)
 	}
+	// The scheduler's allocations live in the database, not in the exported tables; carry
+	// them across the rebuild.
+	saved := filepath.Join(abs, "allocations.parquet")
+	os.Remove(saved)
+	if _, err := os.Stat(*dbPath); err == nil {
+		out, err := run(*shell, *dbPath, graphdb.SaveAllocations(saved), "csv")
+		if err != nil || strings.Contains(out, "Error:") {
+			// An older database without the table: nothing to carry.
+			if !strings.Contains(out, "does not exist") {
+				log.Fatalf("saving allocations failed: %v\n%s", err, out)
+			}
+			os.Remove(saved)
+		}
+	}
+	if err := os.RemoveAll(*dbPath); err != nil {
+		log.Fatal(err)
+	}
 	script := graphdb.Schema + graphdb.LoadScript(abs)
+	if _, err := os.Stat(saved); err == nil {
+		script += graphdb.RestoreAllocations(saved)
+	}
 	out, err := run(*shell, *dbPath, script, "csv")
 	if err != nil || strings.Contains(out, "Error:") {
 		log.Fatalf("load failed: %v\n%s", err, out)
+	}
+	if _, err := os.Stat(saved); err == nil {
+		fmt.Printf("loaded %s into %s, allocations kept\n", *in, *dbPath)
+		return
 	}
 	fmt.Printf("loaded %s into %s\n", *in, *dbPath)
 }

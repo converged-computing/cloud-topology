@@ -1,0 +1,24 @@
+apiVersion: flux-framework.org/v1alpha2
+kind: MiniCluster
+metadata:
+  name: flux-sample
+  namespace: flux-operator
+spec:
+  size: 4
+  tasks: 8
+  interactive: false
+  pod:
+    nodeSelector:
+      node.kubernetes.io/instance-type: c7i.48xlarge
+    schedulerName: default-scheduler
+  containers:
+    - image: ghcr.io/converged-computing/metric-lammps-cpu:zen4
+      workingDir: /opt/lammps/examples/reaxff/HNS
+      command: lmp -v x 2 -v y 2 -v z 2 -in in.reaxc.hns -nocite
+      resources:
+        limits:
+          cpu: 96
+          memory: 300G
+        requests:
+          cpu: 96
+          memory: 300G

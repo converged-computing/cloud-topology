@@ -1,0 +1,46 @@
+apiVersion: "kubeflow.org/v1"
+kind: PyTorchJob
+metadata:
+  name: pytorch-dist-mnist
+  namespace: kubeflow
+  labels:
+    kueue.x-k8s.io/queue-name: team-a
+spec:
+  nprocPerNode: "2"
+  pytorchReplicaSpecs:
+    Master:
+      replicas: 1
+      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+            - name: pytorch
+              image: docker.io/kubeflowkatib/pytorch-mnist-gpu:v0.16.0
+              args: ["--backend", "nccl"]
+              resources:
+                limits:
+                  nvidia.com/gpu: 2
+                requests:
+                  cpu: "4"
+                  memory: 16Gi
+    Worker:
+      replicas: 3
+      restartPolicy: OnFailure
+      template:
+        spec:
+          nodeSelector:
+            cloud.google.com/gke-accelerator: nvidia-tesla-a100
+          tolerations:
+            - key: nvidia.com/gpu
+              operator: Exists
+              effect: NoSchedule
+          containers:
+            - name: pytorch
+              image: docker.io/kubeflowkatib/pytorch-mnist-gpu:v0.16.0
+              args: ["--backend", "nccl"]
+              resources:
+                limits:
+                  nvidia.com/gpu: 2
+                requests:
+                  cpu: "4"
+                  memory: 16Gi

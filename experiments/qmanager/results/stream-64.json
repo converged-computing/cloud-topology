@@ -1,0 +1,1063 @@
+{
+ "phase": "stream",
+ "cmd": "allocate_orelse_reserve",
+ "a": {
+  "backend": "fluxion",
+  "jobs": 200,
+  "counts": {
+   "ALLOCATED": 166,
+   "ENODEV": 9,
+   "RESERVED": 25
+  },
+  "wall": 17.86124897003174,
+  "rss_mb": 2501.37890625,
+  "latency_ms": {
+   "median": 1.7905235290527344,
+   "p95": 511.7177963256836,
+   "max": 2594.0299034118652
+  }
+ },
+ "b": {
+  "backend": "graphdb",
+  "jobs": 200,
+  "counts": {
+   "ALLOCATED": 191,
+   "ENODEV": 9
+  },
+  "wall": 4.5078511238098145,
+  "rss_mb": 175.4296875,
+  "latency_ms": {
+   "median": 20.691275596618652,
+   "p95": 23.763656616210938,
+   "max": 105.78370094299316
+  }
+ },
+ "agreement": {
+  "compared": 200,
+  "same_outcome": 200,
+  "both_placed": 191,
+  "same_machine_type": 21,
+  "differences": [
+   [
+    "t003-memory",
+    "8 cores, 512 GB memory",
+    "g6.48xlarge",
+    "m7i.48xlarge"
+   ],
+   [
+    "t004-cores",
+    "8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t005-cores",
+    "1 cores",
+    "m7i.xlarge",
+    "c6a.large"
+   ],
+   [
+    "t007-cores",
+    "64 cores, on one socket",
+    "m6g.16xlarge",
+    "c7g.16xlarge"
+   ],
+   [
+    "t008-cores",
+    "8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t009-cores",
+    "64 cores, on one socket",
+    "hpc7g.16xlarge",
+    "c7g.16xlarge"
+   ],
+   [
+    "t010-gpu",
+    "16 cores, 4 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t011-cores",
+    "1 cores",
+    "m7i.large",
+    "c6a.large"
+   ],
+   [
+    "t012-gpu",
+    "16 cores, 4 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t013-cores",
+    "4 cores",
+    "m7i.4xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t014-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t015-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.24xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t016-memory",
+    "8 cores, 64 GB memory",
+    "m7i.16xlarge",
+    "m7i.4xlarge"
+   ],
+   [
+    "t018-nodes",
+    "8 nodes, each, 8 cores",
+    "m7i.12xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t020-gpu",
+    "16 cores, 4 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t021-cores",
+    "32 cores",
+    "m6g.8xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t024-cores",
+    "32 cores",
+    "m6g.12xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t025-nodes",
+    "2 nodes, each, 8 cores",
+    "m6g.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t026-nodes",
+    "4 nodes, each, 8 cores",
+    "m6g.2xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t027-nodes",
+    "2 nodes, each, 8 cores",
+    "hpc7g.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t028-nodes",
+    "4 nodes, each, 8 cores",
+    "hpc7g.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t029-cores",
+    "1 cores",
+    "m7i.2xlarge",
+    "c6a.large"
+   ],
+   [
+    "t030-cores",
+    "64 cores, on one socket",
+    "m6g.16xlarge",
+    "c7g.16xlarge"
+   ],
+   [
+    "t031-nodes",
+    "2 nodes, each, 8 cores",
+    "g6.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t032-nodes",
+    "2 nodes, each, 8 cores",
+    "g6.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t033-cores",
+    "8 cores",
+    "g6.24xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t034-nodes",
+    "8 nodes, each, 8 cores",
+    "g6.16xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t035-nodes",
+    "8 nodes, each, 8 cores",
+    "g6.12xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t036-cores",
+    "1 cores",
+    "m6g.xlarge",
+    "c6a.large"
+   ],
+   [
+    "t037-nodes",
+    "8 nodes, each, 8 cores",
+    "c7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t038-cores",
+    "1 cores",
+    "m6g.large",
+    "c6a.large"
+   ],
+   [
+    "t040-gpu",
+    "4 cores, 1 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.2xlarge"
+   ],
+   [
+    "t041-nodes",
+    "2 nodes, each, 8 cores",
+    "c7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t042-cores",
+    "4 cores",
+    "g6.2xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t043-nodes",
+    "4 nodes, each, 8 cores",
+    "c7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t045-cores",
+    "32 cores",
+    "c7i.24xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t046-gpu",
+    "4 cores, 1 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.2xlarge"
+   ],
+   [
+    "t047-cores",
+    "4 cores",
+    "c7i.2xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t048-cores",
+    "4 cores",
+    "c7i.16xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t050-cores",
+    "8 cores",
+    "c7i.12xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t052-gpu",
+    "8 cores, 2 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t053-gpu",
+    "16 cores, 4 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t054-cores",
+    "4 cores",
+    "c7g.xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t055-cores",
+    "32 cores",
+    "c7g.8xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t056-gpu",
+    "8 cores, 2 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t057-cores",
+    "8 cores",
+    "c7g.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t058-cores",
+    "4 cores",
+    "c7g.2xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t059-gpu",
+    "8 cores, 2 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t060-nodes",
+    "2 nodes, each, 8 cores",
+    "c7g.12xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t061-memory",
+    "8 cores, 512 GB memory",
+    "g6.48xlarge",
+    "m7i.48xlarge"
+   ],
+   [
+    "t063-cores",
+    "1 cores",
+    "g6.xlarge",
+    "c6a.large"
+   ],
+   [
+    "t064-cores",
+    "32 cores",
+    "c6a.48xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t065-gpu",
+    "8 cores, 2 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t067-memory",
+    "8 cores, 512 GB memory",
+    "g6.48xlarge",
+    "m7i.48xlarge"
+   ],
+   [
+    "t069-nodes",
+    "8 nodes, each, 8 cores",
+    "c6a.24xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t070-cores",
+    "16 cores",
+    "c6a.16xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t071-cores",
+    "64 cores, on one socket",
+    "m6g.16xlarge",
+    "c7g.16xlarge"
+   ],
+   [
+    "t072-memory",
+    "8 cores, 64 GB memory",
+    "c6a.12xlarge",
+    "m7i.4xlarge"
+   ],
+   [
+    "t073-cores",
+    "64 cores, on one socket",
+    "m6g.16xlarge",
+    "c7g.16xlarge"
+   ],
+   [
+    "t074-gpu",
+    "16 cores, 4 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t075-gpu",
+    "4 cores, 1 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.2xlarge"
+   ],
+   [
+    "t077-memory",
+    "8 cores, 64 GB memory",
+    "m7i.8xlarge",
+    "m7i.4xlarge"
+   ],
+   [
+    "t078-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t079-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t080-cores",
+    "8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t082-cores",
+    "1 cores",
+    "c7i.xlarge",
+    "c6a.large"
+   ],
+   [
+    "t083-cores",
+    "16 cores",
+    "m7i.8xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t084-cores",
+    "1 cores",
+    "c7i.large",
+    "c6a.large"
+   ],
+   [
+    "t085-cores",
+    "32 cores",
+    "m7i.48xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t086-cores",
+    "1 cores",
+    "c7g.large",
+    "c6a.large"
+   ],
+   [
+    "t087-gpu",
+    "4 cores, 1 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.2xlarge"
+   ],
+   [
+    "t088-gpu",
+    "16 cores, 4 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t091-cores",
+    "16 cores",
+    "m7i.8xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t092-cores",
+    "16 cores",
+    "m7i.8xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t093-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t094-cores",
+    "1 cores",
+    "c6a.xlarge",
+    "c6a.large"
+   ],
+   [
+    "t095-cores",
+    "32 cores",
+    "m7i.48xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t096-memory",
+    "8 cores, 512 GB memory",
+    "g6.48xlarge",
+    "m7i.48xlarge"
+   ],
+   [
+    "t098-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t099-cores",
+    "1 cores",
+    "c6a.2xlarge",
+    "c6a.large"
+   ],
+   [
+    "t100-memory",
+    "8 cores, 64 GB memory",
+    "m7i.8xlarge",
+    "m7i.4xlarge"
+   ],
+   [
+    "t101-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t102-cores",
+    "4 cores",
+    "m7i.8xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t103-cores",
+    "8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t104-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t105-cores",
+    "1 cores",
+    "m7i.xlarge",
+    "c6a.large"
+   ],
+   [
+    "t106-cores",
+    "16 cores",
+    "m7i.8xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t107-cores",
+    "1 cores",
+    "m7i.xlarge",
+    "c6a.large"
+   ],
+   [
+    "t108-memory",
+    "8 cores, 64 GB memory",
+    "m7i.8xlarge",
+    "m7i.4xlarge"
+   ],
+   [
+    "t110-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t111-cores",
+    "4 cores",
+    "m7i.8xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t113-gpu",
+    "8 cores, 2 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t114-cores",
+    "32 cores",
+    "m7i.48xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t115-cores",
+    "8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t116-cores",
+    "8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t117-gpu",
+    "8 cores, 2 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t118-cores",
+    "32 cores",
+    "m7i.48xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t119-nodes",
+    "8 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t120-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t121-cores",
+    "16 cores",
+    "m7i.8xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t122-cores",
+    "64 cores, on one socket",
+    "m6g.16xlarge",
+    "c7g.16xlarge"
+   ],
+   [
+    "t123-gpu",
+    "4 cores, 1 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.2xlarge"
+   ],
+   [
+    "t124-gpu",
+    "8 cores, 2 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t125-cores",
+    "16 cores",
+    "m7i.8xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t126-cores",
+    "4 cores",
+    "m7i.8xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t128-nodes",
+    "8 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t129-gpu",
+    "16 cores, 4 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t130-cores",
+    "1 cores",
+    "m7i.xlarge",
+    "c6a.large"
+   ],
+   [
+    "t131-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t132-cores",
+    "16 cores",
+    "m7i.8xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t133-memory",
+    "8 cores, 512 GB memory",
+    "g6.48xlarge",
+    "m7i.48xlarge"
+   ],
+   [
+    "t134-memory",
+    "8 cores, 256 GB memory",
+    "m7i.48xlarge",
+    "m7i.16xlarge"
+   ],
+   [
+    "t135-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.8xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t136-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t137-cores",
+    "16 cores",
+    "m7i.8xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t138-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t139-cores",
+    "16 cores",
+    "m7i.8xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t140-cores",
+    "8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t141-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t142-cores",
+    "4 cores",
+    "m7i.4xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t143-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t144-cores",
+    "32 cores",
+    "m7i.48xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t145-cores",
+    "8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t147-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t148-cores",
+    "4 cores",
+    "m7i.4xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t149-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t152-nodes",
+    "8 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t153-cores",
+    "32 cores",
+    "m7i.48xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t154-cores",
+    "8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t155-cores",
+    "4 cores",
+    "m7i.4xlarge",
+    "c6a.2xlarge"
+   ],
+   [
+    "t157-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t158-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t159-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t160-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t161-cores",
+    "16 cores",
+    "m7i.48xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t162-nodes",
+    "8 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t163-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t164-cores",
+    "32 cores",
+    "m7i.48xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t165-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t167-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t168-cores",
+    "32 cores",
+    "m7i.48xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t169-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.4xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t170-memory",
+    "8 cores, 64 GB memory",
+    "m7i.48xlarge",
+    "m7i.4xlarge"
+   ],
+   [
+    "t171-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t172-gpu",
+    "16 cores, 4 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t174-memory",
+    "8 cores, 64 GB memory",
+    "m7i.48xlarge",
+    "m7i.4xlarge"
+   ],
+   [
+    "t175-memory",
+    "8 cores, 256 GB memory",
+    "m7i.48xlarge",
+    "m7i.16xlarge"
+   ],
+   [
+    "t176-cores",
+    "8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t177-cores",
+    "1 cores",
+    "m7i.xlarge",
+    "c6a.large"
+   ],
+   [
+    "t179-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t180-cores",
+    "64 cores, on one socket",
+    "m6g.16xlarge",
+    "c7g.16xlarge"
+   ],
+   [
+    "t181-nodes",
+    "8 nodes, each, 8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t182-nodes",
+    "8 nodes, each, 8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t183-cores",
+    "16 cores",
+    "m7i.48xlarge",
+    "c6a.8xlarge"
+   ],
+   [
+    "t184-memory",
+    "8 cores, 512 GB memory",
+    "g6.48xlarge",
+    "m7i.48xlarge"
+   ],
+   [
+    "t185-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t186-cores",
+    "1 cores",
+    "m7i.xlarge",
+    "c6a.large"
+   ],
+   [
+    "t187-cores",
+    "8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t188-cores",
+    "1 cores",
+    "m7i.xlarge",
+    "c6a.large"
+   ],
+   [
+    "t189-cores",
+    "32 cores",
+    "m7i.48xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t190-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t191-nodes",
+    "2 nodes, each, 8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t192-gpu",
+    "4 cores, 1 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.2xlarge"
+   ],
+   [
+    "t193-memory",
+    "8 cores, 64 GB memory",
+    "m7i.48xlarge",
+    "m7i.4xlarge"
+   ],
+   [
+    "t194-cores",
+    "32 cores",
+    "m7i.48xlarge",
+    "c6a.16xlarge"
+   ],
+   [
+    "t196-nodes",
+    "4 nodes, each, 8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t197-nodes",
+    "8 nodes, each, 8 cores",
+    "m7i.48xlarge",
+    "c6a.4xlarge"
+   ],
+   [
+    "t198-gpu",
+    "8 cores, 2 GPUs, on one socket",
+    "g6.48xlarge",
+    "g6.12xlarge"
+   ],
+   [
+    "t199-memory",
+    "8 cores, 512 GB memory",
+    "g6.48xlarge",
+    "m7i.48xlarge"
+   ],
+   [
+    "t200-memory",
+    "8 cores, 256 GB memory",
+    "m7i.48xlarge",
+    "m7i.16xlarge"
+   ]
+  ]
+ }
+}

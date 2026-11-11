@@ -19,3 +19,13 @@ experiments/ingest/results/
 experiments/ingest/archive/
 __pycache__/
 .pytest_cache/
+experiments/qmanager/graphs*/
+experiments/qmanager/jobspecs/
+experiments/qmanager/runs/
+core
+*.egg-info/
+# Harvester: browser session cookies, databases, exports and saved pages stay local
+harvester/cookies*.json
+harvester/*.sqlite*
+harvester/*.jsonl
+harvester/empty-pages/

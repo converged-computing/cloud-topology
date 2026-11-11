@@ -1,0 +1,68 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: train
+spec:
+  parallelism: 2
+  completions: 2
+  completionMode: Indexed
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      hostNetwork: true
+      priorityClassName: high
+      nodeSelector:
+        cloud.google.com/gke-accelerator: nvidia-h100-80gb
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels: {job-name: train}
+            topologyKey: kubernetes.io/hostname
+      imagePullSecrets:
+      - name: regcred
+      serviceAccountName: trainer
+      containers:
+      - name: train
+        image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/train:latest
+        resources:
+          limits:
+            nvidia.com/gpu: 8
+            cpu: "96"
+            memory: 640Gi
+        env:
+        - name: WANDB_API_KEY
+          valueFrom:
+            secretKeyRef: {name: wandb, key: key}
+        envFrom:
+        - configMapRef: {name: train-config}
+        volumeMounts:
+        - {name: data, mountPath: /data}
+        - {name: scratch, mountPath: /scratch}
+      initContainers:
+      - name: fetch
+        image: public.ecr.aws/docker/library/busybox:1.36
+      volumes:
+      - name: data
+        persistentVolumeClaim: {claimName: dataset}
+      - name: scratch
+        emptyDir: {}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: train-config
+data:
+  EPOCHS: "3"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dataset
+spec:
+  accessModes: [ReadOnlyMany]
+  storageClassName: premium-rwo
+  resources:
+    requests:
+      storage: 1Ti
